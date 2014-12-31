@@ -1,18 +1,33 @@
 package com.yunxuetang.oss;
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.yunxuetang.util.PoiService;
+
+ 
 
 @Controller
 @RequestMapping("/user")
 public class user {
 
+	@Resource(name = "poiService")
+    public PoiService service;
+	
 	public static String YXTSERVER="http://s1.xuewen.yunxuetang.com:8084/";
 	public static String YXTSERVER2="http://s1.xuewen.yunxuetang.com:8082/";
 	public static String YXTSERVER3="http://localhost:8080/";
@@ -172,17 +187,38 @@ public class user {
 	
 	
 	/**
+	 * 批量导入用户 展示页
+	 * 1.页面提交多个表单
+	 * 2.页面excel  csv
+	 * 
+	 * 
+	 */
+	@RequestMapping("/importUserView")
+	private String importUserView(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		 return "user/report";
+	}
+	
+	 
+	
+	/**
 	 * 批量导入用户
 	 * 1.页面提交多个表单
 	 * 2.页面excel  csv
 	 * 
 	 * 
 	 */
-	@RequestMapping("/importUser")
-	private void importUser(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-
-	}
+    @RequestMapping(value = "/importUser", method = RequestMethod.POST)
+    public String importUser(@RequestParam
+    MultipartFile file,Model model) throws IOException {
+        List list = service.readReport(file.getInputStream());
+        model.addAttribute("errousers", list);
+        return "user/addedReport";
+        
+    }
+	
+	
+	
 	/**
 	 * 创建机器人
 	 * 1.正常创建一个用户
