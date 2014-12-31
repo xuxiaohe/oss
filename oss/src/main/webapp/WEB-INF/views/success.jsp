@@ -49,7 +49,7 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
                 </ul>
             </nav>
             <!---数据显示区域-->
-            <c:forEach items="${courSharReso.data.result}" var="Recourse">
+            <c:forEach items="${resuserList.data.result}" var="Recourse">
             <div class="row" style="padding: 20px;">
                 <div class="col-xs-1">
                     <div class="row">
@@ -57,7 +57,7 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
                     </div>
                 </div>
                 <div class="col-xs-11">
-                    <h5><a href="<%=cbasePath%>/user/userDetail?userid=${Recourse.id}">${Recourse.nickName}${Recourse.userName}</a><small><small class="pull-right">注册时间：2014-12-29</small></small></h5>
+                    <h5><a href="<%=cbasePath%>user/userDetail?userid=${Recourse.id}">${Recourse.nickName}${Recourse.userName}</a><small><small class="pull-right">注册时间：2014-12-29</small></small></h5>
 
                     <div>
                         所在群组：5个
