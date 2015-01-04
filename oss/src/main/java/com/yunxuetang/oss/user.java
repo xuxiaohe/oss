@@ -53,12 +53,21 @@ public class user {
 			keyword="";
 		}
 		
-		
 		//当前第几页
-		String pagenumber=request.getParameter("pagenumber");
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "";
+		}
 		
 		//每页条数
-		String pagelines="5";
+		
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			 pagelines="10";
+		}
+		
 		
 		RestTemplate restTemplate=new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
