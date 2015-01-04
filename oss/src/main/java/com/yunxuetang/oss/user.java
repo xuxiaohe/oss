@@ -57,7 +57,7 @@ public class user {
 		String pagenumber = request.getParameter("n");
 
 		if (pagenumber == null) {
-			pagenumber = "";
+			pagenumber = "0";
 		}
 		
 		//每页条数
@@ -72,13 +72,11 @@ public class user {
 		RestTemplate restTemplate=new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 		
-		if(pagenumber!=null)
-		{
-			  courSharResoStr= restTemplate.getForObject(YXTSERVER3+"oss/user/searchbyinfo?n="+pagenumber+"&s="+pagelines+"&keyword="+keyword, String.class); 
-		}
-		else{
-			  courSharResoStr= restTemplate.getForObject(YXTSERVER3+"oss/user/searchbyinfo?s="+pagelines+"&keyword="+keyword, String.class); 
-		}
+		
+		
+	   courSharResoStr= restTemplate.getForObject(YXTSERVER3+"oss/user/searchbyinfo?n="+pagenumber+"&s="+pagelines+"&keyword="+keyword, String.class); 
+	
+		
 		
 		 
 		try {
@@ -91,7 +89,7 @@ public class user {
 			e.printStackTrace();
 		} 
 				
-		modelview.setViewName("success");
+		modelview.setViewName("user/userList");
 		return modelview;
 	}
 	
