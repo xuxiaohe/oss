@@ -31,10 +31,11 @@ public class user {
 	public static String YXTSERVER = "http://s1.xuewen.yunxuetang.com:8084/";
 	public static String YXTSERVER2 = "http://s1.xuewen.yunxuetang.com:8082/";
 	public static String YXTSERVER3 = "http://localhost:8080/";
-	public user(){
-		
-		
+
+	public user() {
+
 	}
+
 	/**
 	 * 分页获得系统的所有账户 支持搜索功能 字段： 用户名 手机号 邮箱 支持排序 （按时间倒序，正序,其他字段）
 	 * 
@@ -88,9 +89,7 @@ public class user {
 			e.printStackTrace();
 		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("keyword", keyword);
 		modelview.setViewName("user/userList");
@@ -124,9 +123,7 @@ public class user {
 			e.printStackTrace();
 		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("user/userDetail");
 		return modelview;
@@ -272,12 +269,11 @@ public class user {
 		// TODO Auto-generated method stub
 		String uid = request.getParameter("uid");
 		String password = request.getParameter("password");
-		
+
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/user/resetPassword?uid=" + uid + "&passWord=" + password, null,
-				String.class);
+		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/user/resetPassword?uid=" + uid + "&passWord=" + password, null, String.class);
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
@@ -289,13 +285,9 @@ public class user {
 
 		modelview.setViewName("show");
 		return modelview;
-		
-		
-		
-		
+
 	}
-	
-	
+
 	/**
 	 * 密码重置
 	 * 
@@ -305,13 +297,11 @@ public class user {
 	private ModelAndView deleteUser(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		String uid = request.getParameter("uid");
-		 
-		
+
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/user/deleuser?uid=" + uid , null,
-				String.class);
+		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/user/deleuser?uid=" + uid, null, String.class);
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
@@ -323,10 +313,69 @@ public class user {
 
 		modelview.setViewName("show");
 		return modelview;
-		
-		
-		
-		
+
+	}
+
+	/**
+	 * 根据用户id查找出所有课程
+	 */
+	@RequestMapping("/getMyTopic")
+	private ModelAndView getMyTopic(HttpServletRequest request) {
+		String courSharResoStr;
+
+		String userid = request.getParameter("userid");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.getForObject(YXTSERVER3 + "oss/user/getMyTopic?userid=" + userid, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+
+			modelview.addObject("resgetMyTopic", objj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("user/userDetail");
+		return modelview;
+
+	}
+
+	/**
+	 * 根据用户id查找出所有课程
+	 */
+	@RequestMapping("/getMyDry")
+	private ModelAndView getMyDry(HttpServletRequest request) {
+		String courSharResoStr;
+
+		String userid = request.getParameter("userid");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.getForObject(YXTSERVER3 + "oss/user/getMyDry?userid=" + userid, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+
+			modelview.addObject("resMyDry", objj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("user/userDetail");
+		return modelview;
+
 	}
 
 }
