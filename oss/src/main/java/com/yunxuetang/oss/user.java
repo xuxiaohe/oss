@@ -92,7 +92,7 @@ public class user {
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-
+		modelview.addObject("keyword", keyword);
 		modelview.setViewName("user/userList");
 		return modelview;
 	}
@@ -128,7 +128,6 @@ public class user {
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-
 		modelview.setViewName("user/userDetail");
 		return modelview;
 
