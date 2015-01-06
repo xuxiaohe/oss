@@ -89,7 +89,7 @@ public class ShareController {
 		RestTemplate restTemplate=new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 		String courSharResoStr= restTemplate.getForObject(
-				YXTSERVER2+"user/findUserPage?udid=E6CF041A-1884-4C3C-B8A1-10CEF5867E9B&token=AED172488C83BD9118DC7AE7774996AB"
+				YXTSERVER2+"user/findUserPage?s=200&n=0&udid=E6CF041A-1884-4C3C-B8A1-10CEF5867E9B&token=AED172488C83BD9118DC7AE7774996AB"
 						, String.class); 
 		 
 		try {

@@ -38,10 +38,10 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
             <div class="menu">
                 <ul id="mainMenu" class="nav nav-pills nav-stacked" role="tablist">
                     <li role="presentation" class="active">
-                        <a href="<%=cbasePath%>/user/userList.html" target="mainFrame"><span class="glyphicon glyphicon-cloud"></span>控制中心</a>
+                        <a href="<%=cbasePath%>/user/userList" target="mainFrame"><span class="glyphicon glyphicon-cloud"></span>控制中心</a>
                     </li>
                     <li role="presentation">
-                        <a href="<%=cbasePath%>/user/userList.html" target="mainFrame"><span class="glyphicon glyphicon-star"></span>用户管理</a>
+                        <a href="<%=cbasePath%>/user/userList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>用户管理</a>
                     </li>
                     <li role="presentation">
                         <a href="#" target="mainFrame"><span class="glyphicon glyphicon-star"></span>群组管理</a>
@@ -62,7 +62,7 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
             </div>
         </div>
         <div class="col-md-10">
-            <iframe id="mainFrame" name="mainFrame" class="col-md-12" src="user/userList.html" frameborder="0"></iframe>
+            <iframe style="min-height:1600px;" id="mainFrame" name="mainFrame" class="col-md-12" src="<%=cbasePath%>user/userList" frameborder="0"></iframe>
         </div>
     </div>
 

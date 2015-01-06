@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.yunxuetang.util.JSON2ObjUtil;
-import com.yunxuetang.util.ReponseData;
-import com.yunxuetang.util.ResponseContainer;
-import com.yunxuetang.util.ResponseGroup;
 
 @Controller
 @RequestMapping("/group")
