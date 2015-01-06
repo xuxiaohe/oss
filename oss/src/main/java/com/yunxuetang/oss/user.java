@@ -138,7 +138,7 @@ public class user {
 //		String userName=request.getParameter("userName");
 //		String passWord=request.getParameter("passWord");
 		
-		String userName="sdhhfdhfhdfjfkww";
+		String userName="888777766655";
 		String passWord="123456eeee";
 		String courSharResoStr;
 		RestTemplate restTemplate=new RestTemplate();
@@ -234,9 +234,25 @@ public class user {
 	 * 
 	 */
 	@RequestMapping("/createRobot")
-	private void createRobot(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-
+	private ModelAndView createRobot(HttpServletRequest request) {
+		
+		String userName="123456";
+		String passWord="123456";
+		 
+		String courSharResoStr;
+		RestTemplate restTemplate=new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+		courSharResoStr= restTemplate.postForObject(YXTSERVER2+"user/regist?userName="+userName+"&passWord="+passWord+"&robot=1",null, String.class);
+		try {
+			//courSharReso = new ObjectMapper().readValue(courSharResoStr, CourseShareResponse.class);
+			JSONObject objj=JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("rescreateRobot", objj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+				
+		modelview.setViewName("show");
+		return modelview;
 	}
 	/**
 	 * 榜单

@@ -1,8 +1,11 @@
 package com.yunxuetang.oss;
 
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +37,27 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";
+	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(HttpServletRequest request) {
+		
+	String aString=	request.getParameter("key");
+		 
+		 
+		
+		 
+		
+		return "home";
+	}
+	@RequestMapping(value = "/testpro", method = RequestMethod.GET)
+	public String testpro(HttpServletRequest request) {
+		 
+		 
+		
+		 
+		
+		return "test";
 	}
 	
 }
