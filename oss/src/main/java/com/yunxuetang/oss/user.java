@@ -1,6 +1,8 @@
 package com.yunxuetang.oss;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -29,7 +31,10 @@ public class user {
 	public static String YXTSERVER = "http://s1.xuewen.yunxuetang.com:8084/";
 	public static String YXTSERVER2 = "http://s1.xuewen.yunxuetang.com:8082/";
 	public static String YXTSERVER3 = "http://localhost:8080/";
-
+	public user(){
+		
+		
+	}
 	/**
 	 * 分页获得系统的所有账户 支持搜索功能 字段： 用户名 手机号 邮箱 支持排序 （按时间倒序，正序,其他字段）
 	 * 
@@ -37,8 +42,15 @@ public class user {
 	@RequestMapping("/userList")
 	private ModelAndView userList(HttpServletRequest request) {
 		String courSharResoStr;
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String keyword = null;
 
-		String keyword = request.getParameter("keyword");
+		keyword = request.getParameter("keyword");
 
 		if (keyword == null) {
 			keyword = "";
@@ -75,6 +87,11 @@ public class user {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
 
 		modelview.setViewName("user/userList");
 		return modelview;
@@ -106,8 +123,13 @@ public class user {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
 
-		modelview.setViewName("show");
+		modelview.setViewName("user/userDetail");
 		return modelview;
 
 	}
@@ -240,8 +262,7 @@ public class user {
 		// TODO Auto-generated method stub
 
 	}
-	
-	
+
 	/**
 	 * 密码重置
 	 * 
