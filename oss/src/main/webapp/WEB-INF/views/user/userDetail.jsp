@@ -15,6 +15,15 @@
 <link href="${cbasePath}/resources/assets/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="${cbasePath}/resources/assets/css/font.css" rel="stylesheet">
+<style>
+#userInfoDiv div {
+	padding: 10px;
+}
+
+#btnGroupDiv button {
+	margin: 10px;
+}
+</style>
 </head>
 <body>
 	<div class="container-fluid">
@@ -23,117 +32,95 @@
 			<li><a href="#">用户管理</a></li>
 			<li><a href="${cbasePath}user/userList">用户列表</a></li>
 			<li class="active">用户详情: <small>
-					${resuserDetail.data.result.userName }</small>
+					${resuserDetail.data.result.nickName }</small>
 			</li>
 		</ol>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-xs-1">
-						<img class="thumbnail col-xs-12" src="${resuserDetail.data.result.logoURL }" alt="" />
+					<div class="col-xs-2">
+						<img class="thumbnail col-xs-12"
+							src="${resuserDetail.data.result.logoURL }" alt="" />
+						<button type="button" class="btn btn-warning btn-block">编辑</button>
+						<button type="button" class="btn btn-warning btn-block">删除</button>
+						<hr />
+						<div id="btnGroupDiv" class="col-xs-12">
+							<a
+								href="${cbasePath}user/userTopic?userid=${resuserDetail.data.result.id }">
+								<button type="button" class="btn btn-success btn-block">查看话题</button>
+							</a>
+							<a
+								href="${cbasePath}user/userDry?userid=${resuserDetail.data.result.id }">
+							<button type="button" class="btn btn-success btn-block">查看干货</button>
+							</a>
+							<a
+								href="${cbasePath}user/userCourse?userid=${resuserDetail.data.result.id }">
+							<button type="button" class="btn btn-success btn-block">查看课程</button>
+							</a>
+							<a
+								href="${cbasePath}user/userGroup?userid=${resuserDetail.data.result.id }"><button
+									type="button" class="btn btn-success btn-block">查看群组</button></a>
+						</div>
 					</div>
-					<div class="col-xs-11">
-						jkasjdj
-					</div>
-				</div>
+					<div id="userInfoDiv" class="col-xs-10" style="">
+						<h4 style="margin-left: 12px;">
+							用户昵称：${resuserDetail.data.result.nickName} <small><small
+								class="pull-right">注册时间：<Date:date
+										value="${resuserDetail.data.result.ctime}"></Date:date></small></small>
+						</h4>
+						<div class="col-xs-6">
+							最近登录：
+							<Date:date value="${resuserDetail.data.result.logintime}"></Date:date>
+						</div>
+						<div class="col-xs-6">
+							登陆账号：${resuserDetail.data.result.userName}</div>
+						<div class="col-xs-6">
+							用户编号：${resuserDetail.data.result.userNumber}</div>
 
+						<div class="col-xs-6">性别：${resuserDetail.data.result.sex}</div>
 
-				<!-- Nav tabs -->
-				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#home"
-						role="tab" data-toggle="tab">话题</a></li>
-					<li role="presentation"><a href="#profile" role="tab"
-						data-toggle="tab">干货</a></li>
-					<li role="presentation"><a href="#messages" role="tab"
-						data-toggle="tab">课程</a></li>
-					<li role="presentation"><a href="#settings" role="tab"
-						data-toggle="tab">群组</a></li>
-				</ul>
-
-				<!-- Tab panes -->
-				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="home">..1.</div>
-					<div role="tabpanel" class="tab-pane" id="profile">..2.</div>
-					<div role="tabpanel" class="tab-pane" id="messages">.3..</div>
-					<div role="tabpanel" class="tab-pane" id="settings">
-						  
-						<div class="panel-group" style="margin:10px;" id="accordion" role="tablist"
-							aria-multiselectable="true">
-							<div class="panel panel-default">
-								<div class="panel-heading" role="tab" id="headingOne">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordion"
-											href="#collapseOne" aria-expanded="true"
-											aria-controls="collapseOne"> 我创建的 </a>
-									</h4>
-								</div>
-								<div id="collapseOne" class="panel-collapse collapse in"
-									role="tabpanel" aria-labelledby="headingOne">
-									<div class="panel-body">Anim pariatur cliche
-										reprehenderit, enim eiusmod high life accusamus terry
-										richardson ad squid. 3 wolf moon officia aute, non cupidatat
-										skateboard dolor brunch. Food truck quinoa nesciunt laborum
-										eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on
-										it squid single-origin coffee nulla assumenda shoreditch et.
-										Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-										cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-										vice lomo. Leggings occaecat craft beer farm-to-table, raw
-										denim aesthetic synth nesciunt you probably haven't heard of
-										them accusamus labore sustainable VHS.</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading" role="tab" id="headingTwo">
-									<h4 class="panel-title">
-										<a class="collapsed" data-toggle="collapse"
-											data-parent="#accordion" href="#collapseTwo"
-											aria-expanded="false" aria-controls="collapseTwo">
-											我管理的 </a>
-									</h4>
-								</div>
-								<div id="collapseTwo" class="panel-collapse collapse in"
-									role="tabpanel" aria-labelledby="headingTwo">
-									<div class="panel-body">Anim pariatur cliche
-										reprehenderit, enim eiusmod high life accusamus terry
-										richardson ad squid. 3 wolf moon officia aute, non cupidatat
-										skateboard dolor brunch. Food truck quinoa nesciunt laborum
-										eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on
-										it squid single-origin coffee nulla assumenda shoreditch et.
-										Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-										cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-										vice lomo. Leggings occaecat craft beer farm-to-table, raw
-										denim aesthetic synth nesciunt you probably haven't heard of
-										them accusamus labore sustainable VHS.</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading" role="tab" id="headingThree">
-									<h4 class="panel-title">
-										<a class="collapsed" data-toggle="collapse"
-											data-parent="#accordion" href="#collapseThree"
-											aria-expanded="false" aria-controls="collapseThree">
-											我加入的 </a>
-									</h4>
-								</div>
-								<div id="collapseThree" class="panel-collapse collapse in"
-									role="tabpanel" aria-labelledby="headingThree">
-									<div class="panel-body">Anim pariatur cliche
-										reprehenderit, enim eiusmod high life accusamus terry
-										richardson ad squid. 3 wolf moon officia aute, non cupidatat
-										skateboard dolor brunch. Food truck quinoa nesciunt laborum
-										eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on
-										it squid single-origin coffee nulla assumenda shoreditch et.
-										Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-										cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-										vice lomo. Leggings occaecat craft beer farm-to-table, raw
-										denim aesthetic synth nesciunt you probably haven't heard of
-										them accusamus labore sustainable VHS.</div>
-								</div>
-							</div>
+						<div class="col-xs-12">
+							OpenFire：${resuserDetail.data.result.openFireUser.serverList}
+							服务器，${resuserDetail.data.result.openFireUser.openFireUserName}</div>
+						<div class="col-xs-6">星座：${resuserDetail.data.result.constelLation}
+						</div>
+						<div class="col-xs-6">年龄：${resuserDetail.data.result.age}</div>
+						<div class="col-xs-6">行业：${resuserDetail.data.result.industry}
+						</div>
+						<div class="col-xs-6">状态：${resuserDetail.data.result.station}
+						</div>
+						<div class="col-xs-6">学历：${resuserDetail.data.result.education}
+						</div>
+						<div class="col-xs-6">学校：${resuserDetail.data.result.school}
+						</div>
+						<div class="col-xs-6">活动区域：${resuserDetail.data.result.area}
+						</div>
+						<div class="col-xs-6">公司：${resuserDetail.data.result.company}
+						</div>
+						<div class="col-xs-6">感兴趣于：${resuserDetail.data.result.interest}
+						</div>
+						<div class="col-xs-6">擅长：${resuserDetail.data.result.special}
 						</div>
 
+						<div class="col-xs-6">邮箱：${resuserDetail.data.result.email}
+						</div>
+						<div class="col-xs-6">
+							手机：${resuserDetail.data.result.phoneNumber}</div>
+
+						<div class="col-xs-6">标签：${resuserDetail.data.result.tag}</div>
+						<div class="col-xs-6">
+							位置信息：${resuserDetail.data.result.location}</div>
+						<div class="col-xs-6">
+							位置信息：${resuserDetail.data.result.scoreSum}</div>
+
+
+						<div class="col-xs-12">
+							介绍：${resuserDetail.data.result.intro}</div>
 					</div>
 				</div>
+
+
+
 
 			</div>
 		</div>

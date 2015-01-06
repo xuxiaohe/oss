@@ -75,8 +75,9 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3 + "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines + "&keyword=" + keyword,
-				String.class);
+		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+				+ "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines
+				+ "&keyword=" + keyword, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -89,7 +90,9 @@ public class user {
 			e.printStackTrace();
 		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("keyword", keyword);
 		modelview.setViewName("user/userList");
@@ -109,9 +112,12 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3 + "oss/user/one/" + userid, String.class);
-		courSharResoStr2 = restTemplate.getForObject(YXTSERVER3 + "oss/group/myPcGroup/" + userid, String.class);
-		courSharResoStr3 = restTemplate.getForObject(YXTSERVER3 + "oss/user/getMyTopic?userid=" + userid, String.class);
+		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+				+ "oss/user/one/" + userid, String.class);
+		courSharResoStr2 = restTemplate.getForObject(YXTSERVER3
+				+ "oss/group/myPcGroup/" + userid, String.class);
+		courSharResoStr3 = restTemplate.getForObject(YXTSERVER3
+				+ "oss/user/getMyTopic?userid=" + userid, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -127,9 +133,216 @@ public class user {
 			e.printStackTrace();
 		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("user/userDetail");
+		return modelview;
+
+	}
+
+	/**
+	 * 一个用户的详细信息 用户加入的群组 用户发的话题在哪个群组里 用户发的干货和课程
+	 */
+	@RequestMapping("/userTopic")
+	public ModelAndView userTopic(HttpServletRequest request) {
+		// 当前第几页
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		String courSharResoStr;
+		String courSharResoStr3;
+		String userid = request.getParameter("userid");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+				+ "oss/user/one/" + userid, String.class);
+		courSharResoStr3 = restTemplate.getForObject(YXTSERVER3
+				+ "oss/user/getMyTopic?userid=" + userid+"&n=" + pagenumber + "&s=" + pagelines, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			JSONObject objj3 = JSONObject.fromObject(courSharResoStr3);
+
+			modelview.addObject("resuserDetail", objj);
+			modelview.addObject("resuserTopic", objj3);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("user/userTopic");
+		return modelview;
+
+	}
+	/**
+	 * 一个用户的详细信息 用户加入的群组 用户发的话题在哪个群组里 用户发的干货和课程
+	 */
+	@RequestMapping("/userGroup")
+	public ModelAndView userGroup(HttpServletRequest request) {
+		// 当前第几页
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		String courSharResoStr;
+		String courSharResoStr3;
+		String userid = request.getParameter("userid");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+				+ "oss/user/one/" + userid, String.class);
+		courSharResoStr3 = restTemplate.getForObject(YXTSERVER3
+				+ "oss/user/getMyTopic?userid=" + userid+"&n=" + pagenumber + "&s=" + pagelines, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			JSONObject objj3 = JSONObject.fromObject(courSharResoStr3);
+
+			modelview.addObject("resuserDetail", objj);
+			modelview.addObject("resuserTopic", objj3);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("user/userGroup");
+		return modelview;
+
+	}
+	/**
+	 * 一个用户的详细信息 用户加入的群组 用户发的话题在哪个群组里 用户发的干货和课程
+	 */
+	@RequestMapping("/userDry")
+	public ModelAndView userDry(HttpServletRequest request) {
+		// 当前第几页
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		String courSharResoStr;
+		String courSharResoStr3;
+		String userid = request.getParameter("userid");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+				+ "oss/user/one/" + userid, String.class);
+		courSharResoStr3 = restTemplate.getForObject(YXTSERVER3
+				+ "oss/user/getMyDry?userid=" + userid+"&n=" + pagenumber + "&s=" + pagelines, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			JSONObject objj3 = JSONObject.fromObject(courSharResoStr3);
+
+			modelview.addObject("resuserDetail", objj);
+			modelview.addObject("resuserTopic", objj3);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("user/userDry");
+		return modelview;
+
+	}
+	/**
+	 * 一个用户的详细信息 用户加入的群组 用户发的话题在哪个群组里 用户发的干货和课程
+	 */
+	@RequestMapping("/userCourse")
+	public ModelAndView userCourse(HttpServletRequest request) {
+		// 当前第几页
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		String courSharResoStr;
+		String courSharResoStr3;
+		String userid = request.getParameter("userid");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+				+ "oss/user/one/" + userid, String.class);
+		courSharResoStr3 = restTemplate.getForObject(YXTSERVER3
+				+ "oss/user/getMyTopic?userid=" + userid+"&n=" + pagenumber + "&s=" + pagelines, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			JSONObject objj3 = JSONObject.fromObject(courSharResoStr3);
+
+			modelview.addObject("resuserDetail", objj);
+			modelview.addObject("resuserTopic", objj3);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("user/userCourse");
 		return modelview;
 
 	}
@@ -149,7 +362,9 @@ public class user {
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-		courSharResoStr = restTemplate.postForObject(YXTSERVER2 + "user/regist?userName=" + userName + "&passWord=" + passWord, null, String.class);
+		courSharResoStr = restTemplate.postForObject(YXTSERVER2
+				+ "user/regist?userName=" + userName + "&passWord=" + passWord,
+				null, String.class);
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
@@ -183,8 +398,11 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/user/update/" + userid + "?sex=" + sex + "&phoneNumber=" + phoneNumber
-				+ "&email=" + email + "&tag=" + tag + "&logoURL=" + logoURL + "&intro=" + intro + "&nickName=" + nickName, null, String.class);
+		courSharResoStr = restTemplate.postForObject(YXTSERVER3
+				+ "oss/user/update/" + userid + "?sex=" + sex + "&phoneNumber="
+				+ phoneNumber + "&email=" + email + "&tag=" + tag + "&logoURL="
+				+ logoURL + "&intro=" + intro + "&nickName=" + nickName, null,
+				String.class);
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
@@ -216,7 +434,8 @@ public class user {
 	 * 
 	 */
 	@RequestMapping(value = "/importUser", method = RequestMethod.POST)
-	public String importUser(@RequestParam MultipartFile file, Model model) throws IOException {
+	public String importUser(@RequestParam MultipartFile file, Model model)
+			throws IOException {
 		List list = service.readReport(file.getInputStream());
 		model.addAttribute("errousers", list);
 		return "user/addedReport";
@@ -237,8 +456,9 @@ public class user {
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-		courSharResoStr = restTemplate.postForObject(YXTSERVER2 + "user/regist?userName=" + userName + "&passWord=" + passWord + "&robot=1", null,
-				String.class);
+		courSharResoStr = restTemplate.postForObject(YXTSERVER2
+				+ "user/regist?userName=" + userName + "&passWord=" + passWord
+				+ "&robot=1", null, String.class);
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
@@ -277,7 +497,9 @@ public class user {
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/user/resetPassword?uid=" + uid + "&passWord=" + password, null, String.class);
+		courSharResoStr = restTemplate.postForObject(
+				YXTSERVER3 + "oss/user/resetPassword?uid=" + uid + "&passWord="
+						+ password, null, String.class);
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
@@ -305,7 +527,8 @@ public class user {
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/user/deleuser?uid=" + uid, null, String.class);
+		courSharResoStr = restTemplate.postForObject(YXTSERVER3
+				+ "oss/user/deleuser?uid=" + uid, null, String.class);
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
@@ -332,7 +555,8 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3 + "oss/user/getMyTopic?userid=" + userid, String.class);
+		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+				+ "oss/user/getMyTopic?userid=" + userid, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -344,7 +568,9 @@ public class user {
 			e.printStackTrace();
 		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("user/userDetail");
 		return modelview;
@@ -363,7 +589,8 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3 + "oss/user/getMyDry?userid=" + userid, String.class);
+		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+				+ "oss/user/getMyDry?userid=" + userid, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -375,7 +602,9 @@ public class user {
 			e.printStackTrace();
 		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("user/userDetail");
 		return modelview;
