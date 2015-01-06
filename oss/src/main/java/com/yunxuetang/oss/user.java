@@ -209,8 +209,8 @@ public class user {
 	@RequestMapping("/createRobot")
 	private ModelAndView createRobot(HttpServletRequest request) {
 
-		String userName = "123456";
-		String passWord = "123456";
+		String userName = request.getParameter("userName");
+		String passWord = request.getParameter("passWord");
 
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
@@ -239,6 +239,74 @@ public class user {
 	private void userBoard(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	
+	/**
+	 * 密码重置
+	 * 
+	 * 
+	 */
+	@RequestMapping("/resetPassword")
+	private ModelAndView resetPassword(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		String uid = request.getParameter("uid");
+		String password = request.getParameter("password");
+		
+		String courSharResoStr;
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/user/resetPassword?uid=" + uid + "&passWord=" + password, null,
+				String.class);
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("resresetPassword", objj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		modelview.setViewName("show");
+		return modelview;
+		
+		
+		
+		
+	}
+	
+	
+	/**
+	 * 密码重置
+	 * 
+	 * 
+	 */
+	@RequestMapping("/deleteUser")
+	private ModelAndView deleteUser(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		String uid = request.getParameter("uid");
+		 
+		
+		String courSharResoStr;
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/user/deleuser?uid=" + uid , null,
+				String.class);
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("resdeleteUser", objj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		modelview.setViewName("show");
+		return modelview;
+		
+		
+		
+		
 	}
 
 }
