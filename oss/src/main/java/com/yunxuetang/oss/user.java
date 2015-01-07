@@ -520,26 +520,22 @@ public class user {
 	 * 
 	 */
 	@RequestMapping("/deleteUser")
-	private ModelAndView deleteUser(HttpServletRequest request) {
+	private String deleteUser(HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		String uid = request.getParameter("uid");
+		String uid = request.getParameter("userid");
 
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
-		ModelAndView modelview = new ModelAndView();
 		courSharResoStr = restTemplate.postForObject(YXTSERVER3
 				+ "oss/user/deleuser?uid=" + uid, null, String.class);
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
 			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-			modelview.addObject("resdeleteUser", objj);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/user/userList"; 
 
 	}
 
