@@ -13,7 +13,9 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -106,9 +108,12 @@ public class dry {
 		 * TODO:修改成POST
 		 */
 		try {
-			courSharResoStr3 = restTemplate.getForObject(YXTSERVER3
+			Map m=new HashMap();
+			m.put("fileUrl", URLEncoder.encode(fileUrl, "utf-8"));
+			m.put("message", message);
+			courSharResoStr3 = restTemplate.postForObject(YXTSERVER3
 					+ "oss/dry/updateOne?dryid=" + 
-					dryid+"&fileUrl="+URLEncoder.encode(fileUrl, "utf-8")+"&message="+message, String.class);
+					dryid,m, String.class);
 			JSONObject objj3 = JSONObject.fromObject(courSharResoStr3);
 		} catch (RestClientException e1) {
 			// TODO Auto-generated catch block

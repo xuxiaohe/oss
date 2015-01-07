@@ -607,4 +607,38 @@ public class user {
 
 	}
 
+	
+	/**
+	 * 根据用户id查找出所有课程
+	 */
+	@RequestMapping("/getMyGroup")
+	private ModelAndView getMyGroup(HttpServletRequest request) {
+		String courSharResoStr;
+
+		String userid = request.getParameter("userid");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+				+ "oss/group/findMyGroups/userid=" + userid, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+
+			modelview.addObject("resMyGroup", objj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("user/userDetail");
+		return modelview;
+
+	}
 }
