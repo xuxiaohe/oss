@@ -36,7 +36,6 @@ public class topic {
 		}
 		
 		return "redirect:/user/userTopic?userid="+userid; 
-
 	}
 
 }
