@@ -92,6 +92,8 @@ public class group {
 		return modelview;
 
 	}
+	
+	
 
 	/**
 	 * 
@@ -176,6 +178,37 @@ public class group {
 				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
+		return modelview;
+	}
+	
+	/**
+	 * 
+	 * 为某一个用户id创建群
+	 */
+	@RequestMapping("/groupAddFormForUser")
+	public ModelAndView groupAddFormForUser(HttpServletRequest request) {
+		String courSharResoStr;
+		// 当前第几页
+		String userid = request.getParameter("userid");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+				+ "oss/user/one/" + userid, String.class);
+
+		try {
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("user", objj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("group/groupAddFormForUser");
 		return modelview;
 	}
 
