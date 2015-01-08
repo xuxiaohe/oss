@@ -29,12 +29,12 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yunxuetang.util.Config;
+
 @Controller
 @RequestMapping("/dry")
 public class dry {
-	public static String YXTSERVER = "http://s1.xuewen.yunxuetang.com:8084/";
-	public static String YXTSERVER2 = "http://s1.xuewen.yunxuetang.com:8082/";
-	public static String YXTSERVER3 = "http://localhost:8080/";
+	 
 
 	public dry() {
 		// TODO Auto-generated constructor stub
@@ -54,9 +54,9 @@ public class dry {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/one/" + userid, String.class);
-		courSharResoStr3 = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr3 = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/dry/getOneDry?dryid=" + dryid, String.class);
 
 		try {
@@ -111,7 +111,7 @@ public class dry {
 			Map m=new HashMap();
 			m.put("fileUrl", URLEncoder.encode(fileUrl, "utf-8"));
 			m.put("message", message);
-			courSharResoStr3 = restTemplate.postForObject(YXTSERVER3
+			courSharResoStr3 = restTemplate.postForObject(Config.YXTSERVER3
 					+ "oss/dry/updateOne?dryid=" + 
 					dryid,m, String.class);
 			JSONObject objj3 = JSONObject.fromObject(courSharResoStr3);

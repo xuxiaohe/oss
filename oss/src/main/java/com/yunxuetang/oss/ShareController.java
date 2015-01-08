@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yunxuetang.util.Config;
+
 
 
 
@@ -22,9 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class ShareController {
 
-	public static String YXTSERVER="http://s1.xuewen.yunxuetang.com:8084/";
-	public static String YXTSERVER2="http://s1.xuewen.yunxuetang.com:8082/";
-	//user/findUserPage?udid=E6CF041A-1884-4C3C-B8A1-10CEF5867E9B&token=AED172488C83BD9118DC7AE7774996AB
 	
 	
 	//@RequestMapping("/")
@@ -66,7 +65,7 @@ public class ShareController {
 		RestTemplate restTemplate=new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 		String courSharResoStr= restTemplate.getForObject(
-				YXTSERVER+"courseShare/course?courseId="
+				Config.YXTSERVER3+"courseShare/course?courseId="
 						+ courseid, String.class); 
 		 
 		try {
@@ -89,7 +88,7 @@ public class ShareController {
 		RestTemplate restTemplate=new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 		String courSharResoStr= restTemplate.getForObject(
-				YXTSERVER2+"user/findUserPage?s=200&n=0&udid=E6CF041A-1884-4C3C-B8A1-10CEF5867E9B&token=AED172488C83BD9118DC7AE7774996AB"
+				Config.YXTSERVER3+"user/findUserPage?s=200&n=0&udid=E6CF041A-1884-4C3C-B8A1-10CEF5867E9B&token=AED172488C83BD9118DC7AE7774996AB"
 						, String.class); 
 		 
 		try {

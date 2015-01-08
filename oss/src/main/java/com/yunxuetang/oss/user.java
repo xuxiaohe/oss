@@ -19,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yunxuetang.util.Config;
 import com.yunxuetang.util.PoiService;
 
 @Controller
@@ -28,9 +29,7 @@ public class user {
 	@Resource(name = "poiService")
 	public PoiService service;
 
-	public static String YXTSERVER = "http://s1.xuewen.yunxuetang.com:8084/";
-	public static String YXTSERVER2 = "http://s1.xuewen.yunxuetang.com:8082/";
-	public static String YXTSERVER3 = "http://localhost:8080/";
+	
 
 	public user() {
 
@@ -75,7 +74,7 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines
 				+ "&keyword=" + keyword, String.class);
 
@@ -112,11 +111,11 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/one/" + userid, String.class);
-		courSharResoStr2 = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr2 = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/group/myPcGroup/" + userid, String.class);
-		courSharResoStr3 = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr3 = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/getMyTopic?userid=" + userid, String.class);
 
 		try {
@@ -168,9 +167,9 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/one/" + userid, String.class);
-		courSharResoStr3 = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr3 = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/getMyTopic?userid=" + userid+"&n=" + pagenumber + "&s=" + pagelines, String.class);
 
 		try {
@@ -219,9 +218,9 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/one/" + userid, String.class);
-		courSharResoStr3 = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr3 = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/group/findMyGroups/" + userid, String.class);
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -269,9 +268,9 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/one/" + userid, String.class);
-		courSharResoStr3 = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr3 = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/getMyDry?userid=" + userid+"&n=" + pagenumber + "&s=" + pagelines, String.class);
 
 		try {
@@ -320,9 +319,9 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/one/" + userid, String.class);
-		courSharResoStr3 = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr3 = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/getMyTopic?userid=" + userid+"&n=" + pagenumber + "&s=" + pagelines, String.class);
 
 		try {
@@ -361,7 +360,7 @@ public class user {
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-		courSharResoStr = restTemplate.postForObject(YXTSERVER2
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER2
 				+ "user/regist?userName=" + userName + "&passWord=" + passWord,
 				null, String.class);
 		try {
@@ -397,7 +396,7 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
 				+ "oss/user/update/" + userid + "?sex=" + sex + "&phoneNumber="
 				+ phoneNumber + "&email=" + email + "&tag=" + tag + "&logoURL="
 				+ logoURL + "&intro=" + intro + "&nickName=" + nickName, null,
@@ -455,7 +454,7 @@ public class user {
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-		courSharResoStr = restTemplate.postForObject(YXTSERVER2
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
 				+ "user/regist?userName=" + userName + "&passWord=" + passWord
 				+ "&robot=1", null, String.class);
 		try {
@@ -497,7 +496,7 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 		courSharResoStr = restTemplate.postForObject(
-				YXTSERVER3 + "oss/user/resetPassword?uid=" + uid + "&passWord="
+				Config.YXTSERVER3 + "oss/user/resetPassword?uid=" + uid + "&passWord="
 						+ password, null, String.class);
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -525,7 +524,7 @@ public class user {
 
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
 				+ "oss/user/deleuser?uid=" + uid, null, String.class);
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -550,7 +549,7 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/getMyTopic?userid=" + userid, String.class);
 
 		try {
@@ -584,7 +583,7 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/getMyDry?userid=" + userid, String.class);
 
 		try {
@@ -619,7 +618,7 @@ public class user {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/group/findMyGroups/" + userid, String.class);
 
 		try {

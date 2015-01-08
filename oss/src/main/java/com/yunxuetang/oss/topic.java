@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yunxuetang.util.Config;
+
 @Controller
 @RequestMapping("/topic")
 public class topic {
-	public static String YXTSERVER = "http://s1.xuewen.yunxuetang.com:8084/";
-	public static String YXTSERVER2 = "http://s1.xuewen.yunxuetang.com:8082/";
-	public static String YXTSERVER3 = "http://localhost:8080/";
+
 	public topic() {
 		// TODO Auto-generated constructor stub
 	}
@@ -26,7 +26,7 @@ public class topic {
 		String userid = request.getParameter("userid");
 		RestTemplate restTemplate = new RestTemplate();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/topic/delete?topicid=" + topicid, String.class);
 		JSONObject objj = null;
 		try {

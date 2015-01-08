@@ -14,15 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yunxuetang.util.Config;
+
 @Controller
 @RequestMapping("/group")
 public class group {
 
-	public static String YXTSERVER = "http://s1.xuewen.yunxuetang.com:8084/";
-	public static String YXTSERVER2 = "http://s1.xuewen.yunxuetang.com:8082/";
-	public static String YXTSERVER3 = "http://localhost:8080/";
-	// 标签服务
-	public static String YXTSERVER4 = "http://s1.xuewen.yunxuetang.com:8161/";
+	
 
 	/**
 	 * 
@@ -53,9 +51,9 @@ public class group {
 		ModelAndView modelview = new ModelAndView();
 
 		if (keyword == null) {
-			courSharResoStr = restTemplate.getForObject(YXTSERVER3 + "oss/group/search?n=" + pagenumber + "&s=" + pagelines, String.class);
+			courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/group/search?n=" + pagenumber + "&s=" + pagelines, String.class);
 		} else {
-			courSharResoStr = restTemplate.getForObject(YXTSERVER3 + "oss/group/search?n=" + pagenumber + "&s=" + pagelines + "&keyword=" + keyword,
+			courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/group/search?n=" + pagenumber + "&s=" + pagelines + "&keyword=" + keyword,
 					String.class);
 		}
 
@@ -120,7 +118,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3 + "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines + "&robot=1",
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines + "&robot=1",
 				String.class);
 
 		try {
@@ -160,7 +158,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/group/create?groupName=" + groupName + "&id=" + id, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/create?groupName=" + groupName + "&id=" + id, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -194,7 +192,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/one/" + userid, String.class);
 
 		try {
@@ -224,7 +222,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/group/one/" + id, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/one/" + id, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -276,7 +274,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/group/" + gid + "/update?uid=" + uid + "&intro=" + intro + "&tag=" + tag
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/" + gid + "/update?uid=" + uid + "&intro=" + intro + "&tag=" + tag
 				+ "&logoUrl=" + logoUrl + "&groupName=" + groupName + "&bgUrl=" + bgUrl, null, String.class);
 
 		try {
@@ -312,7 +310,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/topic/one/source?sourceId=" + gid + "&appKey=yxtapp", null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/one/source?sourceId=" + gid + "&appKey=yxtapp", null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -358,7 +356,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3 + "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines + "&robot=1",
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines + "&robot=1",
 				String.class);
 
 		try {
@@ -405,7 +403,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/topic/create?uid=" + uid + "&sourceId=" + sourceId + "&type=" + type
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/create?uid=" + uid + "&sourceId=" + sourceId + "&type=" + type
 				+ "&title=" + title + "&tagName=" + tagName + "&content=" + content + "&picUrl=" + picUrl + "&lat=" + lat + "&lng=" + lng
 				+ "&localName=" + localName + "&barCode=" + barCode, null, String.class);
 
@@ -442,7 +440,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/topic/delete?topicid=" + topicid, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/delete?topicid=" + topicid, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -477,7 +475,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/topic/one?topicid=" + topicid, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/one?topicid=" + topicid, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -515,7 +513,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/topic/updateTopicByGroup?topicid=" + topicid + "&title=" + title + "&content="
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicid=" + topicid + "&title=" + title + "&content="
 				+ content + "&picUrl=" + picUrl, null, String.class);
 
 		try {
@@ -562,7 +560,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(YXTSERVER3 + "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines + "&robot=1",
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines + "&robot=1",
 				String.class);
 
 		try {
@@ -603,7 +601,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/dry/uploadDrycargo?id=" + id + "&tagName=" + tagName + "&group=" + group
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/uploadDrycargo?id=" + id + "&tagName=" + tagName + "&group=" + group
 				+ "&url=" + url + "&fileUrl=" + fileUrl + "&message=" + message, null, String.class);
 
 		try {
@@ -639,7 +637,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/dry/delete?dryCargoId=" + dryid, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/delete?dryCargoId=" + dryid, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -674,7 +672,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/dry/getOneDry?dryid=" + dryid, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/getOneDry?dryid=" + dryid, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -710,7 +708,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryCargoId + "&fileUrl=" + fileUrl + "&message="
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryCargoId + "&fileUrl=" + fileUrl + "&message="
 				+ message, null, String.class);
 
 		try {
@@ -744,7 +742,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/group/one/" + gid + "/memberPc", null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/one/" + gid + "/memberPc", null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -778,7 +776,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/group/" + id + "/" + uid + "/kick?ownerid=" + ownerid, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/" + id + "/" + uid + "/kick?ownerid=" + ownerid, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -815,7 +813,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER3 + "oss/group/registGroupUser?users=" + users + "&groupId=" + groupId + "&md5=dsfgfdrgsh", null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/registGroupUser?users=" + users + "&groupId=" + groupId + "&md5=dsfgfdrgsh", null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -848,7 +846,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER4 + "tag/getTagsByIdAndType?domain=yxtoss&itemId=" + id + "&itemType=3", null,
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER4 + "tag/getTagsByIdAndType?domain=yxtoss&itemId=" + id + "&itemType=3", null,
 				String.class);
 
 		try {
@@ -882,7 +880,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(YXTSERVER4 + "tag/editTagsDelAdd?domain=yxtoss&itemId=" + id + "&itemType=3" + "&tagNames="
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER4 + "tag/editTagsDelAdd?domain=yxtoss&itemId=" + id + "&itemType=3" + "&tagNames="
 				+ tagNames + "&userId=542010dde4b01ccc1ee95d28&userName=donny", null, String.class);
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
