@@ -34,7 +34,7 @@
 			</li>
 		</ol>
 
-		<c:if test="${resuserTopic.status == '200' }">
+		<c:if test="${resuserGroup.status == '200' }">
 			
 			<div class="panel-group" style="margin: 10px;" id="accordion"
 							role="tablist" aria-multiselectable="true">
@@ -48,7 +48,23 @@
 								</div>
 								<div id="collapseOne" class="panel-collapse collapse in"
 									role="tabpanel" aria-labelledby="headingOne">
-									<div class="panel-body"></div>
+									<div class="panel-body">
+										<c:if test="${resuserGroup.status == '200'}">
+												<c:forEach items="${resuserGroup.data.result.GroupByOwner}"
+													varStatus="key" var="group">
+													<div class="col-xs-6 col-md-2">
+														<a
+															href="${cbasePath}group/groupDetail?groupid=${group.id}"
+															class="thumbnail"> <img src="${group.logoUrl}"
+															alt="${group.groupName}">
+															<div class="caption">
+																<p class="text-center">${group.groupName}</p>
+															</div>
+														</a>
+													</div>
+												</c:forEach>
+											</c:if>
+									</div>
 								</div>
 							</div>
 							<div class="panel panel-default">
@@ -61,7 +77,23 @@
 								</div>
 								<div id="collapseTwo" class="panel-collapse collapse in"
 									role="tabpanel" aria-labelledby="headingTwo">
-									<div class="panel-body"></div>
+									<div class="panel-body">
+										<c:if test="${resuserGroup.status == '200'}">
+												<c:forEach items="${resuserGroup.data.result.GroupByAdmin}"
+													varStatus="key" var="group">
+													<div class="col-xs-6 col-md-2">
+														<a
+															href="${cbasePath}group/groupDetail?groupid=${group.id}"
+															class="thumbnail"> <img src="${group.logoUrl}"
+															alt="${group.groupName}">
+															<div class="caption">
+																<p class="text-center">${group.groupName}</p>
+															</div>
+														</a>
+													</div>
+												</c:forEach>
+											</c:if>
+									</div>
 								</div>
 							</div>
 							<div class="panel panel-default">
@@ -78,7 +110,7 @@
 									<div class="panel-body">
 										<div class="row">
 											<c:if test="${resuserGroup.status == '200'}">
-												<c:forEach items="${resuserGroup.data.result}"
+												<c:forEach items="${resuserGroup.data.result.GroupByMember}"
 													varStatus="key" var="group">
 													<div class="col-xs-6 col-md-2">
 														<a

@@ -90,7 +90,7 @@
 									介绍：${Recourse.intro}
 								</div>
 								<div class="col-xs-12 btn-group-sm">
-									<button type="button" class="btn btn-primary">禁用</button>
+									<button data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">删除</button>
 									<button type="button" class="btn btn-primary">查看</button>
 									<button type="button" class="btn btn-primary">修改密码</button>
 									<button type="button" class="btn btn-primary">编辑</button>
@@ -118,6 +118,15 @@
 			/* $("#searchIt").click(function(){
 				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
 			}); */
+			
+			$(".deleteBtn").click(function(){
+				if(window.confirm('你确定要删除吗？')){
+					alert("${cbasePath}user/deleteUser?userid="+$(this).attr("data"));
+					window.location.href="${cbasePath}user/deleteUser?userid="+$(this).attr("data");
+				}else{
+					
+				}
+			});
 		});
 	</script>
 </body>
