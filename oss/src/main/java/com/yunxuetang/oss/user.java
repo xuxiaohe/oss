@@ -222,8 +222,7 @@ public class user {
 		courSharResoStr = restTemplate.getForObject(YXTSERVER3
 				+ "oss/user/one/" + userid, String.class);
 		courSharResoStr3 = restTemplate.getForObject(YXTSERVER3
-				+ "oss/user/getMyTopic?userid=" + userid+"&n=" + pagenumber + "&s=" + pagelines, String.class);
-
+				+ "oss/group/findMyGroups/" + userid, String.class);
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
@@ -231,7 +230,7 @@ public class user {
 			JSONObject objj3 = JSONObject.fromObject(courSharResoStr3);
 
 			modelview.addObject("resuserDetail", objj);
-			modelview.addObject("resuserTopic", objj3);
+			modelview.addObject("resuserGroup", objj3);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -621,7 +620,7 @@ public class user {
 		ModelAndView modelview = new ModelAndView();
 
 		courSharResoStr = restTemplate.getForObject(YXTSERVER3
-				+ "oss/group/findMyGroups/userid=" + userid, String.class);
+				+ "oss/group/findMyGroups/" + userid, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
