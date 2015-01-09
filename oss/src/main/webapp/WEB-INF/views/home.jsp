@@ -38,16 +38,16 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
             <div class="menu">
                 <ul id="mainMenu" class="nav nav-pills nav-stacked" role="tablist">
                     <li role="presentation" class="active">
-                        <a href="<%=cbasePath%>/user/userList" target="mainFrame"><span class="glyphicon glyphicon-cloud"></span>控制中心</a>
+                        <a href="<%=cbasePath%>user/userList" target="mainFrame"><span class="glyphicon glyphicon-cloud"></span>控制中心</a>
                     </li>
                     <li role="presentation">
-                        <a href="<%=cbasePath%>/user/userList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>用户管理</a>
+                        <a href="<%=cbasePath%>user/userList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>用户管理</a>
                     </li>
                     <li role="presentation">
-                        <a href="#" target="mainFrame"><span class="glyphicon glyphicon-star"></span>群组管理</a>
+                        <a href="<%=cbasePath%>group/groupList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>群组管理</a>
                     </li>
                     <li role="presentation">
-                        <a href="#" target="mainFrame"><span class="glyphicon glyphicon-star"></span>干货仓库</a>
+                        <a href="<%=cbasePath%>dry/dryList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>干货仓库</a>
                     </li>
                     <li role="presentation">
                         <a href="#" target="mainFrame"><span class="glyphicon glyphicon-star"></span>课程仓库</a>
