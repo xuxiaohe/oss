@@ -27,108 +27,113 @@
 		<ol class="breadcrumb">
 			<li><a href="#">用户管理</a></li>
 			<li><a href="${cbasePath}user/userList">用户列表</a></li>
-			<li><a href="${cbasePath}user/userDetail?userid=${resuserDetail.data.result.id}">用户详情: <small>
-					${resuserDetail.data.result.nickName }</small></a></li>
-			<li class="active">
-			群组列表
-			</li>
+			<li><a
+				href="${cbasePath}user/userDetail?userid=${resuserDetail.data.result.id}">用户详情:
+					<small> ${resuserDetail.data.result.nickName }</small>
+			</a></li>
+			<li class="active">群组列表</li>
 		</ol>
 
 		<c:if test="${resuserGroup.status == '200' }">
-			
+
 			<div class="panel-group" style="margin: 10px;" id="accordion"
-							role="tablist" aria-multiselectable="true">
-							<div class="panel panel-default">
-								<div class="panel-heading" role="tab" id="headingOne">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordion"
-											href="#collapseOne" aria-expanded="true"
-											aria-controls="collapseOne"> 我创建的 </a>
-									</h4>
-								</div>
-								<div id="collapseOne" class="panel-collapse collapse in"
-									role="tabpanel" aria-labelledby="headingOne">
-									<div class="panel-body">
-										<c:if test="${resuserGroup.status == '200'}">
-												<c:forEach items="${resuserGroup.data.result.GroupByOwner}"
-													varStatus="key" var="group">
-													<div class="col-xs-6 col-md-2">
-														<a
-															href="${cbasePath}group/groupDetail?groupid=${group.id}"
-															class="thumbnail"> <img src="${group.logoUrl}"
-															alt="${group.groupName}">
-															<div class="caption">
-																<p class="text-center">${group.groupName}</p>
-															</div>
-														</a>
-													</div>
-												</c:forEach>
-											</c:if>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading" role="tab" id="headingTwo">
-									<h4 class="panel-title">
-										<a class="collapsed" data-toggle="collapse"
-											data-parent="#accordion" href="#collapseTwo"
-											aria-expanded="false" aria-controls="collapseTwo"> 我管理的 </a>
-									</h4>
-								</div>
-								<div id="collapseTwo" class="panel-collapse collapse in"
-									role="tabpanel" aria-labelledby="headingTwo">
-									<div class="panel-body">
-										<c:if test="${resuserGroup.status == '200'}">
-												<c:forEach items="${resuserGroup.data.result.GroupByAdmin}"
-													varStatus="key" var="group">
-													<div class="col-xs-6 col-md-2">
-														<a
-															href="${cbasePath}group/groupDetail?groupid=${group.id}"
-															class="thumbnail"> <img src="${group.logoUrl}"
-															alt="${group.groupName}">
-															<div class="caption">
-																<p class="text-center">${group.groupName}</p>
-															</div>
-														</a>
-													</div>
-												</c:forEach>
-											</c:if>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading" role="tab" id="headingThree">
-									<h4 class="panel-title">
-										<a class="collapsed" data-toggle="collapse"
-											data-parent="#accordion" href="#collapseThree"
-											aria-expanded="false" aria-controls="collapseThree"> 我加入的
+				role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion"
+								href="#collapseOne" aria-expanded="true"
+								aria-controls="collapseOne"> 我创建的 </a>
+						</h4>
+					</div>
+					<div id="collapseOne" class="panel-collapse collapse in"
+						role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<c:if test="${resuserGroup.status == '200'}">
+								<c:forEach items="${resuserGroup.data.result.GroupByOwner}"
+									varStatus="key" var="group">
+									<div class="col-xs-2">
+										<a href="${cbasePath}group/groupDetail?groupid=${group.id}"
+											class="thumbnail"> <img src="${group.logoUrl}"
+											alt="${group.groupName}">
+											<div class="caption">
+												<p class="text-center">${group.groupName}</p>
+											</div>
 										</a>
-									</h4>
-								</div>
-								<div id="collapseThree" class="panel-collapse collapse in"
-									role="tabpanel" aria-labelledby="headingThree">
-									<div class="panel-body">
-										<div class="row">
-											<c:if test="${resuserGroup.status == '200'}">
-												<c:forEach items="${resuserGroup.data.result.GroupByMember}"
-													varStatus="key" var="group">
-													<div class="col-xs-6 col-md-2">
-														<a
-															href="${cbasePath}group/groupDetail?groupid=${group.id}"
-															class="thumbnail"> <img src="${group.logoUrl}"
-															alt="${group.groupName}">
-															<div class="caption">
-																<p class="text-center">${group.groupName}</p>
-															</div>
-														</a>
-													</div>
-												</c:forEach>
-											</c:if>
-										</div>
 									</div>
-								</div>
+								</c:forEach>
+							</c:if>
+							<div class="col-xs-2">
+								<a
+									href="${cbasePath}group/createGroupForUserForm?userid=${resuserDetail.data.result.id}">
+									<img class="thumbnail col-xs-6"
+									src="${cbasePath}resources/assets/image/plus.jpg" alt="">
+									
+								</a>
 							</div>
 						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingTwo">
+						<h4 class="panel-title">
+							<a class="collapsed" data-toggle="collapse"
+								data-parent="#accordion" href="#collapseTwo"
+								aria-expanded="false" aria-controls="collapseTwo"> 我管理的 </a>
+						</h4>
+					</div>
+					<div id="collapseTwo" class="panel-collapse collapse in"
+						role="tabpanel" aria-labelledby="headingTwo">
+						<div class="panel-body">
+							<c:if test="${resuserGroup.status == '200'}">
+								<c:forEach items="${resuserGroup.data.result.GroupByAdmin}"
+									varStatus="key" var="group">
+									<div class="col-xs-2">
+										<a href="${cbasePath}group/groupDetail?groupid=${group.id}"
+											class="thumbnail"> <img src="${group.logoUrl}"
+											alt="${group.groupName}">
+											<div class="caption">
+												<p class="text-center">${group.groupName}</p>
+											</div>
+										</a>
+									</div>
+								</c:forEach>
+							</c:if>
+
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingThree">
+						<h4 class="panel-title">
+							<a class="collapsed" data-toggle="collapse"
+								data-parent="#accordion" href="#collapseThree"
+								aria-expanded="false" aria-controls="collapseThree"> 我加入的 </a>
+						</h4>
+					</div>
+					<div id="collapseThree" class="panel-collapse collapse in"
+						role="tabpanel" aria-labelledby="headingThree">
+						<div class="panel-body">
+							<div class="row">
+								<c:if test="${resuserGroup.status == '200'}">
+									<c:forEach items="${resuserGroup.data.result.GroupByMember}"
+										varStatus="key" var="group">
+										<div class="col-xs-2">
+											<a href="${cbasePath}group/groupDetail?groupid=${group.id}"
+												class="thumbnail"> <img src="${group.logoUrl}"
+												alt="${group.groupName}">
+												<div class="caption">
+													<p class="text-center">${group.groupName}</p>
+												</div>
+											</a>
+										</div>
+									</c:forEach>
+								</c:if>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</c:if>
 	</div>
 	<script>
