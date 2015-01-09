@@ -21,6 +21,7 @@ public class topic {
 		// TODO Auto-generated constructor stub
 	}
 	
+	//删除话题
 	@RequestMapping("/delete")
 	public String userDetail(HttpServletRequest request) {
 		String courSharResoStr;
@@ -41,51 +42,29 @@ public class topic {
 	}
 	
 	
+
 	/**
-	 * 分页获得话题
 	 * 
+	 * 查找所有话题 包含没有关联群组的
 	 */
-	@RequestMapping("/searchTopic")
-	private ModelAndView userList(HttpServletRequest request) {
+	@RequestMapping("/findGroupTopic")
+	public ModelAndView findGroupTopic(HttpServletRequest request) {
 		String courSharResoStr;
-		 
-		String keyword = null;
-
-		keyword = request.getParameter("keyword");
-
-		if (keyword == null) {
-			keyword = "";
-		}
-
-		// 当前第几页
-		String pagenumber = request.getParameter("n");
-
-		if (pagenumber == null) {
-			pagenumber = "0";
-		}
-
-		// 每页条数
-
-		String pagelines = request.getParameter("s");
-
-		if (pagelines == null) {
-			pagelines = "10";
-		}
+		// 群组id
+		String keyword = request.getParameter("keyword");
 
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
-				+ "oss/topic/search?n=" + pagenumber + "&s=" + pagelines
-				+ "&keyword=" + keyword, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/search?keyword=" + keyword , null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
 			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-			modelview.addObject("restopicList", objj);
-			String s = objj.getString("msg");
-			System.out.println(s);
+
+			modelview.addObject("ressearchGroup", objj);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -94,17 +73,15 @@ public class topic {
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.addObject("keyword", keyword);
-		modelview.setViewName("user/userList");
+		modelview.setViewName("show");
 		return modelview;
 	}
-	
-	
+
 	/**
 	 * 
 	 * 创建话题展示页 查询机器人
 	 */
-	@RequestMapping("/createTopicView")
+	@RequestMapping("/createTopicByGroupView")
 	public ModelAndView createTopicByGroupView(HttpServletRequest request) {
 		String courSharResoStr;
 		// 当前第几页
@@ -151,16 +128,16 @@ public class topic {
 	 * 
 	 * 用机器人id创建话题
 	 */
-	@RequestMapping("/createTopic")
+	@RequestMapping("/createTopicByGroup")
 	public ModelAndView createTopicByGroup(HttpServletRequest request) {
 		String courSharResoStr;
 
 		// 必输
 		String uid = request.getParameter("uid");
+		String sourceId = request.getParameter("gid");
 		String type = request.getParameter("type");
 		String title = request.getParameter("title");
 		// 可选
-		String sourceId = request.getParameter("gid");
 		String tagName = request.getParameter("tagName");
 		String content = request.getParameter("content");
 		String picUrl = request.getParameter("picUrl");
@@ -194,12 +171,14 @@ public class topic {
 		modelview.setViewName("show");
 		return modelview;
 	}
-	
+
+	 
+
 	/**
 	 * 
 	 * 更新话题 展示页 查询话题信息
 	 */
-	@RequestMapping("/updateTopicView")
+	@RequestMapping("/updateTopicByGroupView")
 	public ModelAndView updateTopicByGroupView(HttpServletRequest request) {
 		String courSharResoStr;
 
@@ -234,7 +213,7 @@ public class topic {
 	 * 
 	 * 更新话题
 	 */
-	@RequestMapping("/updateTopic")
+	@RequestMapping("/updateTopicByGroup")
 	public ModelAndView updateTopicByGroup(HttpServletRequest request) {
 		String courSharResoStr;
 
@@ -249,6 +228,48 @@ public class topic {
 
 		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicid=" + topicid + "&title=" + title + "&content="
 				+ content + "&picUrl=" + picUrl, null, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("rescreateTopicByGroup", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("show");
+		return modelview;
+	}
+	
+	
+	
+	 
+	
+	
+	
+	/**
+	 * 
+	 * 关联群组
+	 */
+	@RequestMapping("/updateTopic")
+	public ModelAndView updateTopic(HttpServletRequest request) {
+		String courSharResoStr;
+
+		// 必输
+		String groupid = request.getParameter("groupid");
+		String topicid = request.getParameter("topicid");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicId=" + topicid + "&groupid=" + groupid , null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,

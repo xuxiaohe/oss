@@ -41,7 +41,7 @@ public class dry {
 	}
 
 	/**
-	 * 一个用户的详细信息 用户加入的群组 用户发的话题在哪个群组里 用户发的干货和课程
+	 * 干货修改展示页
 	 */
 	@RequestMapping("/editForm")
 	public ModelAndView editForm(HttpServletRequest request) {
@@ -90,7 +90,7 @@ public class dry {
 
 	}
 	/**
-	 * 一个用户的详细信息 用户加入的群组 用户发的话题在哪个群组里 用户发的干货和课程
+	 * 干货修改提交
 	 */
 	@RequestMapping("/edit")
 	public String edit(HttpServletRequest request) {
@@ -196,5 +196,168 @@ public class dry {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	/**
+	 * 
+	 * 创建干货展示页 查询机器人
+	 */
+	@RequestMapping("/createDryByGroupView")
+	public ModelAndView createDryByGroupView(HttpServletRequest request) {
+		String courSharResoStr;
+		// 当前第几页
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines + "&robot=1",
+				String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("rescreateTopicByGroupView", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("show");
+		return modelview;
+	}
+
+	/**
+	 * 
+	 * 用机器人id创建干货
+	 */
+	@RequestMapping("/createDryByGroup")
+	public ModelAndView createDryByGroup(HttpServletRequest request) {
+		String courSharResoStr;
+
+		// 必输
+		String id = request.getParameter("uid");
+		String tagName = request.getParameter("tagName");
+		String group = request.getParameter("gid");
+		String url = request.getParameter("url");
+		String fileUrl = request.getParameter("fileUrl");
+		String message = request.getParameter("message");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/uploadDrycargo?id=" + id + "&tagName=" + tagName + "&group=" + group
+				+ "&url=" + url + "&fileUrl=" + fileUrl + "&message=" + message, null, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("rescreateDryByGroup", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("show");
+		return modelview;
+	}
+
+	/**
+	 * 
+	 * 删除干货
+	 */
+	@RequestMapping("/deleteDryByGroup")
+	public ModelAndView deleteDryByGroup(HttpServletRequest request) {
+		String courSharResoStr;
+
+		// 必输
+		String dryid = request.getParameter("dryid");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/delete?dryCargoId=" + dryid, null, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("resdeleteDryByGroup", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("show");
+		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * 查询所有干货  包括没有关联群组的
+	 */
+	@RequestMapping("/findDrys")
+	public ModelAndView findDry(HttpServletRequest request) {
+		String courSharResoStr;
+
+		// 必输
+		String keywords = request.getParameter("keywords");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/searchDrys?keywords=" + keywords, null, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("resfindDrys", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("show");
+		return modelview;
+	}
+
+	
 
 }

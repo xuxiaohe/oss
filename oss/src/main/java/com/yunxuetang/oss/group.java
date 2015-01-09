@@ -985,5 +985,72 @@ public class group {
 		modelview.setViewName("show");
 		return modelview;
 	}
+	
+	
+	/**
+	 * 
+	 * 删除群组
+	 */
+	@RequestMapping("/deleteGroup")
+	public ModelAndView deleteGroup(HttpServletRequest request) {
+		String gid = request.getParameter("gid");
+		 
+		String courSharResoStr;
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/"+gid+"/delete", null, String.class);
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+
+			modelview.addObject("resdeleteGroup", objj);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("show");
+		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * 获取某个群组的详细信息
+	 */
+	@RequestMapping("/getOneGroup")
+	public ModelAndView getOneGroup(HttpServletRequest request) {
+		String gid = request.getParameter("gid");
+		 
+		String courSharResoStr;
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/findOneGroups/"+gid, null, String.class);
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+
+			modelview.addObject("resgetOneGroup", objj);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("show");
+		return modelview;
+	}
 
 }
