@@ -657,6 +657,43 @@ public class group {
 		modelview.setViewName("show");
 		return modelview;
 	}
+	
+	
+	
+	/**
+	 * 
+	 * 根据群id查询所有干货
+	 */
+	@RequestMapping("/findDryByGroup")
+	public ModelAndView findDryByGroup(HttpServletRequest request) {
+		String courSharResoStr;
+
+		// 必输
+		String groupId = request.getParameter("groupId");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/allPc?groupId=" + groupId, null, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("resfindDryByGroup", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("show");
+		return modelview;
+	}
 
 	/**
 	 * 
@@ -737,7 +774,6 @@ public class group {
 	@RequestMapping("/findGroupMenberView")
 	public ModelAndView findGroupMenberView(HttpServletRequest request) {
 		String gid = request.getParameter("gid");
-		gid = "54aa495de4b059141b1b67dd";
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
