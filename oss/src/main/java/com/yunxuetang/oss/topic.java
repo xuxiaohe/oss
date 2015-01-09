@@ -47,8 +47,8 @@ public class topic {
 	 * 
 	 * 查找所有话题 包含没有关联群组的
 	 */
-	@RequestMapping("/findGroupTopic")
-	public ModelAndView findGroupTopic(HttpServletRequest request) {
+	@RequestMapping("/topicList")
+	public ModelAndView topicList(HttpServletRequest request) {
 		String courSharResoStr;
 		// 群组id
 		String keyword = request.getParameter("keyword");
@@ -73,7 +73,7 @@ public class topic {
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
+		modelview.setViewName("topic/topicList");
 		return modelview;
 	}
 
@@ -178,8 +178,8 @@ public class topic {
 	 * 
 	 * 更新话题 展示页 查询话题信息
 	 */
-	@RequestMapping("/updateTopicByGroupView")
-	public ModelAndView updateTopicByGroupView(HttpServletRequest request) {
+	@RequestMapping("/createTopicForm")
+	public ModelAndView createTopicForm(HttpServletRequest request) {
 		String courSharResoStr;
 
 		// 必输
@@ -206,6 +206,40 @@ public class topic {
 				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
+		return modelview;
+	}
+	/**
+	 * 
+	 * 更新话题 展示页 查询话题信息
+	 */
+	@RequestMapping("/topicDetail")
+	public ModelAndView topicDetail(HttpServletRequest request) {
+		String courSharResoStr;
+
+		// 必输
+		String topicid = request.getParameter("topicid");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/one?topicid=" + topicid, null, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("resupdateTopicByGroupView", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("topic/topicDetail");
 		return modelview;
 	}
 

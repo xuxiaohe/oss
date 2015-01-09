@@ -81,8 +81,8 @@ public class group {
 	 * 
 	 * 创建群展示页 查询机器人
 	 */
-	@RequestMapping("/createGroupView")
-	public ModelAndView createGroupView(HttpServletRequest request) {
+	@RequestMapping("/createGroupForm")
+	public ModelAndView createGroupForm(HttpServletRequest request) {
 		String courSharResoStr;
 		// 当前第几页
 		String pagenumber = request.getParameter("n");
@@ -129,8 +129,8 @@ public class group {
 	 * 
 	 * 用机器人id创建群
 	 */
-	@RequestMapping("/createGroup")
-	public ModelAndView createGroup(HttpServletRequest request) {
+	@RequestMapping("/createGroupAction")
+	public ModelAndView createGroupAction(HttpServletRequest request) {
 		String courSharResoStr;
 		// 当前第几页
 		String id = request.getParameter("id");
@@ -1025,8 +1025,8 @@ public class group {
 	 * 
 	 * 获取某个群组的详细信息
 	 */
-	@RequestMapping("/getOneGroup")
-	public ModelAndView getOneGroup(HttpServletRequest request) {
+	@RequestMapping("/groupDetail")
+	public ModelAndView groupDetail(HttpServletRequest request) {
 		String gid = request.getParameter("gid");
 		 
 		String courSharResoStr;
@@ -1039,7 +1039,7 @@ public class group {
 			// CourseShareResponse.class);
 			JSONObject objj = JSONObject.fromObject(courSharResoStr);
 
-			modelview.addObject("resgetOneGroup", objj);
+			modelview.addObject("Group", objj);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1049,7 +1049,7 @@ public class group {
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
+		modelview.setViewName("group/groupDetail");
 		return modelview;
 	}
 

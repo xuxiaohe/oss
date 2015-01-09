@@ -34,7 +34,6 @@ import com.yunxuetang.util.Config;
 @Controller
 @RequestMapping("/dry")
 public class dry {
-	 
 
 	public dry() {
 		// TODO Auto-generated constructor stub
@@ -69,8 +68,8 @@ public class dry {
 					.getString("url");
 			url = URLDecoder.decode(url, "utf-8");
 
-//			List<String> imgUrls = this.getPicFromUrl(url);
-//			modelview.addObject("imgUrls", imgUrls);
+			// List<String> imgUrls = this.getPicFromUrl(url);
+			// modelview.addObject("imgUrls", imgUrls);
 
 			modelview.addObject("url", url);
 
@@ -89,6 +88,7 @@ public class dry {
 		return modelview;
 
 	}
+
 	/**
 	 * 干货修改提交
 	 */
@@ -108,12 +108,13 @@ public class dry {
 		 * TODO:修改成POST
 		 */
 		try {
-			Map m=new HashMap();
+			Map<String, String> m = new HashMap<String, String>();
 			m.put("fileUrl", URLEncoder.encode(fileUrl, "utf-8"));
 			m.put("message", message);
-			courSharResoStr3 = restTemplate.postForObject(Config.YXTSERVER3
-					+ "oss/dry/updateOne?dryid=" + 
-					dryid,m, String.class);
+			courSharResoStr3 = restTemplate
+					.postForObject(Config.YXTSERVER3
+							+ "oss/dry/updateOne?dryid=" + dryid, null,
+							String.class, m);
 			JSONObject objj3 = JSONObject.fromObject(courSharResoStr3);
 		} catch (RestClientException e1) {
 			// TODO Auto-generated catch block
@@ -123,7 +124,7 @@ public class dry {
 			e1.printStackTrace();
 		}
 
-		return "redirect:/user/userDry?userid="+userid;  
+		return "redirect:/user/userDry?userid=" + userid;
 
 	}
 
@@ -290,8 +291,8 @@ public class dry {
 	 * 
 	 * 删除干货
 	 */
-	@RequestMapping("/deleteDryByGroup")
-	public ModelAndView deleteDryByGroup(HttpServletRequest request) {
+	@RequestMapping("/deleteDry")
+	public String deleteDry(HttpServletRequest request) {
 		String courSharResoStr;
 
 		// 必输
@@ -306,19 +307,12 @@ public class dry {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
 			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-			modelview.addObject("resdeleteDryByGroup", objj);
-			String s = objj.getString("msg");
-			System.out.println(s);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		
+		return "redirect:/dry/dryList";
 	}
 	
 	
@@ -327,23 +321,45 @@ public class dry {
 	 * 
 	 * 查询所有干货  包括没有关联群组的
 	 */
-	@RequestMapping("/findDrys")
-	public ModelAndView findDry(HttpServletRequest request) {
+	@RequestMapping("/dryList")
+	public ModelAndView dryList(HttpServletRequest request) {
 		String courSharResoStr;
 
-		// 必输
-		String keywords = request.getParameter("keywords");
+		String keyword = request.getParameter("keyword");
+		// keyword="test123456";
 
+		// 当前第几页
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/searchDrys?keywords=" + keywords, null, String.class);
+		if (keyword == null) {
+			courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
+					+ "oss/dry/searchDrys?n=" + pagenumber + "&s=" + pagelines,
+					String.class);
+		} else {
+			courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
+					+ "oss/dry/searchDrys?n=" + pagenumber + "&s=" + pagelines
+					+ "&keywords=" + keyword, String.class);
+		}
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
 			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-			modelview.addObject("resfindDrys", objj);
+			modelview.addObject("Drys", objj);
 			String s = objj.getString("msg");
 			System.out.println(s);
 		} catch (Exception e) {
@@ -354,7 +370,7 @@ public class dry {
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
+		modelview.setViewName("dry/dryList");
 		return modelview;
 	}
 
