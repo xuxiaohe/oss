@@ -20,12 +20,12 @@
 	<div class="container-fluid">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<form class="form-inline" action="${cbasePath}group/groupList"
+				<form class="form-inline" action="${cbasePath}dry/dryList"
 					method="get" role="form">
 					<div class="form-group">
 						<label class="sr-only" for="keyword">Search:</label> <input
 							class="form-control" id="keyword" name="keyword"
-							placeholder="Enter keyword" value="${keyword }">
+							placeholder="Enter keyword" value="${keyword}">
 					</div>
 
 					<button id="searchIt" type="submit" class="btn btn-default">Search
@@ -58,7 +58,7 @@
 							</div>
 							<div class="col-xs-10">
 								<h4 style="margin-left:12px;">
-									<a href="${cbasePath}dry/dryDetail?userid=${Recourse.id}">
+									<a href="${cbasePath}dry/dryDetail?dryid=${Recourse.id}">
 										${Recourse.message} </a><small><small
 										class="pull-right">注册时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
