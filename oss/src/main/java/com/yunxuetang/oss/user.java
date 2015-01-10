@@ -104,8 +104,8 @@ public class user {
 	@RequestMapping("/userDetail")
 	private ModelAndView userDetail(HttpServletRequest request) {
 		String courSharResoStr;
-		String courSharResoStr2;
-		String courSharResoStr3;
+//		String courSharResoStr2;
+//		String courSharResoStr3;
 		String userid = request.getParameter("userid");
 
 		RestTemplate restTemplate = new RestTemplate();
@@ -113,21 +113,21 @@ public class user {
 
 		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
 				+ "oss/user/one/" + userid, String.class);
-		courSharResoStr2 = restTemplate.getForObject(Config.YXTSERVER3
-				+ "oss/group/myPcGroup/" + userid, String.class);
-		courSharResoStr3 = restTemplate.getForObject(Config.YXTSERVER3
-				+ "oss/user/getMyTopic?userid=" + userid, String.class);
+//		courSharResoStr2 = restTemplate.getForObject(Config.YXTSERVER3
+//				+ "oss/group/myPcGroup/" + userid, String.class);
+//		courSharResoStr3 = restTemplate.getForObject(Config.YXTSERVER3
+//				+ "oss/user/getMyTopic?userid=" + userid, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
 			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-			JSONObject objj2 = JSONObject.fromObject(courSharResoStr2);
-			JSONObject objj3 = JSONObject.fromObject(courSharResoStr3);
+//			JSONObject objj2 = JSONObject.fromObject(courSharResoStr2);
+//			JSONObject objj3 = JSONObject.fromObject(courSharResoStr3);
 
 			modelview.addObject("resuserDetail", objj);
-			modelview.addObject("resuserGroup", objj2);
-			modelview.addObject("resuserTopic", objj3);
+//			modelview.addObject("resuserGroup", objj2);
+//			modelview.addObject("resuserTopic", objj3);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

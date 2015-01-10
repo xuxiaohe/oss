@@ -39,6 +39,56 @@ public class dry {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	/**
+	 * 干货详情
+	 */
+	@RequestMapping("/dryDetail")
+	public ModelAndView dryDetail(HttpServletRequest request) {
+		// 当前第几页
+		String dryid = request.getParameter("dryid");
+		String courSharResoStr3;
+
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		courSharResoStr3 = restTemplate.getForObject(Config.YXTSERVER3
+				+ "oss/dry/getOneDry?dryid=" + dryid, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj3 = JSONObject.fromObject(courSharResoStr3);
+
+			String url = objj3.getJSONObject("data").getJSONObject("result")
+					.getString("url");
+			url = URLDecoder.decode(url, "utf-8");
+
+			// List<String> imgUrls = this.getPicFromUrl(url);
+			// modelview.addObject("imgUrls", imgUrls);
+
+			modelview.addObject("url", url);
+
+			modelview.addObject("dryDetail", objj3);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("dry/dryDetail");
+		return modelview;
+
+	}
+	
+	
+	
+	
+	
+	
 	/**
 	 * 干货修改展示页
 	 */

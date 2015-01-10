@@ -714,7 +714,7 @@ public class group {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/allPc?groupId=" + groupId, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/findDryByGroup?groupId=" + groupId, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
