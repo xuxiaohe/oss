@@ -301,7 +301,7 @@ public class dry {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/delete?dryCargoId=" + dryid, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/deleteDry?dryCargoId=" + dryid, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
