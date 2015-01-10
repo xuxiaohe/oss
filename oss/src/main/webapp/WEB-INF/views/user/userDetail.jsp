@@ -6,6 +6,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="pageNation" uri="/WEB-INF/tld/pagenation.tld"%>
 <%@ taglib prefix="Date" uri="/WEB-INF/tld/datetag.tld"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head lang="en">
 <meta charset="UTF-8">
@@ -48,16 +49,13 @@
 							<a
 								href="${cbasePath}user/userTopic?userid=${resuserDetail.data.result.id }">
 								<button type="button" class="btn btn-success btn-block">查看话题</button>
-							</a>
-							<a
+							</a> <a
 								href="${cbasePath}user/userDry?userid=${resuserDetail.data.result.id }">
-							<button type="button" class="btn btn-success btn-block">查看干货</button>
-							</a>
-							<a
+								<button type="button" class="btn btn-success btn-block">查看干货</button>
+							</a> <a
 								href="${cbasePath}user/userCourse?userid=${resuserDetail.data.result.id }">
-							<button type="button" class="btn btn-success btn-block">查看课程</button>
-							</a>
-							<a
+								<button type="button" class="btn btn-success btn-block">查看课程</button>
+							</a> <a
 								href="${cbasePath}user/userGroup?userid=${resuserDetail.data.result.id }"><button
 									type="button" class="btn btn-success btn-block">查看群组</button></a>
 						</div>
@@ -78,10 +76,12 @@
 							用户编号：${resuserDetail.data.result.userNumber}</div>
 
 						<div class="col-xs-6">性别：${resuserDetail.data.result.sex}</div>
+						<c:if test="${null== resuserDetail.data.result.openFireUser}">
+							<div class="col-xs-12">
+								OpenFire：${resuserDetail.data.result.openFireUser.serverList}
+								服务器，${resuserDetail.data.result.openFireUser.openFireUserName}</div>
+						</c:if>
 
-						<div class="col-xs-12">
-							OpenFire：${resuserDetail.data.result.openFireUser.serverList}
-							服务器，${resuserDetail.data.result.openFireUser.openFireUserName}</div>
 						<div class="col-xs-6">星座：${resuserDetail.data.result.constelLation}
 						</div>
 						<div class="col-xs-6">年龄：${resuserDetail.data.result.age}</div>
