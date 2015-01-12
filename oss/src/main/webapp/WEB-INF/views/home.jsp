@@ -50,13 +50,13 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
                         <a href="<%=cbasePath%>dry/dryList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>干货仓库</a>
                     </li>
                     <li role="presentation">
-                        <a href="#" target="mainFrame"><span class="glyphicon glyphicon-star"></span>课程仓库</a>
+                        <a href="<%=cbasePath%>course/courseList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>课程仓库</a>
                     </li>
                     <li role="presentation">
-                        <a href="#" target="mainFrame"><span class="glyphicon glyphicon-star"></span>话题仓库</a>
+                        <a href="<%=cbasePath%>topic/topicList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>话题仓库</a>
                     </li>
                     <li role="presentation">
-                        <a href="#" target="mainFrame"><span class="glyphicon glyphicon-star"></span>标签仓库</a>
+                        <a href="<%=cbasePath%>tag/tagList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>标签仓库</a>
                     </li>
                 </ul>
             </div>
