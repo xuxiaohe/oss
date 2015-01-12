@@ -47,7 +47,7 @@ public class topic extends BaseController {
 		String topicid = request.getParameter("topicid");
 		String gid = request.getParameter("gid");
 		deleteTopic(topicid);
-		return "redirect:/group/groupTopic?id=" + gid;
+		return "redirect:/group/groupTopic?gid=" + gid;
 	}
 
 	private JSONObject deleteTopic(String topicid) {
