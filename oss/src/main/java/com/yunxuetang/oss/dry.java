@@ -357,8 +357,6 @@ public class dry  extends BaseController {
 		// 必输
 		String dryid = request.getParameter("dryid");
 		String gid = request.getParameter("gid");
-		ModelAndView modelview = new ModelAndView();
-		
 		deleteDryById(dryid);
 		
 		return "redirect:/group/groupDry?gid="+gid;
