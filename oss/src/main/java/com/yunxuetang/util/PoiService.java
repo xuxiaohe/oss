@@ -31,9 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Component
 public class PoiService {
     
-	public static String YXTSERVER="http://s1.xuewen.yunxuetang.com:8084/";
-	public static String YXTSERVER2="http://s1.xuewen.yunxuetang.com:8082/";
-	public static String YXTSERVER3="http://localhost:8080/";
+	 
     
     public void exportXLS(HttpServletResponse response) {
         
@@ -103,7 +101,7 @@ public class PoiService {
                 String courSharResoStr;
         		RestTemplate restTemplate=new RestTemplate();
         		ModelAndView modelview = new ModelAndView();
-        		courSharResoStr= restTemplate.postForObject(YXTSERVER2+"user/regist?userName="+List.get(0)+"&passWord="+List.get(1),null, String.class);
+        		courSharResoStr= restTemplate.postForObject(Config.YXTSERVER2+"user/regist?userName="+List.get(0)+"&passWord="+List.get(1),null, String.class);
         		JSONObject objj=JSONObject.fromObject(courSharResoStr);
         		if(objj.getInt("status")!=200){
         			Listerrs.add(List.get(0));
