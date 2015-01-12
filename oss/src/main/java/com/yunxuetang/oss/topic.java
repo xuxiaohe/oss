@@ -25,8 +25,7 @@ public class topic extends BaseController {
 	@RequestMapping("/deleteTopic")
 	public String deleteTopic(HttpServletRequest request) {
 		String topicid = request.getParameter("topicid");
-		String userid = request.getParameter("userid");
-		deleteTopic(topicid);
+		deleteTopicByID(topicid);
 
 		return "redirect:/topic/topicList";
 	}
@@ -36,8 +35,7 @@ public class topic extends BaseController {
 	public String deleteTopicForUser(HttpServletRequest request) {
 		String topicid = request.getParameter("topicid");
 		String userid = request.getParameter("userid");
-		deleteTopic(topicid);
-
+		deleteTopicByID(topicid);
 		return "redirect:/user/userTopic?userid=" + userid;
 	}
 
@@ -46,11 +44,11 @@ public class topic extends BaseController {
 	public String deleteTopicForGroup(HttpServletRequest request) {
 		String topicid = request.getParameter("topicid");
 		String gid = request.getParameter("gid");
-		deleteTopic(topicid);
+		deleteTopicByID(topicid);
 		return "redirect:/group/groupTopic?gid=" + gid;
 	}
 
-	private JSONObject deleteTopic(String topicid) {
+	private JSONObject deleteTopicByID(String topicid) {
 		String url = Config.YXTSERVER3 + "oss/topic/delete?topicid=" + topicid;
 		return getRestApiData(url);
 	}
