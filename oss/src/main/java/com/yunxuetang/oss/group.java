@@ -1,6 +1,9 @@
 package com.yunxuetang.oss;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.yunxuetang.util.Config;
 
@@ -25,6 +29,7 @@ public class group extends BaseController {
 	 */
 	@RequestMapping("/groupList")
 	public ModelAndView groupList(HttpServletRequest request) {
+		String courSharResoStr;
 		// String courSharResoStr2;
 		String keyword = request.getParameter("keyword");
 		// keyword="test123456";
@@ -43,11 +48,29 @@ public class group extends BaseController {
 		if (pagelines == null) {
 			pagelines = "10";
 		}
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("groupList", groupList(keyword, pagenumber, pagelines));
+		if (keyword == null) {
+			courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
+					+ "oss/group/search?n=" + pagenumber + "&s=" + pagelines,
+					String.class);
+		} else {
+			courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
+					+ "oss/group/search?n=" + pagenumber + "&s=" + pagelines
+					+ "&keyword=" + keyword, String.class);
+		}
+
+		try {
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("groupList", objj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("group/groupList");
 		return modelview;
@@ -60,6 +83,7 @@ public class group extends BaseController {
 	 */
 	@RequestMapping("/createGroupForm")
 	public ModelAndView createGroupForm(HttpServletRequest request) {
+		String courSharResoStr;
 		// 当前第几页
 		String pagenumber = request.getParameter("n");
 
@@ -75,11 +99,27 @@ public class group extends BaseController {
 			pagelines = "10";
 		}
 
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("ressearchGroupView", createDryByGroupView(pagenumber, pagelines));
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
+				+ "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines
+				+ "&robot=1", String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("ressearchGroupView", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -103,7 +143,9 @@ public class group extends BaseController {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/create?groupName=" + groupName + "&id=" + id, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/group/create?groupName=" + groupName + "&id=" + id,
+				null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -116,7 +158,9 @@ public class group extends BaseController {
 			e.printStackTrace();
 		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -135,7 +179,8 @@ public class group extends BaseController {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/user/one/" + userid, String.class);
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
+				+ "oss/user/one/" + userid, String.class);
 
 		try {
 			JSONObject objj = JSONObject.fromObject(courSharResoStr);
@@ -144,7 +189,9 @@ public class group extends BaseController {
 			e.printStackTrace();
 		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("userid", userid);
 		modelview.setViewName("group/groupAddFormForUser");
@@ -157,10 +204,13 @@ public class group extends BaseController {
 	 */
 	@RequestMapping("/createGroupForUserAction")
 	public String createGroupForUserAction(HttpServletRequest request) {
+		String courSharResoStr;
 		// 当前第几页
 		String userid = request.getParameter("id");
 		String groupName = request.getParameter("groupName");
 		String groupDesc = request.getParameter("groupDesc");
+
+		RestTemplate restTemplate = new RestTemplate();
 
 		Map<String, String> rp = new HashMap<String, String>();
 
@@ -168,8 +218,11 @@ public class group extends BaseController {
 		rp.put("groupName", groupName.trim());
 		rp.put("intro", groupDesc.trim());
 
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/group/create", null, String.class, rp);
+
 		try {
-			JSONObject objj = createGroup(rp);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
 			if (objj.get("status").toString() != "200") {
 
 			}
@@ -188,21 +241,34 @@ public class group extends BaseController {
 	public ModelAndView updateGroupView(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		id = "54aa495de4b059141b1b67dd";
+		String courSharResoStr;
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		JSONObject objj = getOneTopic(id);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/group/one/" + id, null, String.class);
 
-		JSONObject tt = (JSONObject) objj.get("data");
-		JSONObject ttt = (JSONObject) tt.get("result");
-		JSONArray t = ttt.getJSONArray("owner");
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
 
-		String tttt = t.get(0).toString();
+			JSONObject tt = (JSONObject) objj.get("data");
+			JSONObject ttt = (JSONObject) tt.get("result");
+			JSONArray t = ttt.getJSONArray("owner");
 
-		modelview.addObject("resupdateGroupView", objj);
-		modelview.addObject("resOwner", tttt);
+			String tttt = t.get(0).toString();
 
+			modelview.addObject("resupdateGroupView", objj);
+			modelview.addObject("resOwner", tttt);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -232,8 +298,10 @@ public class group extends BaseController {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/" + gid + "/update?uid=" + uid + "&intro=" + intro + "&tag="
-				+ tag + "&logoUrl=" + logoUrl + "&groupName=" + groupName + "&bgUrl=" + bgUrl, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/group/" + gid + "/update?uid=" + uid + "&intro=" + intro
+				+ "&tag=" + tag + "&logoUrl=" + logoUrl + "&groupName="
+				+ groupName + "&bgUrl=" + bgUrl, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -246,7 +314,9 @@ public class group extends BaseController {
 			e.printStackTrace();
 		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -277,8 +347,9 @@ public class group extends BaseController {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines + "&robot=1",
-				String.class);
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
+				+ "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines
+				+ "&robot=1", String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -291,7 +362,9 @@ public class group extends BaseController {
 			e.printStackTrace();
 		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -303,6 +376,7 @@ public class group extends BaseController {
 	 */
 	@RequestMapping("/createTopicByGroup")
 	public ModelAndView createTopicByGroup(HttpServletRequest request) {
+		String courSharResoStr;
 
 		// 必输
 		String uid = request.getParameter("uid");
@@ -318,12 +392,30 @@ public class group extends BaseController {
 		String localName = request.getParameter("localName");
 		String barCode = request.getParameter("barCode");
 
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateTopicByGroup",
-				createTopicByGroup(uid, sourceId, type, title, tagName, content, picUrl, lat, lng, localName, barCode));
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/topic/create?uid=" + uid + "&sourceId=" + sourceId
+				+ "&type=" + type + "&title=" + title + "&tagName=" + tagName
+				+ "&content=" + content + "&picUrl=" + picUrl + "&lat=" + lat
+				+ "&lng=" + lng + "&localName=" + localName + "&barCode="
+				+ barCode, null, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("rescreateTopicByGroup", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -335,15 +427,31 @@ public class group extends BaseController {
 	 */
 	@RequestMapping("/deleteTopicByGroup")
 	public ModelAndView deleteTopicByGroup(HttpServletRequest request) {
+		String courSharResoStr;
 
 		// 必输
 		String topicid = request.getParameter("topicid");
 
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateTopicByGroup", deleteTopicByGroup(topicid));
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/topic/delete?topicid=" + topicid, null, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("rescreateTopicByGroup", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -355,15 +463,31 @@ public class group extends BaseController {
 	 */
 	@RequestMapping("/updateTopicByGroupView")
 	public ModelAndView updateTopicByGroupView(HttpServletRequest request) {
+		String courSharResoStr;
 
 		// 必输
 		String topicid = request.getParameter("topicid");
 
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("resupdateTopicByGroupView", getOneTopic(topicid));
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/topic/one?topicid=" + topicid, null, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("resupdateTopicByGroupView", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -375,6 +499,7 @@ public class group extends BaseController {
 	 */
 	@RequestMapping("/updateTopicByGroup")
 	public ModelAndView updateTopicByGroup(HttpServletRequest request) {
+		String courSharResoStr;
 
 		// 必输
 		String topicid = request.getParameter("topicid");
@@ -382,11 +507,28 @@ public class group extends BaseController {
 		String content = request.getParameter("content");
 		String picUrl = request.getParameter("picUrl");
 
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateTopicByGroup", updateTopicByGroup(topicid, title, content, picUrl));
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/topic/updateTopicByGroup?topicid=" + topicid + "&title="
+				+ title + "&content=" + content + "&picUrl=" + picUrl, null,
+				String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("rescreateTopicByGroup", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -398,6 +540,7 @@ public class group extends BaseController {
 	 */
 	@RequestMapping("/createDryByGroupView")
 	public ModelAndView createDryByGroupView(HttpServletRequest request) {
+		String courSharResoStr;
 		// 当前第几页
 		String pagenumber = request.getParameter("n");
 
@@ -413,11 +556,27 @@ public class group extends BaseController {
 			pagelines = "10";
 		}
 
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateTopicByGroupView", createDryByGroupView(pagenumber, pagelines));
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
+				+ "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines
+				+ "&robot=1", String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("rescreateTopicByGroupView", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -429,6 +588,7 @@ public class group extends BaseController {
 	 */
 	@RequestMapping("/createDryByGroup")
 	public ModelAndView createDryByGroup(HttpServletRequest request) {
+		String courSharResoStr;
 
 		// 必输
 		String id = request.getParameter("uid");
@@ -438,11 +598,28 @@ public class group extends BaseController {
 		String fileUrl = request.getParameter("fileUrl");
 		String message = request.getParameter("message");
 
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateDryByGroup", createDryByGroup(id, tagName, group, url, fileUrl, message));
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/dry/uploadDrycargo?id=" + id + "&tagName=" + tagName
+				+ "&group=" + group + "&url=" + url + "&fileUrl=" + fileUrl
+				+ "&message=" + message, null, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("rescreateDryByGroup", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -454,15 +631,31 @@ public class group extends BaseController {
 	 */
 	@RequestMapping("/deleteDryByGroup")
 	public ModelAndView deleteDryByGroup(HttpServletRequest request) {
+		String courSharResoStr;
 
 		// 必输
 		String dryid = request.getParameter("dryid");
 
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("resdeleteDryByGroup", deleteDryByGroup(dryid));
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/dry/delete?dryCargoId=" + dryid, null, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("resdeleteDryByGroup", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -474,16 +667,31 @@ public class group extends BaseController {
 	 */
 	@RequestMapping("/updateDryByGroupView")
 	public ModelAndView updateDryByGroupView(HttpServletRequest request) {
+		String courSharResoStr;
 
 		// 必输
 		String dryid = request.getParameter("dryid");
 
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		JSONObject objj = getOneDry(dryid);
-		modelview.addObject("resupdateDryByGroupView", objj);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/dry/getOneDry?dryid=" + dryid, null, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("resupdateDryByGroupView", objj);
+			String s = objj.getString("msg");
+			System.out.println(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -495,16 +703,33 @@ public class group extends BaseController {
 	 */
 	@RequestMapping("/updateDryByGroup")
 	public ModelAndView updateDryByGroup(HttpServletRequest request) {
+		String courSharResoStr;
 		// 拥有者id
 		String dryCargoId = request.getParameter("dryid");
 		String fileUrl = request.getParameter("fileUrl");
 		String message = request.getParameter("message");
 
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("resupdateDryByGroup", updateDryByGroup(dryCargoId, fileUrl, message));
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/dry/updateOne?dryid=" + dryCargoId + "&fileUrl="
+				+ fileUrl + "&message=" + message, null, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+
+			modelview.addObject("resupdateDryByGroup", objj);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -519,11 +744,28 @@ public class group extends BaseController {
 		String id = request.getParameter("gid");
 		String uid = request.getParameter("userId");
 		String ownerid = request.getParameter("ownerid");
+		String courSharResoStr;
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("reskickGroupMenber", kickGroupMenber(id, uid, ownerid));
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/group/" + id + "/" + uid + "/kick?ownerid=" + ownerid,
+				null, String.class);
+
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+
+			modelview.addObject("reskickGroupMenber", objj);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -539,12 +781,28 @@ public class group extends BaseController {
 		String users = request.getParameter("users");
 		String groupId = request.getParameter("uid");
 
+		String courSharResoStr;
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("resaddGroupMenber", addGroupMenber(users, groupId));
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/group/registGroupUser?users=" + users + "&groupId="
+				+ groupId + "&md5=dsfgfdrgsh", null, String.class);
 
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+
+			modelview.addObject("resaddGroupMenber", objj);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -558,12 +816,28 @@ public class group extends BaseController {
 	public ModelAndView getTagsByGroup(HttpServletRequest request) {
 		String id = request.getParameter("gid");
 
+		String courSharResoStr;
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("resgetTagsByGroup", getTagsByGroup(id));
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER4
+				+ "tag/getTagsByIdAndType?domain=yxtoss&itemId=" + id
+				+ "&itemType=3", null, String.class);
 
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+
+			modelview.addObject("resgetTagsByGroup", objj);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -577,31 +851,29 @@ public class group extends BaseController {
 	public ModelAndView insertTagsByGroup(HttpServletRequest request) {
 		String id = request.getParameter("gid");
 		String tagNames = request.getParameter("tagNames");
+		String courSharResoStr;
+		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("resgetTagsByGroup", insertTagsByGroup(id, tagNames));
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER4
+				+ "tag/editTagsDelAdd?domain=yxtoss&itemId=" + id
+				+ "&itemType=3" + "&tagNames=" + tagNames
+				+ "&userId=542010dde4b01ccc1ee95d28&userName=donny", null,
+				String.class);
+		try {
+			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
+			// CourseShareResponse.class);
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
 
+			modelview.addObject("resgetTagsByGroup", objj);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
-	}
-
-	/**
-	 * 
-	 * 删除群组
-	 */
-	@RequestMapping("/deleteGroup")
-	public ModelAndView deleteGroup(HttpServletRequest request) {
-		String gid = request.getParameter("gid");
-
-		ModelAndView modelview = new ModelAndView();
-
-		modelview.addObject("resdeleteGroup", deleteGroup(gid));
-
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -617,7 +889,9 @@ public class group extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 		modelview.addObject("Group", getGroupInfo(gid));
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("group/groupDetail");
 		return modelview;
@@ -646,7 +920,9 @@ public class group extends BaseController {
 		modelview.addObject("DryList", getGroupDry(gid, n, s));
 
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("group/groupDry");
 		return modelview;
@@ -674,7 +950,9 @@ public class group extends BaseController {
 		modelview.addObject("TopicList", getGroupTopic(gid, n, s));
 
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("group/groupTopic");
 		return modelview;
@@ -693,7 +971,9 @@ public class group extends BaseController {
 		modelview.addObject("Member", getGroupMember(gid));
 
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("group/groupMember");
 		return modelview;
@@ -721,10 +1001,23 @@ public class group extends BaseController {
 		modelview.addObject("CourseList", getGroupCourse(gid, n, s));
 
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("group/groupTopic");
 		return modelview;
+	}
+
+	/**
+	 * 
+	 * 删除群组
+	 */
+	@RequestMapping("/deleteGroup")
+	public String deleteGroup(HttpServletRequest request) {
+		String gid = request.getParameter("gid");
+		deleteGroupByID(gid);
+		return "redirect:/group/groupList";
 	}
 
 	private JSONObject getGroupInfo(String gid) {
@@ -733,115 +1026,30 @@ public class group extends BaseController {
 	}
 
 	private JSONObject getGroupDry(String gid, String n, String s) {
-		String url = Config.YXTSERVER3 + "oss/dry/findDryByGroup?groupId=" + gid + "&n=" + n + "&s=" + s;
+		String url = Config.YXTSERVER3 + "oss/dry/findDryByGroup?groupId="
+				+ gid + "&n=" + n + "&s=" + s;
 		return getRestApiData(url);
 	}
 
 	private JSONObject getGroupTopic(String gid, String n, String s) {
-		String url = Config.YXTSERVER3 + "oss/topic/findByGroupId?sourceId=" + gid + "&appKey=yxtapp&n=" + n + "s=" + s;
+		String url = Config.YXTSERVER3 + "oss/topic/findByGroupId?sourceId="
+				+ gid + "&appKey=yxtapp&n=" + n + "&s=" + s;
 		return getRestApiData(url);
 	}
 
 	private JSONObject getGroupMember(String gid) {
-		String url = Config.YXTSERVER3
-				+ "oss/group/one/"+gid+"/memberPc";
+		String url = Config.YXTSERVER3 + "oss/group/one/" + gid + "/memberPc";
 		return getRestApiData(url);
 	}
 
 	private JSONObject getGroupCourse(String gid, String n, String s) {
-		String url = Config.YXTSERVER3 + "oss/topic/getGroupCourse?gid=" + gid + "&n=" + n + "s=" + s;
+		String url = Config.YXTSERVER3 + "oss/topic/getGroupCourse?gid=" + gid
+				+ "&n=" + n + "&s=" + s;
 		return getRestApiData(url);
 	}
 
-	private JSONObject deleteGroup(String gid) {
+	private JSONObject deleteGroupByID(String gid) {
 		String url = Config.YXTSERVER3 + "oss/group/" + gid + "/delete";
-		return getRestApiData(url);
-	}
-
-	private JSONObject insertTagsByGroup(String id, String tagNames) {
-		String url = Config.YXTSERVER4 + "tag/editTagsDelAdd?domain=yxtoss&itemId=" + id + "&itemType=3" + "&tagNames=" + tagNames
-				+ "&userId=542010dde4b01ccc1ee95d28&userName=donny";
-		return getRestApiData(url);
-	}
-
-	private JSONObject getTagsByGroup(String id) {
-		String url = Config.YXTSERVER4 + "tag/getTagsByIdAndType?domain=yxtoss&itemId=" + id + "&itemType=3";
-		return getRestApiData(url);
-	}
-
-	private JSONObject addGroupMenber(String users, String groupId) {
-		String url = Config.YXTSERVER3 + "oss/group/registGroupUser?users=" + users + "&groupId=" + groupId + "&md5=dsfgfdrgsh";
-		return getRestApiData(url);
-	}
-
-	private JSONObject kickGroupMenber(String id, String uid, String ownerid) {
-		String url = Config.YXTSERVER3 + "oss/group/" + id + "/" + uid + "/kick?ownerid=" + ownerid;
-		return getRestApiData(url);
-	}
-
-	private JSONObject updateDryByGroup(String dryCargoId, String fileUrl, String message) {
-		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryCargoId + "&fileUrl=" + fileUrl + "&message=" + message;
-		return getRestApiData(url);
-	}
-
-	private JSONObject getOneDry(String dryid) {
-		String url = Config.YXTSERVER3 + "oss/dry/getOneDry?dryid=" + dryid;
-		return getRestApiData(url);
-	}
-
-	private JSONObject deleteDryByGroup(String dryid) {
-		String url = Config.YXTSERVER3 + "oss/dry/delete?dryCargoId=" + dryid;
-		return getRestApiData(url);
-	}
-
-	private JSONObject createDryByGroup(String id, String tagName, String group, String url, String fileUrl, String message) {
-		String url2 = Config.YXTSERVER3 + "oss/dry/uploadDrycargo?id=" + id + "&tagName=" + tagName + "&group=" + group + "&url=" + url + "&fileUrl="
-				+ fileUrl + "&message=" + message;
-		return getRestApiData(url2);
-	}
-
-	private JSONObject createDryByGroupView(String n, String s) {
-		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1";
-		return getRestApiData(url);
-	}
-
-	private JSONObject updateTopicByGroup(String topicid, String title, String content, String picUrl) {
-		String url = Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicid=" + topicid + "&title=" + title + "&content=" + content + "&picUrl="
-				+ picUrl;
-		return getRestApiData(url);
-	}
-
-	private JSONObject getOneTopic(String topicid) {
-		String url = Config.YXTSERVER3 + "oss/topic/one?topicid=" + topicid;
-		return getRestApiData(url);
-	}
-
-	private JSONObject createGroup(Map rp) {
-		String url = Config.YXTSERVER3 + "oss/group/create";
-		return getRestApiData(url, rp);
-	}
-
-	private JSONObject deleteTopicByGroup(String topicid) {
-		String url = Config.YXTSERVER3 + "oss/topic/delete?topicid=" + topicid;
-		return getRestApiData(url);
-	}
-
-	private JSONObject createTopicByGroup(String uid, String sourceId, String type, String title, String tagName, String content, String picUrl,
-			String lat, String lng, String localName, String barCode) {
-		String url = Config.YXTSERVER3 + "oss/topic/create?uid=" + uid + "&sourceId=" + sourceId + "&type=" + type + "&title=" + title + "&tagName="
-				+ tagName + "&content=" + content + "&picUrl=" + picUrl + "&lat=" + lat + "&lng=" + lng + "&localName=" + localName + "&barCode="
-				+ barCode;
-		return getRestApiData(url);
-	}
-
-	private JSONObject groupList(String keyword, String n, String s) {
-		String url = null;
-
-		if (keyword == null) {
-			url = Config.YXTSERVER3 + "oss/group/search?n=" + n + "&s=" + s;
-		} else {
-			url = Config.YXTSERVER3 + "oss/group/search?n=" + n + "&s=" + s + "&keyword=" + keyword;
-		}
 		return getRestApiData(url);
 	}
 
