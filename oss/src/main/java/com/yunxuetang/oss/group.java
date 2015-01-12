@@ -1057,17 +1057,17 @@ public class group extends BaseController {
 	}
 	private JSONObject getGroupTopic(String gid,String n, String s) {
 		String url = Config.YXTSERVER3
-				+ "oss/topic/findByGroupId?sourceId=" + gid + "&appKey=yxtapp&n="+n+"s="+s;
+				+ "oss/topic/findByGroupId?sourceId=" + gid + "&appKey=yxtapp&n="+n+"&s="+s;
 		return getRestApiData(url);
 	}
 	private JSONObject getGroupMember(String gid) {
 		String url = Config.YXTSERVER3
-				+ "oss/group/getGroupMember?gid=" + gid;
+				+ "oss/group/one/"+gid+"/memberPc";
 		return getRestApiData(url);
 	}
 	private JSONObject getGroupCourse(String gid,String n, String s) {
 		String url = Config.YXTSERVER3
-				+ "oss/topic/getGroupCourse?gid=" + gid + "&n="+n+"s="+s;
+				+ "oss/topic/getGroupCourse?gid=" + gid + "&n="+n+"&s="+s;
 		return getRestApiData(url);
 	}
 	
