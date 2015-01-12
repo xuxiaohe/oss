@@ -15,33 +15,45 @@ import com.yunxuetang.util.Config;
 
 @Controller
 @RequestMapping("/topic")
-public class topic {
+public class topic extends BaseController {
 
 	public topic() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	//删除话题
-	@RequestMapping("/delete")
-	public String userDetail(HttpServletRequest request) {
-		String courSharResoStr;
+
+	// 删除话题
+	@RequestMapping("/deleteTopic")
+	public String deleteTopic(HttpServletRequest request) {
 		String topicid = request.getParameter("topicid");
 		String userid = request.getParameter("userid");
-		RestTemplate restTemplate = new RestTemplate();
+		deleteTopic(topicid);
 
-		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
-				+ "oss/topic/delete?topicid=" + topicid, String.class);
-		JSONObject objj = null;
-		try {
-			objj = JSONObject.fromObject(courSharResoStr);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return "redirect:/user/userTopic?userid="+userid; 
+		return "redirect:/topic/topicList";
 	}
-	
-	
+
+	// 删除话题For User
+	@RequestMapping("/deleteTopicForUser")
+	public String deleteTopicForUser(HttpServletRequest request) {
+		String topicid = request.getParameter("topicid");
+		String userid = request.getParameter("userid");
+		deleteTopic(topicid);
+
+		return "redirect:/user/userTopic?userid=" + userid;
+	}
+
+	// 删除话题For Group
+	@RequestMapping("/deleteTopicForGroup")
+	public String deleteTopicForGroup(HttpServletRequest request) {
+		String topicid = request.getParameter("topicid");
+		String gid = request.getParameter("gid");
+		deleteTopic(topicid);
+		return "redirect:/group/groupTopic?id=" + gid;
+	}
+
+	private JSONObject deleteTopic(String topicid) {
+		String url = Config.YXTSERVER3 + "oss/topic/delete?topicid=" + topicid;
+		return getRestApiData(url);
+	}
 
 	/**
 	 * 
@@ -56,7 +68,8 @@ public class topic {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/search?keyword=" + keyword , null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/topic/search?keyword=" + keyword, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -102,8 +115,9 @@ public class topic {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines + "&robot=1",
-				String.class);
+		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
+				+ "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines
+				+ "&robot=1", String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -149,9 +163,12 @@ public class topic {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/create?uid=" + uid + "&sourceId=" + sourceId + "&type=" + type
-				+ "&title=" + title + "&tagName=" + tagName + "&content=" + content + "&picUrl=" + picUrl + "&lat=" + lat + "&lng=" + lng
-				+ "&localName=" + localName + "&barCode=" + barCode, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/topic/create?uid=" + uid + "&sourceId=" + sourceId
+				+ "&type=" + type + "&title=" + title + "&tagName=" + tagName
+				+ "&content=" + content + "&picUrl=" + picUrl + "&lat=" + lat
+				+ "&lng=" + lng + "&localName=" + localName + "&barCode="
+				+ barCode, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -172,8 +189,6 @@ public class topic {
 		return modelview;
 	}
 
-	 
-
 	/**
 	 * 
 	 * 更新话题 展示页 查询话题信息
@@ -188,7 +203,8 @@ public class topic {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/one?topicid=" + topicid, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/topic/one?topicid=" + topicid, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -208,6 +224,7 @@ public class topic {
 		modelview.setViewName("show");
 		return modelview;
 	}
+
 	/**
 	 * 
 	 * 更新话题 展示页 查询话题信息
@@ -222,7 +239,8 @@ public class topic {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/one?topicid=" + topicid, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/topic/one?topicid=" + topicid, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -260,8 +278,10 @@ public class topic {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicid=" + topicid + "&title=" + title + "&content="
-				+ content + "&picUrl=" + picUrl, null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/topic/updateTopicByGroup?topicid=" + topicid + "&title="
+				+ title + "&content=" + content + "&picUrl=" + picUrl, null,
+				String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -281,13 +301,7 @@ public class topic {
 		modelview.setViewName("show");
 		return modelview;
 	}
-	
-	
-	
-	 
-	
-	
-	
+
 	/**
 	 * 
 	 * 关联群组
@@ -303,7 +317,9 @@ public class topic {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicId=" + topicid + "&groupid=" + groupid , null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/topic/updateTopicByGroup?topicId=" + topicid
+				+ "&groupid=" + groupid, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,

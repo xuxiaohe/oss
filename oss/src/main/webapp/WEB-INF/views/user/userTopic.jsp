@@ -57,7 +57,7 @@
 						<div class="caption">
 							<p class="">${group.content}</p>
 						</div>
-						<a class="btnDelete" data="${cbasePath}topic/delete?userid=${resuserDetail.data.result.id}&topicid=${group.topicId}">
+						<a class="btnDelete" data="${cbasePath}topic/deleteTopicForUser?userid=${resuserDetail.data.result.id}&topicid=${group.topicId}">
 							<button type="button" class="btn btn-danger">删除</button>
 						</a>
 					</div>
