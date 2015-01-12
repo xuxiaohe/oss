@@ -21,7 +21,7 @@ import com.yunxuetang.util.Config;
 
 @Controller
 @RequestMapping("/group")
-public class group {
+public class group extends BaseController {
 
 	/**
 	 * 
@@ -211,8 +211,8 @@ public class group {
 		String groupDesc = request.getParameter("groupDesc");
 
 		RestTemplate restTemplate = new RestTemplate();
-		
-		Map<String, String> rp=new HashMap<String, String>();
+
+		Map<String, String> rp = new HashMap<String, String>();
 
 		rp.put("id", userid);
 		rp.put("groupName", groupName.trim());
@@ -223,14 +223,14 @@ public class group {
 
 		try {
 			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-			if(objj.get("status").toString() != "200"){
-				
+			if (objj.get("status").toString() != "200") {
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return "redirect:/user/userGroup?userid="+userid;
+
+		return "redirect:/user/userGroup?userid=" + userid;
 	}
 
 	/**
@@ -322,42 +322,7 @@ public class group {
 		return modelview;
 	}
 
-	/**
-	 * 
-	 * 查找群的所有话题
-	 */
-	@RequestMapping("/findGroupTopic")
-	public ModelAndView findGroupTopic(HttpServletRequest request) {
-		String courSharResoStr;
-		// 群组id
-		String gid = request.getParameter("gid");
-		gid = "54169d8d30046f78437c472f";
-
-		RestTemplate restTemplate = new RestTemplate();
-		ModelAndView modelview = new ModelAndView();
-
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
-				+ "oss/topic/one/source?sourceId=" + gid + "&appKey=yxtapp",
-				null, String.class);
-
-		try {
-			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
-			// CourseShareResponse.class);
-			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-
-			modelview.addObject("ressearchGroup", objj);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
-	}
+	
 
 	/**
 	 * 
@@ -697,43 +662,8 @@ public class group {
 		modelview.setViewName("show");
 		return modelview;
 	}
+
 	
-	
-	
-	/**
-	 * 
-	 * 根据群id查询所有干货
-	 */
-	@RequestMapping("/findDryByGroup")
-	public ModelAndView findDryByGroup(HttpServletRequest request) {
-		String courSharResoStr;
-
-		// 必输
-		String groupId = request.getParameter("groupId");
-
-		RestTemplate restTemplate = new RestTemplate();
-		ModelAndView modelview = new ModelAndView();
-
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/findDryByGroup?groupId=" + groupId, null, String.class);
-
-		try {
-			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
-			// CourseShareResponse.class);
-			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-			modelview.addObject("resfindDryByGroup", objj);
-			String s = objj.getString("msg");
-			System.out.println(s);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
-	}
 
 	/**
 	 * 
@@ -809,38 +739,7 @@ public class group {
 		return modelview;
 	}
 
-	/**
-	 * 
-	 * 群成员列表 展示页
-	 */
-	@RequestMapping("/findGroupMenberView")
-	public ModelAndView findGroupMenberView(HttpServletRequest request) {
-		String gid = request.getParameter("gid");
-		String courSharResoStr;
-		RestTemplate restTemplate = new RestTemplate();
-		ModelAndView modelview = new ModelAndView();
-
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
-				+ "oss/group/one/" + gid + "/memberPc", null, String.class);
-
-		try {
-			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
-			// CourseShareResponse.class);
-			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-
-			modelview.addObject("resupdateGroupView", objj);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
-	}
+	
 
 	/**
 	 * 
@@ -985,8 +884,7 @@ public class group {
 		modelview.setViewName("show");
 		return modelview;
 	}
-	
-	
+
 	/**
 	 * 
 	 * 删除群组
@@ -994,12 +892,13 @@ public class group {
 	@RequestMapping("/deleteGroup")
 	public ModelAndView deleteGroup(HttpServletRequest request) {
 		String gid = request.getParameter("gid");
-		 
+
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/"+gid+"/delete", null, String.class);
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
+				+ "oss/group/" + gid + "/delete", null, String.class);
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
@@ -1018,9 +917,7 @@ public class group {
 		modelview.setViewName("show");
 		return modelview;
 	}
-	
-	
-	
+
 	/**
 	 * 
 	 * 获取某个群组的详细信息
@@ -1028,22 +925,8 @@ public class group {
 	@RequestMapping("/groupDetail")
 	public ModelAndView groupDetail(HttpServletRequest request) {
 		String gid = request.getParameter("gid");
-		 
-		String courSharResoStr;
-		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/findOneGroups/"+gid, null, String.class);
-		try {
-			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
-			// CourseShareResponse.class);
-			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-
-			modelview.addObject("Group", objj);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		modelview.addObject("Group", getGroupInfo(gid));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
@@ -1052,5 +935,144 @@ public class group {
 		modelview.setViewName("group/groupDetail");
 		return modelview;
 	}
+	/**
+	 * 
+	 * 根据群id查询所有干货
+	 */
+	@RequestMapping("/groupDry")
+	public ModelAndView groupDry(HttpServletRequest request) {
+		// 必输
+		String gid = request.getParameter("gid");
+		// 当前第几页
+		String n = request.getParameter("n");
+		if (n == null) {
+			n = "0";
+		}
+		// 每页条数
+		String s = request.getParameter("s");
+		if (s == null) {
+			s = "10";
+		}
+		ModelAndView modelview = new ModelAndView();
+		modelview.addObject("Group", getGroupInfo(gid));
+		modelview.addObject("DryList", getGroupDry(gid,n,s));
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("group/groupDry");
+		return modelview;
+	}
+	/**
+	 * 
+	 * 查找群的所有话题
+	 */
+	@RequestMapping("/groupTopic")
+	public ModelAndView groupTopic(HttpServletRequest request) {
+		String gid = request.getParameter("gid");
+		// 当前第几页
+		String n = request.getParameter("n");
+		if (n == null) {
+			n = "0";
+		}
+		// 每页条数
+		String s = request.getParameter("s");
+		if (s == null) {
+			s = "10";
+		}
+		ModelAndView modelview = new ModelAndView();
+		modelview.addObject("Group", getGroupInfo(gid));
+		modelview.addObject("TopicList", getGroupTopic(gid,n,s));
+		
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("group/groupTopic");
+		return modelview;
+	}
+	
+	/**
+	 * 
+	 * 群成员列表 展示页
+	 */
+	@RequestMapping("/groupMember")
+	public ModelAndView groupMember(HttpServletRequest request) {
+		String gid = request.getParameter("gid");
+		
+		ModelAndView modelview = new ModelAndView();
+		modelview.addObject("Group", getGroupInfo(gid));
+		modelview.addObject("Member", getGroupMember(gid));
+		
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("group/groupMember");
+		return modelview;
+	}
+	/**
+	 * 
+	 * 查找群的所有话题
+	 */
+	@RequestMapping("/groupCourse")
+	public ModelAndView groupCourse(HttpServletRequest request) {
+		String gid = request.getParameter("gid");
+		// 当前第几页
+		String n = request.getParameter("n");
+		if (n == null) {
+			n = "0";
+		}
+		// 每页条数
+		String s = request.getParameter("s");
+		if (s == null) {
+			s = "10";
+		}
+		ModelAndView modelview = new ModelAndView();
+		modelview.addObject("Group", getGroupInfo(gid));
+		modelview.addObject("CourseList", getGroupCourse(gid,n,s));
+		
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("group/groupTopic");
+		return modelview;
+	}
+
+	private JSONObject getGroupInfo(String gid) {
+		String url = Config.YXTSERVER3 + "oss/group/findOneGroups/" + gid;
+		return getRestApiData(url);
+	}
+
+	private JSONObject getGroupDry(String gid,String n, String s) {
+		String url = Config.YXTSERVER3 + "oss/dry/findDryByGroup?groupId="
+				+ gid+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	private JSONObject getGroupTopic(String gid,String n, String s) {
+		String url = Config.YXTSERVER3
+				+ "oss/topic/findByGroupId?sourceId=" + gid + "&appKey=yxtapp&n="+n+"s="+s;
+		return getRestApiData(url);
+	}
+	private JSONObject getGroupMember(String gid) {
+		String url = Config.YXTSERVER3
+				+ "oss/group/getGroupMember?gid=" + gid;
+		return getRestApiData(url);
+	}
+	private JSONObject getGroupCourse(String gid,String n, String s) {
+		String url = Config.YXTSERVER3
+				+ "oss/topic/getGroupCourse?gid=" + gid + "&n="+n+"s="+s;
+		return getRestApiData(url);
+	}
+	
+	
+
+	
 
 }

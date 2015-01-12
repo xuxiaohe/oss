@@ -33,7 +33,7 @@ import com.yunxuetang.util.Config;
 
 @Controller
 @RequestMapping("/dry")
-public class dry {
+public class dry  extends BaseController {
 
 	public dry() {
 		// TODO Auto-generated constructor stub
@@ -343,26 +343,30 @@ public class dry {
 	 */
 	@RequestMapping("/deleteDry")
 	public String deleteDry(HttpServletRequest request) {
-		String courSharResoStr;
-
 		// 必输
 		String dryid = request.getParameter("dryid");
-
-		RestTemplate restTemplate = new RestTemplate();
-		ModelAndView modelview = new ModelAndView();
-
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/deleteDry?dryCargoId=" + dryid, null, String.class);
-
-		try {
-			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
-			// CourseShareResponse.class);
-			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		deleteDryById(dryid);
 		return "redirect:/dry/dryList";
+	}
+	/**
+	 * 
+	 * 删除干货For Group
+	 */
+	@RequestMapping("/deleteDryForGroup")
+	public String deleteDryForGroup(HttpServletRequest request) {
+		// 必输
+		String dryid = request.getParameter("dryid");
+		String gid = request.getParameter("gid");
+		ModelAndView modelview = new ModelAndView();
+		
+		deleteDryById(dryid);
+		
+		return "redirect:/group/groupDry?gid="+gid;
+	}
+	
+	private JSONObject deleteDryById(String dryId){
+		String url = Config.YXTSERVER3 + "oss/dry/deleteDry?dryCargoId=" + dryId;
+		return getRestApiData(url);
 	}
 	
 	

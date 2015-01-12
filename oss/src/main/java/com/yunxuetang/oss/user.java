@@ -28,9 +28,6 @@ public class user {
 
 	@Resource(name = "poiService")
 	public PoiService service;
-
-	
-
 	public user() {
 
 	}
@@ -102,7 +99,7 @@ public class user {
 	 * 一个用户的详细信息 用户加入的群组 用户发的话题在哪个群组里 用户发的干货和课程
 	 */
 	@RequestMapping("/userDetail")
-	private ModelAndView userDetail(HttpServletRequest request) {
+	public ModelAndView userDetail(HttpServletRequest request) {
 		String courSharResoStr;
 //		String courSharResoStr2;
 //		String courSharResoStr3;
