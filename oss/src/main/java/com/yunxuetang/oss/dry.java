@@ -361,6 +361,19 @@ public class dry  extends BaseController {
 		
 		return "redirect:/group/groupDry?gid="+gid;
 	}
+	/**
+	 * 
+	 * 删除干货For User
+	 */
+	@RequestMapping("/deleteDryForUser")
+	public String deleteDryForUser(HttpServletRequest request) {
+		// 必输
+		String dryid = request.getParameter("dryid");
+		String userid = request.getParameter("userid");
+		deleteDryById(dryid);
+		
+		return "redirect:/user/userDry?userid="+userid;
+	}
 	
 	private JSONObject deleteDryById(String dryId){
 		String url = Config.YXTSERVER3 + "oss/dry/deleteDry?dryCargoId=" + dryId;
