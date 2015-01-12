@@ -29,9 +29,9 @@
 	<div class="container-fluid">
 		<ol class="breadcrumb">
 			<li><a href="#">群管理</a></li>
-			<li><a href="${cbasePath}user/userList">群列表</a></li>
+			<li><a href="${cbasePath}group/groupList">群列表</a></li>
 			<li class="active">群详情: <small>
-					${resuserDetail.data.result.nickName }</small>
+					${Group.data.result.groupName }</small>
 			</li>
 		</ol>
 		<div class="panel panel-default">
@@ -39,82 +39,36 @@
 				<div class="row">
 					<div class="col-xs-2">
 						<img class="thumbnail col-xs-12"
-							src="${resuserDetail.data.result.logoURL }" alt="" />
+							src="${Group.data.result.logoUrl }" alt="" />
 						<button type="button" class="btn btn-warning btn-block">编辑</button>
 						<button type="button" class="btn btn-warning btn-block">删除</button>
 						<hr />
 						<div id="btnGroupDiv" class="col-xs-12">
 							<a
-								href="${cbasePath}user/userTopic?userid=${resuserDetail.data.result.id }">
-								<button type="button" class="btn btn-success btn-block">查看话题</button>
+								href="${cbasePath}group/groupTopic?gid=${Group.data.result.id }">
+								<button type="button" class="btn btn-success btn-block">管理话题</button>
 							</a>
 							<a
-								href="${cbasePath}user/userDry?userid=${resuserDetail.data.result.id }">
-							<button type="button" class="btn btn-success btn-block">查看干货</button>
+								href="${cbasePath}group/groupDry?gid=${Group.data.result.id }">
+							<button type="button" class="btn btn-success btn-block">管理干货</button>
 							</a>
 							<a
-								href="${cbasePath}user/userCourse?userid=${resuserDetail.data.result.id }">
-							<button type="button" class="btn btn-success btn-block">查看课程</button>
+								href="${cbasePath}group/groupCourse?gid=${Group.data.result.id }">
+							<button type="button" class="btn btn-success btn-block">管理课程</button>
 							</a>
+							
 							<a
-								href="${cbasePath}user/userGroup?userid=${resuserDetail.data.result.id }"><button
-									type="button" class="btn btn-success btn-block">查看群组</button></a>
+								href="${cbasePath}group/groupMember?gid=${Group.data.result.id }"><button
+									type="button" class="btn btn-success btn-block">管理成员</button></a>
 						</div>
 					</div>
 					<div id="userInfoDiv" class="col-xs-10" style="">
 						<h4 style="margin-left: 12px;">
-							用户昵称：${resuserDetail.data.result.nickName} <small><small
+							${Group.data.result.groupName} <small><small
 								class="pull-right">注册时间：<Date:date
-										value="${resuserDetail.data.result.ctime}"></Date:date></small></small>
+										value="${Group.data.result.ctime}"></Date:date></small></small>
 						</h4>
-						<div class="col-xs-6">
-							最近登录：
-							<Date:date value="${resuserDetail.data.result.logintime}"></Date:date>
-						</div>
-						<div class="col-xs-6">
-							登陆账号：${resuserDetail.data.result.userName}</div>
-						<div class="col-xs-6">
-							用户编号：${resuserDetail.data.result.userNumber}</div>
-
-						<div class="col-xs-6">性别：${resuserDetail.data.result.sex}</div>
-
-						<div class="col-xs-12">
-							OpenFire：${resuserDetail.data.result.openFireUser.serverList}
-							服务器，${resuserDetail.data.result.openFireUser.openFireUserName}</div>
-						<div class="col-xs-6">星座：${resuserDetail.data.result.constelLation}
-						</div>
-						<div class="col-xs-6">年龄：${resuserDetail.data.result.age}</div>
-						<div class="col-xs-6">行业：${resuserDetail.data.result.industry}
-						</div>
-						<div class="col-xs-6">状态：${resuserDetail.data.result.station}
-						</div>
-						<div class="col-xs-6">学历：${resuserDetail.data.result.education}
-						</div>
-						<div class="col-xs-6">学校：${resuserDetail.data.result.school}
-						</div>
-						<div class="col-xs-6">活动区域：${resuserDetail.data.result.area}
-						</div>
-						<div class="col-xs-6">公司：${resuserDetail.data.result.company}
-						</div>
-						<div class="col-xs-6">感兴趣于：${resuserDetail.data.result.interest}
-						</div>
-						<div class="col-xs-6">擅长：${resuserDetail.data.result.special}
-						</div>
-
-						<div class="col-xs-6">邮箱：${resuserDetail.data.result.email}
-						</div>
-						<div class="col-xs-6">
-							手机：${resuserDetail.data.result.phoneNumber}</div>
-
-						<div class="col-xs-6">标签：${resuserDetail.data.result.tag}</div>
-						<div class="col-xs-6">
-							位置信息：${resuserDetail.data.result.location}</div>
-						<div class="col-xs-6">
-							位置信息：${resuserDetail.data.result.scoreSum}</div>
-
-
-						<div class="col-xs-12">
-							介绍：${resuserDetail.data.result.intro}</div>
+						
 					</div>
 				</div>
 

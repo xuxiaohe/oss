@@ -58,7 +58,7 @@
 							</div>
 							<div class="col-xs-10">
 								<h4 style="margin-left:12px;">
-									<a href="${cbasePath}group/groupDetail?userid=${Recourse.id}">
+									<a href="${cbasePath}group/groupDetail?gid=${Recourse.id}">
 										${Recourse.groupName} </a><small><small
 										class="pull-right">注册时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
@@ -94,13 +94,9 @@
 	</div>
 	<script>
 		$(function() {
-			/* $("#searchIt").click(function(){
-				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
-			}); */
-			
 			$(".deleteBtn").click(function(){
 				if(window.confirm('你确定要删除吗？')){
-					window.location.href="${cbasePath}group/deleteGroup?userid="+$(this).attr("data");
+					window.location.href="${cbasePath}group/deleteGroup?gid="+$(this).attr("data");
 				}else{
 					
 				}

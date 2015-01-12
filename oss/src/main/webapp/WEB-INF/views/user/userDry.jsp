@@ -41,7 +41,7 @@
 				<pageNation:PageNation currPage="${resuserTopic.data.curr_page}"
 					totalPages="${resuserTopic.data.page_rows}" perPageRows="10"
 					totalRows="${resuserTopic.data.total_rows}"
-					linkBaseUrl="${cbasePath}user/userTopic?userid=${resuserDetail.data.result.id}">
+					linkBaseUrl="${cbasePath}user/userDry?userid=${resuserDetail.data.result.id}">
 				</pageNation:PageNation>
 			</ul>
 			</nav>
@@ -55,14 +55,17 @@
 					</div>
 					<div class="col-xs-10">
 						<h5>
-							<a href="${group.url }" target="_blank">
-								${group.message}
-							</a>
+							<a href="${group.url }" target="_blank"> ${group.message} </a>
 						</h5>
-						<a class="btnDelete"
+						<a class="btnEdit"
 							href="${cbasePath}dry/editForm?userid=${resuserDetail.data.result.id}&dryid=${group.id}">
 							<button type="button" class="btn btn-success">修改</button>
 						</a>
+
+						<button 
+							data="${cbasePath}dry/deleteDryForUser?userid=${resuserDetail.data.result.id}&dryid=${group.id}"
+							type="button" class="btnDelete btn btn-success">删除</button>
+
 					</div>
 				</div>
 			</c:forEach>
@@ -72,7 +75,7 @@
 				<pageNation:PageNation currPage="${resuserTopic.data.curr_page}"
 					totalPages="${resuserTopic.data.page_rows}" perPageRows="10"
 					totalRows="${resuserTopic.data.total_rows}"
-					linkBaseUrl="${cbasePath}user/userTopic?userid=${resuserDetail.data.result.id}">
+					linkBaseUrl="${cbasePath}user/userDry?userid=${resuserDetail.data.result.id}">
 				</pageNation:PageNation>
 			</ul>
 			</nav>
@@ -81,9 +84,13 @@
 	</div>
 	<script>
 		$(function() {
-			/* $("#searchIt").click(function(){
-				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
-			}); */
+			$(".btnDelete").click(function() {
+				if (window.confirm('你确定要删除吗？')) {
+					window.location.href = $(this).attr("data");
+				} else {
+
+				}
+			});
 		});
 	</script>
 </body>

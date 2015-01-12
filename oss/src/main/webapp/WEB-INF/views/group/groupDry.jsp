@@ -1,0 +1,91 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="pageNation" uri="/WEB-INF/tld/pagenation.tld"%>
+<%@ taglib prefix="Date" uri="/WEB-INF/tld/datetag.tld"%>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>用户管理</title>
+<script src="${cbasePath}/resources/assets/js/jquery.min.js"></script>
+<script src="${cbasePath}/resources/assets/js/bootstrap.min.js"></script>
+<link href="${cbasePath}/resources/assets/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="${cbasePath}/resources/assets/css/font.css" rel="stylesheet">
+<style>
+#userInfoDiv div {
+	padding: 10px;
+}
+</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<jsp:include page="header.jsp"></jsp:include>
+		<ol class="breadcrumb">
+			<li><a href="#">群管理</a></li>
+			<li><a href="${cbasePath}group/groupList">群列表</a></li>
+			<li><a
+				href="${cbasePath}group/groupDetail?gid=${Group.data.result.id}">
+					<small> ${Group.data.result.groupName }</small>
+			</a></li>
+			<li class="active">话题列表</li>
+		</ol>
+
+		<c:if test="${DryList.status == '200' }">
+			<!-- 分页开始 -->
+			<nav>
+			<ul class="pagination">
+				<pageNation:PageNation currPage="${DryList.data.curr_page}"
+					totalPages="${DryList.data.page_rows}" perPageRows="10"
+					totalRows="${DryList.data.total_rows}"
+					linkBaseUrl="${cbasePath}group/groupDry?gid=${Group.data.result.id}">
+				</pageNation:PageNation>
+			</ul>
+			</nav>
+			<!-- 分页结束 -->
+			<c:forEach items="${DryList.data.result}" varStatus="key"
+				var="group">
+				<div id="topicDiv" style="margin: 10px;" class="row">
+					<div class="col-xs-2">
+						<img class="thumbnail col-xs-12" src="${group.fileUrl}"
+							alt="${group.groupInfo.groupName}">
+					</div>
+					<div class="col-xs-10">
+						<h5>
+							<a href="${group.url }" target="_blank">
+								${group.message}
+							</a>
+						</h5>
+						<a class="btnDelete"
+							href="${cbasePath}dry/deleteDryForGroup?gid=${Group.data.result.id}&dryid=${group.id}">
+							<button type="button" class="btn btn-success">删除</button>
+						</a>
+					</div>
+				</div>
+			</c:forEach>
+			<!-- 分页开始 -->
+			<nav>
+			<ul class="pagination">
+				<pageNation:PageNation currPage="${DryList.data.curr_page}"
+					totalPages="${DryList.data.page_rows}" perPageRows="10"
+					totalRows="${DryList.data.total_rows}"
+					linkBaseUrl="${cbasePath}group/groupDry?gid=${Group.data.result.id}">
+				</pageNation:PageNation>
+			</ul>
+			</nav>
+			<!-- 分页结束 -->
+		</c:if>
+	</div>
+	<script>
+		$(function() {
+			/* $("#searchIt").click(function(){
+				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
+			}); */
+		});
+	</script>
+</body>
+</html>
+
