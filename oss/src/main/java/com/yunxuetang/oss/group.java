@@ -1019,6 +1019,8 @@ public class group extends BaseController {
 		deleteGroupByID(gid);
 		return "redirect:/group/groupList";
 	}
+	
+	
 
 	private JSONObject getGroupInfo(String gid) {
 		String url = Config.YXTSERVER3 + "oss/group/findOneGroups/" + gid;
@@ -1052,5 +1054,6 @@ public class group extends BaseController {
 		String url = Config.YXTSERVER3 + "oss/group/" + gid + "/delete";
 		return getRestApiData(url);
 	}
+	
 
 }

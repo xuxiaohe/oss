@@ -51,7 +51,8 @@ public class dry extends BaseController {
 		try {
 			JSONObject objj3 = dryDetail(dryid);
 
-			String url = objj3.getJSONObject("data").getJSONObject("result").getString("url");
+			String url = objj3.getJSONObject("data").getJSONObject("result")
+					.getString("url");
 			url = URLDecoder.decode(url, "utf-8");
 
 			modelview.addObject("url", url);
@@ -62,7 +63,9 @@ public class dry extends BaseController {
 		}
 
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("dry/dryDetail");
 		return modelview;
@@ -83,7 +86,8 @@ public class dry extends BaseController {
 		try {
 			JSONObject objj3 = getOneDry(dryid);
 
-			String url = objj3.getJSONObject("data").getJSONObject("result").getString("url");
+			String url = objj3.getJSONObject("data").getJSONObject("result")
+					.getString("url");
 			url = URLDecoder.decode(url, "utf-8");
 
 			modelview.addObject("url", url);
@@ -95,7 +99,9 @@ public class dry extends BaseController {
 		}
 
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("dry/editForm");
 		return modelview;
@@ -165,7 +171,8 @@ public class dry extends BaseController {
 	private String getHtmlCode(String httpUrl) throws IOException {
 		String content = "";
 		URL uu = new URL(httpUrl); // 创建URL类对象
-		BufferedReader ii = new BufferedReader(new InputStreamReader(uu.openStream())); // //使用openStream得到一输入流并由此构造一个BufferedReader对象
+		BufferedReader ii = new BufferedReader(new InputStreamReader(
+				uu.openStream())); // //使用openStream得到一输入流并由此构造一个BufferedReader对象
 		String input;
 		while ((input = ii.readLine()) != null) { // 建立读取循环，并判断是否有读取值
 			content += input;
@@ -226,9 +233,12 @@ public class dry extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateTopicByGroupView", findRoboit(pagenumber, pagelines));
+		modelview.addObject("rescreateTopicByGroupView",
+				findRoboit(pagenumber, pagelines));
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -251,9 +261,12 @@ public class dry extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateDryByGroup", createDryByGroup(id, tagName, group, url, fileUrl, message));
+		modelview.addObject("rescreateDryByGroup",
+				createDryByGroup(id, tagName, group, url, fileUrl, message));
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -305,35 +318,30 @@ public class dry extends BaseController {
 	 */
 	@RequestMapping("/dryList")
 	public ModelAndView dryList(HttpServletRequest request) {
-
 		String keyword = request.getParameter("keyword");
-		// keyword="test123456";
-
 		// 当前第几页
-		String pagenumber = request.getParameter("n");
-
-		if (pagenumber == null) {
-			pagenumber = "0";
+		String n = request.getParameter("n");
+		if (n == null) {
+			n = "0";
 		}
-
 		// 每页条数
+		String s = request.getParameter("s");
 
-		String pagelines = request.getParameter("s");
-
-		if (pagelines == null) {
-			pagelines = "10";
+		if (s == null) {
+			s = "10";
 		}
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("Drys", dryList(keyword, pagenumber, pagelines));
+		modelview.addObject("Drys", dryList(keyword, n, s));
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("dry/dryList");
 		return modelview;
 	}
-	
-	
+
 	/**
 	 * 
 	 * 关联群组
@@ -347,9 +355,12 @@ public class dry extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-			modelview.addObject("rescreateTopicByGroup", UpdateDryById(dryid, groupid));
+		modelview.addObject("rescreateTopicByGroup",
+				UpdateDryById(dryid, groupid));
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
@@ -376,35 +387,39 @@ public class dry extends BaseController {
 	}
 
 	private JSONObject findRoboit(String n, String s) {
-		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1";
+		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s="
+				+ s + "&robot=1";
 		return getRestApiData(url);
 	}
 
-	private JSONObject createDryByGroup(String id, String tagName, String group, String url, String fileUrl, String message) {
-		String url2 = Config.YXTSERVER3 + "oss/dry/uploadDrycargo?id=" + id + "&tagName=" + tagName + "&group=" + group + "&url=" + url + "&fileUrl="
-				+ fileUrl + "&message=" + message;
+	private JSONObject createDryByGroup(String id, String tagName,
+			String group, String url, String fileUrl, String message) {
+		String url2 = Config.YXTSERVER3 + "oss/dry/uploadDrycargo?id=" + id
+				+ "&tagName=" + tagName + "&group=" + group + "&url=" + url
+				+ "&fileUrl=" + fileUrl + "&message=" + message;
 		return getRestApiData(url2);
 	}
 
 	private JSONObject deleteDryById(String dryId) {
-		String url = Config.YXTSERVER3 + "oss/dry/deleteDry?dryCargoId=" + dryId;
+		String url = Config.YXTSERVER3 + "oss/dry/deleteDry?dryCargoId="
+				+ dryId;
 		return getRestApiData(url);
 	}
 
 	private JSONObject dryList(String keyword, String n, String s) {
 		String url = null;
-
 		if (keyword == null) {
 			url = Config.YXTSERVER3 + "oss/dry/searchDrys?n=" + n + "&s=" + s;
 		} else {
-			url = Config.YXTSERVER3 + "oss/dry/searchDrys?n=" + n + "&s=" + s + "&keywords=" + keyword;
+			url = Config.YXTSERVER3 + "oss/dry/searchDrys?n=" + n + "&s=" + s
+					+ "&keywords=" + keyword;
 		}
-
 		return getRestApiData(url);
 	}
-	
-	private JSONObject UpdateDryById(String dryId,String groupid) {
-		String url = Config.YXTSERVER3 + "oss/oss/dry/updateOne?dryid=" + dryId+"&groupid="+groupid;
+
+	private JSONObject UpdateDryById(String dryId, String groupid) {
+		String url = Config.YXTSERVER3 + "oss/oss/dry/updateOne?dryid=" + dryId
+				+ "&groupid=" + groupid;
 		return getRestApiData(url);
 	}
 
