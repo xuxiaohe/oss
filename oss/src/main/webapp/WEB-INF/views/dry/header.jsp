@@ -15,12 +15,12 @@
 		<div class="btn-group">
 			<button type="button" class="btn btn-default dropdown-toggle"
 				data-toggle="dropdown">
-				用户管理 <span class="caret"></span>
+				干货管理 <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="#">用户创建</a></li>
-				<li><a href="#">批量创建</a></li>
-				<li><a href="#">用户导入</a></li>
+				<li><a href="${cbasePath}dry/createDryByGroupView">干货创建</a></li>
+				<!-- <li><a href="#">批量创建</a></li>
+				<li><a href="#">用户导入</a></li> -->
 				<li class="divider"></li>
 			</ul>
 		</div>
