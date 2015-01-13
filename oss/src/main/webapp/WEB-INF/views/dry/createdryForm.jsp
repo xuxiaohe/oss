@@ -46,16 +46,24 @@
 
 			<div class="col-xs-9">
 				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
-				<form role="form" method="post" action="${cbasePath}dry/createDryByGroup">
+				<form role="form" method="post"
+					action="${cbasePath}dry/createDryByGroup">
 					<div class="form-group">
-						<label for="exampleInputEmail1">用户名</label> <input type="text"
-							name="uid" class="form-control" id="exampleInputEmail1"
-							placeholder="" >
+						<label for="exampleInputEmail1">用户名</label> 
+							<select class="form-control" name="uid" id="uidSelect">
+							<c:if test="${robots.status == '200' }">
+								<c:forEach items="${robots.data.result}" varStatus="key"
+									var="Recourse">
+									<option value="${Recourse.id }">${Recourse.nickName }:${Recourse.userName }</option>
+								</c:forEach>
+							</c:if>
+						</select>
+
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">标签</label> <input type="text"
 							name="tagName" class="form-control" id="exampleInputEmail1"
-							placeholder="" >
+							placeholder="">
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">群组</label> <input type="text"
@@ -70,7 +78,7 @@
 					<div class="form-group">
 						<label for="exampleInputEmail1">fileURL</label> <input type="text"
 							name="fileUrl" class="form-control" id="exampleInputEmail1"
-							placeholder="" >
+							placeholder="">
 					</div>
 
 					<div class="form-group">
