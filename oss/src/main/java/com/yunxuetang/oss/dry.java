@@ -229,12 +229,12 @@ public class dry extends BaseController {
 		String pagelines = request.getParameter("s");
 
 		if (pagelines == null) {
-			pagelines = "10";
+			pagelines = "100";
 		}
 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateTopicByGroupView", findRoboit(pagenumber, pagelines));
+		modelview.addObject("robots", findRoboit(pagenumber, pagelines));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -404,7 +404,8 @@ public class dry extends BaseController {
 	}
 
 	private JSONObject findRoboit(String n, String s) {
-		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1";
+		//String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1";
+		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "";
 		return getRestApiData(url);
 	}
 
