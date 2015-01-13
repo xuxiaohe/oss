@@ -74,7 +74,8 @@
 								<div class="col-xs-12 btn-group-sm">
 									<button data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">删除</button>
 									<c:if test="${Recourse.group==''}">
-									<a href="${cbasePath}dry/updateDryForm?dryid=${Recourse.id}">
+									<a 
+										class="btn btn-success" href="${cbasePath}dry/updateDryForm?dryid=${Recourse.id}">
 										关联群组 </a>
 									<%-- <button data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">关联群组</button> --%>
 									</c:if>
