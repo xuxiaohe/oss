@@ -93,8 +93,27 @@ public class user extends BaseController {
 		String userid = request.getParameter("userid");
 
 		ModelAndView modelview = new ModelAndView();
-		modelview.addObject("resuserDetail", getUserDetail(userid));
-
+		JSONObject j=getUserDetail(userid);
+		//data.result.openFireUser
+		JSONObject j2=(JSONObject) j.get("data");
+		JSONObject j3=(JSONObject) j2.get("result");
+		System.out.println(j3);
+		try {
+			JSONObject j4=(JSONObject) j3.get("openFireUser");
+			System.out.println(j4.toString());
+			if(j4.toString().equals("null")){
+				j3.element("openFireUser", "error");
+				System.out.println(j3);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			 
+			e.printStackTrace();
+		}
+		
+		//modelview.addObject("resuserDetail", getUserDetail(userid));
+		modelview.addObject("resuserDetail", j3);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);

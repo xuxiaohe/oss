@@ -240,7 +240,7 @@ public class dry extends BaseController {
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
+		modelview.setViewName("dry/createdryForm");
 		return modelview;
 	}
 
@@ -249,7 +249,7 @@ public class dry extends BaseController {
 	 * 用机器人id创建干货
 	 */
 	@RequestMapping("/createDryByGroup")
-	public ModelAndView createDryByGroup(HttpServletRequest request) {
+	public String createDryByGroup(HttpServletRequest request) {
 
 		// 必输
 		String id = request.getParameter("uid");
@@ -268,8 +268,8 @@ public class dry extends BaseController {
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		 
+		return  "redirect:/dry/dryList";
 	}
 
 	/**
