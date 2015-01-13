@@ -42,7 +42,8 @@
 					<div class="col-xs-2">
 						<img class="thumbnail col-xs-12"
 							src="${dryDetail.data.result.fileUrl }" alt="" />
-						<button type="button" class="btn btn-warning btn-block">编辑</button>
+						<a href="${cbasePath}dry/editForm?dryid=${dryDetail.data.result.id }">
+						<button type="button" class="btn btn-warning btn-block">编辑</button></a>
 						<button type="button" class="btn btn-warning btn-block">删除</button>
 						<hr />
 						<div id="btnGroupDiv" class="col-xs-12">

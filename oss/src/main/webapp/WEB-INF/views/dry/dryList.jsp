@@ -53,6 +53,7 @@
 							<div class="col-xs-1">
 								<h5 style="margin-top:40px;"><span class="label label-default">${key.count}</span></h5>
 							</div>
+							 
 							<div class="col-xs-1">
 								<div class="row">
 									<img class="col-xs-12 thumbnail" src="${Recourse.fileUrl}"
@@ -62,7 +63,9 @@
 							<div class="col-xs-10">
 								<h4 style="margin-left:12px;">
 									<a href="${cbasePath}dry/dryDetail?dryid=${Recourse.id}">
-										${Recourse.message} </a><small><small
+										${Recourse.message} </a><br>
+										
+										<small><small
 										class="pull-right">注册时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
 								</h4>
@@ -70,6 +73,11 @@
 								
 								<div class="col-xs-12 btn-group-sm">
 									<button data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">删除</button>
+									<c:if test="${Recourse.group==''}">
+									<a href="${cbasePath}dry/updateDryForm?dryid=${Recourse.id}">
+										关联群组 </a>
+									<%-- <button data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">关联群组</button> --%>
+									</c:if>
 								</div>
 
 							</div>

@@ -51,8 +51,7 @@ public class dry extends BaseController {
 		try {
 			JSONObject objj3 = dryDetail(dryid);
 
-			String url = objj3.getJSONObject("data").getJSONObject("result")
-					.getString("url");
+			String url = objj3.getJSONObject("data").getJSONObject("result").getString("url");
 			url = URLDecoder.decode(url, "utf-8");
 
 			modelview.addObject("url", url);
@@ -63,9 +62,7 @@ public class dry extends BaseController {
 		}
 
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("dry/dryDetail");
 		return modelview;
@@ -86,24 +83,23 @@ public class dry extends BaseController {
 		try {
 			JSONObject objj3 = getOneDry(dryid);
 
-			String url = objj3.getJSONObject("data").getJSONObject("result")
-					.getString("url");
+			String url = objj3.getJSONObject("data").getJSONObject("result").getString("url");
 			url = URLDecoder.decode(url, "utf-8");
 
 			modelview.addObject("url", url);
-
-			modelview.addObject("resuserDetail", getUserDetail(userid));
+			if(userid!=null){
+				modelview.addObject("resuserDetail", getUserDetail(userid));
+				
+			}
 			modelview.addObject("resuserTopic", objj3);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("dry/editForm");
+		modelview.setViewName("dry/updateDryForm");
 		return modelview;
 
 	}
@@ -135,8 +131,14 @@ public class dry extends BaseController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		if(userid!=null){
+			return "redirect:/user/userDry?userid=" + userid;
+		}
+		else {
+			return "redirect:/dry/dryList";
+		}
 
-		return "redirect:/user/userDry?userid=" + userid;
+		
 
 	}
 
@@ -171,8 +173,7 @@ public class dry extends BaseController {
 	private String getHtmlCode(String httpUrl) throws IOException {
 		String content = "";
 		URL uu = new URL(httpUrl); // 创建URL类对象
-		BufferedReader ii = new BufferedReader(new InputStreamReader(
-				uu.openStream())); // //使用openStream得到一输入流并由此构造一个BufferedReader对象
+		BufferedReader ii = new BufferedReader(new InputStreamReader(uu.openStream())); // //使用openStream得到一输入流并由此构造一个BufferedReader对象
 		String input;
 		while ((input = ii.readLine()) != null) { // 建立读取循环，并判断是否有读取值
 			content += input;
@@ -233,12 +234,9 @@ public class dry extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateTopicByGroupView",
-				findRoboit(pagenumber, pagelines));
+		modelview.addObject("rescreateTopicByGroupView", findRoboit(pagenumber, pagelines));
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("dry/createdryForm");
 		return modelview;
@@ -261,15 +259,12 @@ public class dry extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateDryByGroup",
-				createDryByGroup(id, tagName, group, url, fileUrl, message));
+		modelview.addObject("rescreateDryByGroup", createDryByGroup(id, tagName, group, url, fileUrl, message));
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		 
-		return  "redirect:/dry/dryList";
+
+		return "redirect:/dry/dryList";
 	}
 
 	/**
@@ -333,10 +328,9 @@ public class dry extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 
 		modelview.addObject("Drys", dryList(keyword, n, s));
+		System.out.print(dryList(keyword, n, s));
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("dry/dryList");
 		return modelview;
@@ -346,8 +340,8 @@ public class dry extends BaseController {
 	 * 
 	 * 关联群组
 	 */
-	@RequestMapping("/updateDry")
-	public ModelAndView updateTopic(HttpServletRequest request) {
+	@RequestMapping("/updateDryAction")
+	public String updateDryAction(HttpServletRequest request) {
 
 		// 必输
 		String groupid = request.getParameter("gid");
@@ -355,15 +349,38 @@ public class dry extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateTopicByGroup",
-				UpdateDryById(dryid, groupid));
+		modelview.addObject("rescreateTopicByGroup", UpdateDryById(dryid, groupid));
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/dry/dryList";
+	}
+	
+	
+	/**
+	 * 
+	 * 关联群组  展示页
+	 */
+	@RequestMapping("/updateDryForm")
+	public ModelAndView updateDryForm(HttpServletRequest request) {
+
+		// 当前第几页
+				String dryid = request.getParameter("dryid");
+
+				ModelAndView modelview = new ModelAndView();
+
+				try {
+					JSONObject objj3 = getOneDry(dryid);
+					modelview.addObject("resuserTopic", objj3);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				String cpath = request.getContextPath();
+				String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+				modelview.addObject("cbasePath", cbasePath);
+				modelview.setViewName("dry/bindDryByGroupForm");
+				return modelview;
 	}
 
 	private JSONObject dryDetail(String dryid) {
@@ -382,27 +399,23 @@ public class dry extends BaseController {
 	}
 
 	private JSONObject edit(String dryid, Map m) {
-		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryid;
-		return getRestApiData(url, m);
-	}
-
-	private JSONObject findRoboit(String n, String s) {
-		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s="
-				+ s + "&robot=1";
+		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryid + "&fileUrl=" + m.get("fileUrl") + "&message=" + m.get("message");
 		return getRestApiData(url);
 	}
 
-	private JSONObject createDryByGroup(String id, String tagName,
-			String group, String url, String fileUrl, String message) {
-		String url2 = Config.YXTSERVER3 + "oss/dry/uploadDrycargo?id=" + id
-				+ "&tagName=" + tagName + "&group=" + group + "&url=" + url
-				+ "&fileUrl=" + fileUrl + "&message=" + message;
+	private JSONObject findRoboit(String n, String s) {
+		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1";
+		return getRestApiData(url);
+	}
+
+	private JSONObject createDryByGroup(String id, String tagName, String group, String url, String fileUrl, String message) {
+		String url2 = Config.YXTSERVER3 + "oss/dry/uploadDrycargo?id=" + id + "&tagName=" + tagName + "&group=" + group + "&url=" + url + "&fileUrl="
+				+ fileUrl + "&message=" + message;
 		return getRestApiData(url2);
 	}
 
 	private JSONObject deleteDryById(String dryId) {
-		String url = Config.YXTSERVER3 + "oss/dry/deleteDry?dryCargoId="
-				+ dryId;
+		String url = Config.YXTSERVER3 + "oss/dry/deleteDry?dryCargoId=" + dryId;
 		return getRestApiData(url);
 	}
 
@@ -411,15 +424,13 @@ public class dry extends BaseController {
 		if (keyword == null) {
 			url = Config.YXTSERVER3 + "oss/dry/searchDrys?n=" + n + "&s=" + s;
 		} else {
-			url = Config.YXTSERVER3 + "oss/dry/searchDrys?n=" + n + "&s=" + s
-					+ "&keywords=" + keyword;
+			url = Config.YXTSERVER3 + "oss/dry/searchDrys?n=" + n + "&s=" + s + "&keywords=" + keyword;
 		}
 		return getRestApiData(url);
 	}
 
 	private JSONObject UpdateDryById(String dryId, String groupid) {
-		String url = Config.YXTSERVER3 + "oss/oss/dry/updateOne?dryid=" + dryId
-				+ "&groupid=" + groupid;
+		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryId + "&groupid=" + groupid;
 		return getRestApiData(url);
 	}
 
