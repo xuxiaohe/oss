@@ -1,11 +1,14 @@
 package com.yunxuetang.share;
 
 import javax.servlet.http.HttpServletRequest;
+
 import net.sf.json.JSONObject;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.yunxuetang.oss.BaseController;
 import com.yunxuetang.util.Config;
 
@@ -92,11 +95,43 @@ public class ShareController extends BaseController{
 	* @throws
 	 */
 	@RequestMapping("/group")
-	public  ModelAndView findGroupDetails(HttpServletRequest request,String GroupId,String userId,String sourceId)
+	public  ModelAndView findGroupDetails(HttpServletRequest request)
 	{
-		return null;
+		String gid = request.getParameter("gid");
+		// 当前第几页
+		String n = request.getParameter("n");
+		if (n == null) {
+			n = "0";
+		}
+		// 每页条数
+		String s = request.getParameter("s");
+		if (s == null) {
+			s = "2";
+		}
+		ModelAndView modelview = new ModelAndView();
+		modelview.addObject("Group", getGroupInfo(gid));
+		modelview.addObject("DryList", getGroupDry(gid, n, s));
+		modelview.addObject("TopicList", getGroupTopic(gid, n, s));
+		modelview.setViewName("show");
+		return modelview;
 	}
 	
 	
+	private JSONObject getGroupInfo(String gid) {
+		String url = Config.YXTSERVER3 + "oss/group/findOneGroups/" + gid;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getGroupDry(String gid, String n, String s) {
+		String url = Config.YXTSERVER3 + "oss/dry/findDryByGroup?groupId="
+				+ gid + "&n=" + n + "&s=" + s;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getGroupTopic(String gid, String n, String s) {
+		String url = Config.YXTSERVER3 + "oss/topic/findByGroupId?sourceId="
+				+ gid + "&appKey=yxtapp&n=" + n + "&s=" + s;
+		return getRestApiData(url);
+	}
 	
 }
