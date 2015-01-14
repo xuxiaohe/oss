@@ -112,25 +112,43 @@ public class ShareController extends BaseController{
 		modelview.addObject("Group", getGroupInfo(gid));
 		modelview.addObject("DryList", getGroupDry(gid, n, s));
 		modelview.addObject("TopicList", getGroupTopic(gid, n, s));
-		modelview.setViewName("show");
+		modelview.setViewName("share/share_group");
 		return modelview;
 	}
 	
 	
 	private JSONObject getGroupInfo(String gid) {
-		String url = Config.YXTSERVER3 + "oss/group/findOneGroups/" + gid;
+		String url = Config.YXTSERVER + "oss/group/findOneGroups/" + gid;
 		return getRestApiData(url);
 	}
 	
 	private JSONObject getGroupDry(String gid, String n, String s) {
-		String url = Config.YXTSERVER3 + "oss/dry/findDryByGroup?groupId="
+		String url = Config.YXTSERVER + "oss/dry/findDryByGroup?groupId="
 				+ gid + "&n=" + n + "&s=" + s;
 		return getRestApiData(url);
 	}
 	
 	private JSONObject getGroupTopic(String gid, String n, String s) {
-		String url = Config.YXTSERVER3 + "oss/topic/findByGroupId?sourceId="
+		String url = Config.YXTSERVER + "oss/topic/findByGroupId?sourceId="
 				+ gid + "&appKey=yxtapp&n=" + n + "&s=" + s;
+		return getRestApiData(url);
+	}
+	/**
+	 * 
+	* @author yangquanliang
+	* @Description: type 1.用户 2.课程 3.小组 4.话题 5干货
+	* @param @param gid
+	* @param @param domain
+	* @param @param itemType
+	* @param @return
+	* @return JSONObject
+	* @throws
+	 */
+	private JSONObject getGroupTagsFromTagService(String gid,String domain,String itemType)
+	{
+		String url = Config.YXTSERVER4 + "tag/getTagsByIdAndType?domain="
+				+ domain + "&itemId=" + gid + "&itemType=" + itemType;
+		
 		return getRestApiData(url);
 	}
 	
