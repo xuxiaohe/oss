@@ -112,8 +112,8 @@ public class ShareController extends BaseController{
 		ModelAndView modelview = new ModelAndView();
 		modelview.addObject("Group", getGroupInfo(gid));
 		modelview.addObject("DryList", getGroupDry(gid, n, s));
-		modelview.addObject("TopicList", getGroupTopic(gid, n, s));
-		
+		modelview.addObject("TopicList", getGroupTopic(gid, n, s));  
+		modelview.addObject("TopicList", getcourseByGroup(gid, n, s));
 		JSONObject j=getGroupMember(gid);
 		JSONObject jj=(JSONObject) j.get("data");
 		JSONObject jjj=(JSONObject) jj.get("result");
@@ -145,6 +145,13 @@ public class ShareController extends BaseController{
 		String url = Config.YXTSERVER3 + "oss/group/one/" + gid + "/memberPc";
 		return getRestApiData(url);
 	}
+	
+	private JSONObject getcourseByGroup(String gid,String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/course/groupCourses?groupId="+gid+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	
+	
 	/**
 	 * 
 	* @author yangquanliang
