@@ -113,7 +113,8 @@ public class ShareController extends BaseController{
 		modelview.addObject("Group", getGroupInfo(gid));
 		modelview.addObject("DryList", getGroupDry(gid, n, s));
 		modelview.addObject("TopicList", getGroupTopic(gid, n, s));  
-		modelview.addObject("TopicList", getcourseByGroup(gid, n, s));
+		modelview.addObject("courseList", getcourseByGroup(gid, n, s));
+		modelview.addObject("tag", getGroupTagsFromTagService(gid,"yxt","3"));
 		JSONObject j=getGroupMember(gid);
 		JSONObject jj=(JSONObject) j.get("data");
 		JSONObject jjj=(JSONObject) jj.get("result");
