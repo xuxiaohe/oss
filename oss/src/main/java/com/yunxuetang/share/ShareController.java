@@ -112,6 +112,7 @@ public class ShareController extends BaseController{
 		modelview.addObject("Group", getGroupInfo(gid));
 		modelview.addObject("DryList", getGroupDry(gid, n, s));
 		modelview.addObject("TopicList", getGroupTopic(gid, n, s));
+		modelview.addObject("Member", getGroupMember(gid));
 		modelview.setViewName("share/share_group");
 		return modelview;
 	}
@@ -131,6 +132,10 @@ public class ShareController extends BaseController{
 	private JSONObject getGroupTopic(String gid, String n, String s) {
 		String url = Config.YXTSERVER + "oss/topic/findByGroupId?sourceId="
 				+ gid + "&appKey=yxtapp&n=" + n + "&s=" + s;
+		return getRestApiData(url);
+	}
+	private JSONObject getGroupMember(String gid) {
+		String url = Config.YXTSERVER3 + "oss/group/one/" + gid + "/memberPc";
 		return getRestApiData(url);
 	}
 	/**
