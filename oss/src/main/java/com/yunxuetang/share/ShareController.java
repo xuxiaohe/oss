@@ -2,6 +2,7 @@ package com.yunxuetang.share;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
@@ -112,7 +113,13 @@ public class ShareController extends BaseController{
 		modelview.addObject("Group", getGroupInfo(gid));
 		modelview.addObject("DryList", getGroupDry(gid, n, s));
 		modelview.addObject("TopicList", getGroupTopic(gid, n, s));
-		modelview.addObject("Member", getGroupMember(gid));
+		
+		JSONObject j=getGroupMember(gid);
+		JSONObject jj=(JSONObject) j.get("data");
+		JSONObject jjj=(JSONObject) jj.get("result");
+		JSONArray jjjj=jjj.getJSONArray("memberListusers");
+		//JSONObject jjjj=(JSONObject) jjj.get("memberListusers");
+		modelview.addObject("Member", jjjj);
 		modelview.setViewName("share/share_group");
 		return modelview;
 	}
