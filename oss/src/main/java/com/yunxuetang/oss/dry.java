@@ -373,6 +373,7 @@ public class dry extends BaseController {
 				try {
 					JSONObject objj3 = getOneDry(dryid);
 					modelview.addObject("resuserTopic", objj3);
+					modelview.addObject("groupList", groupList("0","100"));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

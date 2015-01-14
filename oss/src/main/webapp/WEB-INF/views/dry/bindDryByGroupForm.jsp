@@ -52,9 +52,16 @@
 
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">群组ID</label> <input type="text"
-							name="gid" class="form-control" id="exampleInputEmail1"
-							  placeholder="">
+						<label for="exampleInputEmail1">群组ID</label>  
+							  <select
+							class="form-control" name="gid" id="gidSelect">
+							<c:if test="${groupList.status == '200' }">
+								<c:forEach items="${groupList.data.result}" varStatus="key"
+									var="Recourse">
+									<option value="${Recourse.id }">${Recourse.groupName }</option>
+								</c:forEach>
+							</c:if>
+						</select>
 					</div>
 
 					 

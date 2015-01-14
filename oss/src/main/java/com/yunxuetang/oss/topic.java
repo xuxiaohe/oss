@@ -268,6 +268,7 @@ public class topic extends BaseController {
 				try {
 					JSONObject objj3 = getOneTopic(topicid);
 					modelview.addObject("resuserTopic", objj3);
+					modelview.addObject("groupList", groupList("0","100"));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
