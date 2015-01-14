@@ -6,6 +6,8 @@ import net.sf.json.JSONObject;
 
 import org.springframework.web.client.RestTemplate;
 
+import com.yunxuetang.util.Config;
+
 public class BaseController {
 
 	public BaseController() {
@@ -38,6 +40,12 @@ public class BaseController {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+	
+	
+	public JSONObject groupList(String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/group/search?s="+s+"&n="+n;
+		return getRestApiData(url);
 	}
 
 }

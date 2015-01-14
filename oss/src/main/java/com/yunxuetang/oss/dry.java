@@ -235,6 +235,7 @@ public class dry extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 
 		modelview.addObject("robots", findRoboit(pagenumber, pagelines));
+		modelview.addObject("groupList", groupList(pagenumber,pagelines));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);

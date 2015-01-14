@@ -77,7 +77,7 @@ public class topic extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("ressearchGroup", topicList(keyword, pagenumber, pagelines));
+		modelview.addObject("topicList", topicList(keyword, pagenumber, pagelines));
 
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -109,11 +109,12 @@ public class topic extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateTopicByGroupView", findRoboit(pagenumber, pagelines));
+		modelview.addObject("robots", findRoboit(pagenumber, pagelines));
+		modelview.addObject("groupList", groupList(pagenumber,pagelines));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
+		modelview.setViewName("topic/createtopicForm");
 		return modelview;
 	}
 
@@ -122,7 +123,7 @@ public class topic extends BaseController {
 	 * 用机器人id创建话题
 	 */
 	@RequestMapping("/createTopicByGroup")
-	public ModelAndView createTopicByGroup(HttpServletRequest request) {
+	public String createTopicByGroup(HttpServletRequest request) {
 
 		// 必输
 		String uid = request.getParameter("uid");
@@ -131,12 +132,33 @@ public class topic extends BaseController {
 		String title = request.getParameter("title");
 		// 可选
 		String tagName = request.getParameter("tagName");
+		if(tagName==null){
+			tagName="";
+		}
 		String content = request.getParameter("content");
+		if(content==null){
+			content="";
+		}
 		String picUrl = request.getParameter("picUrl");
+		if(picUrl==null){
+			picUrl="";
+		}
 		String lat = request.getParameter("lat");
+		if(lat==null){
+			lat="";
+		}
 		String lng = request.getParameter("lng");
+		if(lng==null){
+			lng="";
+		}
 		String localName = request.getParameter("localName");
+		if(localName==null){
+			localName="";
+		}
 		String barCode = request.getParameter("barCode");
+		if(barCode==null){
+			barCode="";
+		}
 
 		ModelAndView modelview = new ModelAndView();
 
@@ -144,27 +166,27 @@ public class topic extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		
+		return "redirect:/topic/topicList";
 	}
 
 	/**
 	 * 
 	 * 更新话题 展示页 查询话题信息
 	 */
-	@RequestMapping("/createTopicForm")
-	public ModelAndView createTopicForm(HttpServletRequest request) {
+	@RequestMapping("/updateTopicItemsForm")
+	public ModelAndView updateTopicItemsForm(HttpServletRequest request) {
 
 		// 必输
 		String topicid = request.getParameter("topicid");
 
 		ModelAndView modelview = new ModelAndView();
 
-			modelview.addObject("resupdateTopicByGroupView", getOneTopic(topicid));
+			modelview.addObject("resuserTopic", getOneTopic(topicid));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
+		modelview.setViewName("topic/updateTopicForm");
 		return modelview;
 	}
 
@@ -180,7 +202,7 @@ public class topic extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-			modelview.addObject("resupdateTopicByGroupView", getOneTopic(topicid));
+			modelview.addObject("topicDetail", getOneTopic(topicid));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -193,7 +215,7 @@ public class topic extends BaseController {
 	 * 更新话题
 	 */
 	@RequestMapping("/updateTopicByGroup")
-	public ModelAndView updateTopicByGroup(HttpServletRequest request) {
+	public String updateTopicByGroup(HttpServletRequest request) {
 
 		// 必输
 		String topicid = request.getParameter("topicid");
@@ -208,7 +230,7 @@ public class topic extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/topic/topicList";
 	}
 
 	/**
@@ -216,7 +238,7 @@ public class topic extends BaseController {
 	 * 关联群组
 	 */
 	@RequestMapping("/updateTopic")
-	public ModelAndView updateTopic(HttpServletRequest request) {
+	public String updateTopic(HttpServletRequest request) {
 
 		// 必输
 		String groupid = request.getParameter("groupid");
@@ -228,12 +250,47 @@ public class topic extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/topic/topicList";
 	}
+	
+	/**
+	 * 
+	 * 关联群组  展示页
+	 */
+	@RequestMapping("/updateTopicForm")
+	public ModelAndView updateTopicForm(HttpServletRequest request) {
+
+		// 当前第几页
+				String topicid = request.getParameter("topicid");
+
+				ModelAndView modelview = new ModelAndView();
+
+				try {
+					JSONObject objj3 = getOneTopic(topicid);
+					modelview.addObject("resuserTopic", objj3);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				String cpath = request.getContextPath();
+				String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+				modelview.addObject("cbasePath", cbasePath);
+				modelview.setViewName("topic/bindTopicByGroupForm");
+				return modelview;
+	}
+	
+	
+	
 
 	private JSONObject topicList(String keyword, String n, String s) {
-		String url = Config.YXTSERVER3 + "oss/topic/search?keyword=" + keyword + "&n=" + n + "&s=" + s;
+		String url;
+		if(keyword==null){
+			 url = Config.YXTSERVER3 + "oss/topic/search";
+		}
+		else {
+			 url = Config.YXTSERVER3 + "oss/topic/search?keyword=" + keyword + "&n=" + n + "&s=" + s;
+		}
+		
 		return getRestApiData(url);
 	}
 
@@ -249,9 +306,11 @@ public class topic extends BaseController {
 
 	private JSONObject createTopic(String uid, String sourceId, String type, String title, String tagName, String content, String picUrl, String lat,
 			String lng, String localName, String barCode) {
-		String url = Config.YXTSERVER3 + "oss/topic/create?uid=" + uid + "&sourceId=" + sourceId + "&type=" + type + "&title=" + title + "&tagName="
-				+ tagName + "&content=" + content + "&picUrl=" + picUrl + "&lat=" + lat + "&lng=" + lng + "&localName=" + localName + "&barCode="
-				+ barCode;
+//		String url = Config.YXTSERVER3 + "oss/topic/create?uid=" + uid + "&sourceId=" + sourceId + "&type=" + type + "&title=" + title + "&tagName="
+//				+ tagName + "&content=" + content + "&picUrl=" + picUrl + "&lat=" + lat + "&lng=" + lng + "&localName=" + localName + "&barCode="
+//				+ barCode;
+		
+		String url = Config.YXTSERVER3 + "oss/topic/create?uid=" + uid + "&sourceId=" + sourceId + "&type=" + type + "&title=" + title+ "&content=" + content;
 		return getRestApiData(url);
 	}
 	
@@ -262,7 +321,7 @@ public class topic extends BaseController {
 	
 	
 	private JSONObject updateTopicByGroup(String topicid, String title, String content, String picUrl) {
-		String url = Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicid=" + topicid + "&title=" + title + "&content=" + content + "&picUrl="
+		String url = Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicId=" + topicid + "&title=" + title + "&content=" + content + "&picUrl="
 				+ picUrl;
 		return getRestApiData(url);
 	}
@@ -271,5 +330,7 @@ public class topic extends BaseController {
 		String url = Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicId=" + topicid + "&groupid=" + groupid;
 		return getRestApiData(url);
 	}
+	
+	
 
 }

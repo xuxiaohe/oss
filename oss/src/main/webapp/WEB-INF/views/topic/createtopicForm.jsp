@@ -47,7 +47,7 @@
 			<div class="col-xs-9">
 				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
 				<form role="form" method="post"
-					action="${cbasePath}dry/createDryByGroup">
+					action="${cbasePath}topic/createTopicByGroup">
 					<div class="form-group">
 						<label for="exampleInputEmail1">用户名</label> 
 							<select class="form-control" name="uid" id="uidSelect">
@@ -61,8 +61,8 @@
 
 					</div>
 					<div class="form-group">
-						<label for="exampleInputEmail1">标签</label> <input type="text"
-							name="tagName" class="form-control" id="exampleInputEmail1"
+						<label for="exampleInputEmail1">标题</label> <input type="text"
+							name="title" class="form-control" id="exampleInputEmail1"
 							placeholder="">
 					</div>
 					<div class="form-group">
@@ -77,19 +77,13 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="exampleInputEmail1">URL</label> <input type="text"
-							name="url" class="form-control" id="exampleInputEmail1"
+						<label for="exampleInputEmail1">类型</label> <input type="text"
+							name="type" class="form-control" id="exampleInputEmail1"
 							placeholder="">
 					</div>
 					<div class="form-group">
-						<label for="exampleInputEmail1">fileURL</label> <input type="text"
-							name="fileUrl" class="form-control" id="exampleInputEmail1"
-							placeholder="">
-					</div>
-
-					<div class="form-group">
-						<label for="exampleInputEmail1">信息</label> <input type="text"
-							name="message" class="form-control" id="exampleInputEmail1"
+						<label for="exampleInputEmail1">内容</label> <input type="text"
+							name="content" class="form-control" id="exampleInputEmail1"
 							placeholder="">
 					</div>
 
