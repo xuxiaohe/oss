@@ -115,12 +115,11 @@ public class ShareController extends BaseController{
 		modelview.addObject("TopicList", getGroupTopic(gid, n, s));  
 		modelview.addObject("courseList", getcourseByGroup(gid, n, s));
 		modelview.addObject("tag", getGroupTagsFromTagService(gid,"yxt","3"));
-		JSONObject j=getGroupMember(gid);
-		JSONObject jj=(JSONObject) j.get("data");
-		JSONObject jjj=(JSONObject) jj.get("result");
-		JSONArray jjjj=jjj.getJSONArray("memberListusers");
-		//JSONObject jjjj=(JSONObject) jjj.get("memberListusers");
-		modelview.addObject("Member", jjjj);
+		JSONObject resdata=getGroupMember(gid);
+		JSONObject result=(JSONObject) resdata.get("data");
+		JSONObject listData=(JSONObject) result.get("result");
+		JSONArray listMember=listData.getJSONArray("memberListusers");
+		modelview.addObject("Member", listMember);
 		modelview.setViewName("share/share_group");
 		return modelview;
 	}
@@ -143,12 +142,12 @@ public class ShareController extends BaseController{
 		return getRestApiData(url);
 	}
 	private JSONObject getGroupMember(String gid) {
-		String url = Config.YXTSERVER3 + "oss/group/one/" + gid + "/memberPc";
+		String url = Config.YXTSERVER + "oss/group/one/" + gid + "/memberPc";
 		return getRestApiData(url);
 	}
 	
 	private JSONObject getcourseByGroup(String gid,String n,String s) {
-		String url = Config.YXTSERVER3 + "oss/course/groupCourses?groupId="+gid+"&n="+n+"&s="+s;
+		String url = Config.YXTSERVER + "oss/course/groupCourses?groupId="+gid+"&n="+n+"&s="+s;
 		return getRestApiData(url);
 	}
 	
