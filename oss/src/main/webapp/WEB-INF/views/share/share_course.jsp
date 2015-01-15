@@ -56,7 +56,7 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
        <div class="dc_book">
        <!-- <img id="curpic" src="images/default_book_cover.png" />课程图片 -->
         
-        <video id="curpic" src="${ courSharReso.course.chapters[0].playUrl}" width="100%" height="100%" controls="controls" autoplay=”autoplay”>
+        <video id="curpic" src="${ courSharReso.course.chapters[0].lessons[0].knowledge.appItems[0].furl}" width="100%" height="100%" controls="controls" autoplay=”autoplay”>
        您的浏览器不支持 video 标签。
               </video>
               

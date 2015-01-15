@@ -69,10 +69,10 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
 	}
 </script>
 	<ul class="title" id="tag_switching">
-      <li><a href="#" onmouseover="javascript:woaicssq(1)">资料</a></li>
-	  <li><a href="#" onmouseover="javascript:woaicssq(2)">课程(${ courseList.data.total_rows})</a></li>
-	  <li><a href="#" onmouseover="javascript:woaicssq(3)">话题(${TopicList.data.total_rows})</a></li>
-	  <li><a href="#" onmouseover="javascript:woaicssq(4)">干货(${DryList.data.total_rows})</a></li>
+      <li><a href="#" onclick="javascript:woaicssq(1)">资料</a></li>
+	  <li><a href="#" onclick="javascript:woaicssq(2)">课程(${ courseList.data.total_rows})</a></li>
+	  <li><a href="#" onclick="javascript:woaicssq(3)">话题(${TopicList.data.total_rows})</a></li>
+	  <li><a href="#" onclick="javascript:woaicssq(4)">干货(${DryList.data.total_rows})</a></li>
 	</ul>
 	<div class="dc2_1" id="woaicss_con1" style="display:none;">
       <div class="a">
