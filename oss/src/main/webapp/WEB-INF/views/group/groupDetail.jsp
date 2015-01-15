@@ -40,24 +40,20 @@
 					<div class="col-xs-2">
 						<img class="thumbnail col-xs-12"
 							src="${Group.data.result.logoUrl }" alt="" />
-						<button type="button" class="btn btn-warning btn-block">编辑</button>
-						<button type="button" class="btn btn-warning btn-block">删除</button>
+						<button class="btnEdit" data="${Group.data.result.id }" type="button" class="btn btn-warning btn-block">编辑</button>
+						<button class="benDelete" data="${Group.data.result.id }" type="button" class="btn btn-warning btn-block">删除</button>
 						<hr />
 						<div id="btnGroupDiv" class="col-xs-12">
 							<a
 								href="${cbasePath}group/groupTopic?gid=${Group.data.result.id }">
 								<button type="button" class="btn btn-success btn-block">管理话题</button>
-							</a>
-							<a
+							</a> <a
 								href="${cbasePath}group/groupDry?gid=${Group.data.result.id }">
-							<button type="button" class="btn btn-success btn-block">管理干货</button>
-							</a>
-							<a
+								<button type="button" class="btn btn-success btn-block">管理干货</button>
+							</a> <a
 								href="${cbasePath}group/groupCourse?gid=${Group.data.result.id }">
-							<button type="button" class="btn btn-success btn-block">管理课程</button>
-							</a>
-							
-							<a
+								<button type="button" class="btn btn-success btn-block">管理课程</button>
+							</a> <a
 								href="${cbasePath}group/groupMember?gid=${Group.data.result.id }"><button
 									type="button" class="btn btn-success btn-block">管理成员</button></a>
 						</div>
@@ -68,7 +64,23 @@
 								class="pull-right">注册时间：<Date:date
 										value="${Group.data.result.ctime}"></Date:date></small></small>
 						</h4>
+						<div class="col-xs-6">编号：${Group.data.result.groupNumber}
+						</div>
+						<div class="col-xs-12">介绍：${Group.data.result.intro}
+						</div>
 						
+						<div class="col-xs-6">Tag：${Group.data.result.tag}
+						</div>
+						<div class="col-xs-6">开放：${Group.data.result.isOpen}
+						</div>
+						<div class="col-xs-6">更新：<Date:date
+										value="${Group.data.result.utime}"></Date:date>
+						</div>
+						<div class="col-xs-6">位置：${Group.data.result.position}
+						</div>
+						<div class="col-xs-12">二维码：<img src="${Group.data.result.qrCodeUrl}" alt="" />
+						</div>
+
 					</div>
 				</div>
 
