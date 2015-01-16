@@ -60,7 +60,7 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
     <div class="address">
       <ul class="label">
       <c:forEach items="${topicSharReso.topicResponse.tagName}" var="tag">
-      <li> ${tag}</li>
+      <li> [${tag.value}]</li>
       </c:forEach>
       </ul>
     </div>
@@ -113,7 +113,7 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
     <div class="address">
       <ul class="label">
       <c:forEach items="${topicSharReso.topicResponse.tagName}" var="tag">
-      <li> ${tag}</li>
+      <li> ${tag.value}</li>
       </c:forEach>
       </ul>
     </div>

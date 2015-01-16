@@ -82,7 +82,7 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
         <img src='${Recourse.logoUrl}' /></div><div class='dc_right dc_book'>
            
         <div class='dc_r_title'>${Recourse.title}</div> 
-        <div class='dc_r_content'>${Recourse.intro}</div><div class='dc_r_bottom'>
+        <div class='dc_r_content twoLine' >${Recourse.intro}</div><div class='dc_r_bottom'>
        
         <div class='dc_r_b_content1'>${Recourse.studyCount}人学习</div>
         <div class='dc_r_b_content2'>${Recourse.shareCount}人分享</div>

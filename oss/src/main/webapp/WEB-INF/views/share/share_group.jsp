@@ -24,7 +24,7 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
   <div class="divTop">
     <div class="logo"><img src="<%=cbasePath%>/resources/assets/image/share/logo.png" /></div>
     <div class="button">
-      <a href="itms-services://?action=download-manifest&url=https://passport.yunxuetang.cn/t/yxt/yxt.ipa"><img src="<%=cbasePath%>/resources/assets/image/share/botton.png" ></a>
+      <a href="itms-services://?action=download-manifest&url=https://passport.yunxuetang.cn/t/yxt/yxt.ipa"><img src="<%=cbasePath%>/resources/assets/image/share/button.png" ></a>
     </div>
     <div class="clear"></div>
   </div>
@@ -34,7 +34,7 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
     
     <div class="dc1">
       <div class="dc1_1">
-        <img src="${ Group.data.result.logoUrl}" />
+        <a href="${ Group.data.result.qrCodeUrl}"><img src="${ Group.data.result.qrCodeUrl}" /></a>
       </div>
       <div class="dc1_2">
         ${Group.data.result.groupName}
@@ -42,9 +42,6 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
       </div>
     </div>
     
-    <div class="dc1_3">
-      <img src="<%=cbasePath%>/resources/assets/image/share/botton.png" />
-    </div>
   </div>
   
   <div class="divContent2">
@@ -57,24 +54,19 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
 	document.getElementById(MrJin).style.display="block";
 	else
 	document.getElementById(MrJin).style.display="none";
+	}	
+	document.getElementById("tag_switching").className="title";
+
 	}
-	if(num==1) 
-	document.getElementById("tag_switching").className="title";
-	if(num==2)
-	document.getElementById("tag_switching").className="title";
-	if(num==3)
-	document.getElementById("tag_switching").className="title";
-	if(num==4)
-	document.getElementById("tag_switching").className="title";
-	}
+	
 </script>
 	<ul class="title" id="tag_switching">
-      <li><a href="#" onclick="javascript:woaicssq(1)">资料</a></li>
-	  <li><a href="#" onclick="javascript:woaicssq(2)">课程(${ courseList.data.total_rows})</a></li>
-	  <li><a href="#" onclick="javascript:woaicssq(3)">话题(${TopicList.data.total_rows})</a></li>
-	  <li><a href="#" onclick="javascript:woaicssq(4)">干货(${DryList.data.total_rows})</a></li>
+      <li style="cursor:pointer"><a  onclick="javascript:woaicssq(1)">资料</a></li>
+	  <li style="cursor:pointer"><a  onclick="javascript:woaicssq(2)">课程(${ courseList.data.total_rows})</a></li>
+	  <li style="cursor:pointer"><a  onclick="javascript:woaicssq(3)">话题(${TopicList.data.total_rows})</a></li>
+	  <li style="cursor:pointer"><a  onclick="javascript:woaicssq(4)">干货(${DryList.data.total_rows})</a></li>
 	</ul>
-	<div class="dc2_1" id="woaicss_con1" style="display:none;">
+	<div class="dc2_1" id="woaicss_con1" >
       <div class="a">
         <div class="a_title">
           <div class="a_title_left">基本信息</div>
@@ -307,7 +299,7 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
       
         <div class="b5">
           <div class="b5_1">
-            ${ fn:length(subDry.whoView) }人学习
+            ${subDry.viewCount}人学习
           </div>
           <div class="b5_1">
             ${ subDry.favCount}人收藏
@@ -328,7 +320,7 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
   <div class="divTop1">
     <div class="logo"><img src="<%=cbasePath%>/resources/assets/image/share/logo1.png" /></div>
     <div class="button">
-      <a href="itms-services://?action=download-manifest&url=https://passport.yunxuetang.cn/t/yxt/yxt.ipa"><img src="<%=cbasePath%>/resources/assets/image/share/botton.png" ></a>
+      <a href="itms-services://?action=download-manifest&url=https://passport.yunxuetang.cn/t/yxt/yxt.ipa"><img src="<%=cbasePath%>/resources/assets/image/share/button.png" ></a>
     </div>
     <div class="clear"></div>
   </div>
