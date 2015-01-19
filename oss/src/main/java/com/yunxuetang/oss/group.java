@@ -978,10 +978,14 @@ public class group extends BaseController {
 		modelview.setViewName("group/groupMember");
 		return modelview;
 	}
+	
+	
+	 
+	
 
 	/**
 	 * 
-	 * 查找群的所有话题
+	 * 查找群的所有课程
 	 */
 	@RequestMapping("/groupCourse")
 	public ModelAndView groupCourse(HttpServletRequest request) {
@@ -1005,7 +1009,7 @@ public class group extends BaseController {
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("group/groupTopic");
+		modelview.setViewName("group/groupCourse");
 		return modelview;
 	}
 
@@ -1021,36 +1025,36 @@ public class group extends BaseController {
 	}
 	
 	
-	/**
-	 * 
-	 * 群成课程
-	 */
-	@RequestMapping("/courseByGroup")
-	public ModelAndView courseByGroup(HttpServletRequest request) {
-		String gid = request.getParameter("gid");
-		// 当前第几页
-		String n = request.getParameter("n");
-		if (n == null) {
-			n = "0";
-		}
-		// 每页条数
-		String s = request.getParameter("s");
-		if (s == null) {
-			s = "10";
-		}
-
-		ModelAndView modelview = new ModelAndView();
-		modelview.addObject("course", getcourseByGroup(gid,n,s));
-		
-
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("group/groupMember");
-		return modelview;
-	}
+//	/**
+//	 * 
+//	 * 群成课程
+//	 */
+//	@RequestMapping("/courseByGroup")
+//	public ModelAndView courseByGroup(HttpServletRequest request) {
+//		String gid = request.getParameter("gid");
+//		// 当前第几页
+//		String n = request.getParameter("n");
+//		if (n == null) {
+//			n = "0";
+//		}
+//		// 每页条数
+//		String s = request.getParameter("s");
+//		if (s == null) {
+//			s = "10";
+//		}
+//
+//		ModelAndView modelview = new ModelAndView();
+//		modelview.addObject("course", getcourseByGroup(gid,n,s));
+//		
+//
+//		String cpath = request.getContextPath();
+//		String cbasePath = request.getScheme() + "://"
+//				+ request.getServerName() + ":" + request.getServerPort()
+//				+ cpath + "/";
+//		modelview.addObject("cbasePath", cbasePath);
+//		modelview.setViewName("group/groupMember");
+//		return modelview;
+//	}
 	
 	
 	
@@ -1077,18 +1081,18 @@ public class group extends BaseController {
 		return getRestApiData(url);
 	}
 
-	private JSONObject getGroupCourse(String gid, String n, String s) {
-		String url = Config.YXTSERVER3 + "oss/topic/getGroupCourse?gid=" + gid
-				+ "&n=" + n + "&s=" + s;
-		return getRestApiData(url);
-	}
+//	private JSONObject getGroupCourse(String gid, String n, String s) {
+//		String url = Config.YXTSERVER3 + "oss/topic/getGroupCourse?gid=" + gid
+//				+ "&n=" + n + "&s=" + s;
+//		return getRestApiData(url);
+//	}
 
 	private JSONObject deleteGroupByID(String gid) {
 		String url = Config.YXTSERVER3 + "oss/group/" + gid + "/delete";
 		return getRestApiData(url);
 	}
 	
-	private JSONObject getcourseByGroup(String gid,String n,String s) {
+	private JSONObject getGroupCourse(String gid,String n,String s) {
 		String url = Config.YXTSERVER3 + "oss/course/groupCourses?groupId="+gid+"&n="+n+"&s="+s;
 		return getRestApiData(url);
 	}

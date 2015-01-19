@@ -408,7 +408,7 @@ public class user extends BaseController {
 	}
 
 	/**
-	 * 根据用户id查找出所有课程
+	 * 根据用户id查找出所有话题
 	 */
 	@RequestMapping("/getMyTopic")
 	private ModelAndView getMyTopic(HttpServletRequest request) {
@@ -427,7 +427,7 @@ public class user extends BaseController {
 	}
 
 	/**
-	 * 根据用户id查找出所有课程
+	 * 根据用户id查找出所有干货
 	 */
 	@RequestMapping("/getMyDry")
 	private ModelAndView getMyDry(HttpServletRequest request) {
@@ -446,7 +446,7 @@ public class user extends BaseController {
 	}
 
 	/**
-	 * 根据用户id查找出所有课程
+	 * 根据用户id查找出所有群组
 	 */
 	@RequestMapping("/getMyGroup")
 	private ModelAndView getMyGroup(HttpServletRequest request) {
@@ -463,6 +463,27 @@ public class user extends BaseController {
 		return modelview;
 
 	}
+	
+	
+	/**
+	 * 根据用户id查找出所有课程
+	 */
+	@RequestMapping("/getMyCourse")
+	private ModelAndView getMyCourse(HttpServletRequest request) {
+
+		String userid = request.getParameter("userid");
+
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("resMyCourse", getMyCourse(userid));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("user/userDetail");
+		return modelview;
+
+	}
+	
 
 	private JSONObject getUserList(String keyword, String n, String s) {
 		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&keyword=" + keyword;
@@ -528,6 +549,11 @@ public class user extends BaseController {
 
 	private JSONObject getMyGroup(String userid) {
 		String url = Config.YXTSERVER3 + "oss/group/findMyGroups/" + userid;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getMyCourse(String userid) {
+		String url = Config.YXTSERVER3 + "oss/course/userCourseList/" + userid;
 		return getRestApiData(url);
 	}
 
