@@ -21,11 +21,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <%-- <c:url var="exportUrl" value="/report/export" />   --%>
     <c:url var="readUrl" value="/user/importUser" />  
       
-      
-    <h3><a href="${exportUrl }">Export Report</a></h3>  
+      <br><br><br><br><br><br><br><br><br>
+    <h3>Excel批量导入用户：</h3>  
     <br />  
     <form  id="readReportForm" action="${readUrl}" method="post" enctype="multipart/form-data"  >  
-            <label for="file">File</label>  
+            <label for="file">Excel文件（格式为第一列的数据为用户名，第二列为密码）：</label>  
             <input id="file" type="file" name="file" />  
             <p><button type="submit">Read</button></p>    
         </form>  

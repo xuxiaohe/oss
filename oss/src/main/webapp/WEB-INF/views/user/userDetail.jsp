@@ -43,7 +43,7 @@
 						<img class="thumbnail col-xs-12"
 							src="${resuserDetail.logoURL }" alt="" />
 						<button type="button" class="btn btn-warning btn-block">编辑</button>
-						<button type="button" class="btn btn-warning btn-block">删除</button>
+						<button id="delete" data="${resuserDetail.id}" type="button" class="btn btn-warning btn-block">删除</button>
 						<hr />
 						<div id="btnGroupDiv" class="col-xs-12">
 							<a
@@ -132,6 +132,17 @@
 			/* $("#searchIt").click(function(){
 				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
 			}); */
+			
+			$("#delete").click(function(){
+				  if(window.confirm('你确定要删除吗？')){
+					alert("${cbasePath}user/deleteUser?userid="+$(this).attr("data"));
+					window.location.href="${cbasePath}user/deleteUser?userid="+$(this).attr("data");
+				}else{
+					
+				}  
+				
+			 
+			});
 		});
 	</script>
 </body>

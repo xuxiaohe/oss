@@ -43,10 +43,10 @@
 						<img class="thumbnail col-xs-12"
 							src="${dryDetail.data.result.fileUrl }" alt="" />
 						<a href="${cbasePath}dry/editForm?dryid=${dryDetail.data.result.id }">
-						<button type="button" class="btn btn-warning btn-block">编辑</button></a>
-						<button type="button" class="btn btn-warning btn-block">删除</button>
+						<button type="button" class="btn btn-warning btn-block">编辑</button></a><br>
+						<button data="${dryDetail.data.result.id }" type="button" class="deleteBtn btn-warning btn-block">删除</button>
 						<hr />
-						<div id="btnGroupDiv" class="col-xs-12">
+						<%-- <div id="btnGroupDiv" class="col-xs-12">
 							<a
 								href="${cbasePath}user/userTopic?userid=${resuserDetail.data.result.id }">
 								<button type="button" class="btn btn-success btn-block">查看话题</button>
@@ -59,7 +59,7 @@
 							</a> <a
 								href="${cbasePath}user/userGroup?userid=${resuserDetail.data.result.id }"><button
 									type="button" class="btn btn-success btn-block">查看群组</button></a>
-						</div>
+						</div> --%>
 					</div>
 					<div id="userInfoDiv" class="col-xs-10" style="">
 						<h4 style="margin-left: 12px;">
@@ -94,6 +94,19 @@
 			/* $("#searchIt").click(function(){
 				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
 			}); */
+			
+			$(".deleteBtn")
+			.click(
+					function() {
+						if (window.confirm('你确定要删除吗？')) {
+							//alert("${cbasePath}dry/deleteDry?dryid="+$(this).attr("data"));
+							 window.location.href = "${cbasePath}dry/deleteDry?dryid="+ $(this).attr("data");
+						} else {
+
+						}
+					});
+			
+			
 		});
 	</script>
 </body>

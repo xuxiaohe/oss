@@ -90,10 +90,10 @@
 									介绍：${Recourse.intro}
 								</div>
 								<div class="col-xs-12 btn-group-sm">
-									<button data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">删除</button>
-									<button type="button" class="btn btn-primary">查看</button>
-									<button type="button" class="btn btn-primary">修改密码</button>
-									<button type="button" class="btn btn-primary">编辑</button>
+									<button name="delete" data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">删除</button>
+									<button name="look" data="${Recourse.id}" type="button" class="look btn btn-primary">查看</button>
+									<button name="changepasswd" data="${Recourse.id}" type="button" class="changepasswd btn btn-primary">修改密码</button>
+									<button name="edit" data="${Recourse.id}" type="button" class="edit btn btn-primary">编辑</button>
 								</div>
 
 							</div>
@@ -126,6 +126,21 @@
 				}else{
 					
 				}
+			});
+		
+			$(".look").click(function(){
+				
+					window.location.href="${cbasePath}user/userDetail?userid="+$(this).attr("data");  
+			});
+			
+			$(".changepasswd").click(function(){
+					window.location.href="${cbasePath}user/resetPasswordForm?uid="+$(this).attr("data");  
+				 
+			});
+			
+			$(".edit").click(function(){
+				window.location.href="${cbasePath}user/updateUserForm?userid="+$(this).attr("data"); 
+				 
 			});
 		});
 	</script>

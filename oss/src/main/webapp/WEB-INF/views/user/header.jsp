@@ -20,7 +20,7 @@
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="#">用户创建</a></li>
 				<li><a href="#">批量创建</a></li>
-				<li><a href="#">用户导入</a></li>
+				<li><a href="${cbasePath}user/importUserView">用户导入</a></li>
 				<li class="divider"></li>
 			</ul>
 		</div>

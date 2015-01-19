@@ -31,7 +31,7 @@
 				href="${cbasePath}user/userDetail?userid=${resuserTopic.data.result.id}">干货详情:
 					<small> ${resuserTopic.data.result.message  }</small>
 			</a></li>
-			<li class="active">干货编辑</li>
+			<li class="active">关联群组</li>
 		</ol>
 
 		<div class="row">

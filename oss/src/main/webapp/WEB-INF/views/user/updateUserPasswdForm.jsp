@@ -9,7 +9,7 @@
 <html>
 <head lang="en">
 <meta charset="UTF-8">
-<title>用户管理</title>
+<title>用户密码修改</title>
 <script src="${cbasePath}/resources/assets/js/jquery.min.js"></script>
 <script src="${cbasePath}/resources/assets/js/bootstrap.min.js"></script>
 <link href="${cbasePath}/resources/assets/css/bootstrap.min.css"
@@ -25,41 +25,38 @@
 	<div class="container-fluid">
 
 		<ol class="breadcrumb">
-			<li><a href="#">话题仓库</a></li>
-			<li><a href="${cbasePath}topic/topicList">话题列表</a></li>
+			<li><a href="#">干货仓库</a></li>
+			<li><a href="${cbasePath}user/userList">干货列表</a></li>
 			<li><a
-				href="${cbasePath}topic/topicDetail?topicid=${resuserTopic.data.result.topicId}">话题详情
-					 
+				href="${cbasePath}user/userDetail?userid=${resuserDetail.data.result.id}">干货详情:
 			</a></li>
-			<li class="active">话题编辑</li>
+			<li class="active">干货编辑</li>
 		</ol>
 
 		<div class="row">
-			 
+			<div class="col-xs-3">
+				<img class="thumbnail col-xs-12"
+					src="${resuserDetail.data.result.logoURL}" alt="" />
+
+				<%-- <c:forEach items="${imgUrls}" varStatus="key" var="img">
+					<img src="${img}" alt="" />
+				</c:forEach> --%>
+			</div>
+
 
 			<div class="col-xs-9">
-				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
+				 
 				<form role="form" method="post"
-					action="${cbasePath}topic/updateTopicByGroup?topicid=${resuserTopic.data.result.topicId}">
+					action="${cbasePath}user/resetPassword?uid=${resuserDetail.data.result.id}">
 
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">title</label> <input type="text"
-							name="title" class="form-control" id="exampleInputEmail1"
-							value="${resuserTopic.data.result.title }" placeholder="">
+						<label for="exampleInputEmail1">新密码：</label> <input type="text"
+							name="password" class="form-control" id="exampleInputEmail1"
+							  placeholder="">
 					</div>
 
-					<div class="form-group">
-						<label for="exampleInputEmail1">content</label> <input type="text"
-							name="content" class="form-control" id="exampleInputEmail1"
-							value="${resuserTopic.data.result.content }" placeholder="">
-					</div>
-					
-					<div class="form-group">
-						<label for="exampleInputEmail1">picUrl</label> <input type="text"
-							name="picUrl" class="form-control" id="exampleInputEmail1"
-							value="${resuserTopic.data.result.picUrl }" placeholder="">
-					</div>
+					 
 
 
 					<button type="submit" class="btn btn-default">Submit</button>

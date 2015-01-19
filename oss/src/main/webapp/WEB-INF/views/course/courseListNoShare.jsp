@@ -24,7 +24,7 @@
 		<jsp:include page="header.jsp"></jsp:include>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<form class="form-inline" action="${cbasePath}course/searchCourse"
+				<form class="form-inline" action="${cbasePath}course/searchCourseNoShare"
 					method="get" role="form">
 					<div class="form-group">
 						<label class="sr-only" for="keyword">Search:</label> <input

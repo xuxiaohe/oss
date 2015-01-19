@@ -117,7 +117,6 @@ public class course extends BaseController {
 				return modelview;
 	}
 	
-
 	
 	/**
 	 * 
@@ -125,14 +124,55 @@ public class course extends BaseController {
 	 */
 	@RequestMapping("/searchCourse")
 	public ModelAndView searchCourse(HttpServletRequest request) {
+		// 当前第几页
+				String n = request.getParameter("n");
+				if (n == null) {
+					n = "0";
+				}
+				// 每页条数
+				String s = request.getParameter("s");
+
+				if (s == null) {
+					s = "10";
+				}
 		String keyword = request.getParameter("keyword");
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("courses", searchCourse(keyword));
+		modelview.addObject("courses", searchCourse(keyword,n,s));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("course/courseList");
+		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * 搜索课程 未分配群组
+	 */
+	@RequestMapping("/searchCourseNoShare")
+	public ModelAndView searchCourseNoShare(HttpServletRequest request) {
+		// 当前第几页
+				String n = request.getParameter("n");
+				if (n == null) {
+					n = "0";
+				}
+				// 每页条数
+				String s = request.getParameter("s");
+
+				if (s == null) {
+					s = "10";
+				}
+		String keyword = request.getParameter("keyword");
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("courses", searchCourse(keyword,n,s));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("course/courseListNoShare");
 		return modelview;
 	}
 	
@@ -161,7 +201,7 @@ public class course extends BaseController {
 	 * 课程分享到群组
 	 */
 	@RequestMapping("/shareToMyGroup")
-	public ModelAndView shareToMyGroup(HttpServletRequest request) {
+	public String shareToMyGroup(HttpServletRequest request) {
 		String groupId = request.getParameter("groupId");
 		String courseId = request.getParameter("courseId");
 		String appKey = "yxtapp";
@@ -171,8 +211,7 @@ public class course extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("course/courseList");
-		return modelview;
+		return  "redirect:/course/courseList";
 	}
 	
 	
@@ -211,8 +250,8 @@ public class course extends BaseController {
 	
 	
 	
-	private JSONObject searchCourse(String keyword) {
-		String url = Config.YXTSERVER3 + "oss/course/search?keywords="+keyword;
+	private JSONObject searchCourse(String keyword,String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/course/search?keywords="+keyword+"&n="+n+"&s="+s;
 		return getRestApiData(url);
 	}
 	

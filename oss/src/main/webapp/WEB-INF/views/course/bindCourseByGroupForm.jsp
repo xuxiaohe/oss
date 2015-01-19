@@ -37,7 +37,7 @@
 		<div class="row">
 			<div class="col-xs-3">
 				<img class="thumbnail col-xs-12"
-					src="${resuserTopic.data.result.fileUrl}" alt="" />
+					src="${resuserCourse.data.result.logoUrl}" alt="" />
 
 				<%-- <c:forEach items="${imgUrls}" varStatus="key" var="img">
 					<img src="${img}" alt="" />
@@ -48,13 +48,13 @@
 			<div class="col-xs-9">
 				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
 				<form role="form" method="post"
-					action="${cbasePath}dry/updateDryAction?cid=${resuserCourse.data.result.id}">
+					action="${cbasePath}course/shareToMyGroup?courseId=${resuserCourse.data.result.id}">
 
 
 					<div class="form-group">
 						<label for="exampleInputEmail1">群组ID</label>  
 							  <select
-							class="form-control" name="gid" id="gidSelect">
+							class="form-control" name="groupId" id="gidSelect">
 							<c:if test="${groupList.status == '200' }">
 								<c:forEach items="${groupList.data.result}" varStatus="key"
 									var="Recourse">
@@ -63,9 +63,6 @@
 							</c:if>
 						</select>
 					</div>
-
-					 
-
 
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>

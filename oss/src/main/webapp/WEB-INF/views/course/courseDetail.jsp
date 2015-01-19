@@ -30,10 +30,10 @@
 	<div class="container-fluid">
 		<jsp:include page="header.jsp"></jsp:include>
 		<ol class="breadcrumb">
-			<li><a href="#">干货管理</a></li>
-			<li><a href="${cbasePath}dry/dryList">干货列表</a></li>
-			<li class="active">课程详情: <small>
-					${dryDetail.data.result.title }</small>
+			<li><a href="#">课程管理</a></li>
+			<li><a href="${cbasePath}course/courseList">课程列表</a></li>
+			<li class="active">课程详情 <small>
+				 </small>
 			</li>
 		</ol>
 		<div class="panel panel-default">
@@ -43,11 +43,11 @@
 						<img class="thumbnail col-xs-12"
 							src="${courseDetail.data.result.logoUrl }" alt="" /> <a
 							href="${cbasePath}dry/editForm?dryid=${courseDetail.data.result.id }">
-							<button type="button" class="btn btn-warning btn-block">编辑</button>
+							<!-- <button type="button" class="btn btn-warning btn-block">编辑</button> -->
 						</a>
-						<button type="button" class="btn btn-warning btn-block">删除</button>
+						<!-- <button type="button" class="btn btn-warning btn-block">删除</button> -->
 						<hr />
-						<div id="btnGroupDiv" class="col-xs-12">
+						<%-- <div id="btnGroupDiv" class="col-xs-12">
 							<a
 								href="${cbasePath}user/userTopic?userid=${courseDetail.data.result.id }">
 								<button type="button" class="btn btn-success btn-block">查看话题</button>
@@ -60,7 +60,7 @@
 							</a> <a
 								href="${cbasePath}user/userGroup?userid=${courseDetail.data.result.id }"><button
 									type="button" class="btn btn-success btn-block">查看群组</button></a>
-						</div>
+						</div> --%>
 					</div>
 					<div id="userInfoDiv" class="col-xs-10" style="">
 						<h4 style="margin-left: 12px;">

@@ -310,6 +310,27 @@ public class user extends BaseController {
 		modelview.setViewName("show");
 		return modelview;
 	}
+	
+	
+	/**
+	 * 
+	 * 
+	 * 编辑用户信息的展示页
+	 */
+	@RequestMapping("/updateUserForm")
+	private ModelAndView updateUserForm(HttpServletRequest request) {
+		 
+		String userid = request.getParameter("userid");
+
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("resuserDetail", getUserDetail(userid));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("user/editUser");
+		return modelview;
+	}
 
 	/**
 	 * 批量导入用户 展示页 1.页面提交多个表单 2.页面excel csv
@@ -368,6 +389,36 @@ public class user extends BaseController {
 
 	}
 
+	
+	
+	/**
+	 * 密码重置  展示页
+	 * 
+	 * 
+	 */
+	@RequestMapping("/resetPasswordForm")
+	private ModelAndView resetPasswordForm(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		String uid = request.getParameter("uid");
+
+		ModelAndView modelview = new ModelAndView();
+		try {
+			modelview.addObject("resuserDetail", getUserDetail(uid));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("user/updateUserPasswdForm");
+		return modelview;
+
+	}
+	
+	
+	
+	
 	/**
 	 * 密码重置
 	 * 
@@ -387,7 +438,9 @@ public class user extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("show");
 		return modelview;
 

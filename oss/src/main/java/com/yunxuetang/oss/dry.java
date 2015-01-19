@@ -253,6 +253,12 @@ public class dry extends BaseController {
 		// 必输
 		String id = request.getParameter("uid");
 		String tagName = request.getParameter("tagName");
+		String tagNameArry[]=tagName.split(",");
+		List l=new ArrayList();
+		for (String a:tagNameArry) {
+			 l.add("\""+a+"\"");
+		}
+		String i=l.toString();
 		String group = request.getParameter("gid");
 		String url = request.getParameter("url");
 		String fileUrl = request.getParameter("fileUrl");
@@ -260,7 +266,7 @@ public class dry extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateDryByGroup", createDryByGroup(id, tagName, group, url, fileUrl, message));
+		modelview.addObject("rescreateDryByGroup", createDryByGroup(id, i, group, url, fileUrl, message));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
