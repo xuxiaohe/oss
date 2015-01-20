@@ -18,7 +18,8 @@
 				用户管理 <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="#">用户创建</a></li>
+				<li><a href="${cbasePath }user/createRobotForm">创建马甲用户</a></li>
+				<li><a href="#">创建普通用户</a></li>
 				<li><a href="#">批量创建</a></li>
 				<li><a href="${cbasePath}user/importUserView">用户导入</a></li>
 				<li class="divider"></li>

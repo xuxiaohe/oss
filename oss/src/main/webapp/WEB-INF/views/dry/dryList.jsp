@@ -77,6 +77,9 @@
 								<div class="col-xs-12 btn-group-sm">
 									<button data="${Recourse.id}" type="button"
 										class="deleteBtn btn btn-primary">删除</button>
+										
+										<button data="${Recourse.id}" type="button"
+										class="info btn btn-primary">详情</button>
 									<c:if test="${Recourse.group==''}">
 										<a class="btn btn-success"
 											href="${cbasePath}dry/updateDryForm?dryid=${Recourse.id}">
@@ -107,7 +110,7 @@
 			/* $("#searchIt").click(function(){
 				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
 			}); */
-
+			
 			$(".deleteBtn")
 					.click(
 							function() {
@@ -119,6 +122,17 @@
 
 								}
 							});
+			
+			
+			$(".info")
+			.click(
+					function() {
+						 
+							//alert("info");
+							window.location.href = "${cbasePath}dry/dryDetail?dryid="
+									+ $(this).attr("data");
+						 
+					});
 		});
 	</script>
 </body>

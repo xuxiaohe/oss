@@ -25,13 +25,13 @@
 	<div class="container-fluid">
 
 		<ol class="breadcrumb">
-			<li><a href="#">干货仓库</a></li>
-			<li><a href="${cbasePath}user/userList">干货列表</a></li>
+			<li><a href="#">课程仓库</a></li>
+			<li><a href="${cbasePath}course/courseList">课程列表</a></li>
 			<li><a
-				href="${cbasePath}user/userDetail?userid=${resuserTopic.data.result.id}">干货详情:
-					<small> ${resuserTopic.data.result.message  }</small>
+				href="${cbasePath}course/courseDetail?cid=${resuserCourse.data.result.id}">课程详情
+					
 			</a></li>
-			<li class="active">干货编辑</li>
+			<li class="active">课程绑定群组</li>
 		</ol>
 
 		<div class="row">

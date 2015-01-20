@@ -53,7 +53,7 @@
 								<c:forEach items="${resuserGroup.data.result.GroupByOwner}"
 									varStatus="key" var="group">
 									<div class="col-xs-2">
-										<a href="${cbasePath}group/groupDetail?groupid=${group.id}"
+										<a href="${cbasePath}group/groupDetail?gid=${group.id}"
 											class="thumbnail"> <img src="${group.logoUrl}"
 											alt="${group.groupName}">
 											<div class="caption">
@@ -89,7 +89,7 @@
 								<c:forEach items="${resuserGroup.data.result.GroupByAdmin}"
 									varStatus="key" var="group">
 									<div class="col-xs-2">
-										<a href="${cbasePath}group/groupDetail?groupid=${group.id}"
+										<a href="${cbasePath}group/groupDetail?gid=${group.id}"
 											class="thumbnail"> <img src="${group.logoUrl}"
 											alt="${group.groupName}">
 											<div class="caption">
@@ -119,7 +119,7 @@
 									<c:forEach items="${resuserGroup.data.result.GroupByMember}"
 										varStatus="key" var="group">
 										<div class="col-xs-2">
-											<a href="${cbasePath}group/groupDetail?groupid=${group.id}"
+											<a href="${cbasePath}group/groupDetail?gid=${group.id}"
 												class="thumbnail"> <img src="${group.logoUrl}"
 												alt="${group.groupName}">
 												<div class="caption">

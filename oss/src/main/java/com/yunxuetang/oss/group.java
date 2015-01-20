@@ -77,124 +77,30 @@ public class group extends BaseController {
 
 	}
 
-	/**
-	 * 
-	 * 创建群展示页 查询机器人
-	 */
-	@RequestMapping("/createGroupForm")
-	public ModelAndView createGroupForm(HttpServletRequest request) {
-		String courSharResoStr;
-		// 当前第几页
-		String pagenumber = request.getParameter("n");
+	 
 
-		if (pagenumber == null) {
-			pagenumber = "0";
-		}
-
-		// 每页条数
-
-		String pagelines = request.getParameter("s");
-
-		if (pagelines == null) {
-			pagelines = "10";
-		}
-
-		RestTemplate restTemplate = new RestTemplate();
-		ModelAndView modelview = new ModelAndView();
-
-		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
-				+ "oss/user/searchbyinfo?n=" + pagenumber + "&s=" + pagelines
-				+ "&robot=1", String.class);
-
-		try {
-			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
-			// CourseShareResponse.class);
-			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-			modelview.addObject("ressearchGroupView", objj);
-			String s = objj.getString("msg");
-			System.out.println(s);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
-	}
+	 
 
 	/**
 	 * 
-	 * 用机器人id创建群
-	 */
-	@RequestMapping("/createGroupAction")
-	public ModelAndView createGroupAction(HttpServletRequest request) {
-		String courSharResoStr;
-		// 当前第几页
-		String id = request.getParameter("id");
-		id = "54a8f1d9e4b0df8f6b1b550b";
-		// 每页条数
-
-		String groupName = request.getParameter("groupName");
-		groupName = "test123456";
-
-		RestTemplate restTemplate = new RestTemplate();
-		ModelAndView modelview = new ModelAndView();
-
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
-				+ "oss/group/create?groupName=" + groupName + "&id=" + id,
-				null, String.class);
-
-		try {
-			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
-			// CourseShareResponse.class);
-			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-			modelview.addObject("ressearchGroupView", objj);
-			String s = objj.getString("msg");
-			System.out.println(s);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
-	}
-
-	/**
-	 * 
-	 * 为某一个用户id创建群
+	 * 为某一个用户id创建群  展示页
 	 */
 	@RequestMapping("/createGroupForUserForm")
 	public ModelAndView createGroupForUserForm(HttpServletRequest request) {
 		String courSharResoStr;
 		// 当前第几页
-		String userid = request.getParameter("userid");
 
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-
-		courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3
-				+ "oss/user/one/" + userid, String.class);
-
-		try {
-			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-			modelview.addObject("user", objj);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		 
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.addObject("userid", userid);
-		modelview.setViewName("group/groupAddFormForUser");
+		modelview.addObject("robots", findRoboit("0", "100"));
+		 
+		modelview.setViewName("group/createGroupForm");
 		return modelview;
 	}
 
@@ -203,34 +109,33 @@ public class group extends BaseController {
 	 * 为某一个用户id创建群
 	 */
 	@RequestMapping("/createGroupForUserAction")
-	public String createGroupForUserAction(HttpServletRequest request) {
+	public ModelAndView createGroupForUserAction(HttpServletRequest request) {
 		String courSharResoStr;
 		// 当前第几页
 		String userid = request.getParameter("id");
 		String groupName = request.getParameter("groupName");
 		String groupDesc = request.getParameter("groupDesc");
-
+		ModelAndView modelview = new ModelAndView();
 		RestTemplate restTemplate = new RestTemplate();
 
-		Map<String, String> rp = new HashMap<String, String>();
-
-		rp.put("id", userid);
-		rp.put("groupName", groupName.trim());
-		rp.put("intro", groupDesc.trim());
+//		Map<String, String> rp = new HashMap<String, String>();
+//
+//		rp.put("id", userid);
+//		rp.put("groupName", groupName.trim());
+//		rp.put("intro", groupDesc.trim());
 
 		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3
-				+ "oss/group/create", null, String.class, rp);
+				+ "oss/group/create?uid="+userid+"&groupName="+groupName+"&intro="+groupDesc, null, String.class);
+		JSONObject objj = JSONObject.fromObject(courSharResoStr);
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("creategroup", objj);
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("group/show");
+		return modelview;
 
-		try {
-			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-			if (objj.get("status").toString() != "200") {
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return "redirect:/user/userGroup?userid=" + userid;
 	}
 
 	/**
@@ -239,8 +144,8 @@ public class group extends BaseController {
 	 */
 	@RequestMapping("/updateGroupView")
 	public ModelAndView updateGroupView(HttpServletRequest request) {
-		String id = request.getParameter("id");
-		id = "54aa495de4b059141b1b67dd";
+		String id = request.getParameter("gid");
+		 
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
@@ -255,10 +160,11 @@ public class group extends BaseController {
 
 			JSONObject tt = (JSONObject) objj.get("data");
 			JSONObject ttt = (JSONObject) tt.get("result");
+			
 			JSONArray t = ttt.getJSONArray("owner");
 
 			String tttt = t.get(0).toString();
-
+			modelview.addObject("Group", getGroupInfo(id));
 			modelview.addObject("resupdateGroupView", objj);
 			modelview.addObject("resOwner", tttt);
 
@@ -270,7 +176,7 @@ public class group extends BaseController {
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
+		modelview.setViewName("group/updateGroupForm");
 		return modelview;
 	}
 
@@ -283,11 +189,11 @@ public class group extends BaseController {
 		String courSharResoStr;
 		// 拥有者id
 		String uid = request.getParameter("uid");
-		uid = "548fcd49e4b044f4775e063b";
+		 uid="1234";
 		// 群组id
 
 		String gid = request.getParameter("gid");
-		gid = "54a8fadde4b0df8f6b1b569f";
+		  
 
 		String intro = request.getParameter("intro");
 		String tag = request.getParameter("tag");
@@ -318,7 +224,7 @@ public class group extends BaseController {
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
+		modelview.setViewName("group/show");
 		return modelview;
 	}
 
@@ -1018,10 +924,18 @@ public class group extends BaseController {
 	 * 删除群组
 	 */
 	@RequestMapping("/deleteGroup")
-	public String deleteGroup(HttpServletRequest request) {
+	public ModelAndView deleteGroup(HttpServletRequest request) {
+		ModelAndView modelview = new ModelAndView();
 		String gid = request.getParameter("gid");
 		deleteGroupByID(gid);
-		return "redirect:/group/groupList";
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("deletegroup", deleteGroupByID(gid));
+		modelview.setViewName("group/show");
+		return modelview;
 	}
 	
 	
@@ -1094,6 +1008,13 @@ public class group extends BaseController {
 	
 	private JSONObject getGroupCourse(String gid,String n,String s) {
 		String url = Config.YXTSERVER3 + "oss/course/groupCourses?groupId="+gid+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	
+	
+	private JSONObject findRoboit(String n, String s) {
+		//String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1";
+		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1";
 		return getRestApiData(url);
 	}
 

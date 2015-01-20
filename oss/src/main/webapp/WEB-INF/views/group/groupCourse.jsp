@@ -27,10 +27,10 @@
 		<ol class="breadcrumb">
 			<li><a href="#">课程管理</a></li>
 			<li><a href="${cbasePath}group/groupList">群列表</a></li>
-			<%-- <li><a
-				href="${cbasePath}group/groupDetail?gid=${CourseList.data.result.id}">
-					<small> ${CourseList.data.result.groupName }</small>
-			</a></li> --%>
+			<li><a
+				href="${cbasePath}group/groupDetail?gid=${Group.data.result.id}">
+					<small> ${Group.data.result.groupName }</small>
+			</a></li>
 			<li class="active">课程列表</li>
 		</ol>
 

@@ -40,8 +40,9 @@
 					<div class="col-xs-2">
 						<img class="thumbnail col-xs-12"
 							src="${Group.data.result.logoUrl }" alt="" />
-						<button class="btnEdit" data="${Group.data.result.id }" type="button" class="btn btn-warning btn-block">编辑</button>
-						<button class="benDelete" data="${Group.data.result.id }" type="button" class="btn btn-warning btn-block">删除</button>
+						<button   data="${Group.data.result.id }" type="button" class="edit btn-warning btn-block">编辑</button>
+						<button   data="${Group.data.result.id }" type="button" class="delete btn-warning btn-block">删除</button>
+						
 						<hr />
 						<div id="btnGroupDiv" class="col-xs-12">
 							<a
@@ -95,6 +96,21 @@
 			/* $("#searchIt").click(function(){
 				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
 			}); */
+			
+			$(".edit").click(function(){
+				 
+				window.location.href = "${cbasePath}group/updateGroupView?gid="+ $(this).attr("data");
+			});
+			
+			
+			$(".delete").click(function(){
+				if(window.confirm('你确定要删除吗？')){
+					window.location.href="${cbasePath}group/deleteGroup?gid="+$(this).attr("data");
+				}else{
+					
+				}
+			});
+			
 		});
 	</script>
 </body>

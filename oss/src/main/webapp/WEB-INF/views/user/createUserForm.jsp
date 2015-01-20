@@ -22,50 +22,36 @@
 </style>
 </head>
 <body>
+
+
 	<div class="container-fluid">
 
 		<ol class="breadcrumb">
-			<li><a href="#">话题仓库</a></li>
-			<li><a href="${cbasePath}topic/topicList">话题列表</a></li>
-			<li><a
-				href="${cbasePath}topic/topicDetail?topicid=${resuserTopic.data.result.topicId}">话题详情
-					 
-			</a></li>
-			<li class="active">话题编辑</li>
+			<li><a href="#">用户管理</a></li>
+			<li><a href="${cbasePath}user/userList">用户列表</a></li>
+			 
+			<li class="active">马甲用户创建</li>
 		</ol>
 
 		<div class="row">
-			 <div class="col-xs-3">
-				<img class="thumbnail col-xs-12"
-					src="${resuserTopic.data.result.picUrl}" alt="" />
+		
 
-				<%-- <c:forEach items="${imgUrls}" varStatus="key" var="img">
-					<img src="${img}" alt="" />
-				</c:forEach> --%>
-			</div>
 
 			<div class="col-xs-9">
-				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
 				<form role="form" method="post"
-					action="${cbasePath}topic/updateTopicByGroup?topicid=${resuserTopic.data.result.topicId}">
+					action="${cbasePath}user/createRobotAction">
 
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">title</label> <input type="text"
-							name="title" class="form-control" id="exampleInputEmail1"
-							value="${resuserTopic.data.result.title }" placeholder="">
+						<label for="exampleInputEmail1">用户名</label> <input type="text"
+							name="userName" class="form-control" id="exampleInputEmail1"
+							  placeholder="">
 					</div>
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">content</label> <input type="text"
-							name="content" class="form-control" id="exampleInputEmail1"
-							value="${resuserTopic.data.result.content }" placeholder="">
-					</div>
-					
-					<div class="form-group">
-						<label for="exampleInputEmail1">picUrl</label> <input type="text"
-							name="picUrl" class="form-control" id="exampleInputEmail1"
-							value="${resuserTopic.data.result.picUrl }" placeholder="">
+						<label for="exampleInputEmail1">密码</label> <input type="text"
+							name="passWord" class="form-control" id="exampleInputEmail1"
+							  placeholder="">
 					</div>
 
 

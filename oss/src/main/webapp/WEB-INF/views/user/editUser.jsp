@@ -25,13 +25,13 @@
 	<div class="container-fluid">
 
 		<ol class="breadcrumb">
-			<li><a href="#">干货仓库</a></li>
-			<li><a href="${cbasePath}user/userList">干货列表</a></li>
+			<li><a href="#">用户编辑</a></li>
+			<li><a href="${cbasePath}user/userList">用户列表</a></li>
 			<li><a
-				href="${cbasePath}user/userDetail?userid=${resuserDetail.data.result.id}">干货详情:
+				href="${cbasePath}user/userDetail?userid=${resuserDetail.data.result.id}">用户详情:
 					<small> ${resuserDetail.data.result.nickName }</small>
 			</a></li>
-			<li class="active">干货编辑</li>
+			<li class="active">用户编辑</li>
 		</ol>
 
 		<div class="row">

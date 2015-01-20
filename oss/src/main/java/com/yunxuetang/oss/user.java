@@ -361,8 +361,8 @@ public class user extends BaseController {
 	 * 
 	 * 
 	 */
-	@RequestMapping("/createRobot")
-	private ModelAndView createRobot(HttpServletRequest request) {
+	@RequestMapping("/createRobotAction")
+	private ModelAndView createRobotAction(HttpServletRequest request) {
 
 		String userName = request.getParameter("userName");
 		String passWord = request.getParameter("passWord");
@@ -373,8 +373,28 @@ public class user extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("user/show");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 创建机器人  展示页
+	 * 
+	 * 
+	 */
+	@RequestMapping("/createRobotForm")
+	private ModelAndView createRobotForm(HttpServletRequest request) {
 
-		modelview.setViewName("show");
+
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("user/createUserForm");
 		return modelview;
 	}
 
@@ -441,7 +461,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
+		modelview.setViewName("user/show");
 		return modelview;
 
 	}
@@ -576,7 +596,7 @@ public class user extends BaseController {
 	}
 
 	private JSONObject getCreateRobot(String userName, String passWord) {
-		String url = Config.YXTSERVER3 + "user/regist?userName=" + userName + "&passWord=" + passWord + "&robot=1";
+		String url = Config.YXTSERVER3 + "user/registPc?userName=" + userName + "&passWord=" + passWord + "&robot=1";
 		return getRestApiData(url);
 	}
 

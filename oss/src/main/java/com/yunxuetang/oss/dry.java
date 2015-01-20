@@ -413,7 +413,7 @@ public class dry extends BaseController {
 
 	private JSONObject findRoboit(String n, String s) {
 		//String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1";
-		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "";
+		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1";
 		return getRestApiData(url);
 	}
 

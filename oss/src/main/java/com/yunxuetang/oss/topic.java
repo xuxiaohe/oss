@@ -21,11 +21,16 @@ public class topic extends BaseController {
 
 	// 删除话题
 	@RequestMapping("/deleteTopic")
-	public String deleteTopic(HttpServletRequest request) {
+	public ModelAndView deleteTopic(HttpServletRequest request) {
+		ModelAndView modelview = new ModelAndView();
 		String topicid = request.getParameter("topicid");
-		deleteTopicByID(topicid);
-
-		return "redirect:/topic/topicList";
+		 
+		modelview.addObject("deleteTopic", deleteTopicByID(topicid));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("topic/show");
+		return modelview;
 	}
 
 	// 删除话题For User
@@ -286,7 +291,7 @@ public class topic extends BaseController {
 	private JSONObject topicList(String keyword, String n, String s) {
 		String url;
 		if(keyword==null){
-			 url = Config.YXTSERVER3 + "oss/topic/search";
+			 url = Config.YXTSERVER3 + "oss/topic/search?n="+n+"&s="+s;
 		}
 		else {
 			 url = Config.YXTSERVER3 + "oss/topic/search?keyword=" + keyword + "&n=" + n + "&s=" + s;

@@ -86,9 +86,9 @@
 					</c:forEach>
 					<nav> <!-- 分页开始 -->
 					<ul class="pagination">
-						<pageNation:PageNation currPage="${Drys.data.curr_page}"
-							totalPages="${Drys.data.page_rows}" perPageRows="10"
-							totalRows="${Drys.data.total_rows}"
+						<pageNation:PageNation currPage="${topicList.data.curr_page}"
+							totalPages="${topicList.data.page_rows}" perPageRows="10"
+							totalRows="${topicList.data.total_rows}"
 							linkBaseUrl="${cbasePath}dry/dryList?">
 						</pageNation:PageNation>
 					</ul>

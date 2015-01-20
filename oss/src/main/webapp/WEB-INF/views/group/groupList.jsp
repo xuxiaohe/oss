@@ -18,6 +18,7 @@
 </head>
 <body>
 	<div class="container-fluid">
+	<jsp:include page="header.jsp"></jsp:include>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<form class="form-inline" action="${cbasePath}group/groupList"
