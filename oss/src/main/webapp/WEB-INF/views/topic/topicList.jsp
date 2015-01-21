@@ -63,7 +63,7 @@
 							<div class="col-xs-10">
 								<h4 style="margin-left:12px;">
 									<a href="${cbasePath}topic/topicDetail?topicid=${Recourse.topicId}">
-										${Recourse.title} </a><br>
+										${Recourse.content} </a><br>
 										
 										<small><small
 										class="pull-right">注册时间：<Date:date
