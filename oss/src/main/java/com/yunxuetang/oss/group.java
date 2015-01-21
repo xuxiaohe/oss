@@ -189,7 +189,7 @@ public class group extends BaseController {
 		String courSharResoStr;
 		// 拥有者id
 		String uid = request.getParameter("uid");
-		 uid="1234";
+		  
 		// 群组id
 
 		String gid = request.getParameter("gid");
