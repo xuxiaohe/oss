@@ -1,5 +1,8 @@
 package com.yunxuetang.oss;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
@@ -139,6 +142,14 @@ public class topic extends BaseController {
 		String tagName = request.getParameter("tagName");
 		if(tagName==null){
 			tagName="";
+		}
+		else {
+			String tagNameArry[]=tagName.split(",");
+			List l=new ArrayList();
+			for (String a:tagNameArry) {
+				 l.add("\""+a+"\"");
+			}
+			tagName=l.toString();
 		}
 		String content = request.getParameter("content");
 		if(content==null){

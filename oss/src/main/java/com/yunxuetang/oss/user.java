@@ -84,6 +84,63 @@ public class user extends BaseController {
 		modelview.setViewName("user/userList");
 		return modelview;
 	}
+	
+	
+	
+	/**
+	 * 分页获得系统的所有账户 支持搜索功能 字段： 用户名 手机号 邮箱 支持排序 （按时间倒序，正序,其他字段）
+	 * 
+	 */
+	@RequestMapping("/roboitList")
+	private ModelAndView roboitList(HttpServletRequest request) {
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String keyword = null;
+
+		keyword = request.getParameter("keyword");
+
+		if (keyword == null) {
+			keyword = "";
+		}
+
+		// 当前第几页
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+
+		ModelAndView modelview = new ModelAndView();
+
+		getUserList(keyword, pagenumber, pagelines);
+
+		JSONObject objj = findRoboit(keyword, pagenumber, pagelines);
+		modelview.addObject("resuserList", objj);
+		String s = objj.getString("msg");
+		System.out.println(s);
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("keyword", keyword);
+		modelview.setViewName("user/roboitList");
+		return modelview;
+	}
+	
+	
+	
 
 	/**
 	 * 一个用户的详细信息 用户加入的群组 用户发的话题在哪个群组里 用户发的干货和课程
@@ -627,6 +684,13 @@ public class user extends BaseController {
 	
 	private JSONObject getMyCourse(String userid) {
 		String url = Config.YXTSERVER3 + "oss/course/userCourseList/" + userid;
+		return getRestApiData(url);
+	}
+	
+	
+	private JSONObject findRoboit(String keyword,String n, String s) {
+		//String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1";
+		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1"+ "&keyword=" + keyword;
 		return getRestApiData(url);
 	}
 

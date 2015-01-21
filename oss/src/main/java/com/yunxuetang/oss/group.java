@@ -939,6 +939,57 @@ public class group extends BaseController {
 	}
 	
 	
+	
+	/**
+	 * 
+	 * 查询所有未分享群组的课程
+	 */
+	@RequestMapping("/courseListNoShare")
+	public ModelAndView courseListNoShare(HttpServletRequest request) {
+		// 当前第几页
+		String n = request.getParameter("n");
+		if (n == null) {
+			n = "0";
+		}
+		// 每页条数
+		String s = request.getParameter("s");
+
+		if (s == null) {
+			s = "100";
+		}
+		String gid = request.getParameter("gid");
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("courses", getCoursesNoShare( n, s));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("Groupid", gid);
+		modelview.setViewName("group/bindCourseByGroupForm");
+		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * 课程分享到群组
+	 */
+	@RequestMapping("/shareToMyGroup")
+	public String shareToMyGroup(HttpServletRequest request) {
+		String groupId = request.getParameter("groupId");
+		String courseId = request.getParameter("courseId");
+		String appKey = "yxtapp";
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("shareToMyGroup", shareToMyGroup(groupId,courseId,appKey));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		return  "redirect:/group/groupCourse?gid="+groupId;
+	}
+	
+	
 //	/**
 //	 * 
 //	 * 群成课程
@@ -1018,4 +1069,15 @@ public class group extends BaseController {
 		return getRestApiData(url);
 	}
 
+	private JSONObject getCoursesNoShare(String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/course/coursesNoShare?n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	
+	
+	private JSONObject shareToMyGroup(String groupId,String courseId,String appKey) {
+		String url = Config.YXTSERVER3 + "oss/course/shareToMyGroup?groupId="+groupId+"&courseId="+courseId+"&appKey="+appKey;
+		return getRestApiData(url);
+	}
+	
 }

@@ -57,8 +57,8 @@
 						<div class="caption">
 							<p class="">${course.course.title}</p>
 						</div>
-						<a class="btnDelete" data="${cbasePath}course/deleteToMyGroup?groupId=${Group.data.result.id}&courseId=${course.id}">
-							<button type="button" class="btn btn-danger">删除</button>
+						<a href="${cbasePath}course/deleteToMyGroup?groupId=${Group.data.result.id}&courseId=${course.id}">
+							<button type="button" class="delete btn-danger" data="${course.id}">删除</button>
 						</a>
 					</div>
 				</div>
@@ -75,19 +75,42 @@
 			</nav>
 			<!-- 分页结束 -->
 		</c:if>
+		
+		<div class="col-xs-12 btn-group-sm">
+		<button name="delete" data="${Group.data.result.id}" type="button"
+			class="addcourse btn btn-primary">添加其他课程</button>
+		 
 	</div>
+		
+	</div>
+
+
+	
+
 	<script>
 		$(function() {
 			/* $("#searchIt").click(function(){
 				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
 			}); */
-			$(".btnDelete").click(function(){
+			 
+			
+			$(".delete").click(function(){
 				if(window.confirm('你确定要删除吗？')){
-					window.location.href=$(this).attr("data");
+					window.location.href="${cbasePath}course/deleteToMyGroup?groupId="+${Group.data.result.id}+"&courseId="+$(this).attr("data");
 				}else{
 					
 				}
+			}); 
+			
+			
+			$(".addcourse").click(function() {
+				 
+					 window.location.href = "${cbasePath}group/courseListNoShare?gid="+$(this).attr("data");
+				 
 			});
+			
+			
+			
 		});
 	</script>
 </body>
