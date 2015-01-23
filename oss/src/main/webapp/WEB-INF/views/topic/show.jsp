@@ -39,6 +39,8 @@
 
 			<div class="col-xs-9"><br><br><br><br><br><br><br><br><br>
 				${deleteTopic.msg} 
+				 ${addpost.msg}
+				  ${subpostList.msg}
 				 
 				<br><br><br>
 				 <li role="presentation">

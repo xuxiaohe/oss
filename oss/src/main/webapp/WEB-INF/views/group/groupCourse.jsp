@@ -77,9 +77,10 @@
 		</c:if>
 		
 		<div class="col-xs-12 btn-group-sm">
+		<a href="${cbasePath}group/courseListNoShare?gid=${Group.data.result.id}">
 		<button name="delete" data="${Group.data.result.id}" type="button"
-			class="addcourse btn btn-primary">添加其他课程</button>
-		 
+			class=" btn btn-primary">添加其他课程</button>
+		 </a>
 	</div>
 		
 	</div>

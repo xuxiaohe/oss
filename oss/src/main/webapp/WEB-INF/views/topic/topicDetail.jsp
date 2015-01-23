@@ -44,22 +44,9 @@
 							src="${topicDetail.data.result.picUrl }" alt="" />
 						<a href="${cbasePath}topic/updateTopicItemsForm?topicid=${topicDetail.data.result.topicId }">
 						<button type="button" class="edit btn-warning btn-block">编辑</button></a><br>
-						<button type="button" data="${topicDetail.data.result.topicId}" class="delete btn-warning btn-block">删除</button>
+						<button type="button" data="${topicDetail.data.result.topicId}" class="deletetopic btn-warning btn-block">删除</button><br>
+						<button name="addpost" data="${topicDetail.data.result.topicId}" type="button" class="addpost btn-warning btn-block">添加主楼回复</button>
 						<hr />
-						<%-- <div id="btnGroupDiv" class="col-xs-12">
-							<a
-								href="${cbasePath}user/userTopic?userid=${topicDetail.data.result.id }">
-								<button type="button" class="btn btn-success btn-block">查看话题</button>
-							</a> <a
-								href="${cbasePath}user/userDry?userid=${topicDetail.data.result.id }">
-								<button type="button" class="btn btn-success btn-block">查看干货</button>
-							</a> <a
-								href="${cbasePath}user/userCourse?userid=${topicDetail.data.result.id }">
-								<button type="button" class="btn btn-success btn-block">查看课程</button>
-							</a> <a
-								href="${cbasePath}user/userGroup?userid=${topicDetail.data.result.id }"><button
-									type="button" class="btn btn-success btn-block">查看群组</button></a>
-						</div> --%>
 					</div>
 					<div id="userInfoDiv" class="col-xs-10" style="">
 						<h4 style="margin-left: 12px;">
@@ -69,14 +56,51 @@
 						</h4>
 						  
 						<div class="col-xs-6">话题内容：${topicDetail.data.result.content}
-						</div>
-						<%-- <div class="col-xs-6">回复数：${dryDetail.data.result.replyCount}</div>
-						<div class="col-xs-6">被点赞的次数：${dryDetail.data.result.likesCount}
-						</div>
-						<div class="col-xs-6">不赞数量：${dryDetail.data.result.unLikeCount}
-						</div>
-						<div class="col-xs-6">收藏人数统计：${dryDetail.data.result.favCount}
-						</div> --%>
+						</div><br> 
+						
+						<br><br>
+						<c:if test="${resTopicPost.status == '200'}">
+						<c:forEach items="${resTopicPost.data.result}" varStatus="key" var="Recourse">
+						 
+								<ul class="list-group">
+									<li class="list-group-item"><span class="badge">副楼回复数：${Recourse.number}</span>
+										主楼回复：${Recourse.post.message} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<a href="${cbasePath}topic/deletePostByTopicId?topicid=${topicDetail.data.result.topicId }&postid=${Recourse.post.postId}">
+										<button name="postdelete"   type="button" class="postdelete btn btn-danger"">删除</button></a>
+								 <button name="postedit" data="${Recourse.id}" type="button" class="postedit btn btn-primary">修改</button>
+								 <button name="postedit" data="${Recourse.id}" type="button" class="postedit btn btn-primary">添加副楼回复</button>
+										
+										<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										
+										<c:if test="${Recourse.post.subPosts != null}">
+											
+											<c:forEach items="${Recourse.post.subPosts}" varStatus="key" var="subpost">
+											
+										<br> <br>	   副楼回复：${subpost.message}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											
+									<a href="${cbasePath}topic/deleteSubPostByTopicId?postid=${Recourse.post.postId}&index=${key.count-1}">		 
+									<button name="subpostdelete"   type="button" class="subpostdelete btn btn-danger"">删除</button></a>
+								 <button name="subpostedit" data="${Recourse.id}" type="button" class="subpostedit btn btn-primary">修改</button>
+											</c:forEach>
+										</c:if>
+										
+										<c:if test="${Recourse.number != '0'}">
+											
+											<c:forEach items="${Recourse.subpost}" varStatus="key" var="subpost">
+											
+											<br><br>  副楼回复：${subpost.message}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											
+									<a href="${cbasePath}topic/deleteSubPostByTopicId?postid=${Recourse.post.postId}&subpostid=${subpost.post_id}">		 
+									<button name="subpostdelete"   type="button" class="subpostdelete btn btn-danger"">删除</button></a>
+								 <button name="subpostedit" data="${Recourse.id}" type="button" class="subpostedit btn btn-primary">修改</button>
+											</c:forEach>
+										</c:if>
+										</li>
+								</ul>
+
+							</c:forEach>
+						</c:if>
+						 
 						 
 				</div>
 
@@ -93,10 +117,50 @@
 			}); */
 			
 			
-			$(".delete").click(function(){
+			$(".postdelete").click(function(){
+				if(window.confirm('你确定要删除主楼回复吗？')){
+					 
+					 window.location.href="${cbasePath}topic/deleteTopic?postid="+$(this).attr("data")+"&topicid="+${topicDetail.data.result.topicId};
+				}else{
+					
+				}
+			}); 
+			
+			$(".postedit").click(function(){
+				 
+					alert("postedit");
+			 
+			}); 
+			
+			$(".subpostdelete").click(function(){
 				if(window.confirm('你确定要删除吗？')){
-					//alert("${cbasePath}dry/deleteDry?dryid="+$(this).attr("data"));
-					window.location.href="${cbasePath}topic/deleteTopic?topicid="+$(this).attr("data");
+					alert("subpostdelete");
+					//window.location.href="${cbasePath}topic/deleteTopic?topicid="+$(this).attr("data");
+				}else{
+					
+				}
+			}); 
+			
+			$(".subpostedit").click(function(){
+				 
+					alert("subpostedit");
+					//window.location.href="${cbasePath}topic/deleteTopic?topicid="+$(this).attr("data");
+			 
+			}); 
+			
+			$(".addpost").click(function(){
+				 
+				 
+				window.location.href="${cbasePath}topic/addPostByTopicIdForm?topicid="+$(this).attr("data");
+		 
+		});
+			
+			
+			
+			$(".deletetopic").click(function(){
+				if(window.confirm('你确定要删除吗？')){
+					alert("topic");
+					//window.location.href="${cbasePath}topic/deleteTopic?topicid="+$(this).attr("data");
 				}else{
 					
 				}

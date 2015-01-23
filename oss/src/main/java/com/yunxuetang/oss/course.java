@@ -236,6 +236,26 @@ public class course extends BaseController {
 	}
 	
 	
+	/**
+	 * 
+	 * 课程从课程池删除
+	 */
+	@RequestMapping("/deleteGroup")
+	public String deleteGroup(HttpServletRequest request) {
+		 
+		String courseId = request.getParameter("courseId");
+		 
+		 
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("deleteToMyGroup", deleteCourses(courseId));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		return "redirect:/course/courseList";
+	}
+	
+	
 	
 	private JSONObject shareToMyGroup(String groupId,String courseId,String appKey) {
 		String url = Config.YXTSERVER3 + "oss/course/shareToMyGroup?groupId="+groupId+"&courseId="+courseId+"&appKey="+appKey;
@@ -248,7 +268,10 @@ public class course extends BaseController {
 		return getRestApiData(url);
 	}
 	
-	
+	private JSONObject deleteCourses(String courseId) {
+		String url = Config.YXTSERVER3 + "oss/course/deleteCourse?cid="+courseId;
+		return getRestApiData(url);
+	}
 	
 	private JSONObject searchCourse(String keyword,String n,String s) {
 		String url = Config.YXTSERVER3 + "oss/course/search?keywords="+keyword+"&n="+n+"&s="+s;
