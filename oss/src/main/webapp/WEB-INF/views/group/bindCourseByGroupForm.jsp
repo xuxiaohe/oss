@@ -25,10 +25,10 @@
 	<div class="container-fluid">
 
 		<ol class="breadcrumb">
-			<li><a href="#">课程仓库</a></li>
-			<li><a href="${cbasePath}course/courseList">课程列表</a></li>
+			<li><a href="#">群组管理</a></li>
+			<li><a href="${cbasePath}group/groupList">课程列表</a></li>
 			<li><a
-				href="${cbasePath}course/courseDetail?cid=${resuserCourse.data.result.id}">课程详情
+				href="${cbasePath}group/groupDetail?gid=${Groupid}">课程详情
 					
 			</a></li>
 			<li class="active">课程绑定群组</li>

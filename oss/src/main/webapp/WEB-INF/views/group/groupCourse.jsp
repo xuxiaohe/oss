@@ -33,6 +33,13 @@
 			</a></li>
 			<li class="active">课程列表</li>
 		</ol>
+		
+		<div class="col-xs-12 btn-group-sm">
+		<a href="${cbasePath}group/courseListNoShare?gid=${Group.data.result.id}">
+		<button name="delete" data="${Group.data.result.id}" type="button"
+			class=" btn btn-primary">添加其他课程</button>
+		 </a>
+	</div>
 
 		<c:if test="${CourseList.status == '200' }">
 			<!-- 分页开始 -->
@@ -76,12 +83,7 @@
 			<!-- 分页结束 -->
 		</c:if>
 		
-		<div class="col-xs-12 btn-group-sm">
-		<a href="${cbasePath}group/courseListNoShare?gid=${Group.data.result.id}">
-		<button name="delete" data="${Group.data.result.id}" type="button"
-			class=" btn btn-primary">添加其他课程</button>
-		 </a>
-	</div>
+		
 		
 	</div>
 

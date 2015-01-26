@@ -76,6 +76,10 @@
 								<div class="col-xs-12 btn-group-sm">
 									<button data="${Recourse.id}" type="button"
 										class="deleteBtn btn btn-primary">删除</button>
+										
+										<button data="${Recourse.id}" type="button"
+										class="info btn btn-primary">详情</button>
+										
 									<a class="btn btn-success"
 											href="${cbasePath}course/updateCourseForm?cid=${Recourse.id}">
 											关联群组 </a>
@@ -115,6 +119,17 @@
 
 								}
 							});
+			
+			
+			$(".info")
+			.click(
+					function() {
+						 
+							 
+							  window.location.href = "${cbasePath}course/courseDetail?cid="
+									+ $(this).attr("data");  
+						 
+					});
 		});
 	</script>
 </body>

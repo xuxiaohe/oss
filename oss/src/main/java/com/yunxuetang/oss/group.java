@@ -145,7 +145,7 @@ public class group extends BaseController {
 	@RequestMapping("/updateGroupView")
 	public ModelAndView updateGroupView(HttpServletRequest request) {
 		String id = request.getParameter("gid");
-		 
+		 String tags;
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
