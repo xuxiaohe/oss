@@ -89,6 +89,12 @@
 							name="message" class="form-control" id="exampleInputEmail1"
 							placeholder="">
 					</div>
+					
+					<div class="form-group">
+						<label for="exampleInputEmail1">干货抓取描述</label> <input type="text"
+							name="description" class="form-control" id="exampleInputEmail1"
+							placeholder="">
+					</div>
 
 
 					<button type="submit" class="btn btn-default">Submit</button>

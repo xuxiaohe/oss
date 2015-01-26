@@ -57,6 +57,7 @@ public class dry extends BaseController {
 			modelview.addObject("url", url);
 
 			modelview.addObject("dryDetail", objj3);
+			modelview.addObject("resTopicPost", findPost(dryid));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -87,9 +88,9 @@ public class dry extends BaseController {
 			url = URLDecoder.decode(url, "utf-8");
 
 			modelview.addObject("url", url);
-			if(userid!=null){
+			if (userid != null) {
 				modelview.addObject("resuserDetail", getUserDetail(userid));
-				
+
 			}
 			modelview.addObject("resuserTopic", objj3);
 		} catch (Exception e) {
@@ -131,14 +132,11 @@ public class dry extends BaseController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		if(userid!=null){
+		if (userid != null) {
 			return "redirect:/user/userDry?userid=" + userid;
-		}
-		else {
+		} else {
 			return "redirect:/dry/dryList";
 		}
-
-		
 
 	}
 
@@ -235,7 +233,7 @@ public class dry extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 
 		modelview.addObject("robots", findRoboit(pagenumber, pagelines));
-		modelview.addObject("groupList", groupList(pagenumber,pagelines));
+		modelview.addObject("groupList", groupList(pagenumber, pagelines));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -253,20 +251,24 @@ public class dry extends BaseController {
 		// 必输
 		String id = request.getParameter("uid");
 		String tagName = request.getParameter("tagName");
-		String tagNameArry[]=tagName.split(",");
-		List l=new ArrayList();
-		for (String a:tagNameArry) {
-			 l.add("\""+a+"\"");
+		String tagNameArry[] = tagName.split(",");
+		List l = new ArrayList();
+		for (String a : tagNameArry) {
+			l.add("\"" + a + "\"");
 		}
-		String i=l.toString();
+		String i = l.toString();
 		String group = request.getParameter("gid");
 		String url = request.getParameter("url");
 		String fileUrl = request.getParameter("fileUrl");
 		String message = request.getParameter("message");
+		// 干货的抓取的描述
+		String description = request.getParameter("description");
+		// 干货与炫页标示，0干货1炫页
+		String dryFlag = "0";
 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateDryByGroup", createDryByGroup(id, i, group, url, fileUrl, message));
+		modelview.addObject("rescreateDryByGroup", createDryByGroup(id, i, group, url, fileUrl, message, description, dryFlag));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -362,34 +364,196 @@ public class dry extends BaseController {
 		modelview.addObject("cbasePath", cbasePath);
 		return "redirect:/dry/dryList";
 	}
-	
-	
+
 	/**
 	 * 
-	 * 关联群组  展示页
+	 * 关联群组 展示页
 	 */
 	@RequestMapping("/updateDryForm")
 	public ModelAndView updateDryForm(HttpServletRequest request) {
 
 		// 当前第几页
-				String dryid = request.getParameter("dryid");
+		String dryid = request.getParameter("dryid");
 
-				ModelAndView modelview = new ModelAndView();
+		ModelAndView modelview = new ModelAndView();
 
-				try {
-					JSONObject objj3 = getOneDry(dryid);
-					modelview.addObject("resuserTopic", objj3);
-					modelview.addObject("groupList", groupList("0","100"));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		try {
+			JSONObject objj3 = getOneDry(dryid);
+			modelview.addObject("resuserTopic", objj3);
+			modelview.addObject("groupList", groupList("0", "100"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-				String cpath = request.getContextPath();
-				String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-				modelview.addObject("cbasePath", cbasePath);
-				modelview.setViewName("dry/bindDryByGroupForm");
-				return modelview;
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("dry/bindDryByGroupForm");
+		return modelview;
 	}
+	
+	
+	/**
+	 * 
+	 * 根据话题id删除主楼回复
+	 */
+	@RequestMapping("/deletePostByDryId")
+	public ModelAndView deletePostByTopicId(HttpServletRequest request) {
+
+		// 当前第几页
+		String dryid = request.getParameter("dryid");
+		String postid = request.getParameter("postid");
+		ModelAndView modelview = new ModelAndView();
+			 
+		modelview.addObject("resuserTopic", deletePost(dryid, postid));
+		modelview.addObject("dryDetail", dryDetail(dryid));
+
+		modelview.addObject("resTopicPost", findPost(dryid));
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("dry/dryDetail");
+		return modelview;
+	}
+
+	/**
+	 * 
+	 * 根据主楼id删除副楼回复
+	 */
+	@RequestMapping("/deleteSubPostByDryId")
+	public ModelAndView deleteSubPostByTopicId(HttpServletRequest request) {
+		ModelAndView modelview = new ModelAndView();
+		// 当前第几页
+		String postid = request.getParameter("postid");
+		String dryid = request.getParameter("dryid");
+		String subpostid = request.getParameter("subpostid");
+		String index = request.getParameter("index");
+		if(subpostid==null){
+			subpostid="";
+		}
+		 
+			modelview.addObject("subpostList", deleteSubPost(postid, subpostid, index));
+			modelview.addObject("dryDetail", dryDetail(dryid));
+
+			modelview.addObject("resTopicPost", findPost(dryid));
+
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("dry/dryDetail");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 
+	 * 根据话题id添加主楼回复 展示页
+	 */
+	@RequestMapping("/addPostByDryIdForm")
+	public ModelAndView addPostByTopicIdForm(HttpServletRequest request) {
+
+		// 当前第几页
+		String dryid = request.getParameter("dryid");
+
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("dryid", dryid);
+		modelview.addObject("robots", findRoboit("0", "100"));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("dry/addpost");
+		return modelview;
+	}
+
+	/**
+	 * 
+	 * 根据话题id添加主楼回复
+	 */
+	@RequestMapping("/addPostByDryIdAction")
+	public ModelAndView addPostByTopicIdAction(HttpServletRequest request) {
+
+		// 当前第几页
+		String dryid = request.getParameter("dryid");
+		String uid = request.getParameter("uid");
+		String appKey = request.getParameter("appKey");
+		String type = request.getParameter("type");
+		String message = request.getParameter("message");
+		String fileUrl = request.getParameter("fileUrl");
+
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("addpost", addPost(uid, message, dryid, appKey, type, fileUrl,dryid));
+		modelview.addObject("dryDetail", dryDetail(dryid));
+
+		modelview.addObject("resTopicPost", findPost(dryid));
+		modelview.setViewName("dry/dryDetail");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 
+	 * 添加副楼回复 展示页
+	 */
+	@RequestMapping("/addSubPostForm")
+	public ModelAndView addSubPostForm(HttpServletRequest request) {
+
+		// 当前第几页
+		String dryid = request.getParameter("dryid");
+		String postid = request.getParameter("postid");
+		
+		
+		ModelAndView modelview = new ModelAndView();
+		
+		modelview.addObject("dryid", dryid);
+		modelview.addObject("postid", postid);
+		modelview.addObject("robots", findRoboit("0", "100"));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("dry/addsubpost");
+		return modelview;
+	}
+
+	/**
+	 * 
+	 * 添加副楼回复
+	 */
+	@RequestMapping("/addSubPostAction")
+	public ModelAndView addSubPostAction(HttpServletRequest request) {
+
+		// 当前第几页
+		String dryid = request.getParameter("dryid");
+		String parentid = request.getParameter("postid");
+		String uid = request.getParameter("uid");
+		String appKey="yxtapp";
+		String type = request.getParameter("type");
+		String message = request.getParameter("message");
+		String fileUrl = request.getParameter("fileUrl");
+
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("addpost", addSubPost(uid, message, dryid, appKey, type, fileUrl,parentid));
+		modelview.addObject("dryDetail", dryDetail(dryid));
+
+		modelview.addObject("resTopicPost", findPost(dryid));
+		modelview.setViewName("dry/dryDetail");
+		return modelview;
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	private JSONObject dryDetail(String dryid) {
 		String url = Config.YXTSERVER3 + "oss/dry/getOneDry?dryid=" + dryid;
@@ -412,14 +576,16 @@ public class dry extends BaseController {
 	}
 
 	private JSONObject findRoboit(String n, String s) {
-		//String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1";
+		// String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n +
+		// "&s=" + s + "&robot=1";
 		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1";
 		return getRestApiData(url);
 	}
 
-	private JSONObject createDryByGroup(String id, String tagName, String group, String url, String fileUrl, String message) {
+	private JSONObject createDryByGroup(String id, String tagName, String group, String url, String fileUrl, String message, String description,
+			String dryFlag) {
 		String url2 = Config.YXTSERVER3 + "oss/dry/uploadDrycargo?id=" + id + "&tagName=" + tagName + "&group=" + group + "&url=" + url + "&fileUrl="
-				+ fileUrl + "&message=" + message;
+				+ fileUrl + "&message=" + message + "&description=" + description + "&dryFlag=" + dryFlag;
 		return getRestApiData(url2);
 	}
 
@@ -440,6 +606,34 @@ public class dry extends BaseController {
 
 	private JSONObject UpdateDryById(String dryId, String groupid) {
 		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryId + "&groupid=" + groupid;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject findPost(String dryid) {
+		String url = Config.YXTSERVER3 + "oss/dry/searchAllPostAndSubPost?dryid=" + dryid;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject deletePost(String topicid,String postid) {
+		String url = Config.YXTSERVER3 + "oss/topic/deletePost?topicid=" + topicid+"&postid="+postid;
+		return getRestApiData(url);
+	}
+	
+	
+	private JSONObject deleteSubPost(String postid,String subpostid,String index) {
+		String url = Config.YXTSERVER3 + "oss/topic/deleteSubPost?postid=" + postid+"&subpostid="+subpostid+"&index="+index;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject addPost(String uid, String message,String dryid,String appKey,String type,String fileUrl,String topicId) {
+		String url = Config.YXTSERVER3 + "oss/dry/replyDrycargo?uid=" + uid + "&topicId=" + topicId + "&appKey=" + appKey + "&type=" + type
+				+ "&message=" + message + "&fileUrl=" + fileUrl+ "&dryid=" + dryid;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject addSubPost(String uid, String message,String topicId,String appKey,String type,String fileUrl,String parentId) {
+		String url = Config.YXTSERVER3 + "oss/topic/replyPost?uid=" + uid + "&topicId=" + topicId + "&appKey=" + appKey + "&type=" + type
+				+ "&message=" + message + "&fileUrl=" + fileUrl+ "&parentId=" + parentId;
 		return getRestApiData(url);
 	}
 

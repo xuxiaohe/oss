@@ -44,7 +44,7 @@
 				 
 				<br><br><br>
 				 <li role="presentation">
-                        <a href="${cbasePath}topic/topicList" target="mainFrame">返回课程仓库</a>
+                        <a href="${cbasePath}topic/topicList" target="mainFrame">返回话题仓库</a>
                     </li>
 			</div>
 		</div>

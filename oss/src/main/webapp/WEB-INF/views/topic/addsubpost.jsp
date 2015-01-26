@@ -28,11 +28,12 @@
 			<li><a href="#">话题仓库</a></li>
 			<li><a href="${cbasePath}topic/topicList">话题列表</a></li>
 			 
-			<li class="active">主楼回复创建</li>
+			<li class="active">副楼回复创建</li>
 		</ol>
-			主楼回复：<br>
+			副楼回复：<br>
 		<div class="row">
 		
+
 			<%-- <div class="col-xs-3">
 				<img class="thumbnail col-xs-12" src="${resuserTopic.data.result.fileUrl}" alt="" />
 
@@ -43,7 +44,7 @@
 
 			<div class="col-xs-9">
 				<form role="form" method="post"
-					action="${cbasePath}topic/addPostByTopicIdAction?appKey=yxtapp&topicid=${topicid}">
+					action="${cbasePath}topic/addSubPostAction?postid=${postid}&topicid=${topicid}">
 					<div class="form-group">
 						<label for="exampleInputEmail1">用户名</label> 
 							<select class="form-control" name="uid" id="uidSelect">

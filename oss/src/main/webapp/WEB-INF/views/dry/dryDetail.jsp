@@ -44,7 +44,9 @@
 							src="${dryDetail.data.result.fileUrl }" alt="" />
 						<a href="${cbasePath}dry/editForm?dryid=${dryDetail.data.result.id }">
 						<button type="button" class="btn btn-warning btn-block">编辑</button></a><br>
-						<button data="${dryDetail.data.result.id }" type="button" class="deleteBtn btn-warning btn-block">删除</button>
+						<button data="${dryDetail.data.result.id }" type="button" class="deleteBtn btn-warning btn-block">删除</button><br>
+						<a href="${cbasePath}dry/addPostByDryIdForm?dryid=${dryDetail.data.result.id}">
+						<button name="addpost"   type="button" class="addpost btn-warning btn-block">添加主楼回复</button></a>
 						<hr />
 						<%-- <div id="btnGroupDiv" class="col-xs-12">
 							<a
@@ -80,9 +82,55 @@
 						</div>
 						<div class="col-xs-6">收藏人数统计：${dryDetail.data.result.favCount}
 						</div>
+						<br><br><br><br><br>
+						
+						
+				<br><br>
+						<c:if test="${resTopicPost.status == '200'}">
+						<c:forEach items="${resTopicPost.data.result}" varStatus="key" var="Recourse">
+						 
+								<ul class="list-group">
+									<li class="list-group-item"><span class="badge">副楼回复数：${Recourse.number}</span>
+										主楼回复：${Recourse.post.message} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<a href="${cbasePath}dry/deletePostByDryId?dryid=${dryDetail.data.result.id}&postid=${Recourse.post.postId}">
+										<button name="postdelete"   type="button" class="postdelete btn btn-danger"">删除</button></a>
+								 <a href="${cbasePath}dry/addSubPostForm?dryid=${dryDetail.data.result.id }&postid=${Recourse.post.postId}">
+								 <button name="postedit"   type="button" class="postedit btn btn-primary">添加副楼回复</button></a>
+										
+										<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										
+										<c:if test="${Recourse.post.subPosts != null}">
+											
+											<c:forEach items="${Recourse.post.subPosts}" varStatus="key" var="subpost">
+											
+										<br> <br>	   副楼回复：${subpost.message}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											
+									<a href="${cbasePath}dry/deleteSubPostByDryId?postid=${Recourse.post.postId}&index=${key.count-1}&dryid=${dryDetail.data.result.id}">		 
+									<button name="subpostdelete"   type="button" class="subpostdelete btn btn-danger"">删除</button></a>
+											</c:forEach>
+										</c:if>
+										
+										<c:if test="${Recourse.number != '0'}">
+											
+											<c:forEach items="${Recourse.subpost}" varStatus="key" var="subpost">
+											
+											<br><br>  副楼回复：${subpost.message}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											
+									<a href="${cbasePath}topic/deleteSubPostByTopicId?postid=${Recourse.post.postId}&subpostid=${subpost.post_id}">		 
+									<button name="subpostdelete"   type="button" class="subpostdelete btn btn-danger"">删除</button></a>
+											</c:forEach>
+										</c:if>
+										</li>
+								</ul>
+
+							</c:forEach>
+						</c:if>
+						 
+						
 						 
 				</div>
-
+				
+				
 
 
 

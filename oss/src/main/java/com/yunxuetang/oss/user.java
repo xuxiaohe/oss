@@ -361,10 +361,12 @@ public class user extends BaseController {
 		String userid = request.getParameter("userid");
 
 		ModelAndView modelview = new ModelAndView();
-
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("resupdateUser", getUpdateUser(userid, sex, phoneNumber, email, tag, logoURL, intro, nickName));
 
-		modelview.setViewName("show");
+		modelview.setViewName("user/show");
 		return modelview;
 	}
 	

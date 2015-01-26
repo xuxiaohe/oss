@@ -348,6 +348,7 @@ public class topic extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 		// 当前第几页
 		String postid = request.getParameter("postid");
+		String topicid = request.getParameter("topicid");
 		String subpostid = request.getParameter("subpostid");
 		String index = request.getParameter("index");
 		if(subpostid==null){
@@ -355,12 +356,15 @@ public class topic extends BaseController {
 		}
 		 
 			modelview.addObject("subpostList", deleteSubPost(postid, subpostid, index));
-		 
+			modelview.addObject("topicDetail", getOneTopic(topicid));
+
+			modelview.addObject("resTopicPost", findPost(topicid));
+
 
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("topic/show");
+		modelview.setViewName("topic/topicDetail");
 		return modelview;
 	}
 
@@ -405,7 +409,65 @@ public class topic extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("addpost", addPost(uid, message, topicid, appKey, type, fileUrl));
-		modelview.setViewName("topic/show");
+		modelview.addObject("topicDetail", getOneTopic(topicid));
+
+		modelview.addObject("resTopicPost", findPost(topicid));
+		modelview.setViewName("topic/topicDetail");
+		return modelview;
+	}
+	
+	
+	
+	
+	/**
+	 * 
+	 * 添加副楼回复 展示页
+	 */
+	@RequestMapping("/addSubPostForm")
+	public ModelAndView addSubPostForm(HttpServletRequest request) {
+
+		// 当前第几页
+		String topicid = request.getParameter("topicid");
+		String postid = request.getParameter("postid");
+		
+		
+		ModelAndView modelview = new ModelAndView();
+		
+		modelview.addObject("topicid", topicid);
+		modelview.addObject("postid", postid);
+		modelview.addObject("robots", findRoboit("0", "100"));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("topic/addsubpost");
+		return modelview;
+	}
+
+	/**
+	 * 
+	 * 添加副楼回复
+	 */
+	@RequestMapping("/addSubPostAction")
+	public ModelAndView addSubPostAction(HttpServletRequest request) {
+
+		// 当前第几页
+		String topicid = request.getParameter("topicid");
+		String parentid = request.getParameter("postid");
+		String uid = request.getParameter("uid");
+		String appKey="yxtapp";
+		String type = request.getParameter("type");
+		String message = request.getParameter("message");
+		String fileUrl = request.getParameter("fileUrl");
+
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("addpost", addSubPost(uid, message, topicid, appKey, type, fileUrl,parentid));
+		modelview.addObject("topicDetail", getOneTopic(topicid));
+
+		modelview.addObject("resTopicPost", findPost(topicid));
+		modelview.setViewName("topic/topicDetail");
 		return modelview;
 	}
 
@@ -480,6 +542,12 @@ public class topic extends BaseController {
 	private JSONObject addPost(String uid, String message,String topicId,String appKey,String type,String fileUrl) {
 		String url = Config.YXTSERVER3 + "oss/topic/replyTopic?uid=" + uid + "&topicId=" + topicId + "&appKey=" + appKey + "&type=" + type
 				+ "&message=" + message + "&fileUrl=" + fileUrl;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject addSubPost(String uid, String message,String topicId,String appKey,String type,String fileUrl,String parentId) {
+		String url = Config.YXTSERVER3 + "oss/topic/replyPost?uid=" + uid + "&topicId=" + topicId + "&appKey=" + appKey + "&type=" + type
+				+ "&message=" + message + "&fileUrl=" + fileUrl+ "&parentId=" + parentId;
 		return getRestApiData(url);
 	}
 

@@ -24,6 +24,5 @@
 				<li class="divider"></li>
 			</ul>
 		</div>
-		<button type="button" class="btn btn-primary">用户排行榜</button>
 	</div>
 </div>

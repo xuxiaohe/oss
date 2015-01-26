@@ -27,6 +27,7 @@
 </style>
 </head>
 <body>
+ 
 	<div class="container-fluid">
 		<jsp:include page="header.jsp"></jsp:include>
 		<ol class="breadcrumb">
@@ -44,10 +45,15 @@
 							src="${topicDetail.data.result.picUrl }" alt="" />
 						<a href="${cbasePath}topic/updateTopicItemsForm?topicid=${topicDetail.data.result.topicId }">
 						<button type="button" class="edit btn-warning btn-block">编辑</button></a><br>
-						<button type="button" data="${topicDetail.data.result.topicId}" class="deletetopic btn-warning btn-block">删除</button><br>
-						<button name="addpost" data="${topicDetail.data.result.topicId}" type="button" class="addpost btn-warning btn-block">添加主楼回复</button>
+						
+						<a href="${cbasePath}topic/deleteTopic?topicid=${topicDetail.data.result.topicId }">
+						<button type="button" data="${topicDetail.data.result.topicId}" class="deletetopic btn-warning btn-block">删除</button></a><br>
+						
+						<a href="${cbasePath}topic/addPostByTopicIdForm?topicid=${topicDetail.data.result.topicId }">
+						<button name="addpost" data="${topicDetail.data.result.topicId}" type="button" class="addpost btn-warning btn-block">添加主楼回复</button></a>
 						<hr />
 					</div>
+					 
 					<div id="userInfoDiv" class="col-xs-10" style="">
 						<h4 style="margin-left: 12px;">
 							话题标题：${topicDetail.data.result.title} <small><small
@@ -67,8 +73,8 @@
 										主楼回复：${Recourse.post.message} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<a href="${cbasePath}topic/deletePostByTopicId?topicid=${topicDetail.data.result.topicId }&postid=${Recourse.post.postId}">
 										<button name="postdelete"   type="button" class="postdelete btn btn-danger"">删除</button></a>
-								 <button name="postedit" data="${Recourse.id}" type="button" class="postedit btn btn-primary">修改</button>
-								 <button name="postedit" data="${Recourse.id}" type="button" class="postedit btn btn-primary">添加副楼回复</button>
+								 <a href="${cbasePath}topic/addSubPostForm?topicid=${topicDetail.data.result.topicId }&postid=${Recourse.post.postId}">
+								 <button name="postedit"   type="button" class="postedit btn btn-primary">添加副楼回复</button></a>
 										
 										<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										
@@ -78,9 +84,8 @@
 											
 										<br> <br>	   副楼回复：${subpost.message}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											
-									<a href="${cbasePath}topic/deleteSubPostByTopicId?postid=${Recourse.post.postId}&index=${key.count-1}">		 
+									<a href="${cbasePath}topic/deleteSubPostByTopicId?postid=${Recourse.post.postId}&index=${key.count-1}&topicid=${topicDetail.data.result.topicId }">		 
 									<button name="subpostdelete"   type="button" class="subpostdelete btn btn-danger"">删除</button></a>
-								 <button name="subpostedit" data="${Recourse.id}" type="button" class="subpostedit btn btn-primary">修改</button>
 											</c:forEach>
 										</c:if>
 										
@@ -92,7 +97,6 @@
 											
 									<a href="${cbasePath}topic/deleteSubPostByTopicId?postid=${Recourse.post.postId}&subpostid=${subpost.post_id}">		 
 									<button name="subpostdelete"   type="button" class="subpostdelete btn btn-danger"">删除</button></a>
-								 <button name="subpostedit" data="${Recourse.id}" type="button" class="subpostedit btn btn-primary">修改</button>
 											</c:forEach>
 										</c:if>
 										</li>

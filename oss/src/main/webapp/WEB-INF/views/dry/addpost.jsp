@@ -43,7 +43,7 @@
 
 			<div class="col-xs-9">
 				<form role="form" method="post"
-					action="${cbasePath}topic/addPostByTopicIdAction?appKey=yxtapp&topicid=${topicid}">
+					action="${cbasePath}dry/addPostByDryIdAction?appKey=yxtapp&dryid=${dryid}">
 					<div class="form-group">
 						<label for="exampleInputEmail1">用户名</label> 
 							<select class="form-control" name="uid" id="uidSelect">

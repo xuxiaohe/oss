@@ -73,6 +73,9 @@
 								
 								<div class="col-xs-12 btn-group-sm">
 									<button data="${Recourse.topicId}" type="button" class="deleteBtn btn btn-primary">删除</button>
+									
+									<button data="${Recourse.topicId}" type="button"
+										class="info btn btn-primary">详情</button>
 									<c:if test="${Recourse.sourceId==''}">
 									<a 
 										class="btn btn-success" href="${cbasePath}topic/updateTopicForm?topicid=${Recourse.topicId}">
@@ -112,6 +115,18 @@
 					
 				}
 			}); 
+			
+			
+			$(".info")
+			.click(
+					function() {
+						 
+							//alert("info");
+							window.location.href = "${cbasePath}topic/topicDetail?topicid="
+									+ $(this).attr("data");
+						 
+					});
+			
 		});
 	</script>
 </body>
