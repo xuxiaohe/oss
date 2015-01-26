@@ -31,8 +31,15 @@
 				href="${cbasePath}group/groupDetail?gid=${Group.data.result.id}">
 					<small> ${Group.data.result.groupName }</small>
 			</a></li>
-			<li class="active">话题列表</li>
+			<li class="active">干货列表</li>
 		</ol>
+		
+		<div class="col-xs-12 btn-group-sm">
+		<a href="${cbasePath}group/updateDryForm?groupid=${Group.data.result.id}">
+		<button name="delete" data="${Group.data.result.id}" type="button"
+			class=" btn btn-primary">添加其他干货</button>
+		 </a>
+	</div>
 
 		<c:if test="${DryList.status == '200' }">
 			<!-- 分页开始 -->

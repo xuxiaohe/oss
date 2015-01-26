@@ -65,7 +65,7 @@
 							</c:if>
 							<div class="col-xs-2">
 								<a
-									href="${cbasePath}group/createGroupForUserForm?userid=${resuserDetail.data.result.id}">
+									href="${cbasePath}user/createGroupForUserForm?userid=${resuserDetail.data.result.id}">
 									<img class="thumbnail col-xs-6"
 									src="${cbasePath}resources/assets/image/plus.jpg" alt="">
 									

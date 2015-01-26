@@ -9,7 +9,7 @@
 <html>
 <head lang="en">
 <meta charset="UTF-8">
-<title>用户管理</title>
+<title>群组管理</title>
 <script src="${cbasePath}/resources/assets/js/jquery.min.js"></script>
 <script src="${cbasePath}/resources/assets/js/bootstrap.min.js"></script>
 <link href="${cbasePath}/resources/assets/css/bootstrap.min.css"
@@ -22,47 +22,40 @@
 </style>
 </head>
 <body>
+
+
 	<div class="container-fluid">
 
 		<ol class="breadcrumb">
 			<li><a href="#">群组管理</a></li>
-			<li><a href="${cbasePath}group/groupList">课程列表</a></li>
-			<li><a
-				href="${cbasePath}group/groupDetail?gid=${Groupid}">课程详情
-					
-			</a></li>
-			<li class="active">课程绑定群组</li>
+			<li><a href="${cbasePath}group/groupList">群组列表</a></li>
+			 
+			<li class="active">群组创建</li>
 		</ol>
 
 		<div class="row">
-			<div class="col-xs-3">
-				<%-- <img class="thumbnail col-xs-12"
-					src="${resuserCourse.data.result.logoUrl}" alt="" /> --%>
-
-				<%-- <c:forEach items="${imgUrls}" varStatus="key" var="img">
-					<img src="${img}" alt="" />
-				</c:forEach> --%>
-			</div>
+		
 
 
 			<div class="col-xs-9">
-				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
 				<form role="form" method="post"
-					action="${cbasePath}group/shareToMyGroup?groupId=${Groupid}">
+					action="${cbasePath}user/createGroupForUserAction?id=${user}">
 
+
+					 
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">课程ID</label>  
-							  <select
-							class="form-control" name="courseId" id="gidSelect">
-							<c:if test="${courses.status == '200' }">
-								<c:forEach items="${courses.data.result}" varStatus="key"
-									var="Recourse">
-									<option value="${Recourse.id }">${Recourse.title }</option>
-								</c:forEach>
-							</c:if>
-						</select>
+						<label for="exampleInputEmail1">群组名称</label> <input type="text"
+							name="groupName" class="form-control" id="exampleInputEmail1"
+							  placeholder="">
 					</div>
+					
+					<div class="form-group">
+						<label for="exampleInputEmail1">群组描述</label> <input type="text"
+							name="groupDesc" class="form-control" id="exampleInputEmail1"
+							  placeholder="">
+					</div>
+
 
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>

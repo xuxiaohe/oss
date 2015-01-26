@@ -26,43 +26,45 @@
 
 		<ol class="breadcrumb">
 			<li><a href="#">群组管理</a></li>
-			<li><a href="${cbasePath}group/groupList">课程列表</a></li>
+			<li><a href="${cbasePath}group/groupList">群组列表</a></li>
 			<li><a
-				href="${cbasePath}group/groupDetail?gid=${Groupid}">课程详情
-					
+				href="${cbasePath}group/groupDetail?gid=${resuserTopic.data.result.id}">群组详情
+					 
 			</a></li>
-			<li class="active">课程绑定群组</li>
+			<li class="active">关联群组</li>
 		</ol>
 
 		<div class="row">
-			<div class="col-xs-3">
-				<%-- <img class="thumbnail col-xs-12"
-					src="${resuserCourse.data.result.logoUrl}" alt="" /> --%>
+			<%-- <div class="col-xs-3">
+				<img class="thumbnail col-xs-12"
+					src="${dryList.data.result.fileUrl}" alt="" />
 
-				<%-- <c:forEach items="${imgUrls}" varStatus="key" var="img">
+				<c:forEach items="${imgUrls}" varStatus="key" var="img">
 					<img src="${img}" alt="" />
-				</c:forEach> --%>
-			</div>
+				</c:forEach>
+			</div> --%>
 
 
 			<div class="col-xs-9">
-				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
 				<form role="form" method="post"
-					action="${cbasePath}group/shareToMyGroup?groupId=${Groupid}">
+					action="${cbasePath}group/updateDryAction?gid=${group}">
 
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">课程ID</label>  
+						<label for="exampleInputEmail1">干货ID</label>  
 							  <select
-							class="form-control" name="courseId" id="gidSelect">
-							<c:if test="${courses.status == '200' }">
-								<c:forEach items="${courses.data.result}" varStatus="key"
+							class="form-control" name="dryid" id="gidSelect">
+							<c:if test="${dryList.status == '200' }">
+								<c:forEach items="${dryList.data.result}" varStatus="key"
 									var="Recourse">
-									<option value="${Recourse.id }">${Recourse.title }</option>
+									<option value="${Recourse.id }">${Recourse.message }</option>
 								</c:forEach>
 							</c:if>
 						</select>
 					</div>
+
+					 
+
 
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>

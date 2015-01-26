@@ -297,7 +297,7 @@ public class dry extends BaseController {
 		// 必输
 		String dryid = request.getParameter("dryid");
 		String gid = request.getParameter("gid");
-		deleteDryById(dryid);
+		deleteDryByGroup(dryid,gid);
 
 		return "redirect:/group/groupDry?gid=" + gid;
 	}
@@ -634,6 +634,11 @@ public class dry extends BaseController {
 	private JSONObject addSubPost(String uid, String message,String topicId,String appKey,String type,String fileUrl,String parentId) {
 		String url = Config.YXTSERVER3 + "oss/topic/replyPost?uid=" + uid + "&topicId=" + topicId + "&appKey=" + appKey + "&type=" + type
 				+ "&message=" + message + "&fileUrl=" + fileUrl+ "&parentId=" + parentId;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject deleteDryByGroup(String dryId,String gid) {
+		String url = Config.YXTSERVER3 + "oss/dry/deleteDryByGroup?dryid=" + dryId+"&gid="+gid;
 		return getRestApiData(url);
 	}
 

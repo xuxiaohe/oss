@@ -229,7 +229,7 @@ public class user extends BaseController {
 		String pagelines = request.getParameter("s");
 
 		if (pagelines == null) {
-			pagelines = "10";
+			pagelines = "100";
 		}
 		String userid = request.getParameter("userid");
 
@@ -612,6 +612,85 @@ public class user extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("user/userDetail");
+		return modelview;
+
+	}
+	
+	/**
+	 * 
+	 * 为某一个用户id创建群 展示页
+	 */
+	@RequestMapping("/createGroupForUserForm")
+	public ModelAndView createGroupForUserForm(HttpServletRequest request) {
+		String courSharResoStr;
+		// 当前第几页
+		String userid = request.getParameter("userid");
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("user", userid);
+
+		modelview.setViewName("user/createGroupForm");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 
+	 * 为某一个用户id创建群
+	 */
+	@RequestMapping("/createGroupForUserAction")
+	public ModelAndView createGroupForUserAction(HttpServletRequest request) {
+		String courSharResoStr;
+		String pagenumber = request.getParameter("n");
+		if (pagenumber == null) {
+
+			pagenumber = "0";
+
+			}
+
+
+
+			// 每页条数
+
+
+
+			String pagelines = request.getParameter("s");
+
+
+
+			if (pagelines == null) {
+
+			pagelines = "100";
+
+			}
+		 
+		String userid = request.getParameter("id");
+		String groupName = request.getParameter("groupName");
+		String groupDesc = request.getParameter("groupDesc");
+		ModelAndView modelview = new ModelAndView();
+		RestTemplate restTemplate = new RestTemplate();
+
+		// Map<String, String> rp = new HashMap<String, String>();
+		//
+		// rp.put("id", userid);
+		// rp.put("groupName", groupName.trim());
+		// rp.put("intro", groupDesc.trim());
+
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/create?uid=" + userid + "&groupName=" + groupName + "&intro="
+				+ groupDesc, null, String.class);
+		JSONObject objj = JSONObject.fromObject(courSharResoStr);
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("creategroup", objj);
+		modelview.addObject("resuserDetail", getUserDetail(userid));
+
+		modelview.addObject("resuserGroup", getUserGroup(userid, pagenumber, pagelines));
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("user/userGroup");
 		return modelview;
 
 	}
