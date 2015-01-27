@@ -58,7 +58,7 @@
 					<div class="col-xs-1">
 								<div class="row">
 									<img class="col-xs-12 thumbnail" src="${Recourse}"
-										style="margin-top: 10px;" alt="" />
+										style="margin-top: 10px;" alt="" onclick="sendurll('${Recourse}')" />
 								</div>
 							</div>
 					
@@ -67,7 +67,7 @@
 					
 					<div class="form-group">
 						<label for="exampleInputEmail1">fileURL</label> <input type="text"
-							name="fileUrl" class="form-control" id="exampleInputEmail1" value="${url }"
+							name="fileUrl" class="form-control" id="exampleInputEmail2" value="${url }"
 							placeholder="">
 					</div>
 
@@ -136,6 +136,11 @@
 				}
 			});
 		});
+		
+		function sendurll(url)
+		{
+			$("#exampleInputEmail2").val(url);
+		}
 	</script>
 </body>
 </html>
