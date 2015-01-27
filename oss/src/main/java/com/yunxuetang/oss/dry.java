@@ -28,7 +28,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yunxuetang.util.AutoExecuteTaskController;
 import com.yunxuetang.util.Config;
+import com.yunxuetang.util.FetchedPage;
+import com.yunxuetang.util.PageFetcher;
+
 
 @Controller
 @RequestMapping("/dry")
@@ -238,6 +242,41 @@ public class dry extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("dry/createdryForm");
+		return modelview;
+	}
+	
+	
+	
+	
+	/**
+	 * 
+	 * 创建干货展示页 查询机器人
+	 */
+	@RequestMapping("/catchDryByGroupView")
+	public ModelAndView catchDryByGroupView(HttpServletRequest request) {
+		// 当前第几页
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "100";
+		}
+
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("robots", findRoboit(pagenumber, pagelines));
+		modelview.addObject("groupList", groupList(pagenumber, pagelines));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("dry/catchDry");
 		return modelview;
 	}
 
@@ -550,7 +589,47 @@ public class dry extends BaseController {
 	
 	
 	
-	
+	/**
+	 * 
+	 * 抓取干货
+	 */
+	@RequestMapping("/catchDryUrl")
+	public ModelAndView catchDryUrl(HttpServletRequest request) {
+
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "100";
+		}
+		String url = request.getParameter("url");
+		  PageFetcher fetcher = new PageFetcher();
+		
+		AutoExecuteTaskController a=new AutoExecuteTaskController();
+		
+		 FetchedPage  fetchedPage = fetcher.getContentFromUrl(url);
+		 Map  m=  a.fetchData(url,fetchedPage);
+		 
+		
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("url", m.get("url"));
+		modelview.addObject("message", m.get("message"));
+		modelview.addObject("image", m.get("image"));
+		modelview.addObject("robots", findRoboit(pagenumber, pagelines));
+		modelview.addObject("groupList", groupList(pagenumber, pagelines));
+		modelview.setViewName("dry/catchDryAction");
+		return modelview;
+	}
 	
 	
 	
