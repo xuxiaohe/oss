@@ -5,7 +5,6 @@
 	<groupId>com.yunxuetang</groupId>
 	<artifactId>oss</artifactId>
 	<name>oss</name>
-	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.6</java-version>
@@ -32,7 +31,13 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-				
+		
+<dependency>
+    <groupId>org.springframework.data</groupId>
+    <artifactId>spring-data-commons</artifactId>
+    <version>1.9.1.RELEASE</version>
+</dependency>
+
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -89,6 +94,23 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
+		
+		
+		<dependency>
+        	<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.8.1</version>
+		</dependency>			
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpcore</artifactId>
+		    <version>4.4-beta1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpclient</artifactId>
+		    <version>4.4-beta1</version>
+		</dependency>	
 				
 		<!-- Servlet -->
 		<dependency>
@@ -150,7 +172,7 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>        
+		</dependency>
 	</dependencies>
     <build>
         <plugins>
@@ -190,4 +212,5 @@
             </plugin>
         </plugins>
     </build>
+    <packaging>war</packaging>
 </project>
