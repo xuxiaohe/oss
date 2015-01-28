@@ -36,28 +36,26 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "login";
 	}
 	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	@RequestMapping(value = "/login")
 	public String test(HttpServletRequest request) {
 		
-	String aString=	request.getParameter("key");
+	String name=	request.getParameter("name");
 		 
-		 
+	String password=	request.getParameter("password");	 
 		
+		 if("admin".equals(name)&&"123456".equals(password)){
 		 
+			 request.getSession().setAttribute("name", name);
+			 return "home";
+		 }
+		 else {
+			 return "login";
+		}
 		
-		return "home";
 	}
-	@RequestMapping(value = "/testpro", method = RequestMethod.GET)
-	public String testpro(HttpServletRequest request) {
-		 
-		 
-		
-		 
-		
-		return "test";
-	}
+	 
 	
 }
