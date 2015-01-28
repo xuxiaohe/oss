@@ -19,19 +19,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.helper.StringUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -41,7 +36,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/startfatche")
 public class AutoExecuteTaskController {
 
-	private static Logger logger = Logger.getLogger(AutoExecuteTaskController.class.getName());
 	public static String imgBasePath = "/var/www/html/drgcargo/";
 	// public static String imgBasePath ="/Users/yangquanliang/Downloads/";
 	public static String imghttpUrl = "http://s1.xuewen.yunxuetang.com/drgcargo/";

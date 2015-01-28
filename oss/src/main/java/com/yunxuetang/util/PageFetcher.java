@@ -8,33 +8,25 @@ import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.GzipDecompressingEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
 
 public class PageFetcher {
-	private static final Logger Log = Logger.getLogger(PageFetcher.class
-			.getName());
-	private CloseableHttpClient client;
-	private RequestConfig defaultRequestConfig;
+	private DefaultHttpClient client;
 
 	/**
 	 * 创建HttpClient实例，并初始化连接参数
 	 */
 	public PageFetcher() {
 		// 设置超时时间
-		defaultRequestConfig = RequestConfig.custom().setSocketTimeout(10000)
-				.setConnectTimeout(10000).setConnectionRequestTimeout(10000)
-				.build();
-
-		client = HttpClients.custom()
-				.setDefaultRequestConfig(defaultRequestConfig).build();
+	
+       //HttpParams params =
+		client = new DefaultHttpClient();
 
 		// // 代理的设置
 		// HttpHost proxy = new HttpHost("127.0.0.1", 8087);
@@ -53,11 +45,11 @@ public class PageFetcher {
 		String content = null;
 		int statusCode = 500;
 		
-		RequestConfig requestConfig = RequestConfig.copy(defaultRequestConfig)
-				.build();
+		//RequestConfig requestConfig = RequestConfig.copy(defaultRequestConfig)
+		//		.build();
 		// 创建Get请求，并设置Header
 		HttpGet getHttp = new HttpGet(url.trim());
-		getHttp.setConfig(requestConfig);
+		//getHttp.setConfig(requestConfig);
 		getHttp.setHeader(
 				"User-Agent",
 				"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36");
@@ -98,7 +90,6 @@ public class PageFetcher {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			Log.info("抓取页面信息异常");
 			// 因请求超时等问题产生的异常，将URL放回待抓取队列，重新爬取
 		}
 
@@ -137,13 +128,11 @@ public class PageFetcher {
 			HttpEntity entity = response.getEntity();
 
 			if (entity != null) {
-				String charset = ContentType.getOrDefault(entity).getParameter(
-						"charset");
+				String charset = ContentType.getOrDefault(entity).getCharset().toString();
 				content = EntityUtils.toString(entity, charset);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			Log.info("抓取页面信息异常");
 		}
 
 		return new FetchedPage(url, content, statusCode);
