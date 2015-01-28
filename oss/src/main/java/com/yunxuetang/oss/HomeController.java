@@ -58,4 +58,14 @@ public class HomeController {
 	}
 	 
 	
+	
+	@RequestMapping(value = "/404")
+	public String notFound(HttpServletRequest request) {
+		
+	 	 
+		return "404";
+		
+		
+	}
+	
 }
