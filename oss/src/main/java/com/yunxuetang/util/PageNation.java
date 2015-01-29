@@ -61,8 +61,8 @@ public class PageNation extends TagSupport {
 		int start = 0;
 		int end = 0;
 
-		start = (this.getCurrPage() - 3) >= 0 ? (this.getCurrPage() - 3) : 1;
-		end = (this.getCurrPage() + 3) >= this.getTotalPages() ? this
+		start = (this.getCurrPage() - 3) > 0 ? (this.getCurrPage() - 3) : 1;
+		end = (this.getCurrPage() + 3) > this.getTotalPages() ? this
 				.getTotalPages() : (this.getCurrPage() + 3);
 		for (int i = start; i <= end; i++) {
 			if (this.getCurrPage() == i) {
