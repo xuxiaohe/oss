@@ -262,7 +262,7 @@ public class AutoExecuteTaskController {
 		try {
 			String imgName = ImgUrl.split("[/]")[ImgUrl.split("[/]").length - 1];
 			// 小图名称在大图名称后面加s
-			String simgName = ImgUrl.split("[/]")[ImgUrl.split("[/]").length - 1].replace(".", "s.");
+			String simgName = ImgUrl.split("[/]")[ImgUrl.split("[/]").length - 1].replace(".",System.currentTimeMillis()+".");
 
 			FileOutputStream out;
 			// 抓取下载原始图
@@ -271,7 +271,7 @@ public class AutoExecuteTaskController {
 			uc.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0");
 			InputStream is = uc.getInputStream();
 			// 保存原始大图
-			File file = new File(imgBasePath + "/" + imgName);
+			File file = new File(imgBasePath + "/" + simgName);
 			String newfileUrl = imgBasePath + simgName;
 			out = new FileOutputStream(file);
 			int i = 0;
@@ -282,18 +282,15 @@ public class AutoExecuteTaskController {
 			out.close();
 
 			BufferedImage srcImage = ImageIO.read(file);
+			
 			String imgType = "JPEG";
 			if (imgName.contains(".png") || imgName.contains(".PNG")) {
 				imgType = "PNG";
 			}
 
-			if (srcImage.getWidth() > 300) {
-				BufferedImage target = resize(srcImage, 592, 320, true);
-				File savefile = new File(newfileUrl);
-				ImageIO.write(target, imgType, savefile);
-				// 小图完整路径加名称
-				return imghttpUrl + simgName;
-			}
+			
+				return imgBasePath + simgName;
+			
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

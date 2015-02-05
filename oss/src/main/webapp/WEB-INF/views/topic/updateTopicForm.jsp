@@ -29,13 +29,13 @@
 			<li><a href="${cbasePath}topic/topicList">话题列表</a></li>
 			<li><a
 				href="${cbasePath}topic/topicDetail?topicid=${resuserTopic.data.result.topicId}">话题详情
-					 
+
 			</a></li>
 			<li class="active">话题编辑</li>
 		</ol>
 
 		<div class="row">
-			 <div class="col-xs-3">
+			<div class="col-xs-3">
 				<img class="thumbnail col-xs-12"
 					src="${resuserTopic.data.result.picUrl}" alt="" />
 
@@ -47,7 +47,8 @@
 			<div class="col-xs-9">
 				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
 				<form role="form" method="post"
-					action="${cbasePath}topic/updateTopicByGroup?topicid=${resuserTopic.data.result.topicId}">
+					action="${cbasePath}topic/updateTopicByGroup?topicid=${resuserTopic.data.result.topicId}&picUrl=${resuserTopic.data.result.picUrl}"
+					enctype="multipart/form-data">
 
 
 					<div class="form-group">
@@ -61,11 +62,10 @@
 							name="content" class="form-control" id="exampleInputEmail1"
 							value="${resuserTopic.data.result.content }" placeholder="">
 					</div>
-					
+
 					<div class="form-group">
-						<label for="exampleInputEmail1">picUrl</label> <input type="text"
-							name="picUrl" class="form-control" id="exampleInputEmail1"
-							value="${resuserTopic.data.result.picUrl }" placeholder="">
+						<label for="exampleInputEmail1">如果修改请上传话题图片(支持JPEG,JPG,PNG)</label> <input
+							id="file" type="file" name="file" />
 					</div>
 
 

@@ -3,9 +3,11 @@ package com.yunxuetang.oss;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -23,21 +25,28 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yunxuetang.util.AutoExecuteTaskController;
 import com.yunxuetang.util.Config;
 import com.yunxuetang.util.FetchedPage;
 import com.yunxuetang.util.PageFetcher;
+import com.yunxuetang.util.Saveimage;
+import com.yunxuetang.util.qiniu;
 
 
 @Controller
 @RequestMapping("/dry")
 public class dry extends BaseController {
 
+	@Autowired
+	Saveimage saveimage;
 	public dry() {
 		// TODO Auto-generated constructor stub
 	}
@@ -285,7 +294,7 @@ public class dry extends BaseController {
 	 * 用机器人id创建干货
 	 */
 	@RequestMapping("/createDryByGroup")
-	public String createDryByGroup(HttpServletRequest request) {
+	public String createDryByGroup(HttpServletRequest request,@RequestParam MultipartFile file) {
 
 		// 必输
 		String id = request.getParameter("uid");
@@ -298,7 +307,34 @@ public class dry extends BaseController {
 		String i = l.toString();
 		String group = request.getParameter("gid");
 		String url = request.getParameter("url");
-		String fileUrl = request.getParameter("fileUrl");
+		String fileUrl = "";
+		try {
+
+			String t[]=file.getContentType().split("/");
+			String tt="."+t[1];
+			if (file.getSize()!=0) {
+
+			Long l1=System.currentTimeMillis();
+
+			String urlString="/data/ossImgTemp";
+
+			String urlString2=id+l1+tt;
+
+			InputStream stream=	file.getInputStream();
+
+			fileUrl=saveimage.save(urlString, urlString2, stream,"dry");
+
+			}
+
+			} catch (Exception e) {
+
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+
+			}
+		
+		
 		String message = request.getParameter("message");
 		// 干货的抓取的描述
 		String description = request.getParameter("description");
@@ -314,6 +350,63 @@ public class dry extends BaseController {
 
 		return "redirect:/dry/dryList";
 	}
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * 用机器人id创建干货  处理抓取的干货
+	 */
+	@RequestMapping("/createDryByCatch")
+	public String createDryByCatch(HttpServletRequest request) {
+
+		// 必输
+		String id = request.getParameter("uid");
+		String tagName = request.getParameter("tagName");
+		String tagNameArry[] = tagName.split(",");
+		List l = new ArrayList();
+		for (String a : tagNameArry) {
+			l.add("\"" + a + "\"");
+		}
+		String i = l.toString();
+		String group = request.getParameter("gid");
+		String url = request.getParameter("url");
+		String fileUrl = request.getParameter("fileUrl");
+		AutoExecuteTaskController a=new AutoExecuteTaskController();
+		String u=a.handleSmallPic(fileUrl, "/data/ossImgTemp/");
+		String uu[]=u.split("/");
+		String urlString="/"+uu[1]+"/"+uu[2];
+		String urlString2=uu[3];
+		try {
+			qiniu qn=new qiniu();
+			fileUrl=  qn.xixi(urlString, urlString2,"dry");
+		     
+		     File file=new File(urlString + "/"+ urlString2);
+		       file.delete();
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String message = request.getParameter("message");
+		// 干货的抓取的描述
+		String description = request.getParameter("description");
+		// 干货与炫页标示，0干货1炫页
+		String dryFlag = "0";
+
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("rescreateDryByGroup", createDryByGroup(id, i, group, url, fileUrl, message, description, dryFlag));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+
+		return "redirect:/dry/dryList";
+	}
+	
 
 	/**
 	 * 

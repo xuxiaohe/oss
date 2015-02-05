@@ -1,5 +1,6 @@
 package com.yunxuetang.oss;
 
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
@@ -11,18 +12,24 @@ import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.yunxuetang.util.Config;
+import com.yunxuetang.util.Saveimage;
 
 @Controller
 @RequestMapping("/group")
 public class group extends BaseController {
 
+	@Autowired
+	Saveimage saveimage;
 	/**
 	 * 
 	 * 根据条件查找群组
@@ -169,7 +176,7 @@ public class group extends BaseController {
 	 * 更新群组
 	 */
 	@RequestMapping("/updateGroup")
-	public ModelAndView updateGroup(HttpServletRequest request) {
+	public ModelAndView updateGroup(HttpServletRequest request,@RequestParam MultipartFile file) {
 		String courSharResoStr;
 		// 拥有者id
 		String uid = request.getParameter("uid");
@@ -181,6 +188,29 @@ public class group extends BaseController {
 		String intro = request.getParameter("intro");
 		String tag = request.getParameter("tag");
 		String logoUrl = request.getParameter("logoUrl");
+		try {
+
+			if (file.getSize()!=0) {
+
+			Long l=System.currentTimeMillis();
+
+			String urlString="/data/ossImgTemp";
+
+			String urlString2=uid+l+".jpg";
+
+			InputStream stream=	file.getInputStream();
+
+			logoUrl=saveimage.save(urlString, urlString2, stream,"group");
+
+			}
+
+			} catch (Exception e) {
+
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+
+			}
 		String groupName = request.getParameter("groupName");
 		String bgUrl = request.getParameter("bgUrl");
 
@@ -451,7 +481,7 @@ public class group extends BaseController {
 	 * 用机器人id创建干货
 	 */
 	@RequestMapping("/createDryByGroup")
-	public ModelAndView createDryByGroup(HttpServletRequest request) {
+	public ModelAndView createDryByGroup(HttpServletRequest request,@RequestParam MultipartFile file) {
 		String courSharResoStr;
 
 		// 必输
@@ -459,7 +489,34 @@ public class group extends BaseController {
 		String tagName = request.getParameter("tagName");
 		String group = request.getParameter("gid");
 		String url = request.getParameter("url");
-		String fileUrl = request.getParameter("fileUrl");
+		String fileUrl = "";
+		try {
+
+			String t[]=file.getContentType().split("/");
+			String tt="."+t[1];
+			if (file.getSize()!=0) {
+
+			Long l=System.currentTimeMillis();
+
+			String urlString="/data/ossImgTemp";
+
+			String urlString2=id+l+tt;
+
+			InputStream stream=	file.getInputStream();
+
+			fileUrl=saveimage.save(urlString, urlString2, stream,"dry");
+
+			}
+
+			} catch (Exception e) {
+
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+
+			}
+		
+		
 		String message = request.getParameter("message");
 
 		RestTemplate restTemplate = new RestTemplate();

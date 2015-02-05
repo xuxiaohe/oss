@@ -37,7 +37,8 @@
 		<div class="row">
 
 			<div class="col-xs-3">
-				<img class="thumbnail col-xs-12" src="${resuserDetail.data.result.logoURL}" alt="" />
+				<img class="thumbnail col-xs-12"
+					src="${resuserDetail.data.result.logoURL}" alt="" />
 
 				<%-- <c:forEach items="${imgUrls}" varStatus="key" var="img">
 					<img src="${img}" alt="" />
@@ -45,14 +46,17 @@
 			</div>
 
 			<div class="col-xs-9">
-				 
-				<form role="form" method="post" action="${cbasePath}user/updateUser?userid=${resuserDetail.data.result.id}">
+
+				<form role="form" method="post"
+					action="${cbasePath}user/updateUser?logoURL=${resuserDetail.data.result.logoURL}&robot=${resuserDetail.data.result.robot}&userid=${resuserDetail.data.result.id}"
+					enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="exampleInputEmail1">性别</label> <input type=""
 							name="sex" class="form-control" id="exampleInputEmail1"
-							placeholder="" value="${resuserDetail.data.result.sex }"> 提示：1男2女
+							placeholder="" value="${resuserDetail.data.result.sex }">
+						提示：1男2女
 					</div>
-					
+
 					<div class="form-group">
 						<label for="exampleInputEmail1">手机号</label> <input type=""
 							name="phoneNumber" class="form-control" id="exampleInputEmail1"
@@ -69,9 +73,8 @@
 							placeholder="" value="${resuserDetail.data.result.tag }">提示：标签间以，分隔
 					</div>
 					<div class="form-group">
-						<label for="exampleInputEmail1">头像图片地址</label> <input type=""
-							name="logoURL" class="form-control" id="exampleInputEmail1"
-							placeholder="" value="${resuserDetail.data.result.logoURL }">
+						<label for="exampleInputEmail1">如果修改请上传图片(支持JPEG,JPG,PNG)</label> 
+						<input id="file" type="file" name="file" /> 
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">信息</label> <input type=""
@@ -83,7 +86,7 @@
 							name="nickName" class="form-control" id="exampleInputEmail1"
 							placeholder="" value="${resuserDetail.data.result.nickName }">
 					</div>
- 
+
 
 
 					<button type="submit" class="btn btn-default">Submit</button>

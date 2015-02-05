@@ -27,7 +27,7 @@
 		<ol class="breadcrumb">
 			<li><a href="#">群管理</a></li>
 			<li><a href="${cbasePath}group/groupList">群列表</a></li>
-			 <li><a
+			<li><a
 				href="${cbasePath}group/groupDetail?gid=${Group.data.result.id}">
 					<small> ${Group.data.result.groupName }</small>
 			</a></li>
@@ -48,7 +48,8 @@
 			<div class="col-xs-9">
 				<a href="${url }" target="_blank">${resupdateGroupView.data.result.message }</a>
 				<form role="form" method="post"
-					action="${cbasePath}group/updateGroup?gid=${resupdateGroupView.data.result.id}&uid=${resOwner}">
+					action="${cbasePath}group/updateGroup?gid=${resupdateGroupView.data.result.id}&uid=${resOwner}&logoUrl=${resupdateGroupView.data.result.logoUrl }"
+					enctype="multipart/form-data">
 
 
 					<div class="form-group">
@@ -59,19 +60,18 @@
 
 					<div class="form-group">
 						<label for="exampleInputEmail1">群组标签</label> <input type="text"
-							name="tag" class="form-control" id="exampleInputEmail1"
-							 >原群组标签为：${resupdateGroupView.data.result.tag } 
-					</div> 
+							name="tag" class="form-control" id="exampleInputEmail1">原群组标签为：${resupdateGroupView.data.result.tag }
+					</div>
 					<br>
 					<div class="form-group">
-						<label for="exampleInputEmail1">群组图片</label> <input type="text"
-							name="logoUrl" class="form-control" id="exampleInputEmail1"
-							value="${resupdateGroupView.data.result.logoUrl }" placeholder="">
+						<label for="exampleInputEmail1">如果修改请上传群组图片(支持JPEG,JPG,PNG)</label> 
+						<input id="file" type="file" name="file" /> 
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">群组名称</label> <input type="text"
 							name="groupName" class="form-control" id="exampleInputEmail1"
-							value="${resupdateGroupView.data.result.groupName }" placeholder="">
+							value="${resupdateGroupView.data.result.groupName }"
+							placeholder="">
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">bgUrl</label> <input type="text"
@@ -84,9 +84,9 @@
 				</form>
 			</div>
 		</div>
-		 
+
 	</div>
-	 
+
 </body>
 </html>
 

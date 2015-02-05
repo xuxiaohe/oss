@@ -1,5 +1,6 @@
 package com.yunxuetang.oss;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,17 +8,23 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yunxuetang.util.Config;
+import com.yunxuetang.util.Saveimage;
 
 @Controller
 @RequestMapping("/topic")
 public class topic extends BaseController {
 
+	@Autowired
+	Saveimage saveimage;
 	public topic() {
 		// TODO Auto-generated constructor stub
 	}
@@ -250,13 +257,37 @@ public class topic extends BaseController {
 	 * 更新话题
 	 */
 	@RequestMapping("/updateTopicByGroup")
-	public String updateTopicByGroup(HttpServletRequest request) {
+	public String updateTopicByGroup(HttpServletRequest request,@RequestParam MultipartFile file) {
 
 		// 必输
 		String topicid = request.getParameter("topicid");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String picUrl = request.getParameter("picUrl");
+		try {
+			String t[]=file.getContentType().split("/");
+			String tt="."+t[1];
+			if (file.getSize()!=0) {
+
+			Long l=System.currentTimeMillis();
+
+			String urlString="/data/ossImgTemp";
+
+			String urlString2=topicid+l+tt;
+
+			InputStream stream=	file.getInputStream();
+
+			picUrl=saveimage.save(urlString, urlString2, stream,"topic");
+
+			}
+
+			} catch (Exception e) {
+
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+
+			}
 
 		ModelAndView modelview = new ModelAndView();
 

@@ -1,6 +1,7 @@
 package com.yunxuetang.oss;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yunxuetang.util.Config;
 import com.yunxuetang.util.PoiService;
+import com.yunxuetang.util.Saveimage;
 
 @Controller
 @RequestMapping("/user")
@@ -28,6 +31,9 @@ public class user extends BaseController {
 
 	@Resource(name = "poiService")
 	public PoiService service;
+	
+	@Autowired
+	Saveimage saveimage;
 
 	public user() {
 
@@ -350,21 +356,37 @@ public class user extends BaseController {
 	 * 编辑用户信息的表单，处理提交的数据
 	 */
 	@RequestMapping("/updateUser")
-	private ModelAndView updateUser(HttpServletRequest request) {
+	private ModelAndView updateUser(HttpServletRequest request,@RequestParam MultipartFile file) {
 		String sex = request.getParameter("sex");
+		String userid = request.getParameter("userid");
 		String phoneNumber = request.getParameter("phoneNumber");
 		String email = request.getParameter("email");
 		String tag = request.getParameter("tag");
+		String robot = request.getParameter("robot");
 		String logoURL = request.getParameter("logoURL");
+		try {
+			if (file.getSize()!=0) {
+				String t[]=file.getContentType().split("/");
+				String tt="."+t[1];
+				Long l=System.currentTimeMillis();
+				String urlString="/data/ossImgTemp";
+				String urlString2=userid+l+tt;
+				InputStream stream=	file.getInputStream();
+				logoURL=saveimage.save(urlString, urlString2, stream,"user");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String intro = request.getParameter("intro");
 		String nickName = request.getParameter("nickName");
-		String userid = request.getParameter("userid");
+		
 
 		ModelAndView modelview = new ModelAndView();
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.addObject("resupdateUser", getUpdateUser(userid, sex, phoneNumber, email, tag, logoURL, intro, nickName));
+		modelview.addObject("resupdateUser", getUpdateUser(userid, sex, phoneNumber, email, tag, logoURL, intro, nickName,robot));
 
 		modelview.setViewName("user/show");
 		return modelview;
@@ -727,14 +749,14 @@ public class user extends BaseController {
 	}
 
 	private JSONObject getUpdateUser(String userid, String sex, String phoneNumber, String email, String tag, String logoURL, String intro,
-			String nickName) {
+			String nickName,String robot) {
 		String url = Config.YXTSERVER3 + "oss/user/update/" + userid + "?sex=" + sex + "&phoneNumber=" + phoneNumber + "&email=" + email + "&tag="
-				+ tag + "&logoURL=" + logoURL + "&intro=" + intro + "&nickName=" + nickName;
+				+ tag + "&logoURL=" + logoURL + "&intro=" + intro + "&nickName=" + nickName+ "&robot=" + robot;
 		return getRestApiData(url);
 	}
 
 	private JSONObject getCreateRobot(String userName, String passWord) {
-		String url = Config.YXTSERVER3 + "user/registPc?userName=" + userName + "&passWord=" + passWord + "&robot=1";
+		String url = Config.YXTSERVER3 + "oss/user/registPc?userName=" + userName + "&passWord=" + passWord + "&robot=1";
 		return getRestApiData(url);
 	}
 

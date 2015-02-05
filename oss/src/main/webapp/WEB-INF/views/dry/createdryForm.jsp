@@ -28,7 +28,7 @@
 			<li><a href="#">干货仓库</a></li>
 			<li><a href="${cbasePath}dry/dryList">干货列表</a></li>
 			 
-			<li class="active">干货编辑</li>
+			<li class="active">干货创建</li>
 		</ol>
 
 		<div class="row">
@@ -44,7 +44,7 @@
 			<div class="col-xs-9">
 				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
 				<form role="form" method="post"
-					action="${cbasePath}dry/createDryByGroup">
+					action="${cbasePath}dry/createDryByGroup" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="exampleInputEmail1">用户名</label> 
 							<select class="form-control" name="uid" id="uidSelect">
@@ -79,9 +79,8 @@
 							placeholder="">
 					</div>
 					<div class="form-group">
-						<label for="exampleInputEmail1">fileURL</label> <input type="text"
-							name="fileUrl" class="form-control" id="exampleInputEmail1"
-							placeholder="">
+						<label for="exampleInputEmail1">上传干货图片(支持JPEG,JPG,PNG)</label> 
+						<input id="file" type="file" name="file" /> 
 					</div>
 
 					<div class="form-group">

@@ -43,7 +43,7 @@
 
 			<div class="col-xs-9">
 				<form role="form" method="post"
-					action="${cbasePath}dry/createDryByGroup">
+					action="${cbasePath}dry/createDryByCatch">
 					<br><br>
 					抓取的内容：
 					<div class="form-group">
@@ -66,8 +66,8 @@
 					</c:forEach>
 					
 					<div class="form-group">
-						<label for="exampleInputEmail1">fileURL</label> <input type="text"
-							name="fileUrl" class="form-control" id="exampleInputEmail2" value="${url }"
+						<label for="exampleInputEmail1">请选择点击上面的一张图片</label> <input type="text"
+							name="fileUrl" class="form-control" id="exampleInputEmail2" value=""
 							placeholder="">
 					</div>
 
