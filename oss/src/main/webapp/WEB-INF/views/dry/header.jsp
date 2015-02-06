@@ -20,6 +20,9 @@
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="${cbasePath}dry/createDryByGroupView">干货创建</a></li>
 				<li><a href="${cbasePath}dry/catchDryByGroupView">干货抓取</a></li>
+				<li><a href="${cbasePath}dry/addDryBoxForm">干货排行榜创建</a></li>
+				<li><a href="${cbasePath}dry/DryBoxDetail">干货未关联排行榜管理</a></li>
+				<li><a href="${cbasePath}dry/DryBoxBindedDetail">干货已关联排行榜管理</a></li>
 				<!-- <li><a href="#">用户导入</a></li> -->
 				<li class="divider"></li>
 			</ul>

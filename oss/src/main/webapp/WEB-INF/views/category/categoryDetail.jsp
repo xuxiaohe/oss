@@ -100,7 +100,7 @@
 								 
 								 
 
-								<div class="col-xs-6">
+								
 						</ul>
 						</c:forEach>
 

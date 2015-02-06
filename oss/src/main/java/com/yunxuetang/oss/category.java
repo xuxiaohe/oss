@@ -30,7 +30,7 @@ public class category extends BaseController {
 	public String createFirstCategoryAction(HttpServletRequest request, @RequestParam MultipartFile file) {
 		// 当前第几页
 		String categoryName = request.getParameter("categoryName");
-		String logoUrl = "";
+		String logoUrl = null;
 		String t[] = file.getContentType().split("/");
 		String tt = "." + t[1];
 		try {
@@ -91,7 +91,7 @@ public class category extends BaseController {
 	public String createSecondCategoryAction(HttpServletRequest request, @RequestParam MultipartFile file) {
 		// 当前第几页
 		String parentId = request.getParameter("parentId");
-		String logoUrl = "";
+		String logoUrl = null;
 		String t[] = file.getContentType().split("/");
 		String tt = "." + t[1];
 		try {

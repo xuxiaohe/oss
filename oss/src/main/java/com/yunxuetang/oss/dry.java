@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -724,6 +725,256 @@ public class dry extends BaseController {
 		return modelview;
 	}
 	
+	/**
+	 * 
+	 * 添加排行榜  展示页
+	 */
+	@RequestMapping("/addDryBoxForm")
+	public ModelAndView addDryBoxForm(HttpServletRequest request) {
+
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+
+		modelview.setViewName("dry/createdryBoxForm");
+		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * 添加排行榜  
+	 */
+	@RequestMapping("/addDryBoxAction")
+	public String addDryBoxAction(HttpServletRequest request) {
+		String chinaName = request.getParameter("chinaName");
+		String englishName = request.getParameter("englishName");
+		String local = request.getParameter("local");
+		String size = request.getParameter("size");
+		String type = "dry";
+
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBox", addDryBox(chinaName, englishName, local, type,size));
+		return "redirect:/dry/dryList";
+	}
+	
+	
+
+	/**
+	 * 
+	 * 排行榜未绑定列表详情页 初始页  干货
+	 */
+	@RequestMapping("/DryBoxDetail")
+	public ModelAndView DryBoxDetail(HttpServletRequest request) {
+		 
+		String type = "dry";
+		
+		JSONObject objj = dryboxpost(type);
+		
+		JSONObject objj2 =objj.getJSONObject("data");
+		
+		JSONArray objj3 =objj2.getJSONArray("result");
+		
+		JSONObject objj4=(JSONObject) objj3.get(0);
+		
+		String objj5=objj4.getString("id");
+		String objj6=objj4.getString("chinaName");
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", objj);
+		modelview.addObject("name", objj6);
+		modelview.addObject("id", objj5);
+		modelview.addObject("addDryBoxList", getdryboxlist("0", objj5,"0","10"));
+		modelview.setViewName("dry/dryBoxList");
+		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * 查询未关联排行版的干货列表
+	 */
+	@RequestMapping("/DryBoxList")
+	public ModelAndView DryBoxList(HttpServletRequest request) {
+		 
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		
+		String type = "dry";
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		modelview.addObject("name", name);
+		modelview.addObject("id", id);
+		modelview.addObject("addDryBoxList", getdryboxlist("0", id,pagenumber,pagelines));
+		modelview.setViewName("dry/dryBoxList");
+		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * 干货关联到具体的排行榜
+	 */
+	@RequestMapping("/bindBoxDry")
+	public ModelAndView bindBoxDry(HttpServletRequest request) {
+		String type = "dry";
+		String sourceType = "dry";
+		String name = request.getParameter("name");
+		//位置id
+		String boxPostId = request.getParameter("boxPostId");
+		//干货id
+		String sourceId = request.getParameter("sourceId");
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+	 
+		modelview.addObject("addDryBoxList", bindBoxDry(boxPostId, sourceType, sourceId));
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		modelview.addObject("name", name);
+		modelview.addObject("id", boxPostId);
+		modelview.addObject("addDryBoxList", getdryboxlist("0", boxPostId,"0","10"));
+		
+		modelview.setViewName("dry/dryBoxList");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 
+	 * 排行榜已绑定列表详情页 初始页  干货
+	 */
+	@RequestMapping("/DryBoxBindedDetail")
+	public ModelAndView DryBoxBindedDetail(HttpServletRequest request) {
+		 
+		String type = "dry";
+		
+		JSONObject objj = dryboxpost(type);
+		
+		JSONObject objj2 =objj.getJSONObject("data");
+		
+		JSONArray objj3 =objj2.getJSONArray("result");
+		
+		JSONObject objj4=(JSONObject) objj3.get(0);
+		
+		String objj5=objj4.getString("id");
+		String objj6=objj4.getString("chinaName");
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", objj);
+		modelview.addObject("name", objj6);
+		modelview.addObject("id", objj5);
+		modelview.addObject("addDryBoxList", drycargoInBox(objj5,"0","10"));
+		modelview.setViewName("dry/dryInBoxList");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 
+	 * 查询已关联排行版的干货列表
+	 */
+	@RequestMapping("/DryInBoxList")
+	public ModelAndView DryInBoxList(HttpServletRequest request) {
+		
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		 
+		String type = "dry";
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		modelview.addObject("name", name);
+		modelview.addObject("id", id);
+		modelview.addObject("addDryBoxList", drycargoInBox(id,pagenumber,pagelines));
+		modelview.setViewName("dry/dryInBoxList");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 
+	 * 干货取消关联到具体的排行榜
+	 */
+	@RequestMapping("/unbindBoxDry")
+	public ModelAndView unbindBoxDry(HttpServletRequest request) {
+		String type = "dry";
+		 
+		String name = request.getParameter("name");
+		//位置id
+		String boxPostId = request.getParameter("boxPostId");
+		//排行榜id
+		String boxId = request.getParameter("boxId");
+		 
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+	 
+		modelview.addObject("addDryBoxList", deleteBox(boxId));
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		modelview.addObject("name", name);
+		modelview.addObject("id", boxPostId);
+		modelview.addObject("addDryBoxList", drycargoInBox(boxPostId,"0","10"));
+		
+		modelview.setViewName("dry/dryInBoxList");
+		return modelview;
+	}
 	
 	
 
@@ -811,6 +1062,36 @@ public class dry extends BaseController {
 	
 	private JSONObject deleteDryByGroup(String dryId,String gid) {
 		String url = Config.YXTSERVER3 + "oss/dry/deleteDryByGroup?dryid=" + dryId+"&gid="+gid;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject addDryBox(String chinaName,String englishName,String local,String type,String size) {
+		String url = Config.YXTSERVER3 + "oss/box/addBoxPost?chinaName=" + chinaName+"&englishName="+englishName+"&local="+local+"&type="+type+"&size="+size;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject dryboxpost(String type) {
+		String url = Config.YXTSERVER3 + "oss/box/getBoxPostByType?type=" + type;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getdryboxlist(String dryFlag,String boxPostId,String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/box/drycargoListNotInBoxPost?dryFlag=" + dryFlag+"&boxPostId="+boxPostId+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject bindBoxDry(String boxPostId,String sourceType,String sourceId) {
+		String url = Config.YXTSERVER3 + "oss/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject drycargoInBox(String boxPostId,String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/box/drycargoInBox?boxPostId=" + boxPostId+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject deleteBox(String boxId) {
+		String url = Config.YXTSERVER3 + "oss/box/deleteBox?boxId=" + boxId;
 		return getRestApiData(url);
 	}
 
