@@ -356,7 +356,7 @@ public class user extends BaseController {
 	 * 编辑用户信息的表单，处理提交的数据
 	 */
 	@RequestMapping("/updateUser")
-	private ModelAndView updateUser(HttpServletRequest request,@RequestParam MultipartFile file) {
+	private String updateUser(HttpServletRequest request,@RequestParam MultipartFile file) {
 		String sex = request.getParameter("sex");
 		String userid = request.getParameter("userid");
 		String phoneNumber = request.getParameter("phoneNumber");
@@ -388,8 +388,13 @@ public class user extends BaseController {
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("resupdateUser", getUpdateUser(userid, sex, phoneNumber, email, tag, logoURL, intro, nickName,robot));
 
-		modelview.setViewName("user/show");
-		return modelview;
+		if("1".equals(robot)){
+			return "redirect:/user/roboitList";
+		}
+		else {
+			return "redirect:/user/userList";
+		}
+		
 	}
 	
 	

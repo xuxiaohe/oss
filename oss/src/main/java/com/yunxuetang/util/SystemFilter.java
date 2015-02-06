@@ -17,7 +17,7 @@ import java.io.IOException;
  * 13-6-27 Time: 下午7:31 To change this template use File | Settings | File
  * Templates.
  * 
- * @author 罗涛
+ * @author xurui
  */
 
 public class SystemFilter implements Filter {

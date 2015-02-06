@@ -92,7 +92,7 @@
 					function() {
 						 
 							//alert("info");
-							window.location.href = "${cbasePath}dry/dryDetail?dryid="
+							window.location.href = "${cbasePath}category/categoryDetail?id="
 									+ $(this).attr("data");
 						 
 					});

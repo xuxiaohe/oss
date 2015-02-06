@@ -18,62 +18,61 @@ import com.yunxuetang.util.Saveimage;
 
 @Controller
 @RequestMapping("/category")
-public class category extends BaseController{
+public class category extends BaseController {
 	@Autowired
 	Saveimage saveimage;
 
 	/**
 	 * 
-	 * 创建一级分类  
+	 * 创建一级分类
 	 */
 	@RequestMapping("/createFirstCategoryAction")
-	public ModelAndView createFirstCategoryAction(HttpServletRequest request,@RequestParam MultipartFile file) {
+	public String createFirstCategoryAction(HttpServletRequest request, @RequestParam MultipartFile file) {
 		// 当前第几页
 		String categoryName = request.getParameter("categoryName");
-		String logoURL = "";
-
+		String logoUrl = "";
+		String t[] = file.getContentType().split("/");
+		String tt = "." + t[1];
 		try {
 
-		if (file.getSize()!=0) {
+			if (file.getSize() != 0) {
 
-		Long l=System.currentTimeMillis();
+				Long l = System.currentTimeMillis();
 
-		String urlString="/data/ossImgTemp";
+				String urlString = "/data/ossImgTemp";
 
-		String urlString2=categoryName+l+".jpg";
+				String urlString2 = categoryName + l + tt;
 
-		InputStream stream=	file.getInputStream();
+				InputStream stream = file.getInputStream();
 
-		logoURL=saveimage.save(urlString, urlString2, stream,"category");
+				logoUrl = saveimage.save(urlString, urlString2, stream, "category");
 
-		}
+			}
 
 		} catch (Exception e) {
 
-		// TODO Auto-generated catch block
+			// TODO Auto-generated catch block
 
-		e.printStackTrace();
+			e.printStackTrace();
 
 		}
-		 
+
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("courses", null);
+		modelview.addObject("createFirstCategory", categoryDetail(categoryName, logoUrl));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("course/courseListNoShare");
-		return modelview;
+		return "redirect:/category/categoryList";
 	}
-	
-	
+
 	/**
 	 * 
-	 * 创建一级分类  展示页
+	 * 创建一级分类 展示页
 	 */
 	@RequestMapping("/createFirstCategoryForm")
 	public ModelAndView createFirstCategoryForm(HttpServletRequest request) {
-		 
+
 		ModelAndView modelview = new ModelAndView();
 
 		modelview.addObject("courses", null);
@@ -83,200 +82,122 @@ public class category extends BaseController{
 		modelview.setViewName("category/createFirstCategoryForm");
 		return modelview;
 	}
-	
+
 	/**
 	 * 
 	 * 创建二级分类
 	 */
 	@RequestMapping("/createSecondCategoryAction")
-	public ModelAndView createSecondCategoryAction(HttpServletRequest request) {
+	public String createSecondCategoryAction(HttpServletRequest request, @RequestParam MultipartFile file) {
 		// 当前第几页
-		String n = request.getParameter("n");
-		if (n == null) {
-			n = "0";
-		}
-		// 每页条数
-		String s = request.getParameter("s");
+		String parentId = request.getParameter("parentId");
+		String logoUrl = "";
+		String t[] = file.getContentType().split("/");
+		String tt = "." + t[1];
+		try {
 
-		if (s == null) {
-			s = "10";
+			if (file.getSize() != 0) {
+
+				Long l = System.currentTimeMillis();
+
+				String urlString = "/data/ossImgTemp";
+
+				String urlString2 = parentId + l + tt;
+
+				InputStream stream = file.getInputStream();
+
+				logoUrl = saveimage.save(urlString, urlString2, stream, "category");
+
+			}
+
+		} catch (Exception e) {
+
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+
 		}
+		String categoryName = request.getParameter("categoryName");
+
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("courses", null);
+		modelview.addObject("courses", createSecondCategory(parentId, logoUrl, categoryName));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("course/courseListNoShare");
-		return modelview;
+		return "redirect:/category/categoryDetail?id="+parentId;
 	}
-	
-	
+
 	/**
 	 * 
-	 * 创建二级分类  展示页
+	 * 创建二级分类 展示页
 	 */
 	@RequestMapping("/createSecondCategoryForm")
 	public ModelAndView createSecondCategoryForm(HttpServletRequest request) {
 		// 当前第几页
-		String n = request.getParameter("n");
-		if (n == null) {
-			n = "0";
-		}
-		// 每页条数
-		String s = request.getParameter("s");
+		String parentId = request.getParameter("parentId");
 
-		if (s == null) {
-			s = "10";
-		}
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("courses", null);
+		modelview.addObject("parentId", parentId);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("course/courseListNoShare");
+		modelview.setViewName("category/createSecondCategoryForm");
 		return modelview;
 	}
-	
-	
-	
+
 	/**
 	 * 
-	 * 修改一级分类  
+	 * 修改一级分类
 	 */
 	@RequestMapping("/updateFirstCategoryAction")
-	public ModelAndView updateFirstCategoryAction(HttpServletRequest request) {
-		// 当前第几页
-		String n = request.getParameter("n");
-		if (n == null) {
-			n = "0";
-		}
-		// 每页条数
-		String s = request.getParameter("s");
+	public String updateFirstCategoryAction(HttpServletRequest request, @RequestParam MultipartFile file) {
+		String id = request.getParameter("id");
+		String logoUrl = request.getParameter("logoUrl");
+		String t[] = file.getContentType().split("/");
+		String tt = "." + t[1];
+		try {
 
-		if (s == null) {
-			s = "10";
-		}
-		ModelAndView modelview = new ModelAndView();
+			if (file.getSize() != 0) {
 
-		modelview.addObject("courses", null);
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("course/courseListNoShare");
-		return modelview;
-	}
-	
-	
-	/**
-	 * 
-	 * 修改一级分类  展示页
-	 */
-	@RequestMapping("/updateFirstCategoryForm")
-	public ModelAndView updateFirstCategoryForm(HttpServletRequest request) {
-		// 当前第几页
-		String n = request.getParameter("n");
-		if (n == null) {
-			n = "0";
-		}
-		// 每页条数
-		String s = request.getParameter("s");
+				Long l = System.currentTimeMillis();
 
-		if (s == null) {
-			s = "10";
-		}
-		ModelAndView modelview = new ModelAndView();
+				String urlString = "/data/ossImgTemp";
 
-		modelview.addObject("courses", null);
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("course/courseListNoShare");
-		return modelview;
-	}
-	
-	
-	
-	/**
-	 * 
-	 * 修改二级分类  
-	 */
-	@RequestMapping("/updateSecondCategoryAction")
-	public ModelAndView updateSecondCategoryAction(HttpServletRequest request) {
-		// 当前第几页
-		String n = request.getParameter("n");
-		if (n == null) {
-			n = "0";
-		}
-		// 每页条数
-		String s = request.getParameter("s");
+				String urlString2 = id + l + tt;
 
-		if (s == null) {
-			s = "10";
-		}
-		ModelAndView modelview = new ModelAndView();
+				InputStream stream = file.getInputStream();
 
-		modelview.addObject("courses", null);
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("course/courseListNoShare");
-		return modelview;
-	}
-	
-	
-	/**
-	 * 
-	 * 修改二级分类  展示页
-	 */
-	@RequestMapping("/updateSecondCategoryForm")
-	public ModelAndView updateSecondCategoryForm(HttpServletRequest request) {
-		// 当前第几页
-		String n = request.getParameter("n");
-		if (n == null) {
-			n = "0";
-		}
-		// 每页条数
-		String s = request.getParameter("s");
+				logoUrl = saveimage.save(urlString, urlString2, stream, "category");
 
-		if (s == null) {
-			s = "10";
-		}
-		ModelAndView modelview = new ModelAndView();
+			}
 
-		modelview.addObject("courses", null);
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("course/courseListNoShare");
-		return modelview;
-	}
-	
-	/**
-	 * 
-	 * 一级分类列表
-	 */
-	@RequestMapping("/categoryList")
-	public ModelAndView categoryList(HttpServletRequest request) {
+		} catch (Exception e) {
+
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+
+		}
+		String categoryName = request.getParameter("categoryName");
 		 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("categoryList", categoryList());
+		modelview.addObject("courses", updateFirstCategory(id, logoUrl, categoryName));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("category/categoryList");
-		return modelview;
+		return "redirect:/category/categoryDetail?id="+id;
 	}
-	
-	
+
 	/**
 	 * 
-	 * 分类详情  一级分类下包含所有的二级分类
+	 * 修改一级分类 展示页
 	 */
-	@RequestMapping("/categoryDetail")
-	public ModelAndView categoryDetail(HttpServletRequest request) {
+	@RequestMapping("/updateFirstCategoryForm")
+	public ModelAndView updateFirstCategoryForm(HttpServletRequest request) {
 		// 当前第几页
 		String id = request.getParameter("id");
 		 
@@ -286,11 +207,109 @@ public class category extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("category/updateFirstCategoryForm");
+		return modelview;
+	}
+
+	/**
+	 * 
+	 * 修改二级分类
+	 */
+	@RequestMapping("/updateSecondCategoryAction")
+	public String updateSecondCategoryAction(HttpServletRequest request, @RequestParam MultipartFile file) {
+		String id = request.getParameter("id");
+		String parentId = request.getParameter("parentId");
+		
+		String logoUrl = request.getParameter("logoUrl");
+		String t[] = file.getContentType().split("/");
+		String tt = "." + t[1];
+		try {
+
+			if (file.getSize() != 0) {
+
+				Long l = System.currentTimeMillis();
+
+				String urlString = "/data/ossImgTemp";
+
+				String urlString2 = id + l + tt;
+
+				InputStream stream = file.getInputStream();
+
+				logoUrl = saveimage.save(urlString, urlString2, stream, "category");
+
+			}
+
+		} catch (Exception e) {
+
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+
+		}
+		String categoryName = request.getParameter("categoryName");
+		 
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("courses",  updateFirstCategory(id, logoUrl, categoryName));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		return "redirect:/category/categoryDetail?id="+parentId;
+	}
+
+	/**
+	 * 
+	 * 修改二级分类 展示页
+	 */
+	@RequestMapping("/updateSecondCategoryForm")
+	public ModelAndView updateSecondCategoryForm(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("categoryDetail", categoryDetail(id));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("category/updateSecondCategoryForm");
+		return modelview;
+	}
+
+	/**
+	 * 
+	 * 一级分类列表
+	 */
+	@RequestMapping("/categoryList")
+	public ModelAndView categoryList(HttpServletRequest request) {
+
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("categoryList", categoryList());
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("category/categoryList");
+		return modelview;
+	}
+
+	/**
+	 * 
+	 * 分类详情 一级分类下包含所有的二级分类
+	 */
+	@RequestMapping("/categoryDetail")
+	public ModelAndView categoryDetail(HttpServletRequest request) {
+		// 当前第几页
+		String id = request.getParameter("id");
+
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("categoryDetail", categoryDetail(id));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
 		modelview.setViewName("category/categoryDetail");
 		return modelview;
 	}
-	
-	
+
 	/**
 	 * 
 	 * 删除一级分类
@@ -317,7 +336,7 @@ public class category extends BaseController{
 		modelview.setViewName("course/courseListNoShare");
 		return modelview;
 	}
-	
+
 	/**
 	 * 
 	 * 删除二级分类
@@ -344,16 +363,29 @@ public class category extends BaseController{
 		modelview.setViewName("course/courseListNoShare");
 		return modelview;
 	}
-	
-	
-	
+
 	private JSONObject categoryList() {
 		String url = Config.YXTSERVER3 + "category/all";
 		return getRestApiData(url);
 	}
-	
+
 	private JSONObject categoryDetail(String id) {
-		String url = Config.YXTSERVER3 + "category/one?categoryId="+id;
+		String url = Config.YXTSERVER3 + "category/one?categoryId=" + id;
+		return getRestApiData(url);
+	}
+
+	private JSONObject categoryDetail(String categoryName, String logoUrl) {
+		String url = Config.YXTSERVER3 + "category/createPrimary?categoryName=" + categoryName + "&logoUrl=" + logoUrl;
+		return getRestApiData(url);
+	}
+
+	private JSONObject createSecondCategory(String parentId, String logoUrl, String categoryName) {
+		String url = Config.YXTSERVER3 + "category/createSecond?parentId=" + parentId + "&logoUrl=" + logoUrl + "&categoryName=" + categoryName;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject updateFirstCategory(String id, String logoUrl, String categoryName) {
+		String url = Config.YXTSERVER3 + "category/update?id=" + id + "&logoUrl=" + logoUrl + "&categoryName=" + categoryName;
 		return getRestApiData(url);
 	}
 }

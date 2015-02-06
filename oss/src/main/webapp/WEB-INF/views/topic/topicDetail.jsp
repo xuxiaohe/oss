@@ -78,7 +78,7 @@
 										
 										<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										
-										<c:if test="${Recourse.post.subPosts != null}">
+										<%-- <c:if test="${Recourse.post.subPosts != null}">
 											
 											<c:forEach items="${Recourse.post.subPosts}" varStatus="key" var="subpost">
 											
@@ -87,7 +87,7 @@
 									<a href="${cbasePath}topic/deleteSubPostByTopicId?postid=${Recourse.post.postId}&index=${key.count-1}&topicid=${topicDetail.data.result.topicId }">		 
 									<button name="subpostdelete"   type="button" class="subpostdelete btn btn-danger"">删除</button></a>
 											</c:forEach>
-										</c:if>
+										</c:if> --%>
 										
 										<c:if test="${Recourse.number != '0'}">
 											

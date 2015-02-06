@@ -30,9 +30,9 @@
 	<div class="container-fluid">
 		<jsp:include page="header.jsp"></jsp:include>
 		<ol class="breadcrumb">
-			<li><a href="#">课程管理</a></li>
-			<li><a href="${cbasePath}course/courseList">课程列表</a></li>
-			<li class="active">课程详情 <small>
+			<li><a href="#">分类管理</a></li>
+			<li><a href="${cbasePath}category/categoryList">分类列表</a></li>
+			<li class="active">分类详情 <small>
 				 </small>
 			</li>
 		</ol>
@@ -42,36 +42,67 @@
 					<div class="col-xs-2">
 						<img class="thumbnail col-xs-12"
 							src="${categoryDetail.data.result.logoUrl }" alt="" /> <a
-							href="${cbasePath}dry/editForm?dryid=${categoryDetail.data.result.id }">
-							<!-- <button type="button" class="btn btn-warning btn-block">编辑</button> -->
+							href="${cbasePath}category/updateFirstCategoryForm?id=${categoryDetail.data.result.id }">
+							<button type="button" class="btn btn-warning btn-block">编辑</button><br>
 						</a>
-						<!-- <button type="button" class="btn btn-warning btn-block">删除</button> -->
+						<button type="button" class="btn btn-warning btn-block">删除</button><br>
+						<a
+							href="${cbasePath}category/createSecondCategoryForm?parentId=${categoryDetail.data.result.id }">
+						<button type="button" class="btn btn-warning btn-block">添加二级分类</button>
+						</a>
 						<hr />
 						 
 					</div>
 					<div id="userInfoDiv" class="col-xs-10" style="">
 						<h4 style="margin-left: 12px;">
-							课程信息：${categoryDetail.data.result.categoryName}  
+							一级分类：${categoryDetail.data.result.categoryName}  
 						</h4>
 						<ul class="list-group">
+						
+						<br><br>一级分类所包含的二级分类：
 							<c:forEach items="${categoryDetail.data.result.childCategory}"
 								varStatus="key" var="Recourse">
-								<img class="thumbnail col-xs-12"
-							src="${Recourse.logoUrl }" alt="" /><br>
-								 ${Recourse.categoryName}
+								 
+								 
+								 <div class="row" style="padding: 20px;">
+							<div class="col-xs-1">
+								<h5 style="margin-top: 40px;">
+									<span class="label label-default">${key.count}</span>
+								</h5>
+							</div>
+
+							<div class="col-xs-1">
+								<div class="row">
+									<img class="col-xs-12 thumbnail" src="${Recourse.logoUrl}"
+										style="margin-top: 10px;" alt="" />
+								</div>
+							</div>
+							<div class="col-xs-10">
+								<h4 style="margin-left: 12px;">
+									<a href="${cbasePath}category/categoryDetail?id=${Recourse.id}">
+										${Recourse.categoryName} </a><br> 
+								</h4>
+
+
+								<div class="col-xs-12 btn-group-sm">
+									<button data="${Recourse.id}" type="button"
+										class="deleteBtn btn btn-primary">删除</button>
+										<a
+							href="${cbasePath}category/updateSecondCategoryForm?id=${Recourse.id }">
+										<button data="${Recourse.id}" type="button"
+										class="info btn btn-primary">编辑</button>
+										</a>
+									 
+								</div>
+
+							</div>
+						</div>
+								 
+								 
 
 								<div class="col-xs-6">
 						</ul>
 						</c:forEach>
-						<%-- <div class="col-xs-6">浏览量：${dryDetail.data.result.viewCount}
-						</div>
-						<div class="col-xs-6">回复数：${dryDetail.data.result.replyCount}</div>
-						<div class="col-xs-6">被点赞的次数：${dryDetail.data.result.likesCount}
-						</div>
-						<div class="col-xs-6">不赞数量：${dryDetail.data.result.unLikeCount}
-						</div>
-						<div class="col-xs-6">收藏人数统计：${dryDetail.data.result.favCount}
-						</div> --%>
 
 					</div>
 
