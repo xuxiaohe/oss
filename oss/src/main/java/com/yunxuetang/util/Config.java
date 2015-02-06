@@ -8,4 +8,5 @@ public class Config {
 	//public static String YXTSERVER3 = "http://localhost:8084/";
 	// 标签服务
 	public static String YXTSERVER4 = "http://s1.xuewen.yunxuetang.com:8161/";
+	public static String WIKERSERVER = "http://s1.xuewen.yunxuetang.com:8089/";
 }
