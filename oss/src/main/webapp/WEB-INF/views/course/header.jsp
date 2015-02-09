@@ -19,6 +19,7 @@
 			</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="${cbasePath}course/courseListNoShare">未分享课程</a></li>
+				<li><a href="${cbasePath}course/courseListNoCheck">未审核课程</a></li>
 				<!-- <li><a href="#">批量创建</a></li>
 				<li><a href="#">用户导入</a></li> -->
 				<li class="divider"></li>

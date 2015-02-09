@@ -257,6 +257,128 @@ public class course extends BaseController {
 	
 	
 	
+	/**
+	 * 课程未审核列表
+	 * 
+	 */
+	@RequestMapping("/courseListNoCheck")
+	public ModelAndView courseListNoCheck(HttpServletRequest request) {
+		 
+		String n = request.getParameter("n");
+		if (n == null) {
+			n = "0";
+		}
+		// 每页条数
+		String s = request.getParameter("s");
+
+		if (s == null) {
+			s = "10";
+		}
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("courses", getNotCheckCourses( n, s));
+		 
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("course/checkcourseList");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 课程审核展示页  选择一级分类
+	 * 
+	 */
+	@RequestMapping("/checkCourseOneForm")
+	public ModelAndView checkCourseForm(HttpServletRequest request) {
+		 
+		String cid = request.getParameter("cid");
+		 
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("categoryOneList", categoryOneList("00"));
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("cid", cid);
+		modelview.setViewName("course/checkCourseOneForm");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 课程审核展示页  选择二级分类
+	 * 
+	 */
+	@RequestMapping("/checkCourseSecondForm")
+	public ModelAndView checkCourseSecondForm(HttpServletRequest request) {
+		 
+		String parentId = request.getParameter("parentId");
+		
+		String cid = request.getParameter("cid");
+		
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("categorySecondList", categorySecondList("10",parentId));
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("cid", cid);
+		modelview.addObject("parentId", parentId);
+		
+		modelview.setViewName("course/checkCourseSecondForm");
+		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 提交课程审核
+	 * 
+	 */
+	@RequestMapping("/checkCourseAction")
+	public String  checkCourseAction(HttpServletRequest request) {
+		 
+		String categoryId= request.getParameter("categoryId");
+		 
+		String courseId = request.getParameter("cid");
+		
+		String childCategoryId = request.getParameter("childCategoryId");
+		
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("categorySecondList", categoryAction(categoryId, childCategoryId, courseId));
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		return "redirect:/course/courseListNoCheck";
+	}
+	
+	
+	
+	
+	private JSONObject categoryOneList(String categoryType) {
+		String url = Config.YXTSERVER3 + "category/allPrimary?categoryType="+categoryType;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject categorySecondList(String categoryType,String parentId) {
+		String url = Config.YXTSERVER3 + "category/allSecond?categoryType="+categoryType+"&parentId="+parentId;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject categoryAction(String categoryId,String childCategoryId,String courseId) {
+		String url = Config.YXTSERVER3 + "oss/course/courseChecked?categoryId="+categoryId+"&childCategoryId="+childCategoryId+"&courseId="+courseId;
+		return getRestApiData(url);
+	}
+	
+	
 	private JSONObject shareToMyGroup(String groupId,String courseId,String appKey) {
 		String url = Config.YXTSERVER3 + "oss/course/shareToMyGroup?groupId="+groupId+"&courseId="+courseId+"&appKey="+appKey;
 		return getRestApiData(url);
@@ -280,6 +402,11 @@ public class course extends BaseController {
 	
 	private JSONObject getCourses(String n,String s) {
 		String url = Config.YXTSERVER3 + "oss/course/courses?n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getNotCheckCourses(String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/course/getNotCheckedCourse?n="+n+"&s="+s;
 		return getRestApiData(url);
 	}
 	

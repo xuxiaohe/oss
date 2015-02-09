@@ -41,10 +41,10 @@
 				<div class="row">
 					<div class="col-xs-2">
 						<img class="thumbnail col-xs-12"
-							src="${courseDetail.data.result.logoUrl }" alt="" /> <a
+							src="${courseDetail.data.result.logoUrl }" alt="" /> <%-- <a
 							href="${cbasePath}dry/editForm?dryid=${courseDetail.data.result.id }">
-							<!-- <button type="button" class="btn btn-warning btn-block">编辑</button> -->
-						</a>
+							<button type="button" class="btn btn-warning btn-block">审核课程</button>
+						</a> --%>
 						<!-- <button type="button" class="btn btn-warning btn-block">删除</button> -->
 						<hr />
 						<%-- <div id="btnGroupDiv" class="col-xs-12">
