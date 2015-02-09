@@ -977,6 +977,44 @@ public class dry extends BaseController {
 	}
 	
 	
+	/**
+	 * 
+	 * 干货排行榜列表
+	 */
+	@RequestMapping("/BoxDryList")
+	public ModelAndView BoxDryList(HttpServletRequest request) {
+		String type = "dry";
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		
+		modelview.setViewName("dry/dryBoxPostList");
+		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * 干货排行榜删除
+	 */
+	@RequestMapping("/BoxDryListDelete")
+	public String  BoxDryListDelete(HttpServletRequest request) {
+		String boxId = request.getParameter("boxId");
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("addDryBoxList", deleteBoxPost(boxId));
+		
+		return "redirect:/dry/BoxDryList";
+	}
+	
+	
 
 	private JSONObject dryDetail(String dryid) {
 		String url = Config.YXTSERVER3 + "oss/dry/getOneDry?dryid=" + dryid;
@@ -1074,6 +1112,7 @@ public class dry extends BaseController {
 		String url = Config.YXTSERVER3 + "oss/box/getBoxPostByType?type=" + type;
 		return getRestApiData(url);
 	}
+	 
 	
 	private JSONObject getdryboxlist(String dryFlag,String boxPostId,String n,String s) {
 		String url = Config.YXTSERVER3 + "oss/box/drycargoListNotInBoxPost?dryFlag=" + dryFlag+"&boxPostId="+boxPostId+"&n="+n+"&s="+s;
@@ -1092,6 +1131,11 @@ public class dry extends BaseController {
 	
 	private JSONObject deleteBox(String boxId) {
 		String url = Config.YXTSERVER3 + "oss/box/deleteBox?boxId=" + boxId;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject deleteBoxPost(String boxId) {
+		String url = Config.YXTSERVER3 + "oss/box/deleteBoxPost?id=" + boxId;
 		return getRestApiData(url);
 	}
 

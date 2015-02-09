@@ -9,7 +9,7 @@
 <html>
 <head lang="en">
 <meta charset="UTF-8">
-<title>群组管理</title>
+<title>课程审核</title>
 <script src="${cbasePath}/resources/assets/js/jquery.min.js"></script>
 <script src="${cbasePath}/resources/assets/js/bootstrap.min.js"></script>
 <link href="${cbasePath}/resources/assets/css/bootstrap.min.css"
@@ -22,44 +22,33 @@
 </style>
 </head>
 <body>
-
-
 	<div class="container-fluid">
 
 		<ol class="breadcrumb">
-			<li><a href="#">群组管理</a></li>
-			<li><a href="${cbasePath}group/groupList">群组列表</a></li>
+		<li><a href="#">课程管理</a></li>
+			<li><a href="${cbasePath}course/courseList">课程列表</a></li>
 			 
-			<li class="active">群组创建</li>
 		</ol>
 
 		<div class="row">
-		
 
+			<%-- <div class="col-xs-3">
+				<img class="thumbnail col-xs-12" src="${resuserTopic.data.result.fileUrl}" alt="" />
+
+				<c:forEach items="${imgUrls}" varStatus="key" var="img">
+					<img src="${img}" alt="" />
+				</c:forEach>
+			</div> --%>
 
 			<div class="col-xs-9">
 				<form role="form" method="post"
-					action="${cbasePath}group/createGroupSecondForm">
-
-
+					action="${cbasePath}group/createGroupForUserAction?userid=${userid}&groupName=${groupName}&groupDesc=${groupDesc}&parentId=${parentId}">
+					 
 					<div class="form-group">
-						<label for="exampleInputEmail1">用户名</label> 
-						<select class="form-control" name="id" id="uidSelect">
-							<c:if test="${robots.status == '200' }">
-								<c:forEach items="${robots.data.result}" varStatus="key"
-									var="Recourse">
-									<option value="${Recourse.id }">${Recourse.nickName }:${Recourse.userName }</option>
-								</c:forEach>
-							</c:if>
-						</select>
-					</div>
-					
-					
-					<div class="form-group">
-						<label for="exampleInputEmail1">请选择一级分类</label> 
-							<select class="form-control" name="parentId" id="uidSelect">
-							<c:if test="${categoryOneList.status == '200' }">
-								<c:forEach items="${categoryOneList.data.result}" varStatus="key"
+						<label for="exampleInputEmail1">请选择二级分类</label> 
+							<select class="form-control" name="childCategoryId" id="uidSelect">
+							<c:if test="${categorySecondList.status == '200' }">
+								<c:forEach items="${categorySecondList.data.result}" varStatus="key"
 									var="Recourse">
 									<option value="${Recourse.id }">${Recourse.categoryName }</option>
 								</c:forEach>
@@ -67,21 +56,10 @@
 						</select>
 
 					</div>
-
-					<div class="form-group">
-						<label for="exampleInputEmail1">群组名称</label> <input type="text"
-							name="groupName" class="form-control" id="exampleInputEmail1"
-							  placeholder="">
-					</div>
-					
-					<div class="form-group">
-						<label for="exampleInputEmail1">群组描述</label> <input type="text"
-							name="groupDesc" class="form-control" id="exampleInputEmail1"
-							  placeholder="">
-					</div>
+					 
 
 
-					<button type="submit" class="btn btn-default">下一步</button>
+					<button type="submit" class="btn btn-default">完成提交</button>
 				</form>
 			</div>
 		</div>

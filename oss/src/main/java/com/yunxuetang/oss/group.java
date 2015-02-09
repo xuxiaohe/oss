@@ -95,8 +95,37 @@ public class group extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("robots", findRoboit("0", "100"));
-
+		modelview.addObject("categoryOneList", categoryOneList("00"));
 		modelview.setViewName("group/createGroupForm");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 
+	 * 为某一个用户id创建群 选择二级分类 展示页
+	 */
+	@RequestMapping("/createGroupSecondForm")
+	public ModelAndView createGroupSecondForm(HttpServletRequest request) {
+		String courSharResoStr;
+		// 当前第几页
+		String userid = request.getParameter("id");
+		String groupName = request.getParameter("groupName");
+		String groupDesc = request.getParameter("groupDesc");
+		String parentId = request.getParameter("parentId");
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+		modelview.addObject("categorySecondList", categorySecondList("10",parentId));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("robots", findRoboit("0", "100"));
+		modelview.addObject("userid", userid);
+		modelview.addObject("groupName", groupName);
+		modelview.addObject("groupDesc", groupDesc);
+		modelview.addObject("parentId", parentId);
+		
+		modelview.setViewName("group/groupSecondForm");
 		return modelview;
 	}
 
@@ -108,9 +137,11 @@ public class group extends BaseController {
 	public ModelAndView createGroupForUserAction(HttpServletRequest request) {
 		String courSharResoStr;
 		// 当前第几页
-		String userid = request.getParameter("id");
+		String userid = request.getParameter("userid");
 		String groupName = request.getParameter("groupName");
 		String groupDesc = request.getParameter("groupDesc");
+		String categoryId = request.getParameter("parentId");
+		String childCategoryId = request.getParameter("childCategoryId");
 		ModelAndView modelview = new ModelAndView();
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -121,7 +152,7 @@ public class group extends BaseController {
 		// rp.put("intro", groupDesc.trim());
 
 		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/create?uid=" + userid + "&groupName=" + groupName + "&intro="
-				+ groupDesc, null, String.class);
+				+ groupDesc+ "&categoryId="+ categoryId+ "&childCategoryId="+ childCategoryId, null, String.class);
 		JSONObject objj = JSONObject.fromObject(courSharResoStr);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -1093,6 +1124,16 @@ public class group extends BaseController {
 		} else {
 			url = Config.YXTSERVER3 + "oss/dry/searchDrys?n=" + n + "&s=" + s + "&keywords=" + keyword;
 		}
+		return getRestApiData(url);
+	}
+	
+	private JSONObject categoryOneList(String categoryType) {
+		String url = Config.YXTSERVER3 + "category/allPrimary?categoryType="+categoryType;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject categorySecondList(String categoryType,String parentId) {
+		String url = Config.YXTSERVER3 + "category/allSecond?categoryType="+categoryType+"&parentId="+parentId;
 		return getRestApiData(url);
 	}
 
