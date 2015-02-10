@@ -48,7 +48,7 @@
 			<div class="col-xs-9">
 				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
 				<form role="form" method="post"
-					action="${cbasePath}dry/edit?dryid=${resuserTopic.data.result.id}" enctype="multipart/form-data">
+					action="${cbasePath}dry/edit?dryid=${resuserTopic.data.result.id}&fileUrl=${resuserTopic.data.result.fileUrl}" enctype="multipart/form-data">
 
 
 					<div class="form-group">

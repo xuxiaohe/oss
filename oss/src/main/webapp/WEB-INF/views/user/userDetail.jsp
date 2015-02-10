@@ -61,12 +61,12 @@
 									
 									<a
 								href="${cbasePath}user/findAllUserPost?userid=${resuserDetail.id }">
-								<button type="button" class="btn btn-success btn-block">查看用户主楼回复</button>
+								<button type="button" class="btn btn-success btn-block">主楼回复</button>
 							</a>
 							
 							<a
 								href="${cbasePath}user/findAllUserSubPost?userid=${resuserDetail.id }">
-								<button type="button" class="btn btn-success btn-block">查看用户副楼回复</button>
+								<button type="button" class="btn btn-success btn-block">副楼回复</button>
 							</a>
 						</div>
 					</div>

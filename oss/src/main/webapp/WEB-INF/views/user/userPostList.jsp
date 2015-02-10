@@ -24,7 +24,14 @@
 		<jsp:include page="header.jsp"></jsp:include>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				 
+			<ol class="breadcrumb">
+			<li><a href="#">用户管理</a></li>
+			<li><a href="${cbasePath}user/userList">用户列表</a></li>
+			<li class="active">用户详情: <small>
+					${resuserDetail.nickName }</small>
+			</li>
+		</ol>
+				用户主楼回复： 
 				<c:if test="${userpost.status == '200'}">
 					 
 
