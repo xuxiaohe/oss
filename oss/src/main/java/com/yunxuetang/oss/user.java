@@ -722,6 +722,87 @@ public class user extends BaseController {
 
 	}
 	
+	
+	/**
+	 * 
+	 * 查询用户所有主楼回复
+	 */
+	@RequestMapping("/findAllUserPost")
+	public ModelAndView findAllUserPost(HttpServletRequest request) {
+		// 当前第几页
+		String userid = request.getParameter("userid");
+		ModelAndView modelview = new ModelAndView();
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("userpost", getAllUserPost(userid));
+		modelview.addObject("uid", userid);
+		modelview.setViewName("user/userPostList");
+		return modelview;
+	}
+	
+	/**
+	 * 
+	 * 查询用户所有副楼回复
+	 */
+	@RequestMapping("/findAllUserSubPost")
+	public ModelAndView findAllUserSubPost(HttpServletRequest request) {
+		// 当前第几页
+		String userid = request.getParameter("userid");
+		ModelAndView modelview = new ModelAndView();
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("usersubpost", getAllUserSubPost(userid));
+		modelview.addObject("uid", userid);
+		modelview.setViewName("user/userSubPostList");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 
+	 * 根据话题id删除主楼回复
+	 */
+	@RequestMapping("/deletePostByTopicId")
+	public String deletePostByTopicId(HttpServletRequest request) {
+
+		// 当前第几页
+		String topicid = request.getParameter("topicid");
+		String postid = request.getParameter("postid");
+		String uid = request.getParameter("uid");
+		ModelAndView modelview = new ModelAndView();
+			 
+		modelview.addObject("resuserTopic", deletePost(topicid, postid));
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		return "redirect:/user/findAllUserPost?userid="+uid;
+	}
+
+	/**
+	 * 
+	 * 根据主楼id删除副楼回复
+	 */
+	@RequestMapping("/deleteSubPostByTopicId")
+	public String deleteSubPostByTopicId(HttpServletRequest request) {
+		ModelAndView modelview = new ModelAndView();
+		// 当前第几页
+		String postid = request.getParameter("postid");
+		String subpostid = request.getParameter("subpostid");
+		String uid = request.getParameter("uid");
+			modelview.addObject("subpostList", deleteSubPost(postid, subpostid));
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		return "redirect:/user/findAllUserSubPost?userid="+uid;
+	}
+	
+	 
 
 	private JSONObject getUserList(String keyword, String n, String s) {
 		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&keyword=" + keyword;
@@ -799,6 +880,27 @@ public class user extends BaseController {
 	private JSONObject findRoboit(String keyword,String n, String s) {
 		//String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1";
 		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1"+ "&keyword=" + keyword;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getAllUserPost(String userid) {
+		String url = Config.YXTSERVER3 + "oss/user/getAllUserPost?uid=" + userid;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getAllUserSubPost(String userid) {
+		String url = Config.YXTSERVER3 + "oss/user/getAllUserSubPost?uid=" + userid;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject deletePost(String topicid,String postid) {
+		String url = Config.YXTSERVER3 + "oss/topic/deletePost?topicid=" + topicid+"&postid="+postid;
+		return getRestApiData(url);
+	}
+	
+	
+	private JSONObject deleteSubPost(String postid,String subpostid) {
+		String url = Config.YXTSERVER3 + "oss/topic/deleteSubPost?postid=" + postid+"&subpostid="+subpostid;
 		return getRestApiData(url);
 	}
 

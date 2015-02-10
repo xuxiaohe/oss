@@ -58,6 +58,16 @@
 							</a> <a
 								href="${cbasePath}user/userGroup?userid=${resuserDetail.id }"><button
 									type="button" class="btn btn-success btn-block">查看群组</button></a>
+									
+									<a
+								href="${cbasePath}user/findAllUserPost?userid=${resuserDetail.id }">
+								<button type="button" class="btn btn-success btn-block">查看用户主楼回复</button>
+							</a>
+							
+							<a
+								href="${cbasePath}user/findAllUserSubPost?userid=${resuserDetail.id }">
+								<button type="button" class="btn btn-success btn-block">查看用户副楼回复</button>
+							</a>
 						</div>
 					</div>
 					<div id="userInfoDiv" class="col-xs-10" style="">

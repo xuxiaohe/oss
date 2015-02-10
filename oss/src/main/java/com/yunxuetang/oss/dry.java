@@ -123,11 +123,36 @@ public class dry extends BaseController {
 	 * 干货修改提交
 	 */
 	@RequestMapping("/edit")
-	public String edit(HttpServletRequest request) {
+	public String edit(HttpServletRequest request,@RequestParam MultipartFile file) {
 		// 当前第几页
 		String dryid = request.getParameter("dryid");
 		String userid = request.getParameter("userid");
 		String fileUrl = request.getParameter("fileUrl");
+
+		try {
+
+		if (file.getSize()!=0) {
+
+		Long l=System.currentTimeMillis();
+
+		String urlString="/data/ossImgTemp";
+
+		String urlString2=userid+l+".jpg";
+
+		InputStream stream=	file.getInputStream();
+
+		fileUrl=saveimage.save(urlString, urlString2, stream, "dry");
+
+		}
+
+		} catch (Exception e) {
+
+		// TODO Auto-generated catch block
+
+		e.printStackTrace();
+
+		}
+
 
 		String message = request.getParameter("message");
 

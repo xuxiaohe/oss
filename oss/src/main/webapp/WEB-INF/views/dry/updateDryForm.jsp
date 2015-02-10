@@ -48,13 +48,12 @@
 			<div class="col-xs-9">
 				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
 				<form role="form" method="post"
-					action="${cbasePath}dry/edit?dryid=${resuserTopic.data.result.id}">
+					action="${cbasePath}dry/edit?dryid=${resuserTopic.data.result.id}" enctype="multipart/form-data">
 
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">fileURL</label> <input type="text"
-							name="fileUrl" class="form-control" id="exampleInputEmail1"
-							value="${resuserTopic.data.result.fileUrl }" placeholder="">
+						<label for="exampleInputEmail1">如果要修改请上传干货的图片</label>  
+						<input id="file" type="file" name="file" /> 
 					</div>
 
 					<div class="form-group">

@@ -69,7 +69,7 @@
 										class="pull-right">注册时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
 								</h4>
-								
+								回复主楼数：${Recourse.replyCount}
 								
 								<div class="col-xs-12 btn-group-sm">
 									<button data="${Recourse.topicId}" type="button" class="deleteBtn btn btn-primary">删除</button>

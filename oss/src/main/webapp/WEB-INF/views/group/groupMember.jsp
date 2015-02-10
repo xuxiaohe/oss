@@ -84,6 +84,10 @@
 										alt="${group.nickName}">
 										<div class="caption">
 											<p class="text-center">${group.nickName}</p>
+											<a
+								href="${cbasePath}group/kickGroupMenber?userId=${group.id }&gid=${gid}&ownerid=${ownerid}">
+								<button type="button" class="btn btn-success btn-block">踢出</button>
+							</a>
 										</div>
 									</a>
 								</div>
@@ -112,6 +116,10 @@
 											alt="${group.nickName}">
 											<div class="caption">
 												<p class="text-center">${group.nickName}</p>
+												<a
+								href="${cbasePath}group/kickGroupMenber?userId=${group.id }&gid=${gid}&ownerid=${ownerid}">
+								<button type="button" class="btn btn-success btn-block">踢出</button>
+							</a>
 											</div>
 										</a>
 									</div>

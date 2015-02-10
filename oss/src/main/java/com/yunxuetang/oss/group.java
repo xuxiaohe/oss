@@ -679,15 +679,16 @@ public class group extends BaseController {
 	 * 踢出群成员
 	 */
 	@RequestMapping("/kickGroupMenber")
-	public ModelAndView kickGroupMenber(HttpServletRequest request) {
-		String id = request.getParameter("gid");
+	public String kickGroupMenber(HttpServletRequest request) {
+		String gid = request.getParameter("gid");
+		//被删除用户id
 		String uid = request.getParameter("userId");
 		String ownerid = request.getParameter("ownerid");
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/" + id + "/" + uid + "/kick?ownerid=" + ownerid, null,
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/" + gid + "/" + uid + "/kick?ownerid=" + ownerid, null,
 				String.class);
 
 		try {
@@ -703,8 +704,7 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/group/groupMember?gid=" + gid;
 	}
 
 	/**
@@ -884,10 +884,19 @@ public class group extends BaseController {
 	@RequestMapping("/groupMember")
 	public ModelAndView groupMember(HttpServletRequest request) {
 		String gid = request.getParameter("gid");
-
+		JSONObject j=getGroupMember(gid);
+		JSONObject jj=(JSONObject) j.get("data");
+		JSONObject jjj=(JSONObject) jj.get("result");
+		JSONArray jjjj=jjj.getJSONArray("ownerListusers");
+		JSONObject jjjjj=(JSONObject) jjjj.get(0);
+		String ownerid=(String) jjjjj.get("id");
+		
+		
 		ModelAndView modelview = new ModelAndView();
 		modelview.addObject("Group", getGroupInfo(gid));
 		modelview.addObject("Member", getGroupMember(gid));
+		modelview.addObject("ownerid", ownerid);
+		modelview.addObject("gid", gid);
 
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
