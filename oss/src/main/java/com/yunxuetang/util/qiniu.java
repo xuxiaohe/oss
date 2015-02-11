@@ -18,7 +18,7 @@ import com.qiniu.api.rsf.RSFEofException;
 
 public class qiniu {
 
-	private void hehe() {
+	public  List hehe() {
 		// TODO Auto-generated method stub
 		String qnAccessKey = "PN6SV6Fm-Ueu-D8NYN_NfJwpPuedsQALNKmwL_IQ";
 		String qnSecretKey = "O6sBs8dw9cJjamEx2d6vgY1sXnPnIlg5Nsn6CwPH";
@@ -46,16 +46,18 @@ public class qiniu {
 		}
 
 		System.err.println(all.size());
-
+		List ls=new ArrayList();
 		for (ListItem item : all) {
 			System.err.println(item.key);
+			ls.add(item.key);
 		}
+		return ls;
 	}
 
 	public static void main(String[] args) {
 		String qnAccessKey = "PN6SV6Fm-Ueu-D8NYN_NfJwpPuedsQALNKmwL_IQ";
 		String qnSecretKey = "O6sBs8dw9cJjamEx2d6vgY1sXnPnIlg5Nsn6CwPH";
-		String qnBucketName = "yxt-user";
+		String qnBucketName = "yxt-bj";
 		String ACCESS_KEY = qnAccessKey;
 		String SECRET_KEY = qnSecretKey;
 		Mac mac = new Mac(ACCESS_KEY, SECRET_KEY);
@@ -66,9 +68,10 @@ public class qiniu {
 		List<ListItem> all = new ArrayList<ListItem>();
 		ListPrefixRet ret = null;
 		while (true) {
-			ret = rs.listPrifix(qnBucketName, "head", marker, 10);
+			ret = rs.listPrifix(qnBucketName, "dry", marker, 2);
 			marker = ret.marker;
 			all.addAll(ret.results);
+			
 			if (!ret.ok()) {
 				// no more items or error occurs
 				break;

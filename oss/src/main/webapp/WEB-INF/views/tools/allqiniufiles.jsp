@@ -9,7 +9,7 @@
 <html>
 <head lang="en">
 <meta charset="UTF-8">
-<title>干货管理</title>
+<title>用户管理</title>
 <script src="${cbasePath}/resources/assets/js/jquery.min.js"></script>
 <script src="${cbasePath}/resources/assets/js/bootstrap.min.js"></script>
 <link href="${cbasePath}/resources/assets/css/bootstrap.min.css"
@@ -27,46 +27,49 @@
 		<ol class="breadcrumb">
 			<li><a href="#">干货仓库</a></li>
 			<li><a href="${cbasePath}dry/dryList">干货列表</a></li>
-			 
-			<li class="active">话题排行榜创建</li>
+			<li><a
+				href="${cbasePath}dry/dryDetail?dryid=${resuserTopic.data.result.id}">干货详情:
+			</a></li>
+			<li class="active">干货编辑</li>
 		</ol>
 
 		<div class="row">
 
-			<div class="col-xs-9">
-				<form role="form" method="post"
-					action="${cbasePath}dry/addDryBoxAction" enctype="multipart/form-data">
-					<div class="form-group">
-						<label for="exampleInputEmail1">中文排行榜名</label> <input type="text"
-							name="chinaName" class="form-control" id="exampleInputEmail1"
-							placeholder="">
-					</div>
-					<div class="form-group">
-						<label for="exampleInputEmail1">英文排行榜名</label> <input type="text"
-							name="englishName" class="form-control" id="exampleInputEmail1"
-							placeholder="">  
-					</div>
-					<div class="form-group">
-						<label for="exampleInputEmail1">页面显示位置</label> 
-						<input type="text"
-							name="local" class="form-control" id="exampleInputEmail1"
-							placeholder="">
-					</div>
-					
-					<div class="form-group">
-						<label for="exampleInputEmail1">最多显示的top数量</label> 
-						<input type="text"
-							name="size" class="form-control" id="exampleInputEmail1"
-							placeholder="">
-					</div>
-					
-					<button type="submit" class="btn btn-default">Submit</button>
-				</form>
+			 
+				 
+     	
+     			
+				<%-- <c:forEach items="${imageurls}" varStatus="key" var="img">
+					<img src="http://yxt-bj.qiniudn.com/${img}" alt="" />
+				</c:forEach> --%>
+				
+				
+				<c:forEach items="${imageurls}"
+								varStatus="key" var="img">
+								
+								<div class="col-xs-2">
+									  <img src="http://yxt-bj.qiniudn.com/${img}"
+										onclick="sendurll('http://yxt-bj.qiniudn.com/${img}')" >
+										<br>
+										<%-- <div class="caption">
+											<p class="text-center">${group.nickName}</p>
+											<a
+								href="${cbasePath}group/kickGroupMenber?userId=${group.id }&gid=${gid}&ownerid=${ownerid}">
+								<button type="button" class="btn btn-success btn-block">踢出</button>
+							</a>
+										</div> --%>
+									 
+								</div>
+								
+							</c:forEach>
+		 
+
+			
 			</div>
 		</div>
 
-
-	</div>
+图片路径为：${imageurl}
+	 
 	<script>
 		$(function() {
 			/* $("#searchIt").click(function(){
@@ -80,6 +83,12 @@
 				}
 			});
 		});
+		
+		
+		function sendurll(url)
+		{
+			alert(url);
+		}
 	</script>
 </body>
 </html>

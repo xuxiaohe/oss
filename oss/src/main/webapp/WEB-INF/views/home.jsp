@@ -64,6 +64,12 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
                      <li role="presentation">
                         <a href="<%=cbasePath%>category/categoryList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>分类管理</a>
                     </li>
+                     <li role="presentation">
+                        <a href="<%=cbasePath%>tools/uploadqiniuForm" target="mainFrame"><span class="glyphicon glyphicon-star"></span>图片上传</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="<%=cbasePath%>tools/allqiniufiles" target="mainFrame"><span class="glyphicon glyphicon-star"></span>图声审核</a>
+                    </li>
                 </ul>
             </div>
         </div>

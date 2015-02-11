@@ -25,8 +25,8 @@
 	<div class="container-fluid">
 
 		<ol class="breadcrumb">
-			<li><a href="#">干货仓库</a></li>
-			<li><a href="${cbasePath}dry/dryList">干货列表</a></li>
+			<li><a href="#">话题管理</a></li>
+			<li><a href="${cbasePath}topic/topicList">话题列表</a></li>
 			 
 			<li class="active">话题排行榜创建</li>
 		</ol>
@@ -35,7 +35,7 @@
 
 			<div class="col-xs-9">
 				<form role="form" method="post"
-					action="${cbasePath}dry/addDryBoxAction" enctype="multipart/form-data">
+					action="${cbasePath}topic/addTopicBoxAction" >
 					<div class="form-group">
 						<label for="exampleInputEmail1">中文排行榜名</label> <input type="text"
 							name="chinaName" class="form-control" id="exampleInputEmail1"

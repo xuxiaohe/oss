@@ -9,7 +9,7 @@
 <html>
 <head lang="en">
 <meta charset="UTF-8">
-<title>干货管理</title>
+<title>用户管理</title>
 <script src="${cbasePath}/resources/assets/js/jquery.min.js"></script>
 <script src="${cbasePath}/resources/assets/js/bootstrap.min.js"></script>
 <link href="${cbasePath}/resources/assets/css/bootstrap.min.css"
@@ -24,43 +24,22 @@
 <body>
 	<div class="container-fluid">
 
-		<ol class="breadcrumb">
-			<li><a href="#">干货仓库</a></li>
-			<li><a href="${cbasePath}dry/dryList">干货列表</a></li>
-			 
-			<li class="active">话题排行榜创建</li>
-		</ol>
 
 		<div class="row">
 
+
 			<div class="col-xs-9">
-				<form role="form" method="post"
-					action="${cbasePath}dry/addDryBoxAction" enctype="multipart/form-data">
+				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
+				<form role="form" method="post" action="${cbasePath}tools/uploadqiniuAction" enctype="multipart/form-data">
+					 
+
 					<div class="form-group">
-						<label for="exampleInputEmail1">中文排行榜名</label> <input type="text"
-							name="chinaName" class="form-control" id="exampleInputEmail1"
-							placeholder="">
+						<label for="exampleInputEmail1">请上传图片</label> 
+						<input id="file" type="file" name="file" /> 
 					</div>
-					<div class="form-group">
-						<label for="exampleInputEmail1">英文排行榜名</label> <input type="text"
-							name="englishName" class="form-control" id="exampleInputEmail1"
-							placeholder="">  
-					</div>
-					<div class="form-group">
-						<label for="exampleInputEmail1">页面显示位置</label> 
-						<input type="text"
-							name="local" class="form-control" id="exampleInputEmail1"
-							placeholder="">
-					</div>
-					
-					<div class="form-group">
-						<label for="exampleInputEmail1">最多显示的top数量</label> 
-						<input type="text"
-							name="size" class="form-control" id="exampleInputEmail1"
-							placeholder="">
-					</div>
-					
-					<button type="submit" class="btn btn-default">Submit</button>
+
+
+					<button type="submit" class="btn btn-default">上传</button>
 				</form>
 			</div>
 		</div>

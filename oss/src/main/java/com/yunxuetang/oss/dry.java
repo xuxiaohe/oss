@@ -130,6 +130,8 @@ public class dry extends BaseController {
 		String fileUrl = request.getParameter("fileUrl");
 
 		try {
+			String t[]=file.getContentType().split("/");
+			String tt="."+t[1];
 
 		if (file.getSize()!=0) {
 
@@ -137,7 +139,7 @@ public class dry extends BaseController {
 
 		String urlString="/data/ossImgTemp";
 
-		String urlString2=userid+l+".jpg";
+		String urlString2=userid+l+tt;
 
 		InputStream stream=	file.getInputStream();
 

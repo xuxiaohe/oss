@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -501,6 +502,329 @@ public class topic extends BaseController {
 		modelview.setViewName("topic/topicDetail");
 		return modelview;
 	}
+	
+	/**
+	 * 
+	 * 添加排行榜  展示页
+	 */
+	@RequestMapping("/addTopicBoxForm")
+	public ModelAndView addDryBoxForm(HttpServletRequest request) {
+
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+
+		modelview.setViewName("topic/createtopicBoxForm");
+		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * 添加排行榜  
+	 */
+	@RequestMapping("/addTopicBoxAction")
+	public String addTopicBoxAction(HttpServletRequest request) {
+		String chinaName = request.getParameter("chinaName");
+		String englishName = request.getParameter("englishName");
+		String local = request.getParameter("local");
+		String size = request.getParameter("size");
+		String type = "topic";
+
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBox", addDryBox(chinaName, englishName, local, type,size));
+		return "redirect:/topic/topicList";
+	}
+	
+	
+	/**
+	 * 
+	 * 话题排行榜列表
+	 */
+	@RequestMapping("/BoxTopicList")
+	public ModelAndView BoxDryList(HttpServletRequest request) {
+		String type = "topic";
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		
+		modelview.setViewName("topic/topicBoxPostList");
+		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * 话题排行榜删除
+	 */
+	@RequestMapping("/BoxTopicListDelete")
+	public String  BoxDryListDelete(HttpServletRequest request) {
+		String boxId = request.getParameter("boxId");
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("addDryBoxList", deleteBoxPost(boxId));
+		
+		return "redirect:/topic/BoxTopicList";
+	}
+	
+	
+	
+	/**
+	 * 
+	 * 排行榜未绑定列表详情页 初始页  话题
+	 */
+	@RequestMapping("/TopicBoxDetail")
+	public ModelAndView DryBoxDetail(HttpServletRequest request) {
+		 
+		String type = "topic";
+		
+		JSONObject objj = dryboxpost(type);
+		
+		JSONObject objj2 =objj.getJSONObject("data");
+		
+		JSONArray objj3 =objj2.getJSONArray("result");
+		
+		JSONObject objj4=(JSONObject) objj3.get(0);
+		
+		String objj5=objj4.getString("id");
+		String objj6=objj4.getString("chinaName");
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", objj);
+		modelview.addObject("name", objj6);
+		modelview.addObject("id", objj5);
+		modelview.addObject("addDryBoxList", getdryboxlist(objj5,"0","10"));
+		modelview.setViewName("topic/topicBoxList");
+		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * 查询未关联排行版的话题列表
+	 */
+	@RequestMapping("/TopicBoxList")
+	public ModelAndView DryBoxList(HttpServletRequest request) {
+		 
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		
+		String type = "topic";
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		modelview.addObject("name", name);
+		modelview.addObject("id", id);
+		modelview.addObject("addDryBoxList", getdryboxlist( id,pagenumber,pagelines));
+		modelview.setViewName("topic/topicBoxList");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 
+	 * 话题关联到具体的排行榜
+	 */
+	@RequestMapping("/bindBoxTopic")
+	public ModelAndView bindBoxDry(HttpServletRequest request) {
+		String type = "topic";
+		String sourceType = "topic";
+		String name = request.getParameter("name");
+		//位置id
+		String boxPostId = request.getParameter("boxPostId");
+		//干货id
+		String sourceId = request.getParameter("sourceId");
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+	 
+		modelview.addObject("addDryBoxList", bindBoxDry(boxPostId, sourceType, sourceId));
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		modelview.addObject("name", name);
+		modelview.addObject("id", boxPostId);
+		modelview.addObject("addDryBoxList", getdryboxlist( boxPostId,"0","10"));
+		
+		modelview.setViewName("topic/topicBoxList");
+		return modelview;
+	}
+	
+	
+	
+	
+	/**
+	 * 
+	 * 排行榜已绑定列表详情页 初始页  干货
+	 */
+	@RequestMapping("/TopicBoxBindedDetail")
+	public ModelAndView DryBoxBindedDetail(HttpServletRequest request) {
+		 
+		String type = "topic";
+		
+		JSONObject objj = dryboxpost(type);
+		
+		JSONObject objj2 =objj.getJSONObject("data");
+		
+		JSONArray objj3 =objj2.getJSONArray("result");
+		
+		JSONObject objj4=(JSONObject) objj3.get(0);
+		
+		String objj5=objj4.getString("id");
+		String objj6=objj4.getString("chinaName");
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", objj);
+		modelview.addObject("name", objj6);
+		modelview.addObject("id", objj5);
+		modelview.addObject("addDryBoxList", drycargoInBox(objj5,"0","10"));
+		modelview.setViewName("topic/topicInBoxList");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 
+	 * 查询已关联排行版的干货列表
+	 */
+	@RequestMapping("/TopicInBoxList")
+	public ModelAndView DryInBoxList(HttpServletRequest request) {
+		
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		 
+		String type = "topic";
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		modelview.addObject("name", name);
+		modelview.addObject("id", id);
+		modelview.addObject("addDryBoxList", drycargoInBox(id,pagenumber,pagelines));
+		modelview.setViewName("topic/topicInBoxList");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 
+	 * 干货取消关联到具体的排行榜
+	 */
+	@RequestMapping("/unbindBoxTopic")
+	public ModelAndView unbindBoxDry(HttpServletRequest request) {
+		String type = "topic";
+		 
+		String name = request.getParameter("name");
+		//位置id
+		String boxPostId = request.getParameter("boxPostId");
+		//排行榜id
+		String boxId = request.getParameter("boxId");
+		 
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+	 
+		modelview.addObject("addDryBoxList", deleteBox(boxId));
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		modelview.addObject("name", name);
+		modelview.addObject("id", boxPostId);
+		modelview.addObject("addDryBoxList", drycargoInBox(boxPostId,"0","10"));
+		
+		modelview.setViewName("topic/topicInBoxList");
+		return modelview;
+	}
+	
+	private JSONObject deleteBox(String boxId) {
+		String url = Config.YXTSERVER3 + "oss/box/deleteBox?boxId=" + boxId;
+		return getRestApiData(url);
+	}
+	
+	
+	private JSONObject drycargoInBox(String boxPostId,String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/box/topicInBox?boxPostId=" + boxPostId+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	
+	
+	private JSONObject bindBoxDry(String boxPostId,String sourceType,String sourceId) {
+		String url = Config.YXTSERVER3 + "oss/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId;
+		return getRestApiData(url);
+	}
+	
+	
+	private JSONObject getdryboxlist(String boxPostId,String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/box/topicListNotInBoxPost?boxPostId="+boxPostId+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject deleteBoxPost(String boxId) {
+		String url = Config.YXTSERVER3 + "oss/box/deleteBoxPost?id=" + boxId;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject dryboxpost(String type) {
+		String url = Config.YXTSERVER3 + "oss/box/getBoxPostByType?type=" + type;
+		return getRestApiData(url);
+	}
 
 	private JSONObject topicList(String keyword, String n, String s) {
 		String url;
@@ -512,6 +836,12 @@ public class topic extends BaseController {
 
 		return getRestApiData(url);
 	}
+	
+	private JSONObject addDryBox(String chinaName,String englishName,String local,String type,String size) {
+		String url = Config.YXTSERVER3 + "oss/box/addBoxPost?chinaName=" + chinaName+"&englishName="+englishName+"&local="+local+"&type="+type+"&size="+size;
+		return getRestApiData(url);
+	}
+	
 
 	private JSONObject deleteTopic(String topicid) {
 		String url = Config.YXTSERVER3 + "oss/topic/delete?topicid=" + topicid;
