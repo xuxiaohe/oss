@@ -119,7 +119,7 @@ public class topic extends BaseController {
 		String pagelines = request.getParameter("s");
 
 		if (pagelines == null) {
-			pagelines = "10";
+			pagelines = "100";
 		}
 
 		ModelAndView modelview = new ModelAndView();

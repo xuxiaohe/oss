@@ -1072,7 +1072,7 @@ public class dry extends BaseController {
 
 	private JSONObject createDryByGroup(String id, String tagName, String group, String url, String fileUrl, String message, String description,
 			String dryFlag) {
-		String url2 = Config.YXTSERVER3 + "oss/dry/uploadDrycargo?id=" + id + "&tagName=" + tagName + "&group=" + group + "&url=" + url + "&fileUrl="
+		String url2 = Config.YXTSERVER3 + "oss/dry/uploadDrycargo?uid=" + id + "&tagName=" + tagName + "&group=" + group + "&url=" + url + "&fileUrl="
 				+ fileUrl + "&message=" + message + "&description=" + description + "&dryFlag=" + dryFlag;
 		return getRestApiData(url2);
 	}
