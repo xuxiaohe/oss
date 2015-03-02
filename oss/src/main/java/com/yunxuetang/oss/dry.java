@@ -1042,6 +1042,23 @@ public class dry extends BaseController {
 	}
 	
 	
+	/**
+	 * 
+	 * 干货排行榜删除
+	 */
+	@RequestMapping("/ajaxTest")
+	public ModelAndView  ajaxTest(HttpServletRequest request) {
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("serverPath", Config.YXTSERVER3);
+		modelview.setViewName("ajaxTest/ajaxTest");
+		return modelview;
+	}
+	
+	
 
 	private JSONObject dryDetail(String dryid) {
 		String url = Config.YXTSERVER3 + "oss/dry/getOneDry?dryid=" + dryid;
