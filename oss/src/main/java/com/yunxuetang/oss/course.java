@@ -3,6 +3,8 @@ package com.yunxuetang.oss;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,6 +14,8 @@ import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -361,6 +365,70 @@ public class course extends BaseController {
 	}
 	
 	
+	/**
+	 * 课程创建展示页
+	 * 
+	 */
+	@RequestMapping("/createcourseview")
+	public ModelAndView  createcourseview(HttpServletRequest request) {
+		
+		ModelAndView modelview = new ModelAndView();
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("course/createcourse");
+		return modelview;
+	}
+	
+	/**
+	 * 课程创建展示页
+	 * 
+	 */
+	@RequestMapping("/createcourseaction")
+	public ModelAndView  createcourseaction(HttpServletRequest request) {
+		
+		String cname= request.getParameter("cname");
+		 
+		String sumchapter = request.getParameter("sumchapter");
+
+		String sumkeshi = request.getParameter("sumkeshi");
+		String	zhangjie[]=null;
+		if(sumchapter!=null){
+			int i=Integer.parseInt(sumchapter);
+			if(i!=0&&i>0){
+					zhangjie=new String[i];
+				for(int p=0;p<i;p++){
+					int u=p+1;
+					zhangjie[p] = request.getParameter("zhangjie"+u);
+				}
+			}
+		}
+		
+		if(sumkeshi!=null){
+			int j=Integer.parseInt(sumkeshi);
+		}
+		
+		MultiValueMap<String, Object> requestParams=new LinkedMultiValueMap();
+			
+		List l=new ArrayList();
+		l.add(zhangjie);
+		 
+		requestParams.put("datas", l);
+		
+		ModelAndView modelview = new ModelAndView();
+		createcourse(requestParams);
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("course/createcourse");
+		return modelview;
+	}
+	
+	private JSONObject createcourse(MultiValueMap<String, Object> requestParams) {
+		String url = Config.YXTSERVER3 + "oss/course/courses";
+		return getRestApiData(url);
+	}
 	
 	
 	private JSONObject categoryOneList(String categoryType) {

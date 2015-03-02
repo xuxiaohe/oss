@@ -22,49 +22,124 @@
 
 	<div class="container-fluid">
 		<jsp:include page="header.jsp"></jsp:include>
-		<div class="panel panel-default">
-			<div class="panel-body">
-				 
-		<form id="addtest" action="/test"><br><a href="javascript:formSubmit()">add</a> 
- 
- <input id="testid" name="id" type="hidden" value="1">
- <button type="submit" >Submit</button> <br></form>		 
+	 <div class="row">
+
+			<div class="col-xs-9">
+			 
+				<form role="form" method="post" id="addtest"
+					action="${cbasePath}course/createcourseaction">
+						<button type="submit" class="btn btn-default">全部填完点击提交</button><br><br><br>
+						<div class="form-group">
+						<label for="exampleInputEmail1">课程名称</label>  <br>
+						<input id="cname" name="cname" type="text" >	 
+					</div>
+ <input id="sumchapter" name="sumchapter"  type="hidden" value="0">
+  <input id="sumkeshi" name="sumkeshi" type="hidden" value="0">
+<div id="chapter" class="form-group">
+<a href="javascript:formSubmit()">点击添加章节</a> 
+
+ <br>
+ </div>
+					<br>
 					
-					 
-	</div>
-	</div>
+					
+					<div id="keshi" class="form-group">
+					<a href="javascript:formSubmit2()">点击添加课时</a> 
+<br>
+  </div>
+					<br><br> 
+				</form>
+			</div>
+		</div>
+ 
 	</div>
 	<script >
 //js动态创建form 提交表单
 var divId=0;
 function formSubmit() {
-    var turnForm = document.getElementById("addtest");   
+   // var turnForm = document.getElementById("addtest");   
+    var chapter = document.getElementById("chapter"); 
     //一定要加入到body中！！   
     /* document.body.appendChild(turnForm);
     turnForm.method = 'post';
  turnForm.action = '/product/detail.htm';
  turnForm.target = '_blank'; */
  //创建隐藏表单
+  var obj=document.createElement("div");
+     
+     obj.innerHTML="章节名称";
+     chapter.appendChild(obj);
+     divId++;
  var newElement = document.createElement("input");
- 
 
-
-    newElement.setAttribute("name","id"+divId);
-    divId++;
+    newElement.setAttribute("id","zhangjie"+divId);
+    newElement.setAttribute("name","zhangjie"+divId);
     newElement.setAttribute("type","text");
-    newElement.setAttribute("value",divId);
-    turnForm.appendChild(newElement);
+    //newElement.setAttribute("value",divId);
+    chapter.appendChild(newElement);
+    //turnForm.appendChild(chapter);
     //turnForm.innerHTML="<br>";
    // turnForm.submit();
    
-     var turnForm2 = document.getElementById("testid");  
+     var turnForm2 = document.getElementById("sumchapter");  
       
      turnForm2.setAttribute("value",divId);
     
      var obj=document.createElement("div");
      
-     obj.innerHTML="<br><br>";
-     turnForm.appendChild(obj);
+     obj.innerHTML="<br>";
+     chapter.appendChild(obj);
+      
+}
+
+var divId2=0;
+function formSubmit2() {
+    //var turnForm = document.getElementById("addtest");   
+    var chapter = document.getElementById("keshi"); 
+    //一定要加入到body中！！   
+    /* document.body.appendChild(turnForm);
+    turnForm.method = 'post';
+ turnForm.action = '/product/detail.htm';
+ turnForm.target = '_blank'; */
+ //创建隐藏表单
+ 
+ var obj=document.createElement("div");
+     
+     obj.innerHTML="课时名称";
+     chapter.appendChild(obj);
+     divId2++;
+ var newElement = document.createElement("input");
+
+    newElement.setAttribute("id","keshi"+divId2);
+  
+    newElement.setAttribute("type","text");
+   // newElement.setAttribute("value",divId2);
+    chapter.appendChild(newElement);
+    //turnForm.appendChild(chapter);
+    //turnForm.innerHTML="<br>";
+   // turnForm.submit();
+   
+   var obj=document.createElement("div");
+     
+     obj.innerHTML="关联的章节";
+     chapter.appendChild(obj);
+ var newElement = document.createElement("input");
+
+    newElement.setAttribute("id","guanlian"+divId2);
+    
+    newElement.setAttribute("type","text");
+    //newElement.setAttribute("value",divId2);
+    chapter.appendChild(newElement);
+   
+   
+     var turnForm2 = document.getElementById("sumkeshi");  
+      
+     turnForm2.setAttribute("value",divId2);
+    
+     var obj=document.createElement("div");
+     
+     obj.innerHTML="<br>";
+     chapter.appendChild(obj);
       
 }
 </script>
