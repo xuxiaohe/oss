@@ -11,9 +11,9 @@ import com.qiniu.api.io.IoApi;
 import com.qiniu.api.io.PutExtra;
 import com.qiniu.api.io.PutRet;
 import com.qiniu.api.rs.PutPolicy;
+import com.qiniu.api.rsf.ListItem;
 import com.qiniu.api.rsf.ListPrefixRet;
 import com.qiniu.api.rsf.RSFClient;
-import com.qiniu.api.rsf.ListItem;
 import com.qiniu.api.rsf.RSFEofException;
 
 public class qiniu {
@@ -130,7 +130,22 @@ public class qiniu {
 		return urlback;
 	}
 	
-	
+	public static String token(){
+        Mac mac = new Mac(Config.ACCESS_KEY, Config.SECRET_KEY);
+        PutPolicy putPolicy = new PutPolicy(Config.BUCKETNAME);
+        String uptoken;
+		try {
+			uptoken = putPolicy.token(mac);
+			 return uptoken;
+		} catch (AuthException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (org.json.JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       return null;
+	}
 	
 	
 	
