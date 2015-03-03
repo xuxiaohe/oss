@@ -16,6 +16,35 @@
 <link href="${cbasePath}/resources/assets/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="${cbasePath}/resources/assets/css/font.css" rel="stylesheet">
+<script>
+var arrayObj ;
+
+function verify(id,ids){
+	alert(ids);
+	var currentBtn = document.getElementById(ids);
+	//currentBtn.disabled=true;
+	arrayObj=arrayObj+","+ids;
+	 $.ajax({
+			url :"${serverPath}oss/dry/getOneDry",
+			type : "POST",
+			data :{
+				"dryid" : id,
+				"data" : arrayObj
+				
+			},
+			success : function(res) {
+				if(res.data.result!=null||res.status=='200'){
+					alert(res.data.result.id);
+				}
+				else{
+					   alert("异常！");  
+					
+				}
+				
+			}
+	 });
+}
+</script>
 </head>
 
 <body>
@@ -89,9 +118,9 @@ function formSubmit() {
      var obj=document.createElement("div");
      var i="5469a970e4b0d5b83598e918";
      obj.innerHTML="<br>";
-     //obj.innerHTML="<button id='test' type='button' onclick='verify("+i+","+this.id+")' class='deleteBtn btn btn-primary' >提交</button>";
+     obj.innerHTML="<button id='test' type='button' onclick='verify(\""+i+"\","+"this.id);' class='deleteBtn btn btn-primary' >提交</button>";
      chapter.appendChild(obj);
-      
+      //verify("+i+","+this.id+")
 }
 
 var divId2=0;
@@ -147,33 +176,7 @@ function formSubmit2() {
 
 
 
-var arrayObj ;
 
-function verify(id,ids){
-	alert(id);
-	var currentBtn = document.getElementById(ids);
-	//currentBtn.disabled=true;
-	arrayObj=arrayObj+","+ids;
-	 $.ajax({
-			url :"${serverPath}oss/dry/getOneDry",
-			type : "POST",
-			data :{
-				"dryid" : id,
-				"data" : arrayObj
-				
-			},
-			success : function(res) {
-				if(res.data.result!=null||res.status=='200'){
-					alert(res.data.result.id);
-				}
-				else{
-					   alert("异常！");  
-					
-				}
-				
-			}
-	 });
-};
 
 </script>
 </body>
