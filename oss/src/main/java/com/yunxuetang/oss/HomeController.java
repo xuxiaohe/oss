@@ -56,6 +56,9 @@ public class HomeController {
 		}
 		
 	}
+//	public void login(){
+//		
+//	}
 	 
 	
 	
