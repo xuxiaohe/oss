@@ -20,15 +20,16 @@
 
 <body>
 
+<!-- <button id="test" type="button" class="btn btn-default" onclick="verify(5469a970e4b0d5b83598e918,this.id)">全部填完点击提交</button><br><br><br>
+ -->				
 	<div class="container-fluid">
 		<jsp:include page="header.jsp"></jsp:include>
 	 <div class="row">
 
 			<div class="col-xs-9">
-			 
+					
 				<form role="form" method="post" id="addtest"
 					action="${cbasePath}course/createcourseaction">
-						<button type="submit" class="btn btn-default">全部填完点击提交</button><br><br><br>
 						<div class="form-group">
 						<label for="exampleInputEmail1">课程名称</label>  <br>
 						<input id="cname" name="cname" type="text" >	 
@@ -86,8 +87,9 @@ function formSubmit() {
      turnForm2.setAttribute("value",divId);
     
      var obj=document.createElement("div");
-     
+     var i="5469a970e4b0d5b83598e918";
      obj.innerHTML="<br>";
+     //obj.innerHTML="<button id='test' type='button' onclick='verify("+i+","+this.id+")' class='deleteBtn btn btn-primary' >提交</button>";
      chapter.appendChild(obj);
       
 }
@@ -142,6 +144,37 @@ function formSubmit2() {
      chapter.appendChild(obj);
       
 }
+
+
+
+var arrayObj ;
+
+function verify(id,ids){
+	alert(id);
+	var currentBtn = document.getElementById(ids);
+	//currentBtn.disabled=true;
+	arrayObj=arrayObj+","+ids;
+	 $.ajax({
+			url :"${serverPath}oss/dry/getOneDry",
+			type : "POST",
+			data :{
+				"dryid" : id,
+				"data" : arrayObj
+				
+			},
+			success : function(res) {
+				if(res.data.result!=null||res.status=='200'){
+					alert(res.data.result.id);
+				}
+				else{
+					   alert("异常！");  
+					
+				}
+				
+			}
+	 });
+};
+
 </script>
 </body>
 </html>

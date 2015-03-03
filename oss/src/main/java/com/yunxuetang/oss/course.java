@@ -377,6 +377,7 @@ public class course extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("serverPath", Config.YXTSERVER3);
 		modelview.setViewName("course/createcourse");
 		return modelview;
 	}
@@ -421,6 +422,7 @@ public class course extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("serverPath", Config.YXTSERVER3);
 		modelview.setViewName("course/createcourse");
 		return modelview;
 	}
