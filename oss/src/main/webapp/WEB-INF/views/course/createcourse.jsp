@@ -58,6 +58,7 @@
 
 				<form role="form" method="post" id="addtest"
 					action="${cbasePath}course/createcourseaction">
+				
 					<div class="form-group">
 						<label for="exampleInputEmail1">课程名称</label> <br> <input
 							id="cname" name="cname" type="text">
@@ -86,12 +87,14 @@
 		</div>
 
 	</div>
+		
 	<script>
 		//js动态创建form 提交表单
 		var divId = 0;
 		function formSubmit() {
 			// var turnForm = document.getElementById("addtest");   
 			var chapter = document.getElementById("chapter");
+			var str="<div>章节名称<input type='text'><br>课时</div>"
 			var obj2 = document.createElement("div");
 			obj2.style="border:3px solid #000"; 
 			//一定要加入到body中！！   
@@ -183,6 +186,32 @@
 			chapter.appendChild(obj);
 
 		}
+	</script>
+	<div class="row">
+		<div><button onclick="addChapter()">添加章节</button></div>
+		<div id="chapters">
+			<!-- <div id="chapter">
+				章节名称<input type="text"><button onclick="addLesson()">添加课时</button>
+				<div id="lessons">
+					<div id="lesson">
+						课时名称:<input type="text">
+					</div>
+				</div>
+			</div> -->
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		function addChapter(){
+			var chapters=$("#chapters");
+			var str='<div id="chapter">章节名称<input type="text"><button onclick="addLesson(this)">添加课时</button><div id="lessons"><div id="lesson">课时名称:<input type="text"></div></div></div></div>';
+			chapters.append(str);
+			
+		}
+		function addLesson(s){
+			var str='<div id="lesson">课时名称:<input type="text"></div>';
+			$(s).parent().append(str);
+		} 
 	</script>
 </body>
 </html>
