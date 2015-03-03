@@ -11,6 +11,7 @@
 <head lang="en">
 <meta charset="UTF-8">
 <title>课程管理</title>
+<script src="${cbasePath}/resources/assets/js/plupload.js"></script>
 <script src="${cbasePath}/resources/assets/js/jquery.min.js"></script>
 <script src="${cbasePath}/resources/assets/js/bootstrap.min.js"></script>
 <link href="${cbasePath}/resources/assets/css/bootstrap.min.css"
@@ -21,6 +22,7 @@
 <body>
 
 	<div class="container-fluid">
+	<jsp:include page="header.jsp"></jsp:include>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<%-- <form class="form-inline" action="${cbasePath}course/searchCourse"
