@@ -73,6 +73,10 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
                      <li role="presentation">
                         <a href="<%=cbasePath%>knowledge/knowledgeList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>知识管理</a>
                     </li>
+                    
+                     <li role="presentation">
+                        <a href="<%=cbasePath%>words/wordsManage" target="mainFrame"><span class="glyphicon glyphicon-star"></span>词库管理</a>
+                    </li>
                 </ul>
             </div>
         </div>
