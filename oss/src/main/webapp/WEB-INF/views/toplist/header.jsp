@@ -15,18 +15,21 @@
 		<div class="btn-group">
 			<button type="button" class="btn btn-default dropdown-toggle"
 				data-toggle="dropdown">
-				干货管理 <span class="caret"></span>
+				推荐管理 <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="${cbasePath}dry/createDryByGroupView">干货创建</a></li>
-				<li><a href="${cbasePath}dry/catchDryByGroupView">干货抓取</a></li>
-				<%-- <li><a href="${cbasePath}dry/addDryBoxForm">干货排行榜创建</a></li>
-				<li><a href="${cbasePath}dry/BoxDryList">干货排行榜管理</a></li> --%>
-				<li><a href="${cbasePath}dry/DryBoxDetail">干货与推荐绑定</a></li>
-				<%-- <li><a href="${cbasePath}dry/DryBoxBindedDetail">干货已关联排行榜管理</a></li> --%>
+				<li><a href="${cbasePath}area/BoxDryList?type=dry">干货推荐管理</a></li>
+				<li><a href="${cbasePath}area/BoxDryList?type=topic">话题推荐管理</a></li>
+				<li><a href="${cbasePath}area/BoxDryList?type=group">群组推荐管理</a></li>
+				<li><a href="${cbasePath}area/BoxDryList?type=course">课程推荐管理</a></li>
 				<!-- <li><a href="#">用户导入</a></li> -->
 				<li class="divider"></li>
 			</ul>
 		</div>
+		<a
+		href="${cbasePath}area/addDryBoxForm">
+		<button type="button" class="btn btn-default dropdown-toggle">新建推荐管理</button>
+	</a>
 	</div>
+	
 </div>

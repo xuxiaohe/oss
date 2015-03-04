@@ -1019,7 +1019,7 @@ public class dry extends BaseController {
 		
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
 		
-		modelview.setViewName("dry/dryBoxPostList");
+		modelview.setViewName("toplist/dryBoxPostList");
 		return modelview;
 	}
 	
