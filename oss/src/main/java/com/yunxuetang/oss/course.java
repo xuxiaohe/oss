@@ -6,12 +6,15 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
+import org.jsoup.helper.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -19,6 +22,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -378,6 +382,13 @@ public class course extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("serverPath", Config.YXTSERVER3);
+		Map<String, String> map=new HashMap<String, String>();
+		map.put("title", "运维");
+		map.put("intro", "运维");
+		JSONObject jsonObject=createCourse(map);
+		JSONObject data=JSONObject.fromObject(jsonObject.get("data"));
+		JSONObject result=JSONObject.fromObject(data.get("result"));
+		modelview.addObject("courseId",result.get("id") );
 		modelview.setViewName("course/createcourse");
 		return modelview;
 	}
@@ -426,7 +437,11 @@ public class course extends BaseController {
 		modelview.setViewName("course/createcourse");
 		return modelview;
 	}
-	
+	//创建课程Api
+	private JSONObject createCourse(Map<String, String> map){
+		String url = Config.YXTSERVER3 + "oss/course/createCourse";
+		return getRestApiData(url,map);
+	}
 	private JSONObject createcourse(MultiValueMap<String, Object> requestParams) {
 		String url = Config.YXTSERVER3 + "oss/course/courses";
 		return getRestApiData(url);
@@ -491,5 +506,94 @@ public class course extends BaseController {
 		return getRestApiData(url);
 	}
 	
+	/**
+	 * 保存章节
+	 * 
+	 */
+	@RequestMapping("/saveChapter")
+	@ResponseBody
+	public Map<String, Object>  saveChapter(HttpServletRequest request,String title) {
+		String[] ids=request.getParameterValues("lessonIds[]");
+		String lessonIds=""; 
+		if(ids.length>0){
+			
+			for (String string : ids) {
+				lessonIds+=string+",";
+			}
+		}
+		Map<String, String> map=new HashMap<String, String>();
+		if(StringUtil.isBlank(title)){
+			map.put("title", "运维");
+		}else{
+			map.put("title", title);
+		}
+		map.put("lessonIds", lessonIds);
+		JSONObject json=createChapter(map);
+		JSONObject data=JSONObject.fromObject(json.get("data"));
+		JSONObject result=JSONObject.fromObject(data.get("result"));
+		Map<String, Object> reMap=new HashMap<String, Object>();
+		reMap.put("chapterId", result.get("id"));
+		return reMap;
+	}
+	private JSONObject createChapter(Map<String, String> map) {
+		String url = Config.YXTSERVER3 + "oss/course/createChapter";
+		return getRestApiData(url,map);
+	}
+	/**
+	 * 保存章节
+	 * 
+	 */
+	@RequestMapping("/modifyCourse")
+	@ResponseBody
+	public Map<String, Object>  modifyCourse(HttpServletRequest request,String title,String courseId) {
+		String[] chapterIds=request.getParameterValues("chapterIds[]");
+		Map<String, String> map=new HashMap<String, String>();
+		if(StringUtil.isBlank(title)){
+			map.put("title", "运维");
+		}else{
+			map.put("title", title);
+		}
+		String  ids="";
+		for (String string : chapterIds) {
+			ids+=string+",";
+		}
+		map.put("chapterIds", ids);
+		map.put("id", courseId);
+		JSONObject json=modifyCourse(map);
+		JSONObject data=JSONObject.fromObject(json.get("data"));
+		JSONObject result=JSONObject.fromObject(data.get("result"));
+		Map<String, Object> reMap=new HashMap<String, Object>();
+		reMap.put("chapterId", result.get("id"));
+		return reMap;
+	}
+	private JSONObject modifyCourse(Map<String, String> map) {
+		String url = Config.YXTSERVER3 + "oss/course/modifyCourse";
+		return getRestApiData(url,map);
+	}
+	
+	@RequestMapping("/createLesson")
+	@ResponseBody
+	public Map<String, Object>  createLesson(HttpServletRequest request,String title,String knowledgeId) {
+		Map<String, String> map=new HashMap<String, String>();
+		if(StringUtil.isBlank(title)){
+			map.put("title", "运维");
+		}else{
+			map.put("title", title);
+		}
+		map.put("knowledgeId", knowledgeId);
+		map.put("order", "1");
+		map.put("token", Config.TOKEN);
+		JSONObject json=createLesson(map);
+		JSONObject data=JSONObject.fromObject(json.get("data"));
+		JSONObject result=JSONObject.fromObject(data.get("result"));
+		Map<String, Object> reMap=new HashMap<String, Object>();
+		reMap.put("lessonId", result.get("id"));
+		return reMap;
+	}
+	private JSONObject createLesson(Map<String, String> map) {
+		String url = Config.YXTSERVER3 + "oss/course/createLesson";
+		return getRestApiData(url,map);
+	}
+
 
 }

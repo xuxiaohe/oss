@@ -134,7 +134,7 @@ public class knowledge extends BaseController{
 	}
 	@RequestMapping("/add")
 	@ResponseBody
-	public void add(HttpServletRequest request,String fid,String name,String cid,String kngType,String key) {
+	public Map<String, Object> add(HttpServletRequest request,String fid,String name,String cid,String kngType,String key) {
 		Map<String, String> requestParams =new HashMap<String, String>();
 		String pid =trans(key);
 		JSONObject jsonObject=JSONObject.fromObject(pid);
@@ -144,7 +144,13 @@ public class knowledge extends BaseController{
 		requestParams.put("cid", jsonObject.getString("persistentId"));
 		requestParams.put("kngType", kngType);
 		requestParams.put("token", "81FEAE852CB6D554A02CED0F46B7A9F4");
-		addKnowledge(requestParams);
+		JSONObject json=addKnowledge(requestParams);
+		JSONObject data=JSONObject.fromObject(json.get("data"));
+		JSONObject result=JSONObject.fromObject(data.get("result"));
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("knowledgeId", result.get("id"));
+		return map;
+		
 	}
 	private JSONObject addKnowledge(Map<String, String> map) {
 		String url = Config.YXTSERVER3 + "knowledge/addKnowledge";
