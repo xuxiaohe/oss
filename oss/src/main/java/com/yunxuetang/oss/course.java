@@ -554,8 +554,10 @@ public class course extends BaseController {
 			map.put("title", title);
 		}
 		String  ids="";
-		for (String string : chapterIds) {
-			ids+=string+",";
+		if (chapterIds.length>0) {
+			for (String string : chapterIds) {
+				ids+=string+",";
+			}
 		}
 		map.put("chapterIds", ids);
 		map.put("id", courseId);
