@@ -31,294 +31,191 @@
 	rel="stylesheet">
 
 <link href="${cbasePath}/resources/assets/css/font.css" rel="stylesheet">
-
-<script>
-	var arrayObj;
-
-	function verify(id, ids) {
-
-		alert(ids);
-
-		var currentBtn = document.getElementById(ids);
-
-		//currentBtn.disabled=true;
-
-		arrayObj = arrayObj + "," + ids;
-
-		$.ajax({
-
-			url : "${serverPath}oss/dry/getOneDry",
-
-			type : "POST",
-
-			data : {
-
-				"dryid" : id,
-
-				"data" : arrayObj
-
-			},
-
-			success : function(res) {
-
-				if (res.data.result != null || res.status == '200') {
-
-					alert(res.data.result.id);
-
-				} else {
-
-					alert("异常！");
-
-				}
-
-			}
-
-		});
-
-	}
-</script>
+<script src="${cbasePath}/resources/assets/js/html5shiv.js"></script>
+<script src="${cbasePath}/resources/assets/js/plupload.full.min.js"></script>
+<script src="${cbasePath}/resources/assets/js/qiniu.js"></script>
 
 </head>
-
-
-
 <body>
-
-
-
-	<!-- <button id="test" type="button" class="btn btn-default" onclick="verify(5469a970e4b0d5b83598e918,this.id)">全部填完点击提交</button><br><br><br>
-
- -->
-
 	<div class="container-fluid">
-
-		<jsp:include page="header.jsp"></jsp:include>
-
-		<div class="row">
-
-
-
-			<div class="col-xs-9">
-
-
-
-				<form role="form" method="post" id="addtest"
-					action="${cbasePath}course/createcourseaction">
-
-					<div class="form-group">
-
-						<label for="exampleInputEmail1">课程名称</label> <br> <input
-							id="cname" name="cname" type="text">
-
-					</div>
-
-					<input id="sumchapter" name="sumchapter" type="hidden" value="0">
-
-					<input id="sumkeshi" name="sumkeshi" type="hidden" value="0">
-
-					<a href="javascript:formSubmit()">点击添加章节</a> <br>
-
-					<div id="chapter" class="form-group" style="border: 1px solid #000">
-
-
-						<!-- <div id="keshi" class="form-group">
-
-<a href="javascript:formSubmit2()">点击添加课时</a> <br>
-
-</div> -->
-
-						<br>
-
-
-					</div>
-
-					<br>
-
-
-
-
-
-					<!-- <div id="keshi" class="form-group">
-
-<a href="javascript:formSubmit2()">点击添加课时</a> <br>
-
-</div> -->
-
-
-
-				</form>
-
-			</div>
-
+	<jsp:include page="header.jsp"></jsp:include>
+	<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="h4">课程名称</div>
+		<div class="col-xs-10 col-sm-6 col-md-4">
+			<div class="row"><input type="text" id="courseTitle" class="form-control" /></div>
 		</div>
-
-
-
+		<div class="col-xs-12" id="Chapters">
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="h5"><button class="btn btn-info" id="createChapter">点击添加章节</button></div>
+			</div>
+		</div>
+		<div>
+			<button class="btn btn-primary" onclick="saveCourse()">提交</button>
+		</div>
 	</div>
+</div>
+</div>
+<script>
+	var courseId="${courseId}";
+	var knowledgeId="";
+	var chapter=[];
+	var lesson=[];
+	$(function(){
+		var html = "<div class='row'><div class='col-xs-10 col-sm-9'><div class='panel panel-default'>"
+					+"<div class='panel-body'>"
+					+"<div class='col-xs-12 col-sm-7'><div class='row'><label>章节名称</label><input type='text' class='form-control c-title' /></div></div>"
+					+"<div class='col-xs-12 col-sm-7'><div class='row'><h5><button class='btn btn-info addlesson'>点击添加课时</button></h5></div></div>"
+					+"<div class='col-xs-12'><div class='row'><button class='btn btn-default cancel' style='margin-right:15px;'>取消</button><button class='btn btn-primary chapter'>提交</button></div></div>"
+					+"</div></div></div></div>";
 
-	<script>
-		//js动态创建form 提交表单
+		var createChapter = $("#createChapter");
+		createChapter.click(function(){
+			$(this).parent().parent().append(html);
+		});
 
-		var divId = 0;
+		createChapter.parent().parent().delegate(".addlesson","click",function(){
+			$(this).parent().parent().append("<div class='input-group'  style='margin-bottom:15px;'>"+
+          		"<input type='text' class='form-control' />"+
+          		"<span class='input-group-btn'>"+
+            		"<button class='btn btn-primary' onclick='addKnowledge(this);' type='button'>添加知识</button>"+
+          		"</span>"+
+        		"</div>");
+		});
 
-		var i = "5469a970e4b0d5b83598e918";
-
-		function formSubmit() {
-
-			// var turnForm = document.getElementById("addtest");   
-
-			var chapter = document.getElementById("chapter");
-
-			var obj2 = document.createElement("div");
-
-			obj2.style = "border:3px solid #000";
-
-			//一定要加入到body中！！   
-
-			/* document.body.appendChild(turnForm);
-
-			 turnForm.method = 'post';
-
-			 turnForm.action = '/product/detail.htm';
-
-			 turnForm.target = '_blank'; */
-
-			//创建隐藏表单
-			var obj = document.createElement("div");
-
-			obj.style = "border:3px solid #000";
-
-			obj.innerHTML = "<button id='test' type='button' onclick='verify(\""
-
-					+ i
-
-					+ "\","
-
-					+ "this.id);' class='deleteBtn btn btn-primary' >点击提交下面章节信息</button><br>==================章节=================<br>章节名称";
-
-			chapter.appendChild(obj);
-
-			divId++;
-
-			var newElement = document.createElement("input");
-
-			newElement.setAttribute("id", "zhangjie" + divId);
-
-			newElement.setAttribute("name", "zhangjie" + divId);
-
-			newElement.setAttribute("type", "text");
-
-			//newElement.setAttribute("value",divId);
-
-			chapter.appendChild(newElement);
-
-			//turnForm.appendChild(chapter);
-
-			//turnForm.innerHTML="<br>";
-
-			// turnForm.submit();
-
-			var turnForm2 = document.getElementById("sumchapter");
-
-			turnForm2.setAttribute("value", divId);
-
-			var obj = document.createElement("div");
-
-			obj.innerHTML = "<br><br>";
-
-			obj.innerHTML = "<button id='test' type='button' onclick='verify(\""
-
-					+ i
-
-					+ "\","
-
-					+ "this.id);' class='deleteBtn btn btn-primary' >提交</button>";
-
-			obj.innerHTML = "<a href='javascript:formSubmit2()'>点击添加课时</a>";
-
-			chapter.appendChild(obj);
-
-			obj2.appendChild(chapter);
-
-			document.body.appendChild(obj2);
-
-			//verify("+i+","+this.id+")
-
+		createChapter.parent().parent().delegate(".cancel ","click",function(){
+			$(this).closest(".panel").closest(".row").remove();
+		});
+		createChapter.parent().parent().delegate(".chapter","click",function(){
+			saveChapter(this);
+		});
+		
+	});
+	
+	function saveChapter(sender){
+		alert("ok");
+		var container = $(sender).closest(".panel-body");
+		var title=$.trim(container.find(".c-title").val());
+		if(title==""){
+			alert("章节名称非空！");
+			return false;
 		}
-
-		var divId2 = 0;
-
-		function formSubmit2() {
-
-			//var turnForm = document.getElementById("addtest");   
-
-			var chapter = document.getElementById("chapter");
-
-			//一定要加入到body中！！   
-
-			/* document.body.appendChild(turnForm);
-
-			 turnForm.method = 'post';
-
-			 turnForm.action = '/product/detail.htm';
-
-			 turnForm.target = '_blank'; */
-
-			//创建隐藏表单
-			var obj = document.createElement("div");
-
-			obj.innerHTML = "课时名称";
-
-			chapter.appendChild(obj);
-
-			divId2++;
-
-			var newElement = document.createElement("input");
-
-			newElement.setAttribute("id", "keshi" + divId2);
-
-			newElement.setAttribute("type", "text");
-
-			// newElement.setAttribute("value",divId2);
-
-			chapter.appendChild(newElement);
-
-			//turnForm.appendChild(chapter);
-
-			//turnForm.innerHTML="<br>";
-
-			// turnForm.submit();
-
-			var obj = document.createElement("div");
-
-			obj.innerHTML = "关联的章节";
-
-			chapter.appendChild(obj);
-
-			var newElement = document.createElement("input");
-
-			newElement.setAttribute("id", "guanlian" + divId2);
-
-			newElement.setAttribute("type", "text");
-
-			//newElement.setAttribute("value",divId2);
-
-			chapter.appendChild(newElement);
-
-			var turnForm2 = document.getElementById("sumkeshi");
-
-			turnForm2.setAttribute("value", divId2);
-
-			var obj = document.createElement("div");
-
-			obj.innerHTML = "<br>";
-
-			chapter.appendChild(obj);
-
+		  $.ajax({
+				url :"${cbasePath}course/saveChapter",
+				type : "POST",
+				data :{
+					"lessonIds": container.data("lesson"),
+					"title" : title
+				},
+				success : function(result) {
+					chapter.push(result.chapterId);
+				}
+		 }); 
+		  $("#Chapters").append("<div>"+title+"</div>");
+		  $(sender).closest(".panel").parent().remove();
+	};
+	
+	function saveCourse(){
+		console.log(chapter);
+		var title=$.trim($("#courseTitle").val());
+		if(title==""){
+			alert("课程名称非空！");
+			return false;
 		}
-	</script>
+		  $.ajax({
+				url :"${cbasePath}course/modifyCourse",
+				type : "POST",
+				data :{
+					"chapterIds": chapter,
+					"courseId" : courseId,
+					"title":$("#courseTitle").val()
+				},
+				success : function(result) {
+					alert("课程创建成功");
+				}
+		 }); 
+	};
+	function savaeLesson(sender){
+		var title =$.trim($(sender).closest(".input-group").find(".form-control").val());
+		 var container = $(sender).closest(".panel-body");
+		 var inputGroup = container.find(".input-group");
+		 var current = $(sender).closest(".input-group").eq(0);
+		var index = inputGroup.index(current);
+		 var value = container.val();
+		  $.ajax({
+				url :"${cbasePath}course/createLesson",
+				type : "POST",
+				data :{
+					"title":title,
+					"knowledgeId":knowledgeId
+				},
+				success : function(result) {
+					alert(result.lessonId);
+					 if(!container.data("lesson")){
+						 container.data("lesson",new Array());
+					 }
+					 if(container.data("lesson").length-1 >= index){
+						 container.data("lesson")[index] = result.lessonId;
+					 }else{
+						 container.data("lesson").push(result.lessonId);
+						 console.log(container.data("lesson"));
+					 }
+					 
+				//	lesson.push(result.lessonId);
+				}
+		 }); 
+		 
+		  
+		//  return lesson;
+	}
+	function addKnowledge(sender){
+		/* alert("添加知识");
+		lesson=[];
+		lesson=savaeLesson(); */
+		var input =$.trim($(sender).closest(".input-group").find(".form-control").val());
+		if(input==""){
+			alert("课时名称非空");
+			return false;
+		}
+		$.ModalDialog(sender,"test","${cbasePath}knowledge/uploadKnowledge?ckey=knowledge_video");
+	}
 
+//	弹框
+	$.ModalDialog = function(sender,title,url){
+		var dialog = $("<div />");
+		dialog.attr("class","modal fade");
+		dialog.get(0).id = "ModalId";
+		var html = "<div class='modal-dialog'>" +
+				"<div class='modal-content'>" +
+				"<div class='modal-header'>" +
+				"<button type='button' class='close'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>" +
+				"<h4 class='modal-title'>"+title+"</h4></div>" +
+				"<div class='modal-body'><button class='btn btn-info' data-dismiss='modal'>close</button></div>" +
+				"</div></div>";
+
+
+		dialog.append(html);
+		$("body").append(dialog);
+		dialog.on("hidden.bs.modal",function(){
+			$(this).remove();
+		});
+		dialog.data("sender",sender);
+		
+		dialog.modal("show");
+		dialog.find(".modal-body").load(url);
+		dialog.find(".close").click(function(){
+			dialog.modal("hide");
+
+		});
+	};
+
+	$.CloseModalDialog = function(){
+		$("#ModalId").modal("hide");	
+	}
+	
+</script>
 </body>
-
 </html>
 
