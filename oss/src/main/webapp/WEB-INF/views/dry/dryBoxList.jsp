@@ -17,28 +17,13 @@
 	rel="stylesheet">
 <link href="${cbasePath}/resources/assets/css/font.css" rel="stylesheet">
 </head>
-<div class="panel panel-default">
-	<div class="panel-body">
-		<div class="btn-group">
-			<button type="button" class="btn btn-default dropdown-toggle"
-				data-toggle="dropdown">
-				请选择要关联的排行榜<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" role="menu">
-			<c:forEach items="${addDryBoxposition.data.result}" varStatus="key"
-						var="Recourse">
-				<li><a href="${cbasePath}dry/DryBoxList?id=${Recourse.id}&name=${Recourse.chinaName}">${Recourse.chinaName}</a></li>
-				</c:forEach>
-				 
-				<!-- <li><a href="#">用户导入</a></li> -->
-				<li class="divider"></li>
-			</ul>
-		</div>
-	</div>
-</div>
+
+	<jsp:include page="header.jsp"></jsp:include>
+	
+
 <body>
 
-	<div class="container-fluid">
+	 
 	<%-- <div class="panel panel-default">
 	<div class="panel-body">
 		<div class="btn-group">
@@ -57,12 +42,44 @@
 	</div>
 </div> --%>
 		<div class="panel panel-default">
+	
+		
 			<div class="panel-body">
 				<form class="form-inline" action="${cbasePath}dry/dryList"
 					method="get" role="form">
 					 
 				</form>
 				<h4>当前排行榜为：${name}</h4>
+				<br>
+					<div class="btn-group">
+			<button type="button" class="btn btn-default dropdown-toggle"
+				data-toggle="dropdown">
+				请选择要关联的排行榜<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+			<c:forEach items="${addDryBoxposition.data.result}" varStatus="key"
+						var="Recourse">
+				<li><a href="${cbasePath}dry/DryBoxList?id=${Recourse.id}&name=${Recourse.chinaName}">${Recourse.chinaName}</a></li>
+				</c:forEach>
+				 
+				<!-- <li><a href="#">用户导入</a></li> -->
+				<li class="divider"></li>
+			</ul>
+		</div><br><br>
+		<div class="btn-group">
+		<form class="form-inline" action="${cbasePath}dry/searchDryBoxList?id=${id}&name=${name}"
+					method="post" role="form">
+					<div class="form-group">
+						<label class="sr-only" for="keyword">Search:</label> <input
+							class="form-control" id="keyword" name="keyword"
+							placeholder="Enter keyword" value="${keyword}">
+					</div>
+
+					<button id="searchIt" type="submit" class="btn btn-default">Search
+						it!</button>
+				</form>
+				</div>
+				
 				<c:if test="${addDryBoxList.status == '200'}">
 					<nav> <!-- 分页开始 -->
 					<ul class="pagination">
@@ -126,7 +143,7 @@
 				</c:if>
 			</div>
 		</div>
-	</div>
+	 
 	<script>
 		$(function() {
 			/* $("#searchIt").click(function(){

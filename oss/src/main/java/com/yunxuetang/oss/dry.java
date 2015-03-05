@@ -504,6 +504,9 @@ public class dry extends BaseController {
 		modelview.setViewName("dry/dryList");
 		return modelview;
 	}
+	
+	
+	
 
 	/**
 	 * 
@@ -866,6 +869,34 @@ public class dry extends BaseController {
 	}
 	
 	
+	/**
+	 * 
+	 * 查询未关联排行版的干货列表
+	 */
+	@RequestMapping("/searchDryBoxList")
+	public ModelAndView searchDryBoxList(HttpServletRequest request) {
+		 
+		String keyword = request.getParameter("keyword");
+		String boxPostId = request.getParameter("id");
+		String dryFlag="0";
+		
+		String type = "dry";
+		 
+		String name = request.getParameter("name");
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		modelview.addObject("name", name);
+		modelview.addObject("id", boxPostId);
+		modelview.addObject("addDryBoxList", getdryboxlistNotIn(dryFlag, boxPostId, keyword));
+		modelview.setViewName("dry/dryBoxList");
+		return modelview;
+	}
+	
 	
 	/**
 	 * 
@@ -1042,21 +1073,21 @@ public class dry extends BaseController {
 	}
 	
 	
-	/**
-	 * 
-	 * 干货排行榜删除
-	 */
-	@RequestMapping("/ajaxTest")
-	public ModelAndView  ajaxTest(HttpServletRequest request) {
-		 
-		ModelAndView modelview = new ModelAndView();
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.addObject("serverPath", Config.YXTSERVER3);
-		modelview.setViewName("ajaxTest/ajaxTest");
-		return modelview;
-	}
+//	/**
+//	 * 
+//	 * 干货排行榜删除
+//	 */
+//	@RequestMapping("/ajaxTest")
+//	public ModelAndView  ajaxTest(HttpServletRequest request) {
+//		 
+//		ModelAndView modelview = new ModelAndView();
+//		String cpath = request.getContextPath();
+//		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+//		modelview.addObject("cbasePath", cbasePath);
+//		modelview.addObject("serverPath", Config.YXTSERVER3);
+//		modelview.setViewName("ajaxTest/ajaxTest");
+//		return modelview;
+//	}
 	
 	
 
@@ -1160,6 +1191,11 @@ public class dry extends BaseController {
 	
 	private JSONObject getdryboxlist(String dryFlag,String boxPostId,String n,String s) {
 		String url = Config.YXTSERVER3 + "oss/box/drycargoListNotInBoxPost?dryFlag=" + dryFlag+"&boxPostId="+boxPostId+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getdryboxlistNotIn(String dryFlag,String boxPostId,String keyword) {
+		String url = Config.YXTSERVER3 + "oss/box/searchDrycargoNotInBoxPost?dryFlag=" + dryFlag+"&boxPostId="+boxPostId+"&keyword="+keyword;
 		return getRestApiData(url);
 	}
 	

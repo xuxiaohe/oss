@@ -657,6 +657,35 @@ public class topic extends BaseController {
 	
 	/**
 	 * 
+	 * 查询未关联排行版的话题列表
+	 */
+	@RequestMapping("/TopicBoxListBySearch")
+	public ModelAndView TopicBoxListBySearch(HttpServletRequest request) {
+		 
+		String keyword = request.getParameter("keyword");
+
+		 
+		
+		String type = "topic";
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		modelview.addObject("name", name);
+		modelview.addObject("id", id);
+		modelview.addObject("addDryBoxList", getdryboxlistBySearch(id, keyword));
+		modelview.setViewName("topic/topicBoxList");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 
 	 * 话题关联到具体的排行榜
 	 */
 	@RequestMapping("/bindBoxTopic")
@@ -813,6 +842,11 @@ public class topic extends BaseController {
 	
 	private JSONObject getdryboxlist(String boxPostId,String n,String s) {
 		String url = Config.YXTSERVER3 + "oss/box/topicListNotInBoxPost?boxPostId="+boxPostId+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getdryboxlistBySearch(String boxPostId,String keyword) {
+		String url = Config.YXTSERVER3 + "oss/box/searchtopicListNotInBoxPost?boxPostId="+boxPostId+"&keyword="+keyword;
 		return getRestApiData(url);
 	}
 	
