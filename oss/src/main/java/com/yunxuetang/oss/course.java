@@ -1,34 +1,25 @@
 package com.yunxuetang.oss;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
 import org.jsoup.helper.StringUtil;
+import org.junit.Test;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yunxuetang.util.Config;
-import com.yunxuetang.util.PoiService;
+import com.yunxuetang.util.HttpUtil;
 
 @Controller
 @RequestMapping("/course")
@@ -596,6 +587,30 @@ public class course extends BaseController {
 		String url = Config.YXTSERVER3 + "oss/course/createLesson";
 		return getRestApiData(url,map);
 	}
+   
+	@RequestMapping("checkLesson")
+	@ResponseBody
+	public Object checkLesson(String lessonId,String knowledgeId, String status){
+		Map<String, Object>map=new HashMap<String, Object>();
+		map.put("lessonId", lessonId);
+		map.put("kngId", knowledgeId);
+		map.put("status", status);
+		try{
+		 HttpUtil.doPost(Config.YXTSERVER3+"oss/lesson/checkLesson", map,String.class);
+		}catch(Exception e){
+			
+		}
+		return "ok";
+	}
+	
+	@Test
+	public void test(){
+		String url = "http://172.17.123.74:8081/oss/lesson/checkLesson";
+		Map<String, Object>map=new HashMap<String, Object>();
+		map.put("lessonId", "1");
+		map.put("kngId", "1");
+		map.put("status", "1");
+		HttpUtil.doPost(url, map, String.class);
 
-
+}
 }

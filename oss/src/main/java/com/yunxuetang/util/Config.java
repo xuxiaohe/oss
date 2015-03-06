@@ -4,7 +4,7 @@ public class Config {
 
 	public static String YXTSERVER = "http://s1.xuewen.yunxuetang.com:8084/";
 	public static String YXTSERVER2 = "http://s1.xuewen.yunxuetang.com:8082/";
-	public static String YXTSERVER3 = "http://172.17.123.58:8080/";
+	public static String YXTSERVER3 = "http://172.17.123.74:8081/";
 	//public static String YXTSERVER3 = "http://localhost:8081/";
 	
 	//public static String YXTSERVER3 = "http://s1.xuewen.yunxuetang.com:8084/";

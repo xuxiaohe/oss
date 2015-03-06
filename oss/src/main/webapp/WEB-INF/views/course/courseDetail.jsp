@@ -72,10 +72,30 @@
 							<c:forEach items="${courseDetail.data.result.chapters}"
 								varStatus="key" var="Recourse">
 								<c:forEach items="${Recourse.lessons}" varStatus="key"
-									var="Recourse">
-									<li class="list-group-item"><span class="badge">
-									<Date:date
-												value="${Recourse.ctime}"></Date:date></span>${Recourse.title}</li>
+									var="Lesson">
+									<li class="list-group-item">
+										<span style="width:200px;float:left;">${Lesson.title}</span>
+										<span class="badge">
+											 <Date:date value="${Lesson.ctime}"></Date:date>
+										</span>
+										<span class="badge">
+											<a href="http://ztiao.cn/Knowledge/PlayDialog/${Lesson.knowledge.id}/Video" target="_blank" style="color:#fff000">查看视频</a> 
+										</span>
+										<span class="badge" id="msg${Lesson.id}">
+											<c:if test="${Lesson.status==2}">审核通过</c:if>
+											<c:if test="${Lesson.status==1}">未审核</c:if>
+											<c:if test="${Lesson.status==4}">审核未通过</c:if>
+										</span>
+									
+											
+										
+										<select id="${Lesson.id}">
+												<option value="0">不通过</option>
+												<option value="1">通过</option>	
+											</select>
+											<button type="button" class="deleteBtn btn btn-primary" onclick="checkLesson('${Lesson.id}','${Lesson.knowledge.id}')">审核课时</button>
+										
+									</li>
 								</c:forEach>
 
 								<div class="col-xs-6">
@@ -105,6 +125,18 @@
 					window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
 				}); */
 			});
+			
+			function checkLesson(lessonId,knowledge){
+				var status=$("#"+lessonId).val();
+				$.post("${cbasePath}course/checkLesson",{"lessonId":lessonId,"knowledgeId":knowledge,"status":status},function(data){
+					 alert("审核成功");
+					 if(status==1){
+						 $("#msg"+lessonId).html("审核通过");
+					 }else{
+						 $("#msg"+lessonId).html("审核不通过");
+					 }
+				});
+			}
 		</script>
 </body>
 </html>
