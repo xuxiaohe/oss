@@ -34,6 +34,7 @@
 <script src="${cbasePath}/resources/assets/js/html5shiv.js"></script>
 <script src="${cbasePath}/resources/assets/js/plupload.full.min.js"></script>
 <script src="${cbasePath}/resources/assets/js/qiniu.js"></script>
+<script src="${cbasePath}/resources/assets/js/moxie.min.js"></script>
 
 </head>
 <body>
