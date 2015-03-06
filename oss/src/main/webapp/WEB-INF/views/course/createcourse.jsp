@@ -256,11 +256,11 @@ function upload(s){
 				}
 		 }); 
 		  var cHtml = $("<div class='panel panel-info'>"
-	  				+"<div class='panel-heading'>章节编号:"+order+"&&章节标题:"+title+"</div><div class='panel-body'><ul></ul></div>"  
+	  				+"<div class='panel-heading'>章节编号:"+order+"/章节标题:"+title+"</div><div class='panel-body'><ul></ul></div>"  
 	  				+"</div>");
 		  var data = $(sender).closest(".panel-body").data("lesson");
 		  for(var i=0;i<data.length;i++){
-			  cHtml.find(".panel-body").find("ul").append("<li>课时编号:"+data[i].order+"&&课时标题:"+data[i].title+"</li>");
+			  cHtml.find(".panel-body").find("ul").append("<li>课时编号:"+data[i].order+"/课时标题:"+data[i].title+"</li>");
 		  }
 		  $("#Chapters").append(cHtml);
 		  $(sender).closest(".panel").parent().remove();
