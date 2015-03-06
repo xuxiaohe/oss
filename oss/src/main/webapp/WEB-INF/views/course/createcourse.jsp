@@ -301,6 +301,7 @@ function upload(s){
 				},
 				success : function(result) {
 					alert("课程创建成功");
+					window.location.href = "${cbasePath}course/courseList"
 				}
 		 }); 
 	};
