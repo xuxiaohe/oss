@@ -133,6 +133,7 @@ public class area extends BaseController{
 		}
 		if(type.equals("group")){
 			path="groupInBoxList";
+			modelview.addObject("addDryBoxList", groupInBox(id,pagenumber,pagelines));
 		}
 		if(type.equals("course")){
 			path="courseInBoxList";
@@ -179,6 +180,54 @@ public class area extends BaseController{
 		}
 		if(type.equals("group")){
 			path="groupInBoxList";
+			modelview.addObject("addDryBoxList", groupInBox(boxPostId,"0","10"));
+		}
+		if(type.equals("course")){
+			path="courseInBoxList";
+		}
+		modelview.setViewName("toplist/"+path);
+		return modelview;
+	}
+	
+	
+	/**
+	 * 
+	 * 取消关联到具体的排行榜
+	 */
+	@RequestMapping("/unbindBoxBygroup")
+	public ModelAndView unbindBoxBygroup(HttpServletRequest request) {
+		String path=null;
+		String type = request.getParameter("type");
+		 
+		String name = request.getParameter("name");
+		//位置id
+		String boxPostId = request.getParameter("boxPostId");
+		//排行榜id
+		String sourceid = request.getParameter("sourceid");
+		 
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+	 
+		modelview.addObject("addDryBoxList", deleteBoxBypostidAndsourceid(boxPostId, sourceid));
+		
+		modelview.addObject("name", name);
+		modelview.addObject("id", boxPostId);
+		
+		if(type.equals("dry")){
+			path="dryInBoxList";
+			modelview.addObject("addDryBoxList", drycargoInBox(boxPostId,"0","10"));
+		}
+		if(type.equals("topic")){
+			path="topicInBoxList";
+			modelview.addObject("addDryBoxList", topicInBox(boxPostId,"0","10"));
+		}
+		if(type.equals("group")){
+			path="groupInBoxList";
+			modelview.addObject("addDryBoxList", groupInBox(boxPostId,"0","10"));
 		}
 		if(type.equals("course")){
 			path="courseInBoxList";
@@ -215,12 +264,20 @@ public class area extends BaseController{
 		String url = Config.YXTSERVER3 + "oss/box/deleteBox?boxId=" + boxId;
 		return getRestApiData(url);
 	}
+	private JSONObject deleteBoxBypostidAndsourceid(String postid,String sourceid) {
+		String url = Config.YXTSERVER3 + "oss/box/deleteBoxBypostAndsource?postId=" + postid+"&sourceId="+sourceid;
+		return getRestApiData(url);
+	}
 	
 	private JSONObject topicInBox(String boxPostId,String n,String s) {
 		String url = Config.YXTSERVER3 + "oss/box/topicInBox?boxPostId=" + boxPostId+"&n="+n+"&s="+s;
 		return getRestApiData(url);
 	}
 	
+	private JSONObject groupInBox(String boxPostId,String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/box/groupInBox?boxPostId=" + boxPostId+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
 	
 	private JSONObject drycargoInBox(String boxPostId,String n,String s) {
 		String url = Config.YXTSERVER3 + "oss/box/drycargoInBox?boxPostId=" + boxPostId+"&n="+n+"&s="+s;

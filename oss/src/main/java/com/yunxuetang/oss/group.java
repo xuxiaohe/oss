@@ -1072,7 +1072,7 @@ public class group extends BaseController {
 	@RequestMapping("/GroupBoxDetail")
 	public ModelAndView GroupBoxDetail(HttpServletRequest request) {
 		 
-		String type = "dry";
+		String type = "group";
 		
 		JSONObject objj = dryboxpost(type);
 		
@@ -1092,7 +1092,7 @@ public class group extends BaseController {
 		modelview.addObject("addDryBoxposition", objj);
 		modelview.addObject("name", objj6);
 		modelview.addObject("id", objj5);
-		modelview.addObject("addDryBoxList", getdryboxlist("0", objj5,"0","10"));
+		modelview.addObject("addDryBoxList", getdryboxlist( objj5,"0","10"));
 		modelview.setViewName("group/groupBoxList");
 		return modelview;
 	}
@@ -1103,8 +1103,8 @@ public class group extends BaseController {
 	 * 
 	 * 查询未关联排行版的干货列表
 	 */
-	@RequestMapping("/DryBoxList")
-	public ModelAndView DryBoxList(HttpServletRequest request) {
+	@RequestMapping("/groupBoxList")
+	public ModelAndView GroupBoxList(HttpServletRequest request) {
 		 
 		String pagenumber = request.getParameter("n");
 
@@ -1120,7 +1120,7 @@ public class group extends BaseController {
 			pagelines = "10";
 		}
 		
-		String type = "dry";
+		String type = "group";
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		 
@@ -1132,8 +1132,8 @@ public class group extends BaseController {
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
 		modelview.addObject("name", name);
 		modelview.addObject("id", id);
-		modelview.addObject("addDryBoxList", getdryboxlist("0", id,pagenumber,pagelines));
-		modelview.setViewName("dry/dryBoxList");
+		modelview.addObject("addDryBoxList", getdryboxlist(id,pagenumber,pagelines));
+		modelview.setViewName("group/groupBoxList");
 		return modelview;
 	}
 	
@@ -1142,14 +1142,13 @@ public class group extends BaseController {
 	 * 
 	 * 查询未关联排行版的干货列表
 	 */
-	@RequestMapping("/searchDryBoxList")
-	public ModelAndView searchDryBoxList(HttpServletRequest request) {
+	@RequestMapping("/searchGroupBoxList")
+	public ModelAndView searchGroupBoxList(HttpServletRequest request) {
 		 
 		String keyword = request.getParameter("keyword");
 		String boxPostId = request.getParameter("id");
-		String dryFlag="0";
 		
-		String type = "dry";
+		String type = "group";
 		 
 		String name = request.getParameter("name");
 		 
@@ -1161,22 +1160,61 @@ public class group extends BaseController {
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
 		modelview.addObject("name", name);
 		modelview.addObject("id", boxPostId);
-		modelview.addObject("addDryBoxList", getdryboxlistNotIn(dryFlag, boxPostId, keyword));
-		modelview.setViewName("dry/dryBoxList");
+		modelview.addObject("addDryBoxList", getdryboxlistNotIn( boxPostId, keyword));
+		modelview.setViewName("group/groupBoxList");
 		return modelview;
 	}
 	
 	
-	private JSONObject getdryboxlistNotIn(String dryFlag,String boxPostId,String keyword) {
-		String url = Config.YXTSERVER3 + "oss/box/searchDrycargoNotInBoxPost?dryFlag=" + dryFlag+"&boxPostId="+boxPostId+"&keyword="+keyword;
+	/**
+	 * 
+	 * 群组关联到具体的排行榜
+	 */
+	@RequestMapping("/bindBoxGroup")
+	public ModelAndView bindBoxGroup(HttpServletRequest request) {
+		String type = "group";
+		String sourceType = "group";
+		String name = request.getParameter("name");
+		//位置id
+		String boxPostId = request.getParameter("boxPostId");
+		//干货id
+		String sourceId = request.getParameter("sourceId");
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+	 
+		modelview.addObject("addDryBoxList", bindBoxDry(boxPostId, sourceType, sourceId));
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		modelview.addObject("name", name);
+		modelview.addObject("id", boxPostId);
+		modelview.addObject("addDryBoxList", getdryboxlist( boxPostId,"0","10"));
+		
+		modelview.setViewName("group/groupBoxList");
+		return modelview;
+	}
+	
+	private JSONObject bindBoxDry(String boxPostId,String sourceType,String sourceId) {
+		String url = Config.YXTSERVER3 + "oss/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId;
 		return getRestApiData(url);
 	}
 	
 	
-	private JSONObject getdryboxlist(String dryFlag,String boxPostId,String n,String s) {
-		String url = Config.YXTSERVER3 + "oss/box/drycargoListNotInBoxPost?dryFlag=" + dryFlag+"&boxPostId="+boxPostId+"&n="+n+"&s="+s;
+	private JSONObject getdryboxlistNotIn(String boxPostId,String keyword) {
+		String url = Config.YXTSERVER3 + "oss/box/searchgroupListNotInBoxPost?boxPostId="+boxPostId+"&keyword="+keyword;
 		return getRestApiData(url);
 	}
+	
+	
+	private JSONObject getdryboxlist(String boxPostId,String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/box/groupListNotInBoxPost?boxPostId=" + boxPostId+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	
+ 
 	
 	private JSONObject dryboxpost(String type) {
 		String url = Config.YXTSERVER3 + "oss/box/getBoxPostByType?type=" + type;

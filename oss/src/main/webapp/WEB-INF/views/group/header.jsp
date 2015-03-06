@@ -19,7 +19,7 @@
 			</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="${cbasePath }group/createGroupForUserForm">创建群组</a></li>
-				 <li><a href="${cbasePath}group/DryBoxDetail">群组与推荐绑定</a></li>
+				 <li><a href="${cbasePath}group/GroupBoxDetail">群组与推荐绑定</a></li>
 				<li class="divider"></li>
 			</ul>
 		</div>

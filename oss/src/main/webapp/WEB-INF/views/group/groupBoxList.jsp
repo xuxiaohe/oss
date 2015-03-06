@@ -57,9 +57,9 @@
 				请选择要关联的排行榜<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-			<c:forEach items="${addDryBoxposition.data.result}" varStatus="key"
+		<c:forEach items="${addDryBoxposition.data.result}" varStatus="key"
 						var="Recourse">
-				<li><a href="${cbasePath}dry/DryBoxList?id=${Recourse.id}&name=${Recourse.chinaName}">${Recourse.chinaName}</a></li>
+				<li><a href="${cbasePath}group/groupBoxList?id=${Recourse.id}&name=${Recourse.chinaName}">${Recourse.chinaName}</a></li>
 				</c:forEach>
 				 
 				<!-- <li><a href="#">用户导入</a></li> -->
@@ -67,7 +67,7 @@
 			</ul>
 		</div><br><br>
 		<div class="btn-group">
-		<form class="form-inline" action="${cbasePath}dry/searchDryBoxList?id=${id}&name=${name}"
+		<form class="form-inline" action="${cbasePath}group/searchGroupBoxList?id=${id}&name=${name}"
 					method="post" role="form">
 					<div class="form-group">
 						<label class="sr-only" for="keyword">Search:</label> <input
@@ -86,14 +86,14 @@
 						<pageNation:PageNation currPage="${addDryBoxList.data.curr_page}"
 							totalPages="${addDryBoxList.data.page_rows}" perPageRows="10"
 							totalRows="${addDryBoxList.data.total_rows}"
-							linkBaseUrl="${cbasePath}dry/DryBoxList?id=${id}&name=${name}">
+							linkBaseUrl="${cbasePath}group/groupBoxList?id=${id}&name=${name}">
 						</pageNation:PageNation>
 					</ul>
 
 					<!-- 分页结束 --> </nav>
 
 					<!---数据显示区域-->
-					<c:forEach items="${addDryBoxList.data.result}" varStatus="key"
+			<%-- 			<c:forEach items="${addDryBoxList.data.result}" varStatus="key"
 						var="Recourse">
 
 						<div class="row" style="padding: 20px;">
@@ -129,13 +129,56 @@
 
 							</div>
 						</div>
+					</c:forEach> --%>
+					
+					
+					<c:forEach items="${addDryBoxList.data.result}" varStatus="key" var="Recourse">
+						<div class="row" style="padding: 20px;">
+							<div class="col-xs-1">
+								<h5 style="margin-top:40px;"><span class="label label-default">${key.count}</span></h5>
+							</div>
+							<div class="col-xs-1">
+								<div class="row">
+									<img class="col-xs-12 thumbnail" src="${Recourse.logoUrl}"
+										style="margin-top: 10px;" alt="" />
+								</div>
+							</div>
+							<div class="col-xs-10">
+								<h4 style="margin-left:12px;">
+									<a href="${cbasePath}group/groupDetail?gid=${Recourse.id}">
+										${Recourse.groupName} </a><small><small
+										class="pull-right">注册时间：<Date:date
+												value="${Recourse.ctime}"></Date:date></small></small>
+								</h4>
+								<div class="col-xs-12">
+									<p>上次更新：<Date:date
+												value="${Recourse.utime}"></Date:date></p>
+								</div>
+								<div class="col-xs-12">
+									<p>${Recourse.intro}</p>
+								</div>
+								
+								<div class="col-xs-12 btn-group-sm">
+								<a href="${cbasePath}group/bindBoxGroup?boxPostId=${id}&sourceId=${Recourse.id}&name=${name}">
+									<button data="${Recourse.id}" type="button"
+										class="deleteBtn btn btn-primary">关联该排行榜</button>
+										</a>
+										 
+									 
+								</div>
+
+							</div>
+						</div>
 					</c:forEach>
+					
+					
+					
 					<nav> <!-- 分页开始 -->
 					<ul class="pagination">
 						<pageNation:PageNation currPage="${addDryBoxList.data.curr_page}"
 							totalPages="${addDryBoxList.data.page_rows}" perPageRows="10"
 							totalRows="${addDryBoxList.data.total_rows}"
-							linkBaseUrl="${cbasePath}dry/DryBoxList?id=${id}&name=${name}">
+							linkBaseUrl="${cbasePath}group/groupBoxList?id=${id}&name=${name}">
 						</pageNation:PageNation>
 					</ul>
 
