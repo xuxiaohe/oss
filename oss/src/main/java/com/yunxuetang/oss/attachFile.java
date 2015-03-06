@@ -35,6 +35,7 @@ public class attachFile extends BaseController{
 		JSONObject result=JSONObject.fromObject(data.get("result"));
 		map.put("attid", result.get("id"));
 		map.put("name", result.get("fname"));
+		map.put("furl", result.get("furl"));
 		return map;
 	}
 	private JSONObject addAttachFile(Map<String, String> map) {

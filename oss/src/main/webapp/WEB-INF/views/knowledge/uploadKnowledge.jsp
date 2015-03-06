@@ -97,7 +97,8 @@ $(".btn-success").click(function(){
 				"key":$("#key").val(),
 				"fid":$("#attachId").val(),
 				"kngType":"1",
-				"name":$("#kngName").val()
+				"name":$("#kngName").val(),
+				"userId":$("#uidSelect").val()
 			},
 			success : function(result) {
 				alert("上传知识成功等待转码");

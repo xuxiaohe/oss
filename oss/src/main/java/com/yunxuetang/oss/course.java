@@ -380,6 +380,7 @@ public class course extends BaseController {
 		JSONObject data=JSONObject.fromObject(jsonObject.get("data"));
 		JSONObject result=JSONObject.fromObject(data.get("result"));
 		modelview.addObject("courseId",result.get("id") );
+		modelview.addObject("robots", findRoboit("1", "10"));
 		modelview.setViewName("course/createcourse");
 		return modelview;
 	}
@@ -503,7 +504,7 @@ public class course extends BaseController {
 	 */
 	@RequestMapping("/saveChapter")
 	@ResponseBody
-	public Map<String, Object>  saveChapter(HttpServletRequest request,String title) {
+	public Map<String, Object>  saveChapter(HttpServletRequest request,String title,String order) {
 		String[] ids=request.getParameterValues("lessonIds[]");
 		String lessonIds=""; 
 		if(ids.length>0){
@@ -518,6 +519,7 @@ public class course extends BaseController {
 		}else{
 			map.put("title", title);
 		}
+		map.put("order", order);
 		map.put("lessonIds", lessonIds);
 		JSONObject json=createChapter(map);
 		JSONObject data=JSONObject.fromObject(json.get("data"));
@@ -536,7 +538,7 @@ public class course extends BaseController {
 	 */
 	@RequestMapping("/modifyCourse")
 	@ResponseBody
-	public Map<String, Object>  modifyCourse(HttpServletRequest request,String title,String courseId) {
+	public Map<String, Object>  modifyCourse(HttpServletRequest request,String title,String logoUrl,String intro,String tagNames,String courseId) {
 		String[] chapterIds=request.getParameterValues("chapterIds[]");
 		Map<String, String> map=new HashMap<String, String>();
 		if(StringUtil.isBlank(title)){
@@ -544,19 +546,28 @@ public class course extends BaseController {
 		}else{
 			map.put("title", title);
 		}
+		map.put("logoUrl", logoUrl);
+		map.put("introl", intro);
+		map.put("tagNames", tagNames);
+		map.put("isPublic", "0");
+		map.put("sourceType", "3");
+		map.put("status", "3");
 		String  ids="";
-		if (chapterIds.length>0) {
-			for (String string : chapterIds) {
-				ids+=string+",";
+		if(chapterIds!=null){
+			if (chapterIds.length>0) {
+				for (String string : chapterIds) {
+					ids+=string+",";
+				}
 			}
 		}
+
 		map.put("chapterIds", ids);
 		map.put("id", courseId);
 		JSONObject json=modifyCourse(map);
 		JSONObject data=JSONObject.fromObject(json.get("data"));
 		JSONObject result=JSONObject.fromObject(data.get("result"));
 		Map<String, Object> reMap=new HashMap<String, Object>();
-		reMap.put("chapterId", result.get("id"));
+		reMap.put("courseId", result.get("id"));
 		return reMap;
 	}
 	private JSONObject modifyCourse(Map<String, String> map) {
@@ -566,7 +577,7 @@ public class course extends BaseController {
 	
 	@RequestMapping("/createLesson")
 	@ResponseBody
-	public Map<String, Object>  createLesson(HttpServletRequest request,String title,String knowledgeId) {
+	public Map<String, Object>  createLesson(HttpServletRequest request,String title,String knowledgeId,String userId,String order) {
 		Map<String, String> map=new HashMap<String, String>();
 		if(StringUtil.isBlank(title)){
 			map.put("title", "运维");
@@ -575,7 +586,8 @@ public class course extends BaseController {
 		}
 		map.put("knowledgeId", knowledgeId);
 		map.put("order", "1");
-		map.put("token", Config.TOKEN);
+		map.put("userId", userId);
+		map.put("order", order);
 		JSONObject json=createLesson(map);
 		JSONObject data=JSONObject.fromObject(json.get("data"));
 		JSONObject result=JSONObject.fromObject(data.get("result"));
@@ -586,6 +598,12 @@ public class course extends BaseController {
 	private JSONObject createLesson(Map<String, String> map) {
 		String url = Config.YXTSERVER3 + "oss/course/createLesson";
 		return getRestApiData(url,map);
+	}
+	private JSONObject findRoboit(String n, String s) {
+		// String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n +
+		// "&s=" + s + "&robot=1";
+		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&robot=1";
+		return getRestApiData(url);
 	}
    
 	@RequestMapping("checkLesson")

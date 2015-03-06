@@ -35,17 +35,152 @@
 <script src="${cbasePath}/resources/assets/js/plupload.full.min.js"></script>
 <script src="${cbasePath}/resources/assets/js/qiniu.js"></script>
 <script src="${cbasePath}/resources/assets/js/moxie.min.js"></script>
-
+<script type="text/javascript">
+$(function (){
+	upload("knowledge_video_cover");
+})
+function upload(s){
+	var ckey=s;
+    var uploader = Qiniu.uploader({
+        runtimes: 'html5,flash,html4',
+        browse_button: 'pic',
+        container: 'container',
+        drop_element: 'container',
+        max_file_size: '100mb',
+        flash_swf_url: '${cbasePath}/js/Moxie.swf',
+        dragdrop: true,
+        chunk_size: '4mb',
+        uptoken_url: '${cbasePath}/knowledge/getToken',
+        domain: 'tpublic.qiniudn.com',
+       	filters:"{mime_types : [{ title : \"Image files\", extensions : \"jpg,gif,png\" }  ],  max_file_size : '2mb', \r\n  prevent_duplicates : true}",
+        auto_start: true,
+        multi_selection:false,
+        
+        init: {
+             'UploadComplete': function() {
+             	
+            }, 
+            'FileUploaded': function(up, file, info) {
+            	$("#key").val("");
+            	var res=$.parseJSON(info);
+            	$("#key").val(res.key);
+            	$.ajax({
+					url :"${cbasePath}attachFile/add",
+					type : "POST",
+					async : false,
+					data :{
+						"ckey":ckey,
+						"fkey":res.key,
+						"fname":file.name
+					},
+					success : function(result) {
+						$("#attachId").val("");
+						$("#attachId").val(result.attid);
+						console.log(result);
+						$("#courseImg").attr("src",result.furl);
+						$("#logoUrl").val(result.furl);
+						alert("上传成功");
+					}
+			 });
+            },
+            'Error': function(up, err, errTip) {
+                alert(errTip);
+            }
+            ,
+            'Key': function(up, file) {
+            	var key="";
+            	 $.ajax({
+						url :"${cbasePath}knowledge/getFileName",
+						type : "POST",
+						async : false,
+						data :{
+							"name" : file.name,
+							"pathrule" : "${config.pathrule}"
+						},
+						success : function(result) {
+							$("#kngName").val("");
+							key=result;
+							$("#kngName").val(file.name);
+						}
+				 });
+                 
+                 return key
+             }
+        }
+    });
+	
+}
+	
+</script>
 </head>
 <body>
 	<div class="container-fluid">
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="panel panel-default">
 	<div class="panel-body">
+	<div class="form-group clearfix">
+		<div class="h4">用户名</div> 
+		<div class="col-xs-10 col-sm-6 col-md-4">
+		<div class="row">
+			<select class="form-control" name="uid" id="uidSelect">
+			<c:if test="${robots.status == '200' }">
+				<c:forEach items="${robots.data.result}" varStatus="key"
+					var="Recourse">
+					<option value="${Recourse.id }">${Recourse.nickName }:${Recourse.userName }</option>
+				</c:forEach>
+			</c:if>
+		</select>
+		</div>
+			
+		</div>
+			
+
+	</div>
+	<div class="form-group clearfix">
 		<div class="h4">课程名称</div>
 		<div class="col-xs-10 col-sm-6 col-md-4">
-			<div class="row"><input type="text" id="courseTitle" class="form-control" /></div>
+			<div class="row">
+				<input type="text" id="courseTitle" class="form-control" />
+			</div>
 		</div>
+	</div>
+	<div class="form-group clearfix">
+		<div class="media">
+			<div class="media-left">
+				<img id="courseImg" width="100" height="100" src="">
+			</div>
+			<div class="media-body">
+				<div id="container">
+					<div class="row">
+						<div class="col-xs-9">
+							<button id="pic" type="submit" class="btn btn-default">上传图片</button>
+						</div>
+					</div>
+				
+					<input type="hidden" id="key">
+					<input type="hidden" id="attachId">
+					<input type="hidden" id="kngName">
+					<input type="hidden" id="input">
+					<input type="hidden" id="logoUrl" class="form-control" />
+			</div>
+		</div>
+		
+		
+		</div>
+	</div>
+	<div class="form-group clearfix">
+		<div class="h4">课程简介</div>
+		<div class="col-xs-10 col-sm-6 col-md-4">
+			<div class="row"><input type="text" id="intro" class="form-control" /></div>
+		</div>
+	</div>
+	<div class="form-group clearfix">
+		<div class="h4">课程标签</div>
+		<div class="col-xs-10 col-sm-6 col-md-4">
+			<div class="row"><input type="text" id="tagNames" class="form-control" /></div>
+		</div>
+	</div>
+		
 		<div class="col-xs-12" id="Chapters">
 		</div>
 		<div class="row">
@@ -63,12 +198,13 @@
 	var courseId="${courseId}";
 	var knowledgeId="";
 	var chapter=[];
-	var lesson=[];
+	//var lesson=[];
+	var userId="";
 	$(function(){
 		var html = "<div class='row'><div class='col-xs-10 col-sm-9'><div class='panel panel-default'>"
 					+"<div class='panel-body'>"
-					+"<div class='col-xs-12 col-sm-7'><div class='row'><label>章节名称</label><input type='text' class='form-control c-title' /></div></div>"
-					+"<div class='col-xs-12 col-sm-7'><div class='row'><h5><button class='btn btn-info addlesson'>点击添加课时</button></h5></div></div>"
+					+"<div class='col-xs-12 col-sm-10'><div class='row'><label>章节名称</label><input type='text' class='form-control c-title' /><label>序号</label><input type='text' class='form-control c-order' /></div></div>"
+					+"<div class='col-xs-12'><div class='row'><h5><button class='btn btn-info addlesson'>点击添加课时</button></h5><div class='col-xs-6' style='margin-bottom:10px;'>课时名称</div><div class='col-xs-4' style='margin-bottom:10px;'>序号</div></div></div>"
 					+"<div class='col-xs-12'><div class='row'><button class='btn btn-default cancel' style='margin-right:15px;'>取消</button><button class='btn btn-primary chapter'>提交</button></div></div>"
 					+"</div></div></div></div>";
 
@@ -78,12 +214,12 @@
 		});
 
 		createChapter.parent().parent().delegate(".addlesson","click",function(){
-			$(this).parent().parent().append("<div class='input-group'  style='margin-bottom:15px;'>"+
+			$(this).parent().parent().append("<div class='lesson-row'><div class='col-xs-6'><input type='text' class='form-control title' /></div><div class='col-xs-4'><div class='input-group'  style='margin-bottom:15px;'>"+
           		"<input type='text' class='form-control' />"+
           		"<span class='input-group-btn'>"+
             		"<button class='btn btn-primary' onclick='addKnowledge(this);' type='button'>添加知识</button>"+
           		"</span>"+
-        		"</div>");
+        		"</div></div></div>");
 		});
 
 		createChapter.parent().parent().delegate(".cancel ","click",function(){
@@ -96,33 +232,60 @@
 	});
 	
 	function saveChapter(sender){
-		alert("ok");
 		var container = $(sender).closest(".panel-body");
 		var title=$.trim(container.find(".c-title").val());
+		var order=$.trim(container.find(".c-order").val());
 		if(title==""){
 			alert("章节名称非空！");
+			return false;
+		}
+		if(order==""){
+			alert("章节序号非空！");
 			return false;
 		}
 		  $.ajax({
 				url :"${cbasePath}course/saveChapter",
 				type : "POST",
 				data :{
-					"lessonIds": container.data("lesson"),
-					"title" : title
+					"lessonIds": container.data("id"),
+					"title" : title,
+					"order":order
 				},
 				success : function(result) {
 					chapter.push(result.chapterId);
 				}
 		 }); 
-		  $("#Chapters").append("<div>"+title+"</div>");
+		  var cHtml = $("<div class='panel panel-info'>"
+	  				+"<div class='panel-heading'>章节编号:"+order+"&&章节标题:"+title+"</div><div class='panel-body'><ul></ul></div>"  
+	  				+"</div>");
+		  var data = $(sender).closest(".panel-body").data("lesson");
+		  for(var i=0;i<data.length;i++){
+			  cHtml.find(".panel-body").find("ul").append("<li>课时编号:"+data[i].order+"&&课时标题:"+data[i].title+"</li>");
+		  }
+		  $("#Chapters").append(cHtml);
 		  $(sender).closest(".panel").parent().remove();
 	};
 	
 	function saveCourse(){
 		console.log(chapter);
 		var title=$.trim($("#courseTitle").val());
+		var logoUrl=$.trim($("#logoUrl").val());
+		var intro=$.trim($("#intro").val());
+		var tagNames=$.trim($("#tagNames").val());
 		if(title==""){
 			alert("课程名称非空！");
+			return false;
+		}
+		if(logoUrl==""){
+			alert("课程封面非空！");
+			return false;
+		}
+		if(intro==""){
+			alert("课程简介非空！");
+			return false;
+		}
+		if(title==""){
+			alert("课程标签非空！");
 			return false;
 		}
 		  $.ajax({
@@ -131,7 +294,10 @@
 				data :{
 					"chapterIds": chapter,
 					"courseId" : courseId,
-					"title":$("#courseTitle").val()
+					"title":title,
+					"logoUrl":logoUrl,
+					"intro":intro,
+					"tagNames":tagNames
 				},
 				success : function(result) {
 					alert("课程创建成功");
@@ -139,7 +305,8 @@
 		 }); 
 	};
 	function savaeLesson(sender){
-		var title =$.trim($(sender).closest(".input-group").find(".form-control").val());
+		var order =$.trim($(sender).closest(".input-group").find(".form-control").val());
+		var title = $.trim($(sender).closest(".lesson-row").find(".title").val());
 		 var container = $(sender).closest(".panel-body");
 		 var inputGroup = container.find(".input-group");
 		 var current = $(sender).closest(".input-group").eq(0);
@@ -150,18 +317,26 @@
 				type : "POST",
 				data :{
 					"title":title,
-					"knowledgeId":knowledgeId
+					"order":order,
+					"knowledgeId":knowledgeId,
+					"userId":$("#uidSelect").val()
 				},
 				success : function(result) {
-					alert(result.lessonId);
+					var obj = {};
+					obj.id = result.lessonId;
+					obj.title =title;
+					obj.order = order;
 					 if(!container.data("lesson")){
 						 container.data("lesson",new Array());
+						 container.data("id",new Array());
 					 }
 					 if(container.data("lesson").length-1 >= index){
-						 container.data("lesson")[index] = result.lessonId;
+						 container.data("lesson")[index] = obj;
+						 container.data("id")[index] = obj.id;
 					 }else{
-						 container.data("lesson").push(result.lessonId);
-						 console.log(container.data("lesson"));
+						 
+						 container.data("lesson").push(obj);
+						 container.data("id").push(obj.id);
 					 }
 					 
 				//	lesson.push(result.lessonId);
@@ -175,12 +350,17 @@
 		/* alert("添加知识");
 		lesson=[];
 		lesson=savaeLesson(); */
-		var input =$.trim($(sender).closest(".input-group").find(".form-control").val());
-		if(input==""){
-			alert("课时名称非空");
+		var order =$.trim($(sender).closest(".input-group").find(".form-control").val());
+		var title = $.trim($(sender).closest(".lesson-row").find(".title").val());
+		if(title==""){
+			alert("课时名称非空!");
 			return false;
 		}
-		$.ModalDialog(sender,"test","${cbasePath}knowledge/uploadKnowledge?ckey=knowledge_video");
+		if(order==""){
+			alert("课时序号非空!");
+			return false;
+		}
+		$.ModalDialog(sender,"文件上传","${cbasePath}knowledge/uploadKnowledge?ckey=knowledge_video");
 	}
 
 //	弹框
