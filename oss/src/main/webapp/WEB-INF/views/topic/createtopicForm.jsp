@@ -79,11 +79,15 @@
 							placeholder="">
 					</div>
 					<div class="form-group">
-						<label for="exampleInputEmail1">内容</label> <input type="text"
+						<label for="exampleInputEmail1">内容</label>
+						<!-- <input type="text"
 							name="content" class="form-control" id="exampleInputEmail1"
-							placeholder="">
+							placeholder="" style="width:652px;height:150px"> -->
+							<textarea name="content" class="form-control" rows="3" cols="20"></textarea>
 					</div>
-					
+
+
+
 					<div class="form-group">
 						<label for="exampleInputEmail1">标签</label> <input type="text"
 							name="tagName" class="form-control" id="exampleInputEmail1"
