@@ -16,10 +16,6 @@
 	padding: 10px;
 }
 </style>
-<script src="${cbasePath}/resources/assets/js/jquery.min.js"></script>
-<script src="${cbasePath}/resources/assets/js/qiniu.js"></script>
-<script src="${cbasePath}/resources/assets/js/moxie.min.js"></script>
-<script src="${cbasePath}/resources/assets/js/plupload.full.min.js"></script>
 <script type="text/javascript">
 var ckey="${ckey}";
 $(function() {
