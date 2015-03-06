@@ -74,6 +74,7 @@
 								<c:forEach items="${Recourse.lessons}" varStatus="key"
 									var="Lesson">
 									<li class="list-group-item">
+										<span><img src="${Lesson.knowledge.logoUrl}" height="50" height="50"/></span>
 										<span style="width:200px;float:left;">${Lesson.title}</span>
 										<span class="badge">
 											 <Date:date value="${Lesson.ctime}"></Date:date>
@@ -84,7 +85,7 @@
 										<span class="badge" id="msg${Lesson.id}">
 											<c:if test="${Lesson.status==2}">审核通过</c:if>
 											<c:if test="${Lesson.status==1}">未审核</c:if>
-											<c:if test="${Lesson.status==4}">审核未通过</c:if>
+											<c:if test="${Lesson.status==3}">审核未通过</c:if>
 										</span>
 									
 											
