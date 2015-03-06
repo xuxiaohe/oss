@@ -11,8 +11,12 @@
 <head lang="en">
 <meta charset="UTF-8">
 <title>课程管理</title>
-<script src="${cbasePath}/resources/assets/js/plupload.js"></script>
 <script src="${cbasePath}/resources/assets/js/jquery.min.js"></script>
+<script type="text/javascript">
+$.noConflict();
+</script>
+<script src="${cbasePath}/resources/assets/js/plupload.full.min.js"></script>
+
 <script src="${cbasePath}/resources/assets/js/bootstrap.min.js"></script>
 <link href="${cbasePath}/resources/assets/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -106,8 +110,9 @@
 		</div>
 	</div>
 	<script>
+			
 			function verify(id,status){
-				 $.ajax({
+				 jQuery.ajax({
 						url :"${cbasePath}knowledge/verify",
 						type : "POST",
 						data :{
