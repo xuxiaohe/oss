@@ -547,11 +547,10 @@ public class course extends BaseController {
 			map.put("title", title);
 		}
 		map.put("logoUrl", logoUrl);
-		map.put("introl", intro);
+		map.put("intro", intro);
 		map.put("tagNames", tagNames);
 		map.put("isPublic", "0");
 		map.put("sourceType", "3");
-		map.put("status", "3");
 		String  ids="";
 		if(chapterIds!=null){
 			if (chapterIds.length>0) {
@@ -588,6 +587,7 @@ public class course extends BaseController {
 		map.put("order", "1");
 		map.put("userId", userId);
 		map.put("order", order);
+		map.put("status", "3");
 		JSONObject json=createLesson(map);
 		JSONObject data=JSONObject.fromObject(json.get("data"));
 		JSONObject result=JSONObject.fromObject(data.get("result"));

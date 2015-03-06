@@ -144,6 +144,7 @@ public class knowledge extends BaseController{
 		requestParams.put("cid", jsonObject.getString("persistentId"));
 		requestParams.put("kngType", kngType);
 		requestParams.put("userId", userId);
+		requestParams.put("status", "1");
 		JSONObject json=addKnowledge(requestParams);
 		JSONObject data=JSONObject.fromObject(json.get("data"));
 		JSONObject result=JSONObject.fromObject(data.get("result"));
