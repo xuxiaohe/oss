@@ -80,14 +80,20 @@
 											 <Date:date value="${Lesson.ctime}"></Date:date>
 										</span>
 										<span class="badge">
-											<a href="http://ztiao.cn/Knowledge/PlayDialog/${Lesson.knowledge.id}/Video" target="_blank" style="color:#fff000">查看视频</a> 
+											<a href="http://ztiao.cn/Knowledge/PlayDialog/${Lesson.knowledge.id}/DOC" target="_blank" style="color:#fff000">查看视频</a> 
 										</span>
 										<span class="badge" id="msg${Lesson.id}">
 											<c:if test="${Lesson.status==2}">审核通过</c:if>
 											<c:if test="${Lesson.status==1}">未审核</c:if>
 											<c:if test="${Lesson.status==3}">审核未通过</c:if>
 										</span>
-									
+									    
+									    <span class="badge" >
+											<c:if test="${Lesson.knowledge.ccode==0}">等待转码</c:if>
+											<c:if test="${Lesson.knowledge.ccode==1}">转码中</c:if>
+											<c:if test="${Lesson.knowledge.ccode==2}">转码成功</c:if>
+											<c:if test="${Lesson.knowledge.ccode==3}">转码失败</c:if>
+										</span>
 											
 										
 										<select id="${Lesson.id}">
