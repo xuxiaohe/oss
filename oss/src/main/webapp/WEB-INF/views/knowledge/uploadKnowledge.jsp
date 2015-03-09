@@ -34,6 +34,12 @@ $(function() {
         auto_start: true,
         
         init: {
+        	'UploadProgress': function(up, file) {
+        		var uploaded = file.loaded;
+        	    var size = plupload.formatSize(uploaded).toUpperCase();
+        	    var formatSpeed = plupload.formatSize(up.total.bytesPerSec).toUpperCase();
+                $('#Progress').text('文件名：'+file.name+'已上传: '+ size + " 上传速度： " + formatSpeed + "/s");
+            },
              'UploadComplete': function() {
              	
             }, 
@@ -119,6 +125,7 @@ $(".btn-success").click(function(){
 	<div id="container" class="container-fluid">
 		<div class="row">
 			<div class="col-xs-9">
+				<div class="row"><span id="Progress"></span></div>
 				<button id="pickfiles" type="submit" class="btn btn-default">上传</button>
 				<button id="confirm" type="button" class="btn btn-success" disabled="disabled">确认</button>
 			</div>
