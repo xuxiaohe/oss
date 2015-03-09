@@ -328,7 +328,7 @@ public class dry extends BaseController {
 		String id = request.getParameter("uid");
 		String tagName = request.getParameter("tagName");
 		String tagNameArry[] = tagName.split(",");
-		List l = new ArrayList();
+		List<String> l = new ArrayList<String>();
 		for (String a : tagNameArry) {
 			l.add("\"" + a + "\"");
 		}
@@ -394,7 +394,7 @@ public class dry extends BaseController {
 		String id = request.getParameter("uid");
 		String tagName = request.getParameter("tagName");
 		String tagNameArry[] = tagName.split(",");
-		List l = new ArrayList();
+		List<String> l = new ArrayList<String>();
 		for (String a : tagNameArry) {
 			l.add("\"" + a + "\"");
 		}

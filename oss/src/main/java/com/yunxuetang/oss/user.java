@@ -436,7 +436,7 @@ public class user extends BaseController {
 	 */
 	@RequestMapping(value = "/importUser", method = RequestMethod.POST)
 	public String importUser(@RequestParam MultipartFile file, Model model) throws IOException {
-		List list = service.readReport(file.getInputStream());
+		List<String> list = service.readReport(file.getInputStream());
 		model.addAttribute("errousers", list);
 		return "user/addedReport";
 

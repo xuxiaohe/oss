@@ -2,20 +2,14 @@ package com.yunxuetang.util;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Writer;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
@@ -23,7 +17,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -62,10 +55,10 @@ public class PoiService {
     /**
      * 读取报表
      */
-    public List  readReport(InputStream inp) {
+    public List<String>  readReport(InputStream inp) {
         
-        List  List = new ArrayList ();
-        List  Listerrs = new ArrayList ();
+        List<String>  List = new ArrayList<String> ();
+        List<String>  Listerrs = new ArrayList<String> ();
         
         try {
             String cellStr = null;

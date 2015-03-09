@@ -50,7 +50,7 @@ public class area extends BaseController{
 	public ModelAndView addDryBoxForm(HttpServletRequest request) {
 
 		ModelAndView modelview = new ModelAndView();
-		List l=new ArrayList();
+		List<String> l=new ArrayList<String>();
 		
 		l.add("dry");
 		l.add("topic");
