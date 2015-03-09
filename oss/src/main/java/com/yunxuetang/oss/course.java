@@ -620,15 +620,4 @@ public class course extends BaseController {
 		}
 		return "ok";
 	}
-	
-	@Test
-	public void test(){
-		String url = "http://172.17.123.74:8081/oss/lesson/checkLesson";
-		Map<String, Object>map=new HashMap<String, Object>();
-		map.put("lessonId", "1");
-		map.put("kngId", "1");
-		map.put("status", "1");
-		HttpUtil.doPost(url, map, String.class);
-
-}
 }
