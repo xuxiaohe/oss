@@ -38,7 +38,7 @@ $(function() {
         		var uploaded = file.loaded;
         	    var size = plupload.formatSize(uploaded).toUpperCase();
         	    var formatSpeed = plupload.formatSize(up.total.bytesPerSec).toUpperCase();
-                $('#Progress').text('文件名：'+file.name+'已上传: '+ size + " 上传速度： " + formatSpeed + "/s");
+                $('#Progress').text('文件名：'+file.name+'已完成：'+file.percent + "%"+'已上传: '+ size + " 上传速度： " + formatSpeed + "/s");
             },
              'UploadComplete': function() {
              	
