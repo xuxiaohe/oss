@@ -74,7 +74,6 @@
 								<c:forEach items="${Recourse.lessons}" varStatus="key"
 									var="Lesson">
 									<li class="list-group-item">
-										<span><img src="${Lesson.knowledge.logoUrl}" height="50" height="50"/></span>
 										<span style="width:200px;float:left;">${Lesson.title}</span>
 										<span class="badge">
 											 <Date:date value="${Lesson.ctime}"></Date:date>
