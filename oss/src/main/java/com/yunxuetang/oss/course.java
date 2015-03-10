@@ -537,7 +537,7 @@ public class course extends BaseController {
 	 */
 	@RequestMapping("/modifyCourse")
 	@ResponseBody
-	public Map<String, Object>  modifyCourse(HttpServletRequest request,String title,String logoUrl,String intro,String tagNames,String courseId) {
+	public Map<String, Object>  modifyCourse(HttpServletRequest request,String title,String logoUrl,String intro,String tagNames,String courseId,String userId) {
 		String[] chapterIds=request.getParameterValues("chapterIds[]");
 		Map<String, String> map=new HashMap<String, String>();
 		if(StringUtil.isBlank(title)){
@@ -550,6 +550,7 @@ public class course extends BaseController {
 		map.put("tagNames", tagNames);
 		map.put("isPublic", "0");
 		map.put("sourceType", "3");
+		map.put("createUser", userId);
 		String  ids="";
 		if(chapterIds!=null){
 			if (chapterIds.length>0) {
