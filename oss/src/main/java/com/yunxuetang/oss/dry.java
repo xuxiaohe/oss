@@ -157,7 +157,7 @@ public class dry extends BaseController {
 
 
 		String message = request.getParameter("message");
-
+		String description = request.getParameter("description");
 		/**
 		 * TODO:修改成POST
 		 */
@@ -165,6 +165,7 @@ public class dry extends BaseController {
 			Map<String, String> m = new HashMap<String, String>();
 			m.put("fileUrl", URLEncoder.encode(fileUrl, "utf-8"));
 			m.put("message", message);
+			m.put("description", description);
 			edit(dryid, m);
 		} catch (RestClientException e1) {
 			// TODO Auto-generated catch block
@@ -1107,7 +1108,7 @@ public class dry extends BaseController {
 	}
 
 	private JSONObject edit(String dryid, Map m) {
-		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryid + "&fileUrl=" + m.get("fileUrl") + "&message=" + m.get("message");
+		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryid + "&fileUrl=" + m.get("fileUrl") + "&message=" + m.get("message")+ "&description=" + m.get("description");
 		return getRestApiData(url);
 	}
 

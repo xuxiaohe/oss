@@ -1,11 +1,6 @@
 package com.yunxuetang.oss;
 
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-
 import com.yunxuetang.util.Config;
 import com.yunxuetang.util.Saveimage;
 
@@ -134,7 +127,7 @@ public class group extends BaseController {
 	 * 为某一个用户id创建群
 	 */
 	@RequestMapping("/createGroupForUserAction")
-	public ModelAndView createGroupForUserAction(HttpServletRequest request) {
+	public String createGroupForUserAction(HttpServletRequest request) {
 		String courSharResoStr;
 		// 当前第几页
 		String userid = request.getParameter("userid");
@@ -158,8 +151,8 @@ public class group extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("creategroup", objj);
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("group/show");
-		return modelview;
+		return "redirect:/group/groupList";
+		 
 
 	}
 
@@ -207,7 +200,7 @@ public class group extends BaseController {
 	 * 更新群组
 	 */
 	@RequestMapping("/updateGroup")
-	public ModelAndView updateGroup(HttpServletRequest request,@RequestParam MultipartFile file) {
+	public String updateGroup(HttpServletRequest request,@RequestParam MultipartFile file) {
 		String courSharResoStr;
 		// 拥有者id
 		String uid = request.getParameter("uid");
@@ -264,8 +257,7 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("group/show");
-		return modelview;
+		return "redirect:/group/groupList";
 	}
 
 	/**
@@ -273,7 +265,7 @@ public class group extends BaseController {
 	 * 创建话题展示页 查询机器人
 	 */
 	@RequestMapping("/createTopicByGroupView")
-	public ModelAndView createTopicByGroupView(HttpServletRequest request) {
+	public String createTopicByGroupView(HttpServletRequest request) {
 		String courSharResoStr;
 		// 当前第几页
 		String pagenumber = request.getParameter("n");
@@ -309,8 +301,7 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/group/groupList";
 	}
 
 	/**
@@ -318,7 +309,7 @@ public class group extends BaseController {
 	 * 用机器人id创建话题
 	 */
 	@RequestMapping("/createTopicByGroup")
-	public ModelAndView createTopicByGroup(HttpServletRequest request) {
+	public String createTopicByGroup(HttpServletRequest request) {
 		String courSharResoStr;
 
 		// 必输
@@ -355,8 +346,7 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/group/groupList";
 	}
 
 	/**
@@ -364,7 +354,7 @@ public class group extends BaseController {
 	 * 删除话题
 	 */
 	@RequestMapping("/deleteTopicByGroup")
-	public ModelAndView deleteTopicByGroup(HttpServletRequest request) {
+	public String deleteTopicByGroup(HttpServletRequest request) {
 		String courSharResoStr;
 
 		// 必输
@@ -388,8 +378,8 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/group/groupList";
+		 
 	}
 
 	/**
@@ -397,7 +387,7 @@ public class group extends BaseController {
 	 * 更新话题 展示页 查询话题信息
 	 */
 	@RequestMapping("/updateTopicByGroupView")
-	public ModelAndView updateTopicByGroupView(HttpServletRequest request) {
+	public String updateTopicByGroupView(HttpServletRequest request) {
 		String courSharResoStr;
 
 		// 必输
@@ -421,8 +411,7 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/group/groupList";
 	}
 
 	/**
@@ -430,7 +419,7 @@ public class group extends BaseController {
 	 * 更新话题
 	 */
 	@RequestMapping("/updateTopicByGroup")
-	public ModelAndView updateTopicByGroup(HttpServletRequest request) {
+	public String updateTopicByGroup(HttpServletRequest request) {
 		String courSharResoStr;
 
 		// 必输
@@ -458,8 +447,7 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/group/groupList";
 	}
 
 	/**
@@ -467,7 +455,7 @@ public class group extends BaseController {
 	 * 创建干货展示页 查询机器人
 	 */
 	@RequestMapping("/createDryByGroupView")
-	public ModelAndView createDryByGroupView(HttpServletRequest request) {
+	public String createDryByGroupView(HttpServletRequest request) {
 		String courSharResoStr;
 		// 当前第几页
 		String pagenumber = request.getParameter("n");
@@ -503,8 +491,7 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/group/groupList";
 	}
 
 	/**
@@ -512,7 +499,7 @@ public class group extends BaseController {
 	 * 用机器人id创建干货
 	 */
 	@RequestMapping("/createDryByGroup")
-	public ModelAndView createDryByGroup(HttpServletRequest request,@RequestParam MultipartFile file) {
+	public String createDryByGroup(HttpServletRequest request,@RequestParam MultipartFile file) {
 		String courSharResoStr;
 
 		// 必输
@@ -569,8 +556,7 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/group/groupList";
 	}
 
 	/**
@@ -578,7 +564,7 @@ public class group extends BaseController {
 	 * 删除干货
 	 */
 	@RequestMapping("/deleteDryByGroup")
-	public ModelAndView deleteDryByGroup(HttpServletRequest request) {
+	public String deleteDryByGroup(HttpServletRequest request) {
 		String courSharResoStr;
 
 		// 必输
@@ -602,8 +588,7 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/group/groupList";
 	}
 
 	/**
@@ -611,7 +596,7 @@ public class group extends BaseController {
 	 * 更新干货 展示页 查询干货信息
 	 */
 	@RequestMapping("/updateDryByGroupView")
-	public ModelAndView updateDryByGroupView(HttpServletRequest request) {
+	public String updateDryByGroupView(HttpServletRequest request) {
 		String courSharResoStr;
 
 		// 必输
@@ -635,8 +620,7 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/group/groupList";
 	}
 
 	/**
@@ -644,7 +628,7 @@ public class group extends BaseController {
 	 * 更新干货
 	 */
 	@RequestMapping("/updateDryByGroup")
-	public ModelAndView updateDryByGroup(HttpServletRequest request) {
+	public String updateDryByGroup(HttpServletRequest request) {
 		String courSharResoStr;
 		// 拥有者id
 		String dryCargoId = request.getParameter("dryid");
@@ -670,8 +654,7 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/group/groupList";
 	}
 
 	/**
@@ -712,7 +695,7 @@ public class group extends BaseController {
 	 * 添加群成员
 	 */
 	@RequestMapping("/addGroupMenber")
-	public ModelAndView addGroupMenber(HttpServletRequest request) {
+	public String addGroupMenber(HttpServletRequest request) {
 		// 例如：jack,15050473234,shenbin1225@126.com|test2,test2,test2@126.com
 		String users = request.getParameter("users");
 		String groupId = request.getParameter("uid");
@@ -737,8 +720,7 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/group/groupList";
 	}
 
 	/**
@@ -746,7 +728,7 @@ public class group extends BaseController {
 	 * 取群组的所有标签
 	 */
 	@RequestMapping("/getTagsByGroup")
-	public ModelAndView getTagsByGroup(HttpServletRequest request) {
+	public String getTagsByGroup(HttpServletRequest request) {
 		String id = request.getParameter("gid");
 
 		String courSharResoStr;
@@ -769,8 +751,7 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/group/groupList";
 	}
 
 	/**
@@ -778,7 +759,7 @@ public class group extends BaseController {
 	 * 更新群组的所有标签
 	 */
 	@RequestMapping("/insertTagsByGroup")
-	public ModelAndView insertTagsByGroup(HttpServletRequest request) {
+	public String insertTagsByGroup(HttpServletRequest request) {
 		String id = request.getParameter("gid");
 		String tagNames = request.getParameter("tagNames");
 		String courSharResoStr;
@@ -800,8 +781,7 @@ public class group extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("show");
-		return modelview;
+		return "redirect:/group/groupList";
 	}
 
 	/**
@@ -938,7 +918,7 @@ public class group extends BaseController {
 	 * 删除群组
 	 */
 	@RequestMapping("/deleteGroup")
-	public ModelAndView deleteGroup(HttpServletRequest request) {
+	public String deleteGroup(HttpServletRequest request) {
 		ModelAndView modelview = new ModelAndView();
 		String gid = request.getParameter("gid");
 		deleteGroupByID(gid);
@@ -946,8 +926,7 @@ public class group extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("deletegroup", deleteGroupByID(gid));
-		modelview.setViewName("group/show");
-		return modelview;
+		return "redirect:/group/groupList";
 	}
 
 	/**
