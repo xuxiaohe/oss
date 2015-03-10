@@ -297,7 +297,8 @@ function upload(s){
 					"title":title,
 					"logoUrl":logoUrl,
 					"intro":intro,
-					"tagNames":tagNames
+					"tagNames":tagNames,
+					"userId":$("#uidSelect").val()
 				},
 				success : function(result) {
 					alert("课程创建成功");

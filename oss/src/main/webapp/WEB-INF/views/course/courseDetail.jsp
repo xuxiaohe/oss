@@ -88,9 +88,9 @@
 										</span>
 									    
 									    <span class="badge" >
-											<c:if test="${Lesson.knowledge.ccode==0}">等待转码</c:if>
-											<c:if test="${Lesson.knowledge.ccode==1}">转码中</c:if>
-											<c:if test="${Lesson.knowledge.ccode==2}">转码成功</c:if>
+											<c:if test="${Lesson.knowledge.ccode==0}">转码成功</c:if>
+											<c:if test="${Lesson.knowledge.ccode==1}">等待转码</c:if>
+											<c:if test="${Lesson.knowledge.ccode==2}">正在转码</c:if>
 											<c:if test="${Lesson.knowledge.ccode==3}">转码失败</c:if>
 										</span>
 											
