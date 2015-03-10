@@ -86,6 +86,7 @@ $(function() {
 							$("#kngName").val("");
 							key=result;
 							$("#kngName").val(file.name);
+							/* $("#newName").val(key); */
 						}
 				 });
                  
@@ -104,7 +105,8 @@ $(".btn-success").click(function(){
 				"fid":$("#attachId").val(),
 				"kngType":"1",
 				"name":$("#kngName").val(),
-				"userId":$("#uidSelect").val()
+				"userId":$("#uidSelect").val(),
+				/* "newName":$ */
 			},
 			success : function(result) {
 				alert("上传知识成功等待转码");
@@ -135,6 +137,7 @@ $(".btn-success").click(function(){
 		<input type="hidden" id="attachId">
 		<input type="hidden" id="kngName">
 		<input type="hidden" id="input">
+		<!-- <input type="hidden" id="newName"> -->
 	</div>
 </body>
 </html>
