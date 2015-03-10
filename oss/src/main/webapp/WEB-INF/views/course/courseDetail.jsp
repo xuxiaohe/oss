@@ -79,7 +79,7 @@
 											 <Date:date value="${Lesson.ctime}"></Date:date>
 										</span>
 										<span class="badge">
-											<a href="http://ztiao.cn/Knowledge/PlayDialog/${Lesson.knowledge.id}/DOC" target="_blank" style="color:#fff000">查看视频</a> 
+											<a href="${cbasePath}player/index?id=${Lesson.knowledge.id}" target="_blank" style="color:#fff000">查看视频</a> 
 										</span>
 										<span class="badge" id="msg${Lesson.id}">
 											<c:if test="${Lesson.status==2}">审核通过</c:if>
