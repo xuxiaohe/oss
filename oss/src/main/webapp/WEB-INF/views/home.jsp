@@ -81,6 +81,10 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
                      <li role="presentation">
                         <a href="<%=cbasePath%>area/BoxDryList?type=dry" target="mainFrame"><span class="glyphicon glyphicon-star"></span>推荐管理</a>
                     </li>
+                    
+                     <li role="presentation">
+                        <a href="<%=cbasePath%>mail/" target="mainFrame"><span class="glyphicon glyphicon-star"></span>邮件模板管理</a>
+                    </li>
                 </ul>
             </div>
         </div>
