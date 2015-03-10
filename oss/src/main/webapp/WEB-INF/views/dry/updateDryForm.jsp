@@ -61,6 +61,12 @@
 							name="message" class="form-control" id="exampleInputEmail1"
 							value="${resuserTopic.data.result.message }" placeholder="">
 					</div>
+					
+					<div class="form-group">
+						<label for="exampleInputEmail1">干货详情</label> <input type="text"
+							name="description" class="form-control" id="exampleInputEmail1"
+							value="${resuserTopic.data.result.description }" placeholder="">
+					</div>
 
 
 					<button type="submit" class="btn btn-default">Submit</button>
