@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.qiniu.api.auth.DigestAuthClient;
 import com.qiniu.api.auth.digest.Mac;
 import com.qiniu.api.net.CallRet;
+import com.qiniu.api.net.EncodeUtils;
 import com.yunxuetang.util.Config;
 import com.yunxuetang.util.qiniu;
 
@@ -164,7 +165,13 @@ public class knowledge extends BaseController{
 		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 		nvps.add(new BasicNameValuePair("bucket", Config.BUCKETNAME));
 		nvps.add(new BasicNameValuePair("key",key ));
-		nvps.add(new BasicNameValuePair("fops","avthumb/m3u8/noDomain/1"));
+		//nvps.add(new BasicNameValuePair("fops","avthumb/m3u8/noDomain/1"));
+		String newkey=key.substring(0,key.indexOf("."));
+		
+		String t="tpublic";
+		String m3u8=EncodeUtils.urlsafeEncode(t+":"+newkey+".m3u8");
+		String jpg=EncodeUtils.urlsafeEncode(t+":"+newkey+".jpg");
+		nvps.add(new BasicNameValuePair("fops","avthumb/m3u8/noDomain/1|saveas/"+m3u8+";vframe/jpg/offset/2/w/480/h/360|saveas/"+jpg+";"));
 		CallRet call = digestAuthClient.call("http://api.qiniu.com/pfop", nvps);
 		if(call.ok()){
 			return call.response;
