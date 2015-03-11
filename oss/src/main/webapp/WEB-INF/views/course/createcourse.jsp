@@ -177,7 +177,7 @@ function upload(s){
 	<div class="form-group clearfix">
 		<div class="h4">课程标签</div>
 		<div class="col-xs-10 col-sm-6 col-md-4">
-			<div class="row"><input type="text" id="tagNames" class="form-control" /></div>
+			<div class="row"><input type="text" id="tagNames" class="form-control" placeholder="多个标签之间请用逗号隔开"/></div>
 		</div>
 	</div>
 		
