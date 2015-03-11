@@ -103,8 +103,6 @@
 										
 									</li>
 								</c:forEach>
-
-								<div class="col-xs-6">
 						</ul>
 						</c:forEach>
 						<%-- <div class="col-xs-6">浏览量：${dryDetail.data.result.viewCount}
