@@ -20,7 +20,7 @@ public class attachFile extends BaseController{
 	
 	@RequestMapping("/add")
 	@ResponseBody
-	public Map<String, Object> add(HttpServletRequest request,String ckey,String fkey,String fname) {
+	public Map<String, Object> add(HttpServletRequest request,String ckey,String fkey,String fname,String fsize) {
 		long putTime=new Date().getTime();
 		Map<String, String> requestParams =new HashMap<String, String>();
 		requestParams.put("ckey", ckey);
@@ -28,7 +28,8 @@ public class attachFile extends BaseController{
 		requestParams.put("fname", fname);
 		requestParams.put("putTime",new Long(putTime).toString());
 		requestParams.put("fkey", fkey);
-		requestParams.put("token", "81FEAE852CB6D554A02CED0F46B7A9F4");
+		requestParams.put("fsize", fsize);
+//		requestParams.put("token", "81FEAE852CB6D554A02CED0F46B7A9F4");
 		JSONObject json=addAttachFile(requestParams);
 		Map<String, Object> map=new HashMap<String, Object>();
 		JSONObject data=JSONObject.fromObject(json.get("data"));
@@ -39,7 +40,7 @@ public class attachFile extends BaseController{
 		return map;
 	}
 	private JSONObject addAttachFile(Map<String, String> map) {
-		String url = Config.YXTSERVER3 + "attachFile/add";
+		String url = Config.YXTSERVER3 + "oss/attachFile/add";
 		return getRestApiData(url,map);
 	}
 

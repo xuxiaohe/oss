@@ -130,9 +130,9 @@ public class qiniu {
 		return urlback;
 	}
 	
-	public static String token(){
+	public static String token(String bucket){
         Mac mac = new Mac(Config.ACCESS_KEY, Config.SECRET_KEY);
-        PutPolicy putPolicy = new PutPolicy(Config.BUCKETNAME);
+        PutPolicy putPolicy = new PutPolicy(bucket);
         String uptoken;
 		try {
 			uptoken = putPolicy.token(mac);

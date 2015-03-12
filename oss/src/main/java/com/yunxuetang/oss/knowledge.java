@@ -79,9 +79,9 @@ public class knowledge extends BaseController{
 	 */
 	@RequestMapping("/getToken")
 	@ResponseBody
-	private Map<String, String> getToken(HttpServletRequest request) {
+	private Map<String, String> getToken(HttpServletRequest request,String ckey) {
 		Map<String, String> map=new HashMap<String, String>();
-		map.put("uptoken", qiniu.token());
+		map.put("uptoken", qiniu.token(getMapConfig(ckey).get("bucket").toString()));
 		return map;
 	}
 	@RequestMapping("/upload")
@@ -90,13 +90,7 @@ public class knowledge extends BaseController{
 		modelview.setViewName("knowledge/upload");
 		return modelview;
 	}
-	@RequestMapping("/uploadKnowledge")
-	private ModelAndView uploadKnowledge(HttpServletRequest request,String ckey) {
-		ModelAndView modelview = new ModelAndView();
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.setViewName("knowledge/uploadKnowledge");
+	private Map<String, Object> getMapConfig(String ckey){
 		Map<String, Object> map=new HashMap<String, Object>();
 		JSONObject json=getConfig(ckey);
 		JSONObject data=JSONObject.fromObject(json.get("data"));
@@ -106,20 +100,55 @@ public class knowledge extends BaseController{
 		map.put("fileParam", result.get("fileParam"));
 		map.put("pathrule", result.get("pathrule"));
 		map.put("id", result.get("id"));
-		modelview.addObject("config", map);
+		map.put("bucket", result.get("bucket"));
+		return map;
+	}
+	/**
+	 * 
+	 * @Title: uploadKnowledge
+	 * @Description: 跳转到上传知识页面  把必要的参数带过去
+	 * @param request
+	 * @param ckey
+	 * @return ModelAndView
+	 * @throws
+	 */
+	@RequestMapping("/uploadKnowledge")
+	private ModelAndView uploadKnowledge(HttpServletRequest request,String ckey) {
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.setViewName("knowledge/uploadKnowledge");
+		modelview.addObject("config", getMapConfig(ckey));
 		modelview.addObject("ckey", ckey);
 		
 		return modelview;
 	}
+	/**
+	 * 
+	 * @Title: getFileName
+	 * @Description: 根据pathrule回去新的文件名
+	 * @param name
+	 * @param pathrule
+	 * @return String
+	 * @throws
+	 */
 	@RequestMapping("/getFileName")
 	@ResponseBody
 	public String getFileName(String name,String pathrule){
 		SimpleDateFormat format=new SimpleDateFormat("yyyyMM");
 		String time=format.format(new Date());
-		String ext=name.substring(name.lastIndexOf("."));
+		String ext=name.substring(name.lastIndexOf(".")+1);
 		String temp=pathrule.replace("{yyyymm}",time);
+		String doc="pdf,doc,docx,xls,xlsx,ppt,pptx";
+		String img="jpg,jpeg,gif,png";
+		if(doc.indexOf(ext)!=-1){
+			temp=temp.replace("video", "doc");
+		}else if(img.indexOf(ext)!=-1){
+			temp=temp.replace("video", "imgs");
+		}
 		UUID uuid=UUID.randomUUID();
-		return temp+uuid.toString()+ext;
+		return temp+uuid.toString()+"."+ext;
 	}
 	private JSONObject getCourses(String n,String s) {
 		String url = Config.YXTSERVER3 + "oss/knowledge/knowledgeList?n="+n+"&s="+s;
@@ -133,19 +162,40 @@ public class knowledge extends BaseController{
 		String url = Config.YXTSERVER3 + "cloudConfig/findByCkey?ckey="+ckey;
 		return getRestApiData(url);
 	}
+	/**
+	 * 
+	 * @Title: add
+	 * @Description: 添加知识
+	 * @param request
+	 * @param fid
+	 * @param name
+	 * @param cid
+	 * @param kngType
+	 * @param key
+	 * @param userId
+	 * @param ckey
+	 * @return Map<String,Object>
+	 * @throws
+	 */
 	@RequestMapping("/add")
 	@ResponseBody
-	public Map<String, Object> add(HttpServletRequest request,String fid,String name,String cid,String kngType,String key,String userId) {
+	public Map<String, Object> add(HttpServletRequest request,String fid,String name,String cid,String kngType,String key,String userId,String ckey) {
 		Map<String, String> requestParams =new HashMap<String, String>();
-		String pid =trans(key);
+		String pid =trans(key,ckey);
 		JSONObject jsonObject=JSONObject.fromObject(pid);
 		
 		requestParams.put("fid", fid);
 		requestParams.put("name", name);
 		requestParams.put("cid", jsonObject.getString("persistentId"));
-		requestParams.put("kngType", kngType);
 		requestParams.put("userId", userId);
 		requestParams.put("status", "1");
+		String ext=name.substring(name.lastIndexOf(".")+1);
+		String video="wmv,mp4,flv,avi,mkv";
+		if(video.indexOf(ext)!=-1){
+			requestParams.put("kngType", "1");
+		}else{
+			requestParams.put("kngType", "2");
+		}
 		JSONObject json=addKnowledge(requestParams);
 		JSONObject data=JSONObject.fromObject(json.get("data"));
 		JSONObject result=JSONObject.fromObject(data.get("result"));
@@ -158,19 +208,25 @@ public class knowledge extends BaseController{
 		String url = Config.YXTSERVER3 + "oss/knowledge/addKnowledge";
 		return getRestApiData(url,map);
 	}
-	
-	public String  trans(String key) {
+	/**
+	 * 
+	 * @Title: trans
+	 * @Description: 七牛提交转码
+	 * @param key
+	 * @param ckey
+	 * @return String
+	 * @throws
+	 */
+	public String  trans(String key,String ckey) {
 		Mac mac = new Mac(Config.ACCESS_KEY, Config.SECRET_KEY);
 		DigestAuthClient digestAuthClient = new DigestAuthClient(mac);
 		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-		nvps.add(new BasicNameValuePair("bucket", Config.BUCKETNAME));
+		String bucket=getMapConfig(ckey).get("bucket").toString();
+		nvps.add(new BasicNameValuePair("bucket", bucket));
 		nvps.add(new BasicNameValuePair("key",key ));
-		//nvps.add(new BasicNameValuePair("fops","avthumb/m3u8/noDomain/1"));
 		String newkey=key.substring(0,key.indexOf("."));
-		
-		String t="tpublic";
-		String m3u8=EncodeUtils.urlsafeEncode(t+":"+newkey+".m3u8");
-		String jpg=EncodeUtils.urlsafeEncode(t+":"+newkey+".jpg");
+		String m3u8=EncodeUtils.urlsafeEncode(bucket+":"+newkey+".m3u8");
+		String jpg=EncodeUtils.urlsafeEncode(bucket+":"+newkey+".jpg");
 		nvps.add(new BasicNameValuePair("fops","avthumb/m3u8/noDomain/1|saveas/"+m3u8+";vframe/jpg/offset/2/w/480/h/360|saveas/"+jpg+";"));
 		CallRet call = digestAuthClient.call("http://api.qiniu.com/pfop", nvps);
 		if(call.ok()){
@@ -179,6 +235,5 @@ public class knowledge extends BaseController{
 			return null;
 		}
 	}
- 
 
 }

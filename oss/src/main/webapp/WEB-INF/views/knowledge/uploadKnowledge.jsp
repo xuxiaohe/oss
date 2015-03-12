@@ -28,7 +28,7 @@ $(function() {
         flash_swf_url: '${cbasePath}/js/Moxie.swf',
         dragdrop: true,
         chunk_size: '4mb',
-        uptoken_url: '${cbasePath}/knowledge/getToken',
+        uptoken_url: '${cbasePath}/knowledge/getToken?ckey='+ckey,
         domain: 'tpublic.qiniudn.com',
        	filters:${config.filters},
         auto_start: true,
@@ -47,24 +47,24 @@ $(function() {
             	$("#key").val("");
             	var res=$.parseJSON(info);
             	$("#key").val(res.key);
+            	alert(file.size);
             	$.ajax({
 					url :"${cbasePath}attachFile/add",
 					type : "POST",
 					async : false,
 					data :{
+						"fsize":file.size,
 						"ckey":ckey,
 						"fkey":res.key,
-						"fname":file.name
+						"fname":file.name,
+						
 					},
 					success : function(result) {
 						$("#attachId").val("");
 						$("#attachId").val(result.attid);
 						console.log(result);
 						alert("添加附件成功");
-						if("knowledge_video"==ckey){
-							$('#confirm').attr("disabled",false);
-						}else{
-						}
+						$('#confirm').attr("disabled",false);
 					}
 			 });
             },
@@ -106,7 +106,7 @@ $(".btn-success").click(function(){
 				"kngType":"1",
 				"name":$("#kngName").val(),
 				"userId":$("#uidSelect").val(),
-				/* "newName":$ */
+				"ckey":ckey
 			},
 			success : function(result) {
 				alert("上传知识成功等待转码");

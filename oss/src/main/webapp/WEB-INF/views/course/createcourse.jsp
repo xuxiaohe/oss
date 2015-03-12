@@ -37,7 +37,7 @@
 <script src="${cbasePath}/resources/assets/js/moxie.min.js"></script>
 <script type="text/javascript">
 $(function (){
-	upload("knowledge_video_cover");
+	upload("10007");
 })
 function upload(s){
 	var ckey=s;
@@ -50,7 +50,7 @@ function upload(s){
         flash_swf_url: '${cbasePath}/js/Moxie.swf',
         dragdrop: true,
         chunk_size: '4mb',
-        uptoken_url: '${cbasePath}/knowledge/getToken',
+        uptoken_url: '${cbasePath}/knowledge/getToken?ckey='+s,
         domain: 'tpublic.qiniudn.com',
        	filters:"{mime_types : [{ title : \"Image files\", extensions : \"jpg,gif,png\" }  ],  max_file_size : '2mb', \r\n  prevent_duplicates : true}",
         auto_start: true,
@@ -71,7 +71,8 @@ function upload(s){
 					data :{
 						"ckey":ckey,
 						"fkey":res.key,
-						"fname":file.name
+						"fname":file.name,
+						"fsize":file.size
 					},
 					success : function(result) {
 						$("#attachId").val("");
@@ -95,7 +96,7 @@ function upload(s){
 						async : false,
 						data :{
 							"name" : file.name,
-							"pathrule" : "${config.pathrule}"
+							"pathrule" : "kng/imgs/{yyyymm}/"
 						},
 						success : function(result) {
 							$("#kngName").val("");
@@ -362,7 +363,7 @@ function upload(s){
 			alert("课时序号非空!");
 			return false;
 		}
-		$.ModalDialog(sender,"文件上传","${cbasePath}knowledge/uploadKnowledge?ckey=knowledge_video");
+		$.ModalDialog(sender,"文件上传","${cbasePath}knowledge/uploadKnowledge?ckey=10002");
 	}
 
 //	弹框
