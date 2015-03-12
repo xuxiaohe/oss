@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.http.HttpResponse;
@@ -186,8 +187,18 @@ public class config extends BaseController{
 		String configId = request.getParameter("configId");
 
 		ModelAndView modelview = new ModelAndView();
-
-		modelview.addObject("resuserDetail", getConfigDetail(configId));
+		JSONObject json=getConfigDetail(configId);
+		modelview.addObject("resuserDetail", json);
+		JSONObject data=JSONObject.fromObject(json.get("data"));
+		JSONObject result=JSONObject.fromObject(data.get("result"));
+		JSONArray array=JSONArray.fromObject(result.get("baseUrls"));
+		String baseUrl="[";
+		for (Object object : array) {
+			baseUrl+="'"+object.toString()+"',";
+		}
+		
+		baseUrl+="]";
+		modelview.addObject("baseUrl", baseUrl);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
