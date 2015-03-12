@@ -89,7 +89,7 @@
 					<div class="form-group">
 						<label for="exampleInputEmail1">baseUrls</label> <input type=""
 							name="baseUrls" class="form-control" id="exampleInputEmail1"
-							placeholder="" value="${resuserDetail.data.result.baseUrls }">
+							placeholder="" value="${baseUrl }">
 					</div>
 
 
