@@ -47,7 +47,6 @@ $(function() {
             	$("#key").val("");
             	var res=$.parseJSON(info);
             	$("#key").val(res.key);
-            	alert(file.size);
             	$.ajax({
 					url :"${cbasePath}attachFile/add",
 					type : "POST",
