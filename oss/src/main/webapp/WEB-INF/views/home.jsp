@@ -49,6 +49,9 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
                     <li role="presentation">
                         <a href="<%=cbasePath%>dry/dryList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>干货仓库</a>
                     </li>
+                     <li role="presentation">
+                        <a href="<%=cbasePath%>xuanye/xuanyeList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>炫页仓库</a>
+                    </li>
                     <li role="presentation">
                         <a href="<%=cbasePath%>course/courseList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>课程仓库</a>
                     </li>

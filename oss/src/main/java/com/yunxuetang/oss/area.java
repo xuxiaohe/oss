@@ -53,6 +53,7 @@ public class area extends BaseController{
 		List<String> l=new ArrayList<String>();
 		
 		l.add("dry");
+		l.add("xuanye");
 		l.add("topic");
 		l.add("group");
 		l.add("course");
@@ -127,6 +128,10 @@ public class area extends BaseController{
 			path="dryInBoxList";
 			modelview.addObject("addDryBoxList", drycargoInBox(id,pagenumber,pagelines));
 		}
+		if(type.equals("xuanye")){
+			path="dryInBoxList";
+			modelview.addObject("addDryBoxList", drycargoInBox(id,pagenumber,pagelines));
+		}
 		if(type.equals("topic")){
 			path="topicInBoxList";
 			modelview.addObject("addDryBoxList", topicInBox(id,pagenumber,pagelines));
@@ -171,6 +176,10 @@ public class area extends BaseController{
 		modelview.addObject("id", boxPostId);
 		
 		if(type.equals("dry")){
+			path="dryInBoxList";
+			modelview.addObject("addDryBoxList", drycargoInBox(boxPostId,"0","10"));
+		}
+		if(type.equals("xuanye")){
 			path="dryInBoxList";
 			modelview.addObject("addDryBoxList", drycargoInBox(boxPostId,"0","10"));
 		}
