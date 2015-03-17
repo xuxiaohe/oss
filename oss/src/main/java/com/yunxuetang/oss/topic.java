@@ -909,7 +909,7 @@ public class topic extends BaseController {
 		// + barCode;
 
 		String url = Config.YXTSERVER3 + "oss/topic/create?uid=" + uid + "&sourceId=" + sourceId + "&type=" + type + "&title=" + title + "&content="
-				+ content;
+				+ content+ "&appKey=yxtapp";
 		return getRestApiData(url);
 	}
 
