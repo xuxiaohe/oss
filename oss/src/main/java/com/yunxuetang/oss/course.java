@@ -548,7 +548,7 @@ public class course extends BaseController {
 		}
 		map.put("logoUrl", logoUrl);
 		map.put("intro", intro);
-		map.put("tagNames", tagNames);
+		map.put("tagNames", tagNames.replaceAll("，", ","));
 		map.put("isPublic", "0");
 		map.put("sourceType", "3");
 		map.put("createUser", userId);
