@@ -49,9 +49,6 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
                     <li role="presentation">
                         <a href="<%=cbasePath%>dry/dryList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>干货仓库</a>
                     </li>
-                     <li role="presentation">
-                        <a href="<%=cbasePath%>xuanye/xuanyeList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>炫页仓库</a>
-                    </li>
                     <li role="presentation">
                         <a href="<%=cbasePath%>course/courseList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>课程仓库</a>
                     </li>
@@ -88,8 +85,9 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
                      <li role="presentation">
                         <a href="<%=cbasePath%>mail/" target="mainFrame"><span class="glyphicon glyphicon-star"></span>邮件模板管理</a>
                     </li>
-                    <li role="presentation">
-                        <a href="<%=cbasePath%>config/configList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>七牛云配置</a>
+                    
+                     <li role="presentation">
+                        <a href="<%=cbasePath%>userlog/" target="mainFrame"><span class="glyphicon glyphicon-star"></span>效果统计</a>
                     </li>
                 </ul>
             </div>
