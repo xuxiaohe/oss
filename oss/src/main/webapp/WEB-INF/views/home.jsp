@@ -89,6 +89,9 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
                      <li role="presentation">
                         <a href="<%=cbasePath%>userlog/" target="mainFrame"><span class="glyphicon glyphicon-star"></span>效果统计</a>
                     </li>
+                    <li role="presentation">
+                        <a href="<%=cbasePath%>feedback/FeedBackList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>用户反馈信息</a>
+                    </li>
                 </ul>
             </div>
         </div>

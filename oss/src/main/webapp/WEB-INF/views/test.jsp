@@ -12,22 +12,7 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
 </head>
 <body>
 
-
-<a href="${cbasePath}test?key=<%=java.net.URLEncoder.encode("编码的是这里","UTF-8")%>">点击这里</a>
-
-
-
-<%
-if(request.getParameter("url")!=null)
-{
-	String str=null;
-str=request.getParameter("url");
-str=java.net.URLDecoder.decode(str,"UTF-8");
-
-out.print(str);
-}
-%>
-
+ ${deleteTopic }
 
 </body>
 </html>

@@ -15,20 +15,18 @@
 		<div class="btn-group">
 			<button type="button" class="btn btn-default dropdown-toggle"
 				data-toggle="dropdown">
-				话题管理 <span class="caret"></span>
+				用户反馈信息管理 <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="${cbasePath}topic/createTopicByGroupView">话题创建</a></li>
-				<%-- <li><a href="${cbasePath}topic/addTopicBoxForm">话题排行榜创建</a></li>
-				<li><a href="${cbasePath}topic/BoxTopicList">话题排行榜管理</a></li> --%>
-				<li><a href="${cbasePath}topic/TopicBoxDetail">话题与推荐绑定</a></li>
-				<li><a href="${cbasePath}topic/TopicBoxDetail">话题与推荐绑定</a></li>
-				<%-- <li><a href="${cbasePath}topic/TopicBoxBindedDetail">话题已关联排行榜管理</a></li> --%>
-				<!-- <li><a href="#">批量创建</a></li>
-				<li><a href="#">用户导入</a></li> -->
+				<%-- <li><a href="${cbasePath}dry/createDryByGroupView">干货创建</a></li>
+				<li><a href="${cbasePath}dry/catchDryByGroupView">干货抓取</a></li> --%>
+				<%-- <li><a href="${cbasePath}dry/addDryBoxForm">干货排行榜创建</a></li>
+				<li><a href="${cbasePath}dry/BoxDryList">干货排行榜管理</a></li> --%>
+				<%-- <li><a href="${cbasePath}dry/DryBoxDetail">干货与推荐绑定</a></li> --%>
+				<%-- <li><a href="${cbasePath}dry/DryBoxBindedDetail">干货已关联排行榜管理</a></li> --%>
+				<!-- <li><a href="#">用户导入</a></li> -->
 				<li class="divider"></li>
 			</ul>
 		</div>
-		 
 	</div>
 </div>
