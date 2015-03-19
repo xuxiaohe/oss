@@ -70,12 +70,6 @@
 				<div class="col-xs-6 pull-left text-right" style="margin-top:15px;">
 					<button type="submit" class="btn btn-primary">筛选</button>
 				</div>
-				<script>
-					function search(){
-						alert("123");
-						window.location.href="http://localhost:8088/oss/userlog/?ctime=123&etime=123&ckey=597384808";
-					}
-				</script>
 			</form>
 			<div class="col-xs-12">
 			<hr />
