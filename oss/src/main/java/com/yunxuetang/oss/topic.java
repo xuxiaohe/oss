@@ -2,6 +2,7 @@ package com.yunxuetang.oss;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -138,8 +140,7 @@ public class topic extends BaseController {
 	 * 用机器人id创建话题
 	 */
 	@RequestMapping("/createTopicByGroup")
-	public String createTopicByGroup(HttpServletRequest request) {
-
+	public String createTopicByGroup(HttpServletRequest request, String[] courseImg, String[] imgHeight, String[] imgWidth) {
 		// 必输
 		String uid = request.getParameter("uid");
 		String sourceId = request.getParameter("gid");
@@ -161,9 +162,9 @@ public class topic extends BaseController {
 		if (content == null) {
 			content = "";
 		}
-		String picUrl = request.getParameter("picUrl");
-		if (picUrl == null) {
-			picUrl = "";
+		String picUrl = "";
+		if (courseImg != null && courseImg.length > 0) {
+			picUrl = courseImg[0];
 		}
 		String lat = request.getParameter("lat");
 		if (lat == null) {
@@ -181,10 +182,24 @@ public class topic extends BaseController {
 		if (barCode == null) {
 			barCode = "";
 		}
-
+		//TODO
+		//拼装JSON 调用REST接口
+		String imgJson = "";
+		if (courseImg != null && courseImg.length > 0) {//将图片转换为JSON
+			ImgUrl[] imgUrls = new ImgUrl[courseImg.length];
+			for(int i = 0;i<courseImg.length;i++){
+				imgUrls[i] = new ImgUrl(courseImg[i], imgHeight[i], imgWidth[i]);
+			}
+			imgJson = JSONArray.fromObject(imgUrls).toString();
+			
+		}
+		
 		ModelAndView modelview = new ModelAndView();
-
-		modelview.addObject("rescreateTopicByGroup", createTopic(uid, sourceId, type, title, tagName, content, picUrl, lat, lng, localName, barCode));
+		JSONObject result = createTopic(uid, sourceId, type, title, tagName, content, picUrl, imgJson, lat, lng, localName, barCode);
+		System.out.println("result:==============" + result.toString());
+		modelview.addObject("rescreateTopicByGroup", result);
+		
+		
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -929,7 +944,7 @@ public class topic extends BaseController {
 		return getRestApiData(url);
 	}
 
-	private JSONObject createTopic(String uid, String sourceId, String type, String title, String tagName, String content, String picUrl, String lat,
+	private JSONObject createTopic(String uid, String sourceId, String type, String title, String tagName, String content, String picUrl, String imgJson, String lat,
 			String lng, String localName, String barCode) {
 		// String url = Config.YXTSERVER3 + "oss/topic/create?uid=" + uid +
 		// "&sourceId=" + sourceId + "&type=" + type + "&title=" + title +
@@ -937,10 +952,19 @@ public class topic extends BaseController {
 		// + tagName + "&content=" + content + "&picUrl=" + picUrl + "&lat=" +
 		// lat + "&lng=" + lng + "&localName=" + localName + "&barCode="
 		// + barCode;
-
-		String url = Config.YXTSERVER3 + "oss/topic/create?uid=" + uid + "&sourceId=" + sourceId + "&type=" + type + "&title=" + title + "&content="
-				+ content+ "&appKey=yxtapp";
-		return getRestApiData(url);
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("uid", uid);
+		params.put("sourceId", sourceId);
+		params.put("type", type);
+		params.put("title", title);
+		params.put("content", content);
+		params.put("appKey", "yxtapp");
+		if(!StringUtils.isEmpty(imgJson)){
+			params.put("image", imgJson);
+		}
+//		String url = Config.YXTSERVER3 + "oss/topic/create?uid=" + uid + "&sourceId=" + sourceId + "&type=" + type + "&title=" + title + "&content="
+//				+ content+ "&appKey=yxtapp";
+		return getRestApiData(Config.YXTSERVER3 + "oss/topic/create", params);
 	}
 
 	private JSONObject getOneTopic(String topicid) {
@@ -976,4 +1000,49 @@ public class topic extends BaseController {
 		return getRestApiData(url);
 	}
 
+	public class ImgUrl{
+		private String picUrl;
+		
+		private String imgHeight;
+		
+		private String imgWidth;
+		
+		public ImgUrl() {
+			// TODO Auto-generated constructor stub
+		}
+		
+		public ImgUrl(String picUrl, String imgHeight, String imgWidth){
+			this.picUrl = picUrl;
+			this.imgHeight = imgHeight;
+			this.imgWidth = imgWidth;
+		}
+
+		public String getPicUrl() {
+			return picUrl;
+		}
+
+		public void setPicUrl(String picUrl) {
+			this.picUrl = picUrl;
+		}
+
+		public String getImgHeight() {
+			return imgHeight;
+		}
+
+		public void setImgHeight(String imgHeight) {
+			this.imgHeight = imgHeight;
+		}
+
+		public String getImgWidth() {
+			return imgWidth;
+		}
+
+		public void setImgWidth(String imgWidth) {
+			this.imgWidth = imgWidth;
+		}
+		
+		
+		
+	}
+	
 }
