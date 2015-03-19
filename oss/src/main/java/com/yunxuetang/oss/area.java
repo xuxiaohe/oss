@@ -179,22 +179,28 @@ public class area extends BaseController{
 		if(type.equals("dry")){
 			path="dryInBoxList";
 			modelview.addObject("addDryBoxList", drycargoInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "dry");
 		}
 		if(type.equals("xuanye")){
 			path="dryInBoxList";
 			modelview.addObject("addDryBoxList", drycargoInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "xuanye");
 		}
 		if(type.equals("topic")){
 			path="topicInBoxList";
 			modelview.addObject("addDryBoxList", topicInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "topic");
+			
 		}
 		if(type.equals("group")){
 			path="groupInBoxList";
 			modelview.addObject("addDryBoxList", courseInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "group");
 		}
 		if(type.equals("course")){
 			path="courseInBoxList";
 			modelview.addObject("addDryBoxList", courseInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "course");
 		}
 		modelview.setViewName("toplist/"+path);
 		return modelview;
@@ -231,18 +237,22 @@ public class area extends BaseController{
 		if(type.equals("dry")){
 			path="dryInBoxList";
 			modelview.addObject("addDryBoxList", drycargoInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "dry");
 		}
 		if(type.equals("topic")){
 			path="topicInBoxList";
 			modelview.addObject("addDryBoxList", topicInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "topic");
 		}
 		if(type.equals("group")){
 			path="groupInBoxList";
 			modelview.addObject("addDryBoxList", groupInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "group");
 		}
 		if(type.equals("course")){
 			path="courseInBoxList";
 			modelview.addObject("addDryBoxList", courseInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "course");
 		}
 		modelview.setViewName("toplist/"+path);
 		return modelview;
