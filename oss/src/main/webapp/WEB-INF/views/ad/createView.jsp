@@ -81,7 +81,7 @@
 				</div>
 			</form>
 			<hr />
-			<form role="form" action="create" class="form-inline">
+			<form role="form" class="form-inline">
 				<div class="row">
 					<div class="col-xs-12 h4">渠道创建</div>
 				</div>
@@ -89,21 +89,54 @@
 					<div class="col-xs-5" style="margin-top:15px">
 						<div class="form-group" style="width:100%;">
 							<label>渠道ID：</label>
-							<input type="text" name="adSellerId" class="form-control" />
+							<input type="text" id="adSellerId" name="adSellerId" class="form-control" />
 						</div>
 					</div>
 					<div class="col-xs-5" style="margin-top:15px">
 						<div class="form-group" style="width:100%;">
 							<label>渠道名称：</label>
-							<input type="text" name="name" class="form-control" />
+							<input type="text" id="name" name="name" class="form-control" />
 						</div>
 					</div>
 					<div class="col-xs-2 text-right" style="margin-top:15px">
-						<button type="submit" class="btn btn-primary">创建渠道</button>
+						<button type="button" onclick="create()" class="btn btn-primary">创建渠道</button>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
+	<script type="text/javascript">
+	//创建渠道商
+		function create(){
+			if($("#name").val()==""){
+				alert("渠道商名称为空！");
+				return false;
+			}
+			if($("#adSellerId").val()==""){
+				alert("渠道商ID为空！");
+				return false;
+			}
+			 jQuery.ajax({
+					url :"${cbasePath}adSeller/create",
+					type : "POST",
+					async:false,
+					data :{
+						"adSellerId" : $("#adSellerId").val(),
+						"name" : $("#name").val()
+					},
+					success : function(date) {
+						if(date.result.status==200){
+							alert("创建成功");
+							window.location.href = "${cbasePath}adSeller/createView";
+							
+						}else{
+							console.log(date.result);
+							alert(date.result.msg);
+							}
+						
+					}
+			 });
+		};
+	</script>
 </body>
 </html>

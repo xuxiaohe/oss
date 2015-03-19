@@ -66,7 +66,8 @@
 							<th>创建人</th>
 							<th>创建时间</th>
 							<th>点击数</th>
-							<th>操作</th>
+							<th width="180">链接形式</th>
+							<th width="70">操作</th>
 							
 						</tr>
 					</thead>
@@ -79,10 +80,11 @@
 							<td>${Recourse.adSellerName }</td>
 							<td>${Recourse.adSellerId }</td>
 							<td>${Recourse.name }</td>
-							<td>${Recourse.regCount }</td>
+							<td>${Recourse.rcount }</td>
 							<td>${Recourse.creater }</td>
 							<td><Date:date value="${Recourse.ctime}"></Date:date></td>
-							<td>${Recourse.creater }</td>
+							<td>${Recourse.ccount }</td>
+							<td><a  target="_Blank" href="http://ztiao.cn/Account/Register?adSellerName=${Recourse.adSellerName }&adSellerId=${Recourse.adSellerId }">http://ztiao.cn/Account/Register?adSellerName=${Recourse.adSellerName }&adSellerId=${Recourse.adSellerId }</a></td>
 							<td><button class="detailBtn" data="${Recourse.adSellerId}">详情</button><button class="deleteBtn" data="${Recourse.id}">删除</button></td>
 						</tr>
 					</c:forEach>
