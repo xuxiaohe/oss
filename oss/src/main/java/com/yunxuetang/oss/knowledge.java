@@ -15,7 +15,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.junit.Test;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,8 +27,7 @@ import com.qiniu.api.net.CallRet;
 import com.qiniu.api.rs.Entry;
 import com.qiniu.api.rs.RSClient;
 import com.qiniu.api.net.EncodeUtils;
-import com.qiniu.api.rs.Entry;
-import com.qiniu.api.rs.RSClient;
+
 import com.yunxuetang.util.Config;
 import com.yunxuetang.util.qiniu;
 
