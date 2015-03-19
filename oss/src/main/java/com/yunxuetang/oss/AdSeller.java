@@ -78,21 +78,19 @@ public class AdSeller extends BaseController{
 	 * @throws
 	 */
 	@RequestMapping("/create")
-	public void createAdSeller(HttpServletRequest request,HttpServletResponse response){
+	public @ResponseBody Map<String, Object> createAdSeller(HttpServletRequest request,HttpServletResponse response){
 		String name=request.getParameter("name");
 		String adSellerId=request.getParameter("adSellerId");
 		Map<String, String> map=new HashMap<String, String>();
 		map.put("name", name);
 		map.put("adSellerId", adSellerId);
-		create(map);
+		
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-		try {
-			response.sendRedirect(cbasePath+"adSeller/createView");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Map<String, Object> reMap=new HashMap<String, Object>();
+		reMap.put("result", create(map));
+		reMap.put("cbasePath", cbasePath);
+		return reMap;
 	}
 	private JSONObject create(Map<String, String> map) {
 		String url = Config.YXTSERVER3 + "oss/adSeller/create";
@@ -293,5 +291,6 @@ public class AdSeller extends BaseController{
 			return mv;
 		}
 	}
+	
 
 }
