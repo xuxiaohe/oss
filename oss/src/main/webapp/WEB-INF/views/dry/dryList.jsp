@@ -86,6 +86,12 @@
 											关联群组 </a>
 										<%-- <button data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">关联群组</button> --%>
 									</c:if>
+									<c:if test="${Recourse.review==false}">
+									<a 
+										class="btn btn-success" href="${cbasePath}dry/checkDry?dryid=${Recourse.id}">
+										审核干货通过 </a>
+									<%-- <button data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">关联群组</button> --%>
+									</c:if>
 								</div>
 
 							</div>

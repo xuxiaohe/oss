@@ -181,6 +181,32 @@ public class xuanye extends BaseController{
 		return modelview;
 	}
 	
+	/**
+	 * 
+	 * 话题审核
+	 */
+	@RequestMapping("/checkXuanye")
+	public String checkXuanye(HttpServletRequest request) {
+		 
+		String dryid = request.getParameter("xyid");
+		//排行榜id
+		 
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+	 
+		modelview.addObject("addDryBoxList", checkDry(dryid));
+		
+		return "redirect:/xuanye/xuanyeList";
+	}
+	
+	private JSONObject checkDry(String dryid) {
+		String url = Config.YXTSERVER3 + "oss/dry/dryChecked?dryid=" + dryid;
+		return getRestApiData(url);
+	}
+	
 	private JSONObject dryboxpost(String type) {
 		String url = Config.YXTSERVER3 + "oss/box/getBoxPostByType?type=" + type;
 		return getRestApiData(url);

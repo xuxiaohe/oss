@@ -1090,7 +1090,31 @@ public class dry extends BaseController {
 //		return modelview;
 //	}
 	
+	/**
+	 * 
+	 * 话题审核
+	 */
+	@RequestMapping("/checkDry")
+	public String checkDry(HttpServletRequest request) {
+		 
+		String dryid = request.getParameter("dryid");
+		//排行榜id
+		 
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+	 
+		modelview.addObject("addDryBoxList", checkDry(dryid));
+		
+		return "redirect:/dry/dryList";
+	}
 	
+	private JSONObject checkDry(String dryid) {
+		String url = Config.YXTSERVER3 + "oss/dry/dryChecked?dryid=" + dryid;
+		return getRestApiData(url);
+	}
 
 	private JSONObject dryDetail(String dryid) {
 		String url = Config.YXTSERVER3 + "oss/dry/getOneDry?dryid=" + dryid;

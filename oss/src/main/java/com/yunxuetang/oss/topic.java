@@ -822,6 +822,36 @@ public class topic extends BaseController {
 		return modelview;
 	}
 	
+	
+	
+	
+	/**
+	 * 
+	 * 话题审核
+	 */
+	@RequestMapping("/checkTopic")
+	public String checkTopic(HttpServletRequest request) {
+		 
+		String topicid = request.getParameter("topicid");
+		//排行榜id
+		String checked = "true";
+		 
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+	 
+		modelview.addObject("addDryBoxList", checkTopic(topicid,checked));
+		
+		return "redirect:/topic/topicList";
+	}
+	
+	private JSONObject checkTopic(String tid,String checked) {
+		String url = Config.YXTSERVER3 + "oss/topic/checkTopic?tid=" + tid+"&checked="+checked;
+		return getRestApiData(url);
+	}
+	
 	private JSONObject deleteBox(String boxId) {
 		String url = Config.YXTSERVER3 + "oss/box/deleteBox?boxId=" + boxId;
 		return getRestApiData(url);

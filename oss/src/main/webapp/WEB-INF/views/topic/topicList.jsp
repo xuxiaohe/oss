@@ -82,6 +82,13 @@
 										关联群组 </a>
 									<%-- <button data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">关联群组</button> --%>
 									</c:if>
+									 
+									<c:if test="${Recourse.review==false}">
+									<a 
+										class="btn btn-success" href="${cbasePath}topic/checkTopic?topicid=${Recourse.topicId}">
+										审核话题通过 </a>
+									<%-- <button data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">关联群组</button> --%>
+									</c:if>
 								</div>
 
 							</div>
