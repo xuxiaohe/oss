@@ -27,6 +27,8 @@ import com.qiniu.api.net.CallRet;
 import com.qiniu.api.rs.Entry;
 import com.qiniu.api.rs.RSClient;
 import com.qiniu.api.net.EncodeUtils;
+import com.qiniu.api.rs.Entry;
+import com.qiniu.api.rs.RSClient;
 import com.yunxuetang.util.Config;
 import com.yunxuetang.util.qiniu;
 
@@ -237,6 +239,14 @@ public class knowledge extends BaseController{
 		}else{
 			return null;
 		}
+	}
+	@ResponseBody
+	@RequestMapping("/getFileSize")
+	public long test(String name){
+		Mac mac = new Mac(Config.ACCESS_KEY, Config.SECRET_KEY);
+        RSClient client = new RSClient(mac);
+        Entry statRet = client.stat("tpublic", name);
+        return statRet.getFsize();
 	}
 
 }
