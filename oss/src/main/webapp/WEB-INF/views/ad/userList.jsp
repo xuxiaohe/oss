@@ -34,13 +34,6 @@
 						<input type="text" class="form-control" name="etime" id="etime"  placeholder="2015-02-03"  value="${etime}">
 					</div>
 				</div>
-				
-				<!-- <div class="col-xs-6" style="margin-top:15px;">
-					<div class="form-group form-group-sm">
-						<label style="width: 200px;">渠道ID：</label> -->
-						<input type="hidden" class="form-control" name="qdId" id="qdId" value="${qdId}">
-				<!-- 	</div>
-				</div> -->
 				<div class="col-xs-6 pull-left text-right" style="margin-top:15px;">
 					<button type="submit" class="btn btn-primary">筛选</button>
 				</div>
