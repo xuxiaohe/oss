@@ -80,14 +80,13 @@
 					<c:forEach items="${userList.data.result}" varStatus="key" var="Recourse">
 						<tr>
 							<td>
-								<c:set var="userNick
-								" scope="session" value="${Recourse.userNick }"/>
+								<c:set var="userNick" scope="session" value="${Recourse.userNick }"/>
 								<c:choose>
-							    <c:when test="${userNick == null}">
+							    <c:when test="${userNick == 'null'}">
 							       	游客
 							    </c:when>
 							    <c:otherwise>
-							       ${Recourse.userNick }.
+							       ${Recourse.userNick }
 							    </c:otherwise>
 								</c:choose>
 							</td>

@@ -82,7 +82,7 @@
 							<th>创建人</th>
 							<th>创建时间</th>
 							<th>点击数</th>
-							<th width="180">链接形式</th>
+							<th width="60">链接形式</th>
 							<th width="70">操作</th>
 							
 						</tr>
@@ -100,7 +100,7 @@
 							<td>${Recourse.creater }</td>
 							<td><Date:date value="${Recourse.adTime}"></Date:date></td>
 							<td>${Recourse.ccount }</td>
-							<td><a  target="_Blank" href="http://ztiao.cn/Account/Register?adSellerName=${Recourse.adSellerName }&adSellerId=${Recourse.adSellerId }">http://ztiao.cn/Channel/Register?a=${Recourse.adId }</a></td>
+							<td ><a  target="_Blank" href="http://ztiao.cn/Channel/Register?a=${Recourse.adId }">http://ztiao.cn/Channel/Register?a=${Recourse.adId }</a></td>
 							<td><button class="detailBtn" data="${Recourse.adSellerId}">详情</button></td>
 						</tr>
 					</c:forEach>
