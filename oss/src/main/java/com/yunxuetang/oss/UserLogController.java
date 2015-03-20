@@ -33,7 +33,7 @@ public class UserLogController {
 			}
 			if(StringUtil.isBlank(etime)){
 				SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-				etime=format.format(new Date());
+				etime=format.format(new Date(System.currentTimeMillis()+24*60*60*1000));
 			}
 			long time1=DateUtil.toLongtime(ctime);
 			long time2=DateUtil.toLongtime(etime);
@@ -87,7 +87,7 @@ public class UserLogController {
 			}
 			if (StringUtil.isBlank(etime)) {
 				SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-				etime=format.format(new Date());
+				etime=format.format(new Date(System.currentTimeMillis()+24*60*60*1000));
 			}
 			long time1 = DateUtil.toLongtime(ctime);
 			long time2 = DateUtil.toLongtime(etime);
@@ -171,7 +171,7 @@ public class UserLogController {
 			}
 			if (StringUtil.isBlank(etime)) {
 				SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-				etime=format.format(new Date());
+				etime=format.format(new Date(System.currentTimeMillis()+24*60*60*1000));
 			}
 			long time1 = DateUtil.toLongtime(ctime);
 			long time2 = DateUtil.toLongtime(etime);
@@ -213,7 +213,7 @@ public class UserLogController {
 			}
 			if (StringUtil.isBlank(etime)) {
 				SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-				etime=format.format(new Date());
+				etime=format.format(new Date(System.currentTimeMillis()+24*60*60*1000));
 			}
 			long time1 = DateUtil.toLongtime(ctime);
 			long time2 = DateUtil.toLongtime(etime);
@@ -279,7 +279,7 @@ public class UserLogController {
 			}
 			if(StringUtil.isBlank(etime)){
 				SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-				etime=format.format(new Date());
+				etime=format.format(new Date(System.currentTimeMillis()+24*60*60*1000));
 			}
 			long time1=DateUtil.toLongtime(ctime);
 			long time2=DateUtil.toLongtime(etime);
