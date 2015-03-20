@@ -112,7 +112,11 @@
 							<td>
 								<Date:date value="${log.ctime}"></Date:date>
 							</td>
-							<td><a href="searchVuser?vkey=${log.vUserEmail}">查看注册用户</a></td>
+							
+							<td><a href="searchVuser?vkey=<c:set var="vuseremail" scope="session" value="${log.vUserEmail}"/><c:choose>
+							    <c:when test="${vuseremail == 'null'}">${log.vUserPhone}</c:when>
+							    <c:otherwise> ${log.vUserEmail}</c:otherwise>
+								</c:choose>">查看注册用户</a></td>
 						</tr>
 					</c:forEach>
 					</tbody>

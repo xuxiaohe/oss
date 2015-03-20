@@ -176,6 +176,7 @@ public class UserLogController {
 			long time1 = DateUtil.toLongtime(ctime);
 			long time2 = DateUtil.toLongtime(etime);
 			if(!StringUtil.isBlank(key)){
+				key=key.trim();
 				pMap.put("key", key);
 			}
 			pMap.put("ctime", time1+"");
@@ -219,6 +220,7 @@ public class UserLogController {
 			long time2 = DateUtil.toLongtime(etime);
 
 			if (!StringUtil.isBlank(key)) {
+				key=key.trim();
 				pMap.put("key", key);
 			}
 			if (n != null) {
@@ -273,6 +275,8 @@ public class UserLogController {
 	public ModelAndView searchVuser(HttpServletRequest request,String ukey,String vkey,String ctime,String etime,Integer s ,Integer n){
 		ModelAndView mv=new ModelAndView("userlog/bvUserLog");
 		Map<String, Object>pMap=new HashMap<String, Object>();
+	
+		
 		try {
 			if(StringUtil.isBlank(ctime)){
 				ctime="2011-02-02";
@@ -285,9 +289,11 @@ public class UserLogController {
 			long time2=DateUtil.toLongtime(etime);
 			
 			if(!StringUtil.isBlank(vkey)){
+				vkey=vkey.trim();
 				pMap.put("vkey", vkey);
 			}
 			if(!StringUtil.isBlank(ukey)){
+				ukey=ukey.trim();
 				pMap.put("ukey", ukey);
 			}
 			if(n!=null){
@@ -338,8 +344,11 @@ public class UserLogController {
 			
 			if(!StringUtil.isBlank(vkey)){
 				pMap.put("vkey", vkey);
+				vkey=vkey.trim();
+
 			}
 			if(!StringUtil.isBlank(ukey)){
+				ukey=ukey.trim();
 				pMap.put("ukey", ukey);
 			}
 			if(n!=null){
