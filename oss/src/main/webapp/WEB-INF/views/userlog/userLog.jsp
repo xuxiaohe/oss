@@ -28,48 +28,59 @@
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<ul class="nav nav-pills nav-justified">
-				<li class="active"><a href="#">总览</a></li>
-				<li><a href="#">访问</a></li>
-				<li><a href="#">用户</a></li>
-				<li><a href="#">内容</a></li>
-				<li><a href="#">行为</a></li>
-				<li><a href="#">排行榜</a></li>
-				<li><a href="#">渠道</a></li>
+				<li  class="active"><a href="./">渠道用户统计</a></li>
+				<li><a href="vlog">邀请用户统计</a></li>
+				<li><a href="#">渠道商管理</a></li>
 			</ul>
 			<ol class="breadcrumb" style="margin-top:10px">
 			  <li><a href="#">用户统计</a></li>
-			  <li class="active">用户邀请列表</li>
 			</ol>
 			<form class="form-inline" role="form" action="">
 				<div class="col-xs-6">
 					<div class="form-group form-group-sm">
 						<label style="width: 200px;" >开始日期：</label>
-						<input type="text" class="form-control datein" placeholder="2015-02-03" name="ctime" value="${ctime}">
+						<input type="text" class="form-control datein" placeholder="2015-02-03" name="ctime" value="${ctime}" id="ctime">
 					</div>
 					</div>
 					<div class="col-xs-6">
 					<div class="form-group form-group-sm">
 						<label style="width: 200px;">结束日期：</label>
-						<input type="text" class="form-control" name="etime"  placeholder="2015-02-03"  value="${etime}">
+						<input type="text" class="form-control" name="etime"  placeholder="2015-02-03"  value="${etime} " id="etime">
 					</div>
 				</div>
 				
 				<div class="col-xs-6" style="margin-top:15px;">
 					<div class="form-group form-group-sm">
 						<label style="width: 200px;">昵称/邮箱/手机号：</label>
-						<input type="text" class="form-control" name="userKey" value="${userKey}">
+						<input type="text" class="form-control" name="userKey" value="${userKey}" id="userKey">
 					</div>
 				</div>
 				
 				<div class="col-xs-6" style="margin-top:15px;">
 					<div class="form-group form-group-sm">
 						<label style="width: 200px;">注册渠道ID：</label>
-						<input type="text" class="form-control" name="qdId" value="${qdId}">
+						<input type="text" class="form-control" name="qdId" value="${qdId}" id="qdId">
 					</div>
 				</div>
 				<div class="col-xs-6 pull-left text-right" style="margin-top:15px;">
 					<button type="submit" class="btn btn-primary">筛选</button>
 				</div>
+				
+				<div class="col-xs-6 pull-left text-right" style="margin-top:15px;">
+					<button type="button" class="btn btn-primary" onclick="exportcsv();">导出</button>
+				</div>
+				<script>
+					function exportcsv(){
+						 var ctime=$("#ctime").val();
+						 var etime=$("#etime").val();
+						 var userKey=$("#userKey").val();
+						 var qdId=$("#qdId").val();
+							$.post("export",{"ctime":ctime,"etime":etime,"qdId":qdId,"userKey":userKey},function(data){
+								alert(data.url);
+								top.location.href=data.url;
+							});
+					}
+				</script>
 			</form>
 			<div class="col-xs-12">
 			<hr />
@@ -95,7 +106,7 @@
 					<tbody>
 					<c:forEach items="${resuserList.data.result}" varStatus="key" var="log">
 						<tr>
-							<td><a href="#">${log.userNick}</a></td>
+							<td><a href="../user/userDetail?userid=${log.userId}">${log.userNick}</a></td>
 							<td>${log.email}</td>
 							<td>${log.phoneNumber}</td>
 							<td>${log.adSellerId}</td>
