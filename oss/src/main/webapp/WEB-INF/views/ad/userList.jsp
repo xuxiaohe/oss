@@ -25,25 +25,40 @@
 				<div class="col-xs-6">
 					<div class="form-group form-group-sm">
 						<label style="width: 200px;" >开始日期：</label>
-						<input type="text" class="form-control datein" placeholder="2015-02-03" name="ctime" value="${ctime}">
+						<input type="text" class="form-control datein" placeholder="2015-02-03" id="ctime" name="ctime" value="${ctime}">
 					</div>
 					</div>
 					<div class="col-xs-6">
 					<div class="form-group form-group-sm">
 						<label style="width: 200px;">结束日期：</label>
-						<input type="text" class="form-control" name="etime"  placeholder="2015-02-03"  value="${etime}">
+						<input type="text" class="form-control" name="etime" id="etime"  placeholder="2015-02-03"  value="${etime}">
 					</div>
 				</div>
 				
 				<!-- <div class="col-xs-6" style="margin-top:15px;">
 					<div class="form-group form-group-sm">
 						<label style="width: 200px;">渠道ID：</label> -->
-						<input type="hidden" class="form-control" name="qdId" value="${qdId}">
+						<input type="hidden" class="form-control" name="qdId" id="qdId" value="${qdId}">
 				<!-- 	</div>
 				</div> -->
 				<div class="col-xs-6 pull-left text-right" style="margin-top:15px;">
 					<button type="submit" class="btn btn-primary">筛选</button>
 				</div>
+				
+				<div class="col-xs-6 pull-left text-right" style="margin-top:15px;">
+					<button type="button" class="btn btn-primary" onclick="exportcsv();">导出</button>
+				</div>
+				<script>
+					function exportcsv(){
+						 var ctime=$("#ctime").val();
+						 var etime=$("#etime").val();
+						 var qdId=$("#qdId").val();
+							$.post("exportUserList",{"ctime":ctime,"etime":etime,"qdId":qdId},function(data){
+								alert(data.url);
+								top.location.href=data.url;
+							});
+					}
+				</script>
 			</form>
 				
 				<c:if test="${userList.status == '200'}">
@@ -64,11 +79,22 @@
 
 					<c:forEach items="${userList.data.result}" varStatus="key" var="Recourse">
 						<tr>
-							<td>${Recourse.userNick }</td>
+							<td>
+								<c:set var="userNick
+								" scope="session" value="${Recourse.userNick }"/>
+								<c:choose>
+							    <c:when test="${userNick == null}">
+							       	游客
+							    </c:when>
+							    <c:otherwise>
+							       ${Recourse.userNick }.
+							    </c:otherwise>
+								</c:choose>
+							</td>
 							<td>${Recourse.email }</td>
 							<td>${Recourse.phoneNumber }</td>
 							<td><Date:date value="${Recourse.ctime}"></Date:date></td>
-							<td><button class="detailBtn" data="${Recourse.adSellerId}">详情</button></td>
+							<%-- <td><button class="detailBtn" data="${Recourse.adSellerId}">详情</button></td> --%>
 						</tr>
 					</c:forEach>
 						

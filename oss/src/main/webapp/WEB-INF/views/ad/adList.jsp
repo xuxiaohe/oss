@@ -31,26 +31,42 @@
 					<div class="col-xs-6">
 					<div class="form-group form-group-sm">
 						<label style="width: 200px;">结束日期：</label>
-						<input type="text" class="form-control" name="etime"  placeholder="2015-02-03"  value="${etime}">
+						<input type="text" class="form-control" name="etime"  id="etime" placeholder="2015-02-03"  value="${etime}">
 					</div>
 				</div>
 				
 				<div class="col-xs-6" style="margin-top:15px;">
 					<div class="form-group form-group-sm">
 						<label style="width: 200px;">渠道名称：</label>
-						<input type="text" class="form-control" name="qdName" value="${qdName}">
+						<input type="text" class="form-control" name="qdName" id="qdName" value="${qdName}">
 					</div>
 				</div>
 				
 				<div class="col-xs-6" style="margin-top:15px;">
 					<div class="form-group form-group-sm">
 						<label style="width: 200px;">渠道ID：</label>
-						<input type="text" class="form-control" name="qdId" value="${qdId}">
+						<input type="text" class="form-control" name="qdId" id="qdId"  value="${qdId}">
 					</div>
 				</div>
 				<div class="col-xs-6 pull-left text-right" style="margin-top:15px;">
 					<button type="submit" class="btn btn-primary">筛选</button>
 				</div>
+				
+				<div class="col-xs-6 pull-left text-right" style="margin-top:15px;">
+					<button type="button" class="btn btn-primary" onclick="exportcsv();">导出</button>
+				</div>
+				<script>
+					function exportcsv(){
+						 var ctime=$("#ctime").val();
+						 var etime=$("#etime").val();
+						 var qdName=$("#qdName").val();
+						 var qdId=$("#qdId").val();
+							$.post("export",{"ctime":ctime,"etime":etime,"qdId":qdId,"qdName":qdName},function(data){
+								alert(data.url);
+								top.location.href=data.url;
+							});
+					}
+				</script>
 			</form>
 				
 				<c:if test="${adList.status == '200'}">
@@ -82,10 +98,10 @@
 							<td>${Recourse.name }</td>
 							<td>${Recourse.rcount }</td>
 							<td>${Recourse.creater }</td>
-							<td><Date:date value="${Recourse.ctime}"></Date:date></td>
+							<td><Date:date value="${Recourse.adTime}"></Date:date></td>
 							<td>${Recourse.ccount }</td>
-							<td><a  target="_Blank" href="http://ztiao.cn/Account/Register?adSellerName=${Recourse.adSellerName }&adSellerId=${Recourse.adSellerId }">http://ztiao.cn/Account/Register?adSellerName=${Recourse.adSellerName }&adSellerId=${Recourse.adSellerId }</a></td>
-							<td><button class="detailBtn" data="${Recourse.adSellerId}">详情</button><button class="deleteBtn" data="${Recourse.id}">删除</button></td>
+							<td><a  target="_Blank" href="http://ztiao.cn/Account/Register?adSellerName=${Recourse.adSellerName }&adSellerId=${Recourse.adSellerId }">http://ztiao.cn/Channel/Register?a=${Recourse.adId }</a></td>
+							<td><button class="detailBtn" data="${Recourse.adSellerId}">详情</button></td>
 						</tr>
 					</c:forEach>
 						
