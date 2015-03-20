@@ -164,7 +164,8 @@ public class AdSeller extends BaseController{
 				ctime="2015-02-02";
 			}
 			if(StringUtil.isBlank(etime)){
-				etime="2015-03-22";
+				SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+				etime=format.format(new Date(System.currentTimeMillis()+24*60*60*1000));
 			}
 			long time1=DateUtil.toLongtime(ctime);
 			long time2=DateUtil.toLongtime(etime);
@@ -265,7 +266,8 @@ public class AdSeller extends BaseController{
 				ctime="2015-02-02";
 			}
 			if(StringUtil.isBlank(etime)){
-				etime="2020-03-22";
+				SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+				etime=format.format(new Date(System.currentTimeMillis()+24*60*60*1000));
 			}
 			long time1=DateUtil.toLongtime(ctime);
 			long time2=DateUtil.toLongtime(etime);
