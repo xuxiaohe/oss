@@ -1,9 +1,12 @@
 package com.yunxuetang.oss;
 
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -441,7 +445,7 @@ public class topic extends BaseController {
 	 * 根据话题id添加主楼回复
 	 */
 	@RequestMapping("/addPostByTopicIdAction")
-	public ModelAndView addPostByTopicIdAction(HttpServletRequest request) {
+	public ModelAndView addPostByTopicIdAction(HttpServletRequest request, String[] courseImg, String[] imgHeight, String[] imgWidth) {
 
 		// 当前第几页
 		String topicid = request.getParameter("topicid");
@@ -450,12 +454,33 @@ public class topic extends BaseController {
 		String type = request.getParameter("type");
 		String message = request.getParameter("message");
 		String fileUrl = request.getParameter("fileUrl");
+		
+		//拼装JSON 调用REST接口
+		String imgJson = "";
+		if (courseImg != null && courseImg.length > 0) {// 将图片转换为JSON
+			ImgUrl[] imgUrls = new ImgUrl[courseImg.length];
+			for (int i = 0; i < courseImg.length; i++) {
+				imgUrls[i] = new ImgUrl(courseImg[i], imgHeight[i], imgWidth[i]);
+			}
+			imgJson = JSONArray.fromObject(imgUrls).toString();
 
+		}
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("topicId", topicid);
+		params.put("appKey", appKey);
+		params.put("type", type);
+		params.put("uid", uid);
+		params.put("message", message);
+		params.put("fileUrl", fileUrl);
+		params.put("imgJson", imgJson);
+		
+//		String url = Config.YXTSERVER3 + "oss/topic/replyTopic?uid=" + uid + "&topicId=" + topicId + "&appKey=" + appKey + "&type=" + type
+//				+ "&message=" + message + "&fileUrl=" + fileUrl;
 		ModelAndView modelview = new ModelAndView();
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
-		modelview.addObject("addpost", addPost(uid, message, topicid, appKey, type, fileUrl));
+		modelview.addObject("addpost", addPost(params));
 		modelview.addObject("topicDetail", getOneTopic(topicid));
 
 		modelview.addObject("resTopicPost", findPost(topicid));
@@ -988,10 +1013,10 @@ public class topic extends BaseController {
 		return getRestApiData(url);
 	}
 
-	private JSONObject addPost(String uid, String message,String topicId,String appKey,String type,String fileUrl) {
-		String url = Config.YXTSERVER3 + "oss/topic/replyTopic?uid=" + uid + "&topicId=" + topicId + "&appKey=" + appKey + "&type=" + type
-				+ "&message=" + message + "&fileUrl=" + fileUrl;
-		return getRestApiData(url);
+	private JSONObject addPost(HashMap<String, String> params) {
+		JSONObject result = getRestApiData(Config.YXTSERVER3 + "oss/topic/replyTopic", params);
+		return result;
+		
 	}
 	
 	private JSONObject addSubPost(String uid, String message,String topicId,String appKey,String type,String fileUrl,String parentId) {
@@ -1000,6 +1025,33 @@ public class topic extends BaseController {
 		return getRestApiData(url);
 	}
 
+	/**
+	 * 
+	 * @Title: getFileName
+	 * @Description: 根据pathrule回去新的文件名
+	 * @param name
+	 * @param pathrule
+	 * @return String
+	 * @throws
+	 */
+	@RequestMapping("/getFileName")
+	@ResponseBody
+	public String getFileName(String name,String pathrule){
+		SimpleDateFormat format=new SimpleDateFormat("yyyyMM");
+		String time=format.format(new Date());
+		String ext=name.substring(name.lastIndexOf(".")+1);
+		String temp=pathrule.replace("{yyyymm}",time);
+		String doc="pdf,doc,docx,xls,xlsx,ppt,pptx";
+		String img="jpg,jpeg,gif,png";
+		if(doc.indexOf(ext)!=-1){
+			temp=temp.replace("video", "doc");
+		}else if(img.indexOf(ext)!=-1){
+			temp=temp.replace("video", "imgs");
+		}
+		UUID uuid=UUID.randomUUID();
+		return temp+uuid.toString()+"."+ext;
+	}
+	
 	public class ImgUrl{
 		private String picUrl;
 		
