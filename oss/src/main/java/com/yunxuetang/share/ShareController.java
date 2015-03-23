@@ -30,7 +30,7 @@ public class ShareController extends BaseController{
 		RestTemplate restTemplate=new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 		
-		String url = Config.YXTSERVER + "sharePage/course?courseId=" + courseid;
+		String url = Config.YXTSERVER3 + "sharePage/course?courseId=" + courseid;
 		
 		
 		String courSharResoStr= restTemplate.getForObject(url,String.class); 
@@ -65,7 +65,7 @@ public class ShareController extends BaseController{
 		String topicId,String userId,String sourceId) {
 		RestTemplate restTemplate=new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-		String url=Config.YXTSERVER+"sharePage/topic?topicId="+ topicId+"&userId="+userId+"&sourceId="+sourceId;
+		String url=Config.YXTSERVER3+"sharePage/topic?topicId="+ topicId+"&userId="+userId+"&sourceId="+sourceId;
 				
 		String topicSharResoJsonstr = restTemplate.getForObject(url,String.class);
 		
@@ -126,28 +126,28 @@ public class ShareController extends BaseController{
 	
 	
 	private JSONObject getGroupInfo(String gid) {
-		String url = Config.YXTSERVER + "oss/group/findOneGroups/" + gid;
+		String url = Config.YXTSERVER3 + "oss/group/findOneGroups/" + gid;
 		return getRestApiData(url);
 	}
 	
 	private JSONObject getGroupDry(String gid, String n, String s) {
-		String url = Config.YXTSERVER + "oss/dry/findDryByGroup?groupId="
+		String url = Config.YXTSERVER3 + "oss/dry/findDryByGroup?groupId="
 				+ gid + "&n=" + n + "&s=" + s;
 		return getRestApiData(url);
 	}
 	
 	private JSONObject getGroupTopic(String gid, String n, String s) {
-		String url = Config.YXTSERVER + "oss/topic/findByGroupId?sourceId="
+		String url = Config.YXTSERVER3 + "oss/topic/findByGroupId?sourceId="
 				+ gid + "&appKey=yxtapp&n=" + n + "&s=" + s;
 		return getRestApiData(url);
 	}
 	private JSONObject getGroupMember(String gid) {
-		String url = Config.YXTSERVER + "oss/group/one/" + gid + "/memberPc";
+		String url = Config.YXTSERVER3 + "oss/group/one/" + gid + "/memberPc";
 		return getRestApiData(url);
 	}
 	
 	private JSONObject getcourseByGroup(String gid,String n,String s) {
-		String url = Config.YXTSERVER + "oss/course/groupCourses?groupId="+gid+"&n="+n+"&s="+s;
+		String url = Config.YXTSERVER3 + "oss/course/groupCourses?groupId="+gid+"&n="+n+"&s="+s;
 		return getRestApiData(url);
 	}
 	
@@ -165,7 +165,7 @@ public class ShareController extends BaseController{
 	 */
 	private JSONObject getGroupTagsFromTagService(String gid,String domain,String itemType)
 	{
-		String url = Config.YXTSERVER4 + "tag/getTagsByIdAndType?domain="
+		String url = "http://localhost:8161/tag/getTagsByIdAndType?domain="
 				+ domain + "&itemId=" + gid + "&itemType=" + itemType;
 		
 		return getRestApiData(url);
