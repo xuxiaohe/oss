@@ -41,7 +41,7 @@
 			<form class="form-inline" action="createAd" role="form">
 				<div class="row">
 					<div class="col-xs-3 h4">广告位创建</div>
-					<div class="col-xs-9 h6" style="padding-top:4px;">链接形式：ztiao.cn/2342.html?p=sanmao&id=45</div>
+					<!-- <div class="col-xs-9 h6" style="padding-top:4px;">链接形式：ztiao.cn/2342.html?p=sanmao&id=45</div> -->
 				</div>
 				<div class="row">
 					<div class="col-xs-5">
