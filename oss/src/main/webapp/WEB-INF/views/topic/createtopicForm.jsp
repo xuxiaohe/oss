@@ -165,6 +165,7 @@
 		            	var imgs = jQuery("#imgContainer").children('img').length;
 		            	if(imgs >= 9){//大于9张则不能再上传
 		            		jQuery("#pic").hiden();
+		            		break;
 		            	}
 		            	jQuery.getJSON(imgUrl + '?imageInfo',
 		            			function(result){

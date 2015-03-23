@@ -71,13 +71,19 @@
 								<ul class="list-group">
 									<li class="list-group-item"><span class="badge">副楼回复数：${Recourse.number}</span>
 										主楼回复：${Recourse.post.message} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										
 										<a href="${cbasePath}topic/deletePostByTopicId?topicid=${topicDetail.data.result.topicId }&postid=${Recourse.post.postId}">
-										<button name="postdelete"   type="button" class="postdelete btn btn-danger"">删除</button></a>
+										<button name="postdelete"   type="button" class="postdelete btn btn-danger">删除</button></a>
 								 <a href="${cbasePath}topic/addSubPostForm?topicid=${topicDetail.data.result.topicId }&postid=${Recourse.post.postId}">
 								 <button name="postedit"   type="button" class="postedit btn btn-primary">添加副楼回复</button></a>
 										
 										<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										
+									<ul class="list-group">
+										<c:forEach items="${Recourse.images}" var="image">
+												<img class="col-xs-3 thumbnail" src="${image.picUrl}"
+													alt="" />
+										</c:forEach>
+									</ul>
 										<%-- <c:if test="${Recourse.post.subPosts != null}">
 											
 											<c:forEach items="${Recourse.post.subPosts}" varStatus="key" var="subpost">
