@@ -650,7 +650,7 @@ public class course extends BaseController {
 		modelview.addObject("addDryBoxposition", objj);
 		modelview.addObject("name", objj6);
 		modelview.addObject("id", objj5);
-		modelview.addObject("addDryBoxList", getdryboxlist(objj5,"0","10"));
+		modelview.addObject("addDryBoxList", getdryboxlist(objj5,"0","10000"));
 		modelview.setViewName("course/courseBoxList");
 		return modelview;
 	}
@@ -751,26 +751,26 @@ public class course extends BaseController {
 		String boxPostId = request.getParameter("boxPostId");
 		//干货id
 		String sourceId = request.getParameter("sourceId");
-		 
+		String ctime = request.getParameter("ctime");
 		ModelAndView modelview = new ModelAndView();
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		
 	 
-		modelview.addObject("addDryBoxList", bindBoxDry(boxPostId, sourceType, sourceId));
+		modelview.addObject("addDryBoxList", bindBoxDry(boxPostId, sourceType, sourceId,ctime));
 		
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
 		modelview.addObject("name", name);
 		modelview.addObject("id", boxPostId);
-		modelview.addObject("addDryBoxList", getdryboxlist( boxPostId,"0","10"));
+		modelview.addObject("addDryBoxList", getdryboxlist( boxPostId,"0","10000"));
 		
 		modelview.setViewName("course/courseBoxList");
 		return modelview;
 	}
 	
-	private JSONObject bindBoxDry(String boxPostId,String sourceType,String sourceId) {
-		String url = Config.YXTSERVER3 + "oss/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId;
+	private JSONObject bindBoxDry(String boxPostId,String sourceType,String sourceId,String ctime) {
+		String url = Config.YXTSERVER3 + "oss/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId+"&ctime="+ctime;
 		return getRestApiData(url);
 	}
 }

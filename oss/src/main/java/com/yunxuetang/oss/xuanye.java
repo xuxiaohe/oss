@@ -163,14 +163,14 @@ public class xuanye extends BaseController{
 		String boxPostId = request.getParameter("boxPostId");
 		//干货id
 		String sourceId = request.getParameter("sourceId");
-		 
+		String ctime = request.getParameter("ctime");
 		ModelAndView modelview = new ModelAndView();
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		
 	 
-		modelview.addObject("addDryBoxList", bindBoxDry(boxPostId, sourceType, sourceId));
+		modelview.addObject("addDryBoxList", bindBoxDry(boxPostId, sourceType, sourceId,ctime));
 		
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
 		modelview.addObject("name", name);
@@ -212,8 +212,8 @@ public class xuanye extends BaseController{
 		return getRestApiData(url);
 	}
 	
-	private JSONObject bindBoxDry(String boxPostId,String sourceType,String sourceId) {
-		String url = Config.YXTSERVER3 + "oss/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId;
+	private JSONObject bindBoxDry(String boxPostId,String sourceType,String sourceId,String ctime) {
+		String url = Config.YXTSERVER3 + "oss/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId+"&ctime="+ctime;
 		return getRestApiData(url);
 	}
 	

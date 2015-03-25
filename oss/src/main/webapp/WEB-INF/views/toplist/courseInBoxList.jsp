@@ -85,21 +85,21 @@
 
 							<div class="col-xs-1">
 								<div class="row">
-									<img class="col-xs-12 thumbnail" src="${Recourse.logoUrl}"
+									<img class="col-xs-12 thumbnail" src="${Recourse.course.logoUrl}"
 										style="margin-top: 10px;" alt="" />
 								</div>
 							</div>
 							<div class="col-xs-10">
 								<h4 style="margin-left: 12px;">
-									<a href="${cbasePath}dry/dryDetail?dryid=${Recourse.id}">
-										${Recourse.groupName} </a><br> <small><small
+									<a href="${cbasePath}dry/dryDetail?dryid=${Recourse.course.id}">
+										${Recourse.course.title} </a><br> <small><small
 										class="pull-right">注册时间：<Date:date
-												value="${Recourse.ctime}"></Date:date></small></small>
+												value="${Recourse.course.ctime}"></Date:date></small></small>
 								</h4>
 
 
 								<div class="col-xs-12 btn-group-sm">
-								<a href="${cbasePath}area/unbindBoxBygroup?boxPostId=${id}&sourceid=${Recourse.id}&name=${name}&type=${type}">
+								<a href="${cbasePath}area/unbindBoxBygroup?boxPostId=${id}&sourceid=${Recourse.groupcourseid}&name=${name}&type=${type}">
 									<button data="${Recourse.id}" type="button"
 										class="deleteBtn btn btn-primary">取消关联该排行榜</button>
 										</a>

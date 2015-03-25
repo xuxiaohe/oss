@@ -117,7 +117,7 @@
 
 
 								<div class="col-xs-12 btn-group-sm">
-								<a href="${cbasePath}topic/bindBoxTopic?boxPostId=${id}&sourceId=${Recourse.topicId}&name=${name}">
+								<a href="${cbasePath}topic/bindBoxTopic?boxPostId=${id}&sourceId=${Recourse.topicId}&name=${name}&ctime=${Recourse.ctime}">
 									<button data="${Recourse.id}" type="button"
 										class="deleteBtn btn btn-primary">关联该排行榜</button>
 										</a>

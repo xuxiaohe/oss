@@ -41,7 +41,7 @@
 						<pageNation:PageNation currPage="${courses.data.curr_page}"
 							totalPages="${courses.data.page_rows}" perPageRows="10"
 							totalRows="${courses.data.total_rows}"
-							linkBaseUrl="${cbasePath}course/courseList?">
+							linkBaseUrl="${cbasePath}course/courseListNoCheck?">
 						</pageNation:PageNation>
 					</ul>
 
@@ -98,7 +98,7 @@
 						<pageNation:PageNation currPage="${courses.data.curr_page}"
 							totalPages="${courses.data.page_rows}" perPageRows="10"
 							totalRows="${courses.data.total_rows}"
-							linkBaseUrl="${cbasePath}course/courseList?">
+							linkBaseUrl="${cbasePath}course/courseListNoCheck?">
 						</pageNation:PageNation>
 					</ul>
 

@@ -119,7 +119,7 @@
 
 
 								<div class="col-xs-12 btn-group-sm">
-								<a href="${cbasePath}dry/bindBoxDry?boxPostId=${id}&sourceId=${Recourse.id}&name=${name}">
+								<a href="${cbasePath}dry/bindBoxDry?boxPostId=${id}&sourceId=${Recourse.id}&name=${name}&ctime=${Recourse.ctime}">
 									<button data="${Recourse.id}" type="button"
 										class="deleteBtn btn btn-primary">关联该排行榜</button>
 										</a>

@@ -105,13 +105,13 @@
 
 							<div class="col-xs-1">
 								<div class="row">
-									<img class="col-xs-12 thumbnail" src="${Recourse.logoUrl}"
+									<img class="col-xs-12 thumbnail" src="${Recourse.logourl}"
 										style="margin-top: 10px;" alt="" />
 								</div>
 							</div>
 							<div class="col-xs-10">
 								<h4 style="margin-left: 12px;">
-									<a href="${cbasePath}course/courseDetail?cid=${Recourse.id}">
+									<a href="${cbasePath}course/courseDetail?cid=${Recourse.newgroupcourse.id}">
 										${Recourse.title} </a><br> <small><small
 										class="pull-right">注册时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
@@ -119,7 +119,7 @@
 
 
 								<div class="col-xs-12 btn-group-sm">
-								<a href="${cbasePath}course/bindBoxCourse?boxPostId=${id}&sourceId=${Recourse.id}&name=${name}">
+								<a href="${cbasePath}course/bindBoxCourse?boxPostId=${id}&sourceId=${Recourse.newgroupcourse.id}&name=${name}&ctime=${Recourse.ctime}">
 									<button data="${Recourse.id}" type="button"
 										class="deleteBtn btn btn-primary">关联该排行榜</button>
 										</a>

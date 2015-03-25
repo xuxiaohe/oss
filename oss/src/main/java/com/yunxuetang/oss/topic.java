@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -165,6 +167,11 @@ public class topic extends BaseController {
 		String content = request.getParameter("content");
 		if (content == null) {
 			content = "";
+		}
+		else{
+			Pattern p = Pattern.compile("\\</br\\>");
+			Matcher m =p.matcher(content);
+			String strnew= m.replaceAll("/r/n");
 		}
 		String picUrl = "";
 		if (courseImg != null && courseImg.length > 0) {
@@ -737,14 +744,14 @@ public class topic extends BaseController {
 		String boxPostId = request.getParameter("boxPostId");
 		//干货id
 		String sourceId = request.getParameter("sourceId");
-		 
+		String ctime = request.getParameter("ctime");
 		ModelAndView modelview = new ModelAndView();
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		
 	 
-		modelview.addObject("addDryBoxList", bindBoxDry(boxPostId, sourceType, sourceId));
+		modelview.addObject("addDryBoxList", bindBoxDry(boxPostId, sourceType, sourceId,ctime));
 		
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
 		modelview.addObject("name", name);
@@ -904,8 +911,8 @@ public class topic extends BaseController {
 	}
 	
 	
-	private JSONObject bindBoxDry(String boxPostId,String sourceType,String sourceId) {
-		String url = Config.YXTSERVER3 + "oss/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId;
+	private JSONObject bindBoxDry(String boxPostId,String sourceType,String sourceId,String ctime) {
+		String url = Config.YXTSERVER3 + "oss/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId+"&ctime="+ctime;
 		return getRestApiData(url);
 	}
 	
