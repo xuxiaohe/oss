@@ -21,7 +21,7 @@
 		<jsp:include page="header.jsp"></jsp:include>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<form class="form-inline" role="form" action="">
+				<%-- <form class="form-inline" role="form" action="">
 				<div class="col-xs-6">
 					<div class="form-group form-group-sm">
 						<label style="width: 200px;" >开始日期：</label>
@@ -67,7 +67,7 @@
 							});
 					}
 				</script>
-			</form>
+			</form> --%>
 				
 				<c:if test="${activityList.status == '200'}">
 						<div class="col-xs-12">
@@ -93,7 +93,7 @@
 							<td>${Recourse.name }</td>
 							<td><Date:date value="${Recourse.activityStartTime}"></Date:date>到<Date:date value="${Recourse.activityEndTime}"></Date:date></td>
 							<td><Date:date value="${Recourse.optionStartTime}"></Date:date>到<Date:date value="${Recourse.optionEndTime}"></Date:date></td>
-							<td>${Recourse.des }</td>
+							<td>${Recourse.intro }</td>
 							<td>${Recourse.company }</td>
 							<td>${Recourse.price }</td>
 							<td><button class="detailBtn" data="${Recourse.id }">编辑</button></td>

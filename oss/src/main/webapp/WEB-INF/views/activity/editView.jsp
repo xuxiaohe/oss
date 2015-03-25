@@ -273,8 +273,10 @@ function uploadDesMainImg(s){
 					</div> 
 					<div class="form-group">
 						<label for="exampleInputEmail1">活动时间</label> <input type="text"
-							name="activityStartTime" class="" id="activityStartTime" >-
-							<input type="text" name="activityEndTime" class="" id="activityEndTime">
+							name="activityStartTime" class="" id="activityStartTime" 
+							value="<Date:date value='${activityjson.data.result.activityStartTime}'></Date:date>">-
+							<input type="text" name="activityEndTime" class="" id="activityEndTime"
+							value="<Date:date value='${activityjson.data.result.activityStartTime}'></Date:date>">
 							<input type="radio" name="type" id="type" value="0">需要报名
 							<input type="checkbox" name="checkbox" class="options" value="姓名">姓名
 							<input type="checkbox" name="checkbox" class="options" value="电话">电话
@@ -284,12 +286,12 @@ function uploadDesMainImg(s){
 					<div class="form-group">
 						<label for="exampleInputEmail1">报名时间</label> <input type="text"
 							name="optionStartTime" class="" id="optionStartTime"
-							placeholder=""> -<input type="text"
+							value="<Date:date value='${activityjson.data.result.optionStartTime}'></Date:date>"> -<input type="text"
 							name="optionEndTime" class="" id="optionEndTime"
-							placeholder=""> 
+							value="<Date:date value='${activityjson.data.result.optionEndTime}'></Date:date>"> 
 					</div>
 					<div class="form-group">
-						<label for="exampleInputEmail1">简介</label> <textarea   id="intro" class="form-control" rows="" cols=""></textarea>
+						<label for="exampleInputEmail1">简介</label> <textarea  id="intro" class="form-control" rows="" cols="">${activityjson.data.result.intro }</textarea>
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">上传主图</label> 
@@ -309,7 +311,7 @@ function uploadDesMainImg(s){
 					</div>
 					</div>
 					<div class="form-group">
-						<label for="exampleInputEmail1">详情</label> <textarea   id="des" class="form-control" rows="" cols=""></textarea>
+						<label for="exampleInputEmail1">详情</label> <textarea   id="des" class="form-control" rows="" cols="">${activityjson.data.result.des }</textarea>
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">上传详情主图</label> 
