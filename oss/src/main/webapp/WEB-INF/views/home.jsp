@@ -96,6 +96,9 @@ String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request
                         <a href="<%=cbasePath%>adSeller/adPage" target="mainFrame"><span class="glyphicon glyphicon-star"></span>广告位管理</a>
                     </li>
                     <li role="presentation">
+                        <a href="<%=cbasePath%>activity/activityPage" target="mainFrame"><span class="glyphicon glyphicon-star"></span>活动管理</a>
+                    </li>
+                    <li role="presentation">
                         <a href="<%=cbasePath%>feedback/FeedBackList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>用户反馈信息</a>
                     </li>
                 </ul>
