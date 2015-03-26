@@ -10,18 +10,18 @@
 <head lang="en">
 <meta charset="UTF-8">
 <title>用户管理</title>
-<script src="${cbasePath}/resources/assets/js/jquery.min.js"></script>
+<script src="${sourcePath}/resources/assets/js/jquery.min.js"></script>
 
-<script src="${cbasePath}/resources/assets/js/bootstrap.min.js"></script>
+<script src="${sourcePath}/resources/assets/js/bootstrap.min.js"></script>
 
-<link href="${cbasePath}/resources/assets/css/bootstrap.min.css"
+<link href="${sourcePath}/resources/assets/css/bootstrap.min.css"
 	rel="stylesheet">
 
-<link href="${cbasePath}/resources/assets/css/font.css" rel="stylesheet">
-<script src="${cbasePath}/resources/assets/js/html5shiv.js"></script>
-<script src="${cbasePath}/resources/assets/js/plupload.full.min.js"></script>
-<script src="${cbasePath}/resources/assets/js/qiniu.js"></script>
-<script src="${cbasePath}/resources/assets/js/moxie.min.js"></script>
+<link href="${sourcePath}/resources/assets/css/font.css" rel="stylesheet">
+<script src="${sourcePath}/resources/assets/js/html5shiv.js"></script>
+<script src="${sourcePath}/resources/assets/js/plupload.full.min.js"></script>
+<script src="${sourcePath}/resources/assets/js/qiniu.js"></script>
+<script src="${sourcePath}/resources/assets/js/moxie.min.js"></script>
 <script type="text/javascript">
 $(function (){
 	uploads("10007");
