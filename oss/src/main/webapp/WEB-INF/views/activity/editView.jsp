@@ -215,7 +215,7 @@ function uploadDesMainImg(s){
 						$("#attachId").val(result.attid);
 						console.log(result);
 						$("#desMainImgShow").attr("src",result.furl);
-						$("#desMainImg").val(result.furl);
+						$("#desMainImgs").val(result.furl);
 						alert("上传成功");
 					}
 			 });
@@ -306,7 +306,7 @@ function uploadDesMainImg(s){
 									</div>
 								</div>
 							
-								<input type="hidden" id="mainImg" class="form-control" />
+								<input type="hidden" id="mainImg" class="form-control" value="${activityjson.data.result.mainImg}" />
 						</div>
 					</div>
 					</div>
@@ -326,7 +326,7 @@ function uploadDesMainImg(s){
 									</div>
 								</div>
 							
-								<input type="hidden" id="mainImg" class="form-control" />
+								<input type="hidden" id="desMainImgs" class="form-control" value="${activityjson.data.result.desMainImg}" />
 						</div>
 					</div>
 					</div>
@@ -347,7 +347,7 @@ function uploadDesMainImg(s){
 									<input type="hidden" id="attachId">
 									<input type="hidden" id="kngName">
 									<input type="hidden" id="input">
-									<input type="hidden" id="desImgs" class="form-control" />
+									<input type="hidden" id="desImgs" class="form-control"  value="${activityjson.data.result.desImgs}" />
 							</div>
 						</div>
 					</div>
@@ -431,7 +431,7 @@ function uploadDesMainImg(s){
 		})
 		var intro=$.trim($("#intro").val());
 		var des=$.trim($("#des").val());
-		var desMainImg=$("#desMainImg").val();
+		var desMainImg=$("#desMainImgs").val();
 		var desImgsVar=$(".desImgs");
 		console.log(desImgsVar);
 		var desImgs="";

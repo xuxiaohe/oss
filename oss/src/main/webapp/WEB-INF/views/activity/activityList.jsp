@@ -90,7 +90,7 @@
 
 					<c:forEach items="${activityList.data.result}" varStatus="key" var="Recourse">
 						<tr>
-							<td>${Recourse.name }</td>
+							<td><a href="${cbasePath}activity/detail?id=${Recourse.id }">${Recourse.name }</a></td>
 							<td><Date:date value="${Recourse.activityStartTime}"></Date:date>到<Date:date value="${Recourse.activityEndTime}"></Date:date></td>
 							<td><Date:date value="${Recourse.optionStartTime}"></Date:date>到<Date:date value="${Recourse.optionEndTime}"></Date:date></td>
 							<td>${Recourse.intro }</td>
