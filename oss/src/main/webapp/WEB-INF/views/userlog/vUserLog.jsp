@@ -132,7 +132,7 @@
 						<pageNation:PageNation currPage="${resuserList.data.curr_page}"
 							totalPages="${resuserList.data.page_rows}" perPageRows="10"
 							totalRows="${resuserList.data.total_rows}"
-							linkBaseUrl="${cbasePath}searchVuser/?ctime=${ctime}&etime=${etime}&ukey=${ukey}&ukey=${ukey}">
+							linkBaseUrl="${cbasePath}userlog/vlog/?ctime=${ctime}&etime=${etime}&key=${key}">
 						</pageNation:PageNation>
 					</ul>
 

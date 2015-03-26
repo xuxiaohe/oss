@@ -109,7 +109,7 @@
 						<pageNation:PageNation currPage="${activityList.data.curr_page}"
 							totalPages="${activityList.data.page_rows}" perPageRows="10"
 							totalRows="${activityList.data.total_rows}"
-							linkBaseUrl="${cbasePath}activity/ActivityPage">
+							linkBaseUrl="${cbasePath}activity/activityPage?">
 						</pageNation:PageNation>
 					</ul>
 

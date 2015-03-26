@@ -23,6 +23,7 @@
 				<li><a href="${cbasePath}area/BoxDryList?type=topic">话题推荐管理</a></li>
 				<li><a href="${cbasePath}area/BoxDryList?type=group">群组推荐管理</a></li>
 				<li><a href="${cbasePath}area/BoxDryList?type=course">课程推荐管理</a></li>
+				<li><a href="${cbasePath}area/BoxDryList?type=activity">活动推荐管理</a></li>
 				<!-- <li><a href="#">用户导入</a></li> -->
 				<li class="divider"></li>
 			</ul>

@@ -57,6 +57,7 @@ public class area extends BaseController{
 		l.add("topic");
 		l.add("group");
 		l.add("course");
+		l.add("activity");
 		
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -144,6 +145,10 @@ public class area extends BaseController{
 			path="courseInBoxList";
 			modelview.addObject("addDryBoxList", courseInBox(id,pagenumber,pagelines));
 		}
+		if(type.equals("activity")){
+			path="activityInBoxList";
+			modelview.addObject("addDryBoxList", activityInBox(id,pagenumber,pagelines));
+		}
 		modelview.setViewName("toplist/"+path);
 		return modelview;
 	}
@@ -202,6 +207,11 @@ public class area extends BaseController{
 			modelview.addObject("addDryBoxList", courseInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "course");
 		}
+		if(type.equals("activity")){
+			path="activityInBoxList";
+			modelview.addObject("addDryBoxList", courseInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "activity");
+		}
 		modelview.setViewName("toplist/"+path);
 		return modelview;
 	}
@@ -254,6 +264,13 @@ public class area extends BaseController{
 			modelview.addObject("addDryBoxList", courseInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "course");
 		}
+		
+		if(type.equals("activity")){
+			path="activityInBoxList";
+			modelview.addObject("addDryBoxList", activityInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "activity");
+		}
+		
 		modelview.setViewName("toplist/"+path);
 		return modelview;
 	}
@@ -305,6 +322,12 @@ public class area extends BaseController{
 		String url = Config.YXTSERVER3 + "oss/box/courseInBox?boxPostId=" + boxPostId+"&n="+n+"&s="+s;
 		return getRestApiData(url);
 	}
+	
+	private JSONObject activityInBox(String boxPostId,String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/box/activityInBox?boxPostId=" + boxPostId+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	
 	
 	private JSONObject drycargoInBox(String boxPostId,String n,String s) {
 		String url = Config.YXTSERVER3 + "oss/box/drycargoInBox?boxPostId=" + boxPostId+"&n="+n+"&s="+s;

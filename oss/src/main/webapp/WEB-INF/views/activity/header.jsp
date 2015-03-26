@@ -19,6 +19,7 @@
 			</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="${cbasePath }activity/createView">创建活动</a></li>
+				<li><a href="${cbasePath }activity/activityBoxDetail">活动与推荐绑定</a></li>
 				<li class="divider"></li>
 			</ul>
 		</div>
