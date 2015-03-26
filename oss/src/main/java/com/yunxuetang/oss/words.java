@@ -18,6 +18,7 @@ public class words extends BaseController{
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		String apiurl=Config.YXTSERVER3;
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("apiurl",apiurl);
 		modelview.setViewName("words/wordsManage");
 		return modelview;

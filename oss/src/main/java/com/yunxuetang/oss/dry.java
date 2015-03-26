@@ -79,6 +79,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("dry/dryDetail");
 		return modelview;
 
@@ -114,6 +115,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("dry/updateDryForm");
 		return modelview;
 
@@ -279,6 +281,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("dry/createdryForm");
 		return modelview;
 	}
@@ -314,6 +317,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("dry/catchDry");
 		return modelview;
 	}
@@ -376,6 +380,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 
 		return "redirect:/dry/dryList";
 	}
@@ -432,6 +437,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 
 		return "redirect:/dry/dryList";
 	}
@@ -502,6 +508,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("dry/dryList");
 		return modelview;
 	}
@@ -526,6 +533,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		return "redirect:/dry/dryList";
 	}
 
@@ -552,6 +560,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("dry/bindDryByGroupForm");
 		return modelview;
 	}
@@ -577,6 +586,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("dry/dryDetail");
 		return modelview;
 	}
@@ -606,6 +616,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("dry/dryDetail");
 		return modelview;
 	}
@@ -628,6 +639,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("dry/addpost");
 		return modelview;
 	}
@@ -651,6 +663,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("addpost", addPost(uid, message, dryid, appKey, type, fileUrl,dryid));
 		modelview.addObject("dryDetail", dryDetail(dryid));
 
@@ -680,6 +693,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("dry/addsubpost");
 		return modelview;
 	}
@@ -704,6 +718,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("addpost", addSubPost(uid, message, dryid, appKey, type, fileUrl,parentid));
 		modelview.addObject("dryDetail", dryDetail(dryid));
 
@@ -747,6 +762,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("url", m.get("url"));
 		modelview.addObject("message", m.get("message"));
 		modelview.addObject("image", m.get("image"));
@@ -767,6 +783,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 
 		modelview.setViewName("dry/createdryBoxForm");
 		return modelview;
@@ -790,6 +807,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 		modelview.addObject("addDryBox", addDryBox(chinaName, englishName, local, type,size));
 		return "redirect:/dry/dryList";
@@ -820,6 +838,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 		modelview.addObject("addDryBoxposition", objj);
 		modelview.addObject("name", objj6);
@@ -860,6 +879,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
 		modelview.addObject("name", name);
@@ -889,6 +909,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
 		modelview.addObject("name", name);
@@ -917,6 +938,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 	 
 		modelview.addObject("addDryBoxList", bindBoxDry(boxPostId, sourceType, sourceId,ctime));
@@ -954,6 +976,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 		modelview.addObject("addDryBoxposition", objj);
 		modelview.addObject("name", objj6);
@@ -993,6 +1016,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
 		modelview.addObject("name", name);
@@ -1022,6 +1046,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 	 
 		modelview.addObject("addDryBoxList", deleteBox(boxId));
@@ -1048,6 +1073,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
 		
@@ -1068,6 +1094,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("addDryBoxList", deleteBoxPost(boxId));
 		
 		return "redirect:/dry/BoxDryList";
@@ -1083,8 +1110,8 @@ public class dry extends BaseController {
 //		 
 //		ModelAndView modelview = new ModelAndView();
 //		String cpath = request.getContextPath();
-//		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-//		modelview.addObject("cbasePath", cbasePath);
+//		String Config.YXTSERVER5 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+//		modelview.addObject("Config.YXTSERVER5", Config.YXTSERVER5);
 //		modelview.addObject("serverPath", Config.YXTSERVER3);
 //		modelview.setViewName("ajaxTest/ajaxTest");
 //		return modelview;
@@ -1105,6 +1132,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 	 
 		modelview.addObject("addDryBoxList", checkDry(dryid));
 		

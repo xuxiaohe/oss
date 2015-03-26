@@ -86,6 +86,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("keyword", keyword);
 		modelview.setViewName("user/userList");
 		return modelview;
@@ -140,6 +141,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("keyword", keyword);
 		modelview.setViewName("user/roboitList");
 		return modelview;
@@ -180,6 +182,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/userDetail");
 		return modelview;
 
@@ -213,6 +216,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/userTopic");
 		return modelview;
 
@@ -246,6 +250,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/userGroup");
 		return modelview;
 
@@ -278,6 +283,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/userDry");
 		return modelview;
 
@@ -324,6 +330,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/userCourse");
 		return modelview;
 
@@ -386,6 +393,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("resupdateUser", getUpdateUser(userid, sex, phoneNumber, email, tag, logoURL, intro, nickName,robot));
 
 		if("1".equals(robot)){
@@ -414,6 +422,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/editUser");
 		return modelview;
 	}
@@ -462,6 +471,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/show");
 		return modelview;
 	}
@@ -480,6 +490,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/createUserForm");
 		return modelview;
 	}
@@ -517,6 +528,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/updateUserPasswdForm");
 		return modelview;
 
@@ -547,6 +559,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/show");
 		return modelview;
 
@@ -580,6 +593,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/userDetail");
 		return modelview;
 
@@ -599,6 +613,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/userDetail");
 		return modelview;
 
@@ -618,6 +633,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/userDetail");
 		return modelview;
 
@@ -638,6 +654,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/userDetail");
 		return modelview;
 
@@ -658,6 +675,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("user", userid);
 
 		modelview.setViewName("user/createGroupForm");
@@ -717,6 +735,7 @@ public class user extends BaseController {
 
 		modelview.addObject("resuserGroup", getUserGroup(userid, pagenumber, pagelines));
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("user/userGroup");
 		return modelview;
 
@@ -736,6 +755,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("userpost", getAllUserPost(userid));
 		modelview.addObject("uid", userid);
 		modelview.setViewName("user/userPostList");
@@ -755,6 +775,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("usersubpost", getAllUserSubPost(userid));
 		modelview.addObject("uid", userid);
 		modelview.setViewName("user/userSubPostList");
@@ -780,6 +801,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		return "redirect:/user/findAllUserPost?userid="+uid;
 	}
 
@@ -799,6 +821,7 @@ public class user extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		return "redirect:/user/findAllUserSubPost?userid="+uid;
 	}
 	

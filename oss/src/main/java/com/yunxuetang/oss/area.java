@@ -33,6 +33,7 @@ public class area extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
 		modelview.addObject("type", type);
@@ -62,6 +63,7 @@ public class area extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("typelist", l);
 		modelview.setViewName("toplist/createdryBoxForm");
 		return modelview;
@@ -84,6 +86,7 @@ public class area extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 		modelview.addObject("addDryBox", addDryBox(chinaName, englishName, local, type,size));
 		return "redirect:/area/BoxDryList?type="+type;
@@ -119,6 +122,7 @@ public class area extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 		//modelview.addObject("addDryBoxposition", dryboxpost(type));
 		modelview.addObject("type", type);
@@ -174,6 +178,7 @@ public class area extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 	 
 		modelview.addObject("addDryBoxList", deleteBox(boxId));
@@ -237,6 +242,7 @@ public class area extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 	 
 		modelview.addObject("addDryBoxList", deleteBoxBypostidAndsourceid(boxPostId, sourceid));
@@ -288,6 +294,7 @@ public class area extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("addDryBoxList", deleteBoxPost(boxId));
 		
 		return "redirect:/area/BoxDryList?type="+type;

@@ -57,6 +57,7 @@ public class UserLogController {
 			String cpath = request.getContextPath();
 			String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 			mv.addObject("cbasePath", cbasePath);
+			mv.addObject("sourcePath", Config.YXTSERVER5);
 			mv.addObject("resuserList",object);
 			mv.addObject("userKey", userKey);   
 			mv.addObject("qdId", qdId);   
@@ -186,6 +187,7 @@ public class UserLogController {
 			String cpath = request.getContextPath();
 			String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 			mv.addObject("cbasePath", cbasePath);
+			mv.addObject("sourcePath", Config.YXTSERVER5);
 			mv.addObject("resuserList",object);
 			mv.addObject("key", key);   
 			mv.addObject("ctime", ctime); 
@@ -309,6 +311,7 @@ public class UserLogController {
 			String cpath = request.getContextPath();
 			String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 			mv.addObject("cbasePath", cbasePath);
+			mv.addObject("sourcePath", Config.YXTSERVER5);
 			mv.addObject("resuserList",object);
 			mv.addObject("ukey", ukey);   
 			mv.addObject("vkey", vkey);   

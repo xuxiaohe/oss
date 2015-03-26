@@ -52,6 +52,7 @@ public class version extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("version/versionList");
 		return modelview;
 	}
@@ -76,6 +77,7 @@ public class version extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("id", id);
 		modelview.addObject("vnumber", vnumber);
 		modelview.addObject("message", message);
@@ -106,6 +108,7 @@ public class version extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("updateVersion", updateVersion(id, vnumber, message, url, context));
 
 		return "redirect:/version/versionList";
@@ -124,6 +127,7 @@ public class version extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 
 		modelview.setViewName("version/createVersionForm");
 		return modelview;
@@ -152,6 +156,7 @@ public class version extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("updateVersion", createVersion(vdomain, vappkey, vcertificate, vphase, vnumber, message, url, context));
 
 		return "redirect:/version/versionList";

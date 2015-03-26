@@ -42,6 +42,7 @@ public class feedback extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 		modelview.addObject("FeedBackList", FeedBackList(pagenumber,pagelines));
 		 

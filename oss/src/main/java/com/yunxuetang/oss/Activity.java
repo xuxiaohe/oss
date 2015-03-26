@@ -68,6 +68,7 @@ public class Activity extends BaseController{
 			String cpath = request.getContextPath();
 			String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 			mv.addObject("cbasePath", cbasePath);
+			mv.addObject("sourcePath", Config.YXTSERVER5);
 			mv.addObject("activityList",object);
 			return mv;
 		} catch (ParseException e) {
@@ -103,9 +104,9 @@ public class Activity extends BaseController{
 		map.put("desMainImg", desMainImg);
 		HttpUtil.sendPost(Config.YXTSERVER3+"oss/activity/create", map);
 		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		//String Config.YXTSERVER5 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		/*try {
-			response.sendRedirect(cbasePath+"activity/activityPage");
+			response.sendRedirect(Config.YXTSERVER5+"activity/activityPage");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -119,6 +120,7 @@ public class Activity extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		mv.addObject("cbasePath", cbasePath);
+		mv.addObject("sourcePath", Config.YXTSERVER5);
 		mv.addObject("resultList", json);
 		
 		return mv;
@@ -144,6 +146,7 @@ public class Activity extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		mv.addObject("cbasePath", cbasePath);
+		mv.addObject("sourcePath", Config.YXTSERVER5);
 		mv.addObject("resultList", json);
 		mv.addObject("activityjson", activityjson);
 		return mv;
@@ -158,6 +161,7 @@ public class Activity extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		mv.addObject("cbasePath", cbasePath);
+		mv.addObject("sourcePath", Config.YXTSERVER5);
 		mv.addObject("activity", activityjson);
 		return mv;
 	}
@@ -171,6 +175,7 @@ public class Activity extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		mv.addObject("cbasePath", cbasePath);
+		mv.addObject("sourcePath", Config.YXTSERVER5);
 		mv.addObject("users", users);
 		return mv;
 	}

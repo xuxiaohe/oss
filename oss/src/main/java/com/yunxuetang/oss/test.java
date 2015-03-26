@@ -33,25 +33,37 @@ public class test extends BaseController {
 //		System.out.println(l);
 //		System.out.print(date);
 		
+		
+		 long ll=System.currentTimeMillis();
+		    Date date = new Date(ll);
 		//今日区间
 		 Calendar c1 = new GregorianCalendar();
-		    c1.set(Calendar.HOUR_OF_DAY, 0);
-		    c1.set(Calendar.MINUTE, 0);
-		    c1.set(Calendar.SECOND, 0);
-		    Date d=c1.getTime();
-		    long l=d.getTime();
-		    //System.out.println(c1.getTime().toLocaleString());
-		    System.out.println(l);
+		 c1.setTime(date);
+//		    c1.set(Calendar.HOUR_OF_DAY, 14);
+//		    c1.set(Calendar.MINUTE, 0);
+//		    c1.set(Calendar.SECOND, 0);
+//		    Date d=c1.getTime();
+//		    long l=d.getTime();
+		   
+		    System.out.println(c1.getTime().toLocaleString());
+//		    System.out.println(c1.getTime().toLocaleString());
+		    //System.out.println(l);
+		    c1.add(Calendar.HOUR, -168);
+		    System.out.println(c1.getTime().toLocaleString());
 		    
 		    
-		    Calendar c2 = new GregorianCalendar();
-		    c2.set(Calendar.HOUR_OF_DAY, 23);
-		    c2.set(Calendar.MINUTE, 59);
-		    c2.set(Calendar.SECOND, 59);
-		    Date d2=c2.getTime();
-		    long l2=d2.getTime();
-		    //System.out.println(c2.getTime().toLocaleString());		    
-		    System.out.println(l2);
+		    
+		    
+		    
+		    
+//		    Calendar c2 = new GregorianCalendar();
+//		    c2.set(Calendar.HOUR, -24);
+//		    c2.set(Calendar.MINUTE, 0);
+//		    c2.set(Calendar.SECOND, 0);
+//		    Date d2=c2.getTime();
+//		    long l2=d2.getTime();
+//		    System.out.println(c2.getTime().toLocaleString());		    
+		    //System.out.println(l2);
 		    
 		  //昨日区间
 //			 Calendar c1 = new GregorianCalendar();

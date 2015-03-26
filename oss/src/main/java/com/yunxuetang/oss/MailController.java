@@ -34,6 +34,7 @@ public class MailController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		mView.addObject("cbasePath", cbasePath);
+		mView.addObject("sourcePath", Config.YXTSERVER5);
 		mView.addObject("temps",responseContainer.getData().getResult());
 		return mView;
 		

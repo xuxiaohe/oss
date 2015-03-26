@@ -56,6 +56,7 @@ public class AdSeller extends BaseController{
 				String cpath = request.getContextPath();
 				String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 				modelview.addObject("cbasePath", cbasePath);
+				modelview.addObject("sourcePath", Config.YXTSERVER5);
 				modelview.setViewName("ad/adSellerList");
 				return modelview;
 	}
@@ -71,6 +72,7 @@ public class AdSeller extends BaseController{
 		modelview.addObject("adSellerList", getAdSellerList());
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("ad/createView");
 		return modelview;
 	}
@@ -94,7 +96,7 @@ public class AdSeller extends BaseController{
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		Map<String, Object> reMap=new HashMap<String, Object>();
 		reMap.put("result", create(map));
-		reMap.put("cbasePath", cbasePath);
+		reMap.put("cbasePath",cbasePath);
 		return reMap;
 	}
 	private JSONObject create(Map<String, String> map) {
@@ -189,6 +191,7 @@ public class AdSeller extends BaseController{
 			String cpath = request.getContextPath();
 			String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 			mv.addObject("cbasePath", cbasePath);
+			mv.addObject("sourcePath", Config.YXTSERVER5);
 			mv.addObject("adList",object);
 			mv.addObject("qdName", qdName);   
 			mv.addObject("qdId", qdId);   
@@ -288,6 +291,7 @@ public class AdSeller extends BaseController{
 			String cpath = request.getContextPath();
 			String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 			mv.addObject("cbasePath", cbasePath);
+			mv.addObject("sourcePath", Config.YXTSERVER5);
 			mv.addObject("userList",object);
 			mv.addObject("qdId", qdId);   
 			mv.addObject("ctime", ctime); 

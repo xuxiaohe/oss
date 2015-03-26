@@ -58,6 +58,7 @@ public class knowledge extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("knowledge/knowledgeList");
 		return modelview;
 	}
@@ -122,6 +123,7 @@ public class knowledge extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("knowledge/uploadKnowledge");
 		modelview.addObject("config", getMapConfig(ckey));
 		modelview.addObject("ckey", ckey);
