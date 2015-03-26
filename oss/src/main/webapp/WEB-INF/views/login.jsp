@@ -6,9 +6,10 @@
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%
 	String cpath = request.getContextPath();
-	String cbasePath = request.getScheme() + "://"
+/* 	String cbasePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
-			+ cpath + "/";
+			+ cpath + "/"; */
+			String cbasePath = "http://oss.ztiao.cn/oss";
 %>
 <html>
 <head lang="en">

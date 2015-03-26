@@ -7,15 +7,16 @@
 <%
 String cpath = request.getContextPath();
 String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+cpath+"/";
+String cbasePath2 = "http://oss.ztiao.cn/oss";
 %>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
     <title>运营支持系统</title>
-    <script src="<%=cbasePath%>/resources/assets/js/jquery.min.js"></script>
-    <script src="<%=cbasePath%>/resources/assets/js/bootstrap.min.js"></script>
-    <link href="<%=cbasePath%>/resources/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<%=cbasePath%>/resources/assets/css/font.css" rel="stylesheet">
+    <script src="<%=cbasePath2%>/resources/assets/js/jquery.min.js"></script>
+    <script src="<%=cbasePath2%>/resources/assets/js/bootstrap.min.js"></script>
+    <link href="<%=cbasePath2%>/resources/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=cbasePath2%>/resources/assets/css/font.css" rel="stylesheet">
     <style>
         #mainMenu li span {
             padding: 5px;

@@ -7,15 +7,21 @@
 <%@ taglib prefix="pageNation" uri="/WEB-INF/tld/pagenation.tld"%>
 <%@ taglib prefix="Date" uri="/WEB-INF/tld/datetag.tld"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%
+String cpath = request.getContextPath();
+String cbasePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+cpath+"/";
+String cbasePath2 = "http://oss.ztiao.cn/oss";
+%>
 <html lang="en">
 <head>
+
 	<meta charset="UTF-8">
 	<title>用户统计</title>
 
 	
-	<script src="${cbasePath}resources/assets/js/jQuery.js"></script>
-	<script src="${cbasePath}resources/assets/js/bootstrap.js"></script>
-	<link href="${cbasePath}resources/assets/css/bootstrap.css"
+	<script src="http://oss.ztiao.cn/oss/resources/assets/js/jQuery.js"></script>
+	<script src="http://oss.ztiao.cn/oss/resources/assets/js/bootstrap.js"></script>
+	<link href="http://oss.ztiao.cn/oss/resources/assets/css/bootstrap.css"
 	rel="stylesheet">
 	<style>
 		.block {border-radius: 6px;padding: 7px 20px;}
