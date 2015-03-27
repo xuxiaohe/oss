@@ -80,7 +80,8 @@ public class Activity extends BaseController{
 	public void createAd(HttpServletRequest request,HttpServletResponse response,String id,
 			String name,String activityStartTime,String activityEndTime ,String type,String intro,
 			String des,String desImgs,String mainImg,String price,String company,String optionStartTime,
-			String optionEndTime,String province,String city,String address,String options ,String desMainImg) throws ParseException{
+			String optionEndTime,String province,String city,String address,String options ,String desMainImg,
+			String maxCount) throws ParseException{
 		Map<String,Object> map=new HashMap<String, Object>();
 		if(!StringUtil.isBlank(id)){
 			map.put("id", id);
@@ -102,6 +103,7 @@ public class Activity extends BaseController{
 		map.put("address", address);
 		map.put("options", options);
 		map.put("desMainImg", desMainImg);
+		map.put("maxCount", maxCount);
 		HttpUtil.sendPost(Config.YXTSERVER3+"oss/activity/create", map);
 		String cpath = request.getContextPath();
 		//String Config.YXTSERVER5 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -177,6 +179,7 @@ public class Activity extends BaseController{
 		mv.addObject("cbasePath", cbasePath);
 		mv.addObject("sourcePath", Config.YXTSERVER5);
 		mv.addObject("users", users);
+		mv.addObject("activityId", id);
 		return mv;
 	}
 	@RequestMapping("/activityBoxDetail")

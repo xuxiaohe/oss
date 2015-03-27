@@ -77,10 +77,10 @@
 						<tr>
 							<th>活动名称</th>
 							<th>活动时间</th>
-							<th>报名时间</th>
-							<th>简介</th>
 							<th>主办方</th>
 							<th>价格</th>
+							<th>报名上限</th>
+							<th>已报名人数</th>
 							<th>操作</th>
 						</tr>
 					</thead>
@@ -92,11 +92,13 @@
 						<tr>
 							<td><a href="${cbasePath}activity/detail?id=${Recourse.id }">${Recourse.name }</a></td>
 							<td><Date:date value="${Recourse.activityStartTime}"></Date:date>到<Date:date value="${Recourse.activityEndTime}"></Date:date></td>
-							<td><Date:date value="${Recourse.optionStartTime}"></Date:date>到<Date:date value="${Recourse.optionEndTime}"></Date:date></td>
-							<td>${Recourse.intro }</td>
 							<td>${Recourse.company }</td>
 							<td>${Recourse.price }</td>
-							<td><button class="detailBtn" data="${Recourse.id }">编辑</button></td>
+							<td>${Recourse.maxCount }</td>
+							<td>${Recourse.registrationCount }</td>
+							<td><button class="detailBtn" data="${Recourse.id }">编辑</button>
+								<a style="float: right;" class="btn btn-primary" href="${cbasePath}activity/bmList?id=${Recourse.id}" >报名详情</a>
+							</td>
 						</tr>
 					</c:forEach>
 						

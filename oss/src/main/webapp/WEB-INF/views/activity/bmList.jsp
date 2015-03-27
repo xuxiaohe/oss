@@ -58,7 +58,7 @@
 						<pageNation:PageNation currPage="${users.data.curr_page}"
 							totalPages="${users.data.page_rows}" perPageRows="10"
 							totalRows="${users.data.total_rows}"
-							linkBaseUrl="${cbasePath}activity/bmList">
+							linkBaseUrl="${cbasePath}activity/bmList?id=${activityId }">
 						</pageNation:PageNation>
 					</ul>
 

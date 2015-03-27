@@ -275,7 +275,8 @@ function uploadDesMainImg(s){
 							name="activityStartTime" class="" id="activityStartTime"
 							placeholder=""> -<input type="text"
 							name="activityEndTime" class="" id="activityEndTime"
-							placeholder=""><input type="radio" name="type" id="type" value="0">需要报名
+							placeholder=""><input type="radio" name="type" id="type" value="0">需要报名<br>
+							报名上限<input type="text" id="maxCount" >
 							<input type="checkbox" name="checkbox" class="options" value="姓名">姓名
 							<input type="checkbox" name="checkbox" class="options" value="电话">电话
 							<input type="checkbox" name="checkbox" class="options" value="公司">公司
@@ -466,7 +467,8 @@ function uploadDesMainImg(s){
 					"province":$("#pro").find("option:selected").text(),
 					"city":$("#city").find("option:selected").text(),
 					"address":address,
-					"desMainImg":desMainImg
+					"desMainImg":desMainImg,
+					"maxCount":$("#maxCount").val(),
 					
 				},
 				success : function(result) {
