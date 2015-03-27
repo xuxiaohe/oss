@@ -30,8 +30,7 @@
 						<tr>
 							<th>报名人</th>
 							<th>电话</th>
-							<th>公司</th>
-							<th>职位</th>
+							<th>地址</th>
 							<th>报名时间</th>
 						</tr>
 					</thead>
@@ -43,8 +42,7 @@
 						<tr>
 							<td>${Recourse.name }</td>
 							<td>${Recourse.phone }</td>
-							<td>${Recourse.company }</td>
-							<td>${Recourse.job }</td>
+							<td>${Recourse.address }</td>
 							<td><Date:date value="${Recourse.ctime}"></Date:date></td>
 						</tr>
 					</c:forEach>

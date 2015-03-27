@@ -275,7 +275,7 @@ function uploadDesMainImg(s){
 							name="activityStartTime" class="" id="activityStartTime"
 							placeholder=""> -<input type="text"
 							name="activityEndTime" class="" id="activityEndTime"
-							placeholder=""><input type="radio" name="type" id="type" value="0">需要报名<br>
+							placeholder="">格式：yyyy-MM-dd hh:mm<input type="radio" name="type" id="type" value="0">需要报名<br>
 							报名上限<input type="text" id="maxCount" >
 							<input type="checkbox" name="checkbox" class="options" value="姓名">姓名
 							<input type="checkbox" name="checkbox" class="options" value="电话">电话
@@ -287,7 +287,7 @@ function uploadDesMainImg(s){
 							name="optionStartTime" class="" id="optionStartTime"
 							placeholder=""> -<input type="text"
 							name="optionEndTime" class="" id="optionEndTime"
-							placeholder=""> 
+							placeholder=""> 格式：yyyy-MM-dd hh:mm
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">简介</label> <textarea id="intro" class="form-control" rows="" cols=""></textarea>
