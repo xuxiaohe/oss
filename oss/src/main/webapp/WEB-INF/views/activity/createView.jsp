@@ -444,6 +444,14 @@ function uploadDesMainImg(s){
 		var company=$.trim($("#company").val());
 		var optionStartTime=$.trim($("#optionStartTime").val());
 		var optionEndTime=$.trim($("#optionEndTime").val());
+		if(optionStartTime==""||optionEndTime==""||activityStartTime==""||activityEndTime==""){
+			alert("活动时间不可以空！！！！");
+			return false;
+		}
+		if(type==0&&$("#maxCount").val()==""){
+			alert("报名上限不可以空！！！！");
+			return false;
+		}
 		var address=$.trim($("#address").val());
 		if($("#pro").val()==''){
 			alert('请选择省份');
