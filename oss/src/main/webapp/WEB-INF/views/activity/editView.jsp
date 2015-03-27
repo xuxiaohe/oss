@@ -276,13 +276,21 @@ function uploadDesMainImg(s){
 							name="activityStartTime" class="" id="activityStartTime" 
 							value="<Date:date value='${activityjson.data.result.activityStartTime}'></Date:date>">-
 							<input type="text" name="activityEndTime" class="" id="activityEndTime"
-							value="<Date:date value='${activityjson.data.result.activityStartTime}'></Date:date>">
-							<input type="radio" name="type" id="type" value="0">需要报名<br>
+							value="<Date:date value='${activityjson.data.result.activityStartTime}'></Date:date>"><br>
+							需要报名
+							<c:choose>
+							<c:when test="${activityjson.data.result.type==0}">
+							<input type="radio" name="type" id="type" checked="checked">
+							</c:when>
+							<c:otherwise>
+							<input type="radio" name="type" id="type" >
+							</c:otherwise>
+							</c:choose>
 							报名上限<input type="text" id="maxCount"  value="${activityjson.data.result.maxCount}">
-							<input type="checkbox" name="checkbox" class="options" value="姓名">姓名
+							<!-- <input type="checkbox" name="checkbox" class="options" value="姓名">姓名
 							<input type="checkbox" name="checkbox" class="options" value="电话">电话
 							<input type="checkbox" name="checkbox" class="options" value="公司">公司
-							<input type="checkbox" name="checkbox" class="options" value="职位">职位
+							<input type="checkbox" name="checkbox" class="options" value="职位">职位 -->
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">报名时间</label> <input type="text"
