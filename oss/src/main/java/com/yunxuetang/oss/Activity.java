@@ -103,7 +103,10 @@ public class Activity extends BaseController{
 		map.put("address", address);
 		map.put("options", options);
 		map.put("desMainImg", desMainImg);
-		map.put("maxCount", maxCount);
+		if(!StringUtil.isBlank(maxCount)){
+			map.put("maxCount", maxCount);
+		}
+		
 		HttpUtil.sendPost(Config.YXTSERVER3+"oss/activity/create", map);
 		String cpath = request.getContextPath();
 		//String Config.YXTSERVER5 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
