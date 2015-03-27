@@ -100,7 +100,7 @@
 							<td>${Recourse.creater }</td>
 							<td><Date:date value="${Recourse.adTime}"></Date:date></td>
 							<td>${Recourse.ccount }</td>
-							<td ><a  target="_Blank" href="a=${Recourse.adId }">?a=${Recourse.adId }</a></td>
+							<td ><%-- <a  target="_Blank" href="a=${Recourse.adId }"> --%>?a=${Recourse.adId }<!-- </a> --></td>
 							<td><button class="detailBtn" data="${Recourse.adSellerId}">详情</button></td>
 						</tr>
 					</c:forEach>
