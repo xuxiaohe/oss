@@ -87,8 +87,8 @@ public class Activity extends BaseController{
 			map.put("id", id);
 		}
 		map.put("name", name);
-		map.put("activityStartTime", DateUtil.toLongtime(activityStartTime)+"");
-		map.put("activityEndTime", DateUtil.toLongtime(activityEndTime)+"");
+		map.put("activityStartTime", DateUtil.toLongtimeHM(activityStartTime)+"");
+		map.put("activityEndTime", DateUtil.toLongtimeHM(activityEndTime)+"");
 		map.put("type", type);
 		map.put("intro", intro);
 		map.put("des", des);
@@ -96,8 +96,8 @@ public class Activity extends BaseController{
 		map.put("mainImg", mainImg);
 		map.put("price", price);
 		map.put("company", company);
-		map.put("optionStartTime", DateUtil.toLongtime(optionStartTime)+"");
-		map.put("optionEndTime", DateUtil.toLongtime(optionEndTime)+"");
+		map.put("optionStartTime", DateUtil.toLongtimeHM(optionStartTime)+"");
+		map.put("optionEndTime", DateUtil.toLongtimeHM(optionEndTime)+"");
 		map.put("province", province);
 		map.put("city", city);
 		map.put("address", address);
