@@ -255,7 +255,7 @@ function uploadDesMainImg(s){
 	<div class="container-fluid">
 		<ol class="breadcrumb">
 			<li><a href="#">活动管理</a></li>
-			<li><a href="${cbasePath}adSeller/adPage">活动列表</a></li>
+			<li><a href="${cbasePath}activity/activityPage">活动列表</a></li>
 			 
 			<li class="active">活动创建</li>
 		</ol>
@@ -275,12 +275,14 @@ function uploadDesMainImg(s){
 							name="activityStartTime" class="" id="activityStartTime"
 							placeholder=""> -<input type="text"
 							name="activityEndTime" class="" id="activityEndTime"
-							placeholder="">格式：yyyy-MM-dd hh:mm<input type="radio" name="type" id="type" value="0">需要报名<br>
-							报名上限<input type="text" id="maxCount" >
-							<input type="checkbox" name="checkbox" class="options" value="姓名">姓名
+							placeholder="">格式：yyyy-MM-dd hh:mm<br>
+							需要报名
+							<input type="radio" name="type" id="type" >
+							报名上限<input type="text" id="maxCount"  ">
+							<!-- <input type="checkbox" name="checkbox" class="options" value="姓名">姓名
 							<input type="checkbox" name="checkbox" class="options" value="电话">电话
 							<input type="checkbox" name="checkbox" class="options" value="公司">公司
-							<input type="checkbox" name="checkbox" class="options" value="职位">职位
+							<input type="checkbox" name="checkbox" class="options" value="职位">职位 -->
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">报名时间</label> <input type="text"
