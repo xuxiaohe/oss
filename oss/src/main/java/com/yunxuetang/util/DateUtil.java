@@ -11,4 +11,10 @@ public class DateUtil {
 		Date date=dateformat.parse(time);
 		return date.getTime();
 	}
+	public static long  toLongtimeHM(String time) throws ParseException{
+		SimpleDateFormat dateformat = new SimpleDateFormat(
+				"yyyy-MM-dd hh:mm");
+		Date date=dateformat.parse(time);
+		return date.getTime();
+	}
 }
