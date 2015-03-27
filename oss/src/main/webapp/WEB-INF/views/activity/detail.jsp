@@ -27,9 +27,9 @@
 			<p >报名时间：<Date:date value="${activity.data.result.optionStartTime}"></Date:date>-<Date:date value="${activity.data.result.optionEndTime}"></Date:date></p>
 			<p >活动类型：<c:choose>
 			<c:when test="${activity.data.result.type == 0}">
-			需要报名 报名必选项 :<c:forEach items="${activity.data.result.options}" varStatus="key" var="Recourse">
+			需要报名 <%-- 报名必选项 :<c:forEach items="${activity.data.result.options}" varStatus="key" var="Recourse">
 				${Recourse },
-			</c:forEach>
+			</c:forEach> --%>
 			</c:when>
 			<c:otherwise>
 			不需要报名
