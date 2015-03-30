@@ -34,7 +34,7 @@ public class Activity extends BaseController{
 	 * @throws
 	 */
 	@RequestMapping("/activityPage")
-	public ModelAndView adPage(HttpServletRequest request,String qdName,String qdId,String ctime,String etime,Integer s ,Integer n) {
+	public ModelAndView adPage(HttpServletRequest request,String keywords,String qdName,String qdId,String ctime,String etime,Integer s ,Integer n) {
 		ModelAndView mv=new ModelAndView("activity/activityList");
 		Map<String, Object>pMap=new HashMap<String, Object>();
 		try {
@@ -62,12 +62,14 @@ public class Activity extends BaseController{
 			}
 			pMap.put("ctime", time1+"");
 			pMap.put("etime", time2+"");
+			pMap.put("keywords", keywords);
 			String resString=HttpUtil.sendPost(Config.YXTSERVER3+"oss/activity/activityPage", pMap);
 			JSONObject object=JSONObject.fromObject(resString);
 			
 			String cpath = request.getContextPath();
 			String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 			mv.addObject("cbasePath", cbasePath);
+			mv.addObject("keywords", keywords);
 			mv.addObject("sourcePath", Config.YXTSERVER5);
 			mv.addObject("activityList",object);
 			return mv;

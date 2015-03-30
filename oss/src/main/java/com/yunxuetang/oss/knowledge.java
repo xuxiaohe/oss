@@ -52,13 +52,15 @@ public class knowledge extends BaseController{
 		if (s == null) {
 			s = "10";
 		}
+		String keywords=request.getParameter("keywords");
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("knowledgeList", getCourses( n, s));
+		modelview.addObject("knowledgeList", getCourses( n, s,keywords));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.addObject("keywords",keywords );
 		modelview.setViewName("knowledge/knowledgeList");
 		return modelview;
 	}
@@ -156,8 +158,8 @@ public class knowledge extends BaseController{
 		UUID uuid=UUID.randomUUID();
 		return temp+uuid.toString()+"."+ext;
 	}
-	private JSONObject getCourses(String n,String s) {
-		String url = Config.YXTSERVER3 + "oss/knowledge/knowledgeList?n="+n+"&s="+s;
+	private JSONObject getCourses(String n,String s,String keywords) {
+		String url = Config.YXTSERVER3 + "oss/knowledge/knowledgeList?n="+n+"&s="+s+"&keywords="+keywords;
 		return getRestApiData(url);
 	}
 	private JSONObject verifyKnowledge(String id,String status) {
