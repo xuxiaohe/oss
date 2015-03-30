@@ -23,6 +23,7 @@
 				<li><a href="#">批量创建</a></li>
 				<li><a href="${cbasePath}user/importUserView">用户导入</a></li>
 				<li><a href="${cbasePath}user/roboitList">马甲用户列表</a></li> --%>
+				<li><a href="${cbasePath }knowledge/knowledgeList">未审核知识</a></li>
 				<li class="divider"></li>
 			</ul>
 		</div>

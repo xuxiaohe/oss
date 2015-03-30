@@ -21,54 +21,17 @@
 		<jsp:include page="header.jsp"></jsp:include>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<%-- <form class="form-inline" role="form" action="">
-				<div class="col-xs-6">
-					<div class="form-group form-group-sm">
-						<label style="width: 200px;" >开始日期：</label>
-						<input type="text" class="form-control datein" placeholder="2015-02-03" name="ctime" value="${ctime}">
+			<form class="form-inline" action="${cbasePath}activity/activityPage"
+					method="get" role="form">
+					<div class="form-group">
+						<label class="sr-only" for="keyword">Search:</label> <input
+							class="form-control" id="keywords" name="keywords"
+							placeholder="Enter keyword" value="${keywords}">
 					</div>
-					</div>
-					<div class="col-xs-6">
-					<div class="form-group form-group-sm">
-						<label style="width: 200px;">结束日期：</label>
-						<input type="text" class="form-control" name="etime"  id="etime" placeholder="2015-02-03"  value="${etime}">
-					</div>
-				</div>
-				
-				<div class="col-xs-6" style="margin-top:15px;">
-					<div class="form-group form-group-sm">
-						<label style="width: 200px;">渠道名称：</label>
-						<input type="text" class="form-control" name="qdName" id="qdName" value="${qdName}">
-					</div>
-				</div>
-				
-				<div class="col-xs-6" style="margin-top:15px;">
-					<div class="form-group form-group-sm">
-						<label style="width: 200px;">渠道ID：</label>
-						<input type="text" class="form-control" name="qdId" id="qdId"  value="${qdId}">
-					</div>
-				</div>
-				<div class="col-xs-6 pull-left text-right" style="margin-top:15px;">
-					<button type="submit" class="btn btn-primary">筛选</button>
-				</div>
-				
-				<div class="col-xs-6 pull-left text-right" style="margin-top:15px;">
-					<button type="button" class="btn btn-primary" onclick="exportcsv();">导出</button>
-				</div>
-				<script>
-					function exportcsv(){
-						 var ctime=$("#ctime").val();
-						 var etime=$("#etime").val();
-						 var qdName=$("#qdName").val();
-						 var qdId=$("#qdId").val();
-							$.post("export",{"ctime":ctime,"etime":etime,"qdId":qdId,"qdName":qdName},function(data){
-								alert(data.url);
-								top.location.href=data.url;
-							});
-					}
-				</script>
-			</form> --%>
-				
+
+					<button id="searchIt" type="submit" class="btn btn-default">Search
+						it!</button>
+				</form> 
 				<c:if test="${activityList.status == '200'}">
 						<div class="col-xs-12">
 				<hr />
@@ -111,7 +74,7 @@
 						<pageNation:PageNation currPage="${activityList.data.curr_page}"
 							totalPages="${activityList.data.page_rows}" perPageRows="10"
 							totalRows="${activityList.data.total_rows}"
-							linkBaseUrl="${cbasePath}activity/activityPage?">
+							linkBaseUrl="${cbasePath}activity/activityPage?keywords=${keywords }">
 						</pageNation:PageNation>
 					</ul>
 

@@ -26,27 +26,31 @@ $.noConflict();
 <body>
 
 	<div class="container-fluid">
-	<%-- <jsp:include page="header.jsp"></jsp:include> --%>
+	<jsp:include page="header.jsp"></jsp:include>
+		<ol class="breadcrumb">
+			<li><a href="#">知识管理管理</a></li>
+			<li class="active"><a href="#">未审核知识</a></li>
+		</ol>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<%-- <form class="form-inline" action="${cbasePath}course/searchCourse"
+				<form class="form-inline" action="${cbasePath}knowledge/knowledgeList"
 					method="get" role="form">
 					<div class="form-group">
 						<label class="sr-only" for="keyword">Search:</label> <input
-							class="form-control" id="keyword" name="keyword"
-							placeholder="Enter keyword" value="${keyword}">
+							class="form-control" id="keywords" name="keywords"
+							placeholder="Enter keyword" value="${keywords}">
 					</div>
 
 					<button id="searchIt" type="submit" class="btn btn-default">Search
 						it!</button>
-				</form> --%>
+				</form> 
 				<c:if test="${knowledgeList.status == '200'}">
 					<nav> <!-- 分页开始 -->
 					<ul class="pagination">
 						<pageNation:PageNation currPage="${knowledgeList.data.curr_page}"
 							totalPages="${knowledgeList.data.page_rows}" perPageRows="10"
 							totalRows="${knowledgeList.data.total_rows}"
-							linkBaseUrl="${cbasePath}knowledge/knowledgeList?">
+							linkBaseUrl="${cbasePath}knowledge/knowledgeList?keywords=${keywords }">
 						</pageNation:PageNation>
 					</ul>
 
@@ -100,7 +104,7 @@ $.noConflict();
 						<pageNation:PageNation currPage="${knowledgeList.data.curr_page}"
 							totalPages="${knowledgeList.data.page_rows}" perPageRows="10"
 							totalRows="${knowledgeList.data.total_rows}"
-							linkBaseUrl="${cbasePath}knowledge/knowledgeList?">
+							linkBaseUrl="${cbasePath}knowledge/knowledgeList?keywords=${keywords }">
 						</pageNation:PageNation>
 					</ul>
 
