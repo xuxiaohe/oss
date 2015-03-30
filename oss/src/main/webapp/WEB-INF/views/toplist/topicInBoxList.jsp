@@ -82,7 +82,7 @@
 
 
 								<div class="col-xs-12 btn-group-sm">
-								<a href="${cbasePath}area/unbindBox?boxPostId=${id}&boxId=${Recourse.boxId}&name=${name}&type=${type}">
+								<a href="${cbasePath}area/unbindBoxBygroup?boxPostId=${id}&sourceid=${Recourse.topicId}&name=${name}&type=${type}">
 									<button data="${Recourse.id}" type="button"
 										class="deleteBtn btn btn-primary">取消关联该排行榜</button>
 										</a>

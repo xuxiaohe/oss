@@ -75,6 +75,12 @@
 								<div class="col-xs-12 btn-group-sm">
 									<button data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">删除</button>
 								</div>
+								<c:if test="${Recourse.review==false}">
+									<a 
+										class="btn btn-success" href="${cbasePath}group/checkGroup?gid=${Recourse.id}">
+										审核群组通过 </a>
+									<%-- <button data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">关联群组</button> --%>
+									</c:if>
 
 							</div>
 						</div>

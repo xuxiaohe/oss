@@ -85,8 +85,11 @@
 
 
 								<div class="col-xs-12 btn-group-sm">
-									<button data="${Recourse.id}" type="button"
+									<a
+							href="${cbasePath}category/deleteSecondCategoryFormDetail?cid=${Recourse.id }&fid=${categoryDetail.data.result.id}"><button data="${Recourse.id}" type="button"
 										class="deleteBtn btn btn-primary">删除</button>
+										</a>
+										
 										<a
 							href="${cbasePath}category/updateSecondCategoryForm?id=${Recourse.id }">
 										<button data="${Recourse.id}" type="button"

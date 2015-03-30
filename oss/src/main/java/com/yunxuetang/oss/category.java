@@ -1,6 +1,8 @@
 package com.yunxuetang.oss;
 
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -353,27 +355,25 @@ public class category extends BaseController {
 	 * 删除二级分类
 	 */
 	@RequestMapping("/deleteSecondCategoryFormDetail")
-	public ModelAndView deleteSecondCategoryFormDetail(HttpServletRequest request) {
-		// 当前第几页
-		String n = request.getParameter("n");
-		if (n == null) {
-			n = "0";
-		}
-		// 每页条数
-		String s = request.getParameter("s");
-
-		if (s == null) {
-			s = "10";
-		}
+	public String  deleteSecondCategoryFormDetail(HttpServletRequest request) {
+		String cid = request.getParameter("cid");
+		String fid = request.getParameter("fid");
 		ModelAndView modelview = new ModelAndView();
-
-		modelview.addObject("courses", null);
+		deletesecond(cid);
+		 
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		modelview.setViewName("course/courseListNoShare");
-		return modelview;
+		return "redirect:/category/categoryDetail?id="+fid;
+	}
+	
+	
+	private JSONObject deletesecond(String cid) {
+		String url = Config.YXTSERVER3 + "oss/category/deleteSecond";
+		Map<String, String> map=new HashMap<String, String>();
+		map.put("categoryid", cid);
+		return getRestApiData(url,map);
 	}
 
 	private JSONObject categoryList() {

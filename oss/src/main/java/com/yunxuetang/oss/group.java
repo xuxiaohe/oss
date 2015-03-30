@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.yunxuetang.util.Config;
 import com.yunxuetang.util.Saveimage;
 
@@ -1209,6 +1210,33 @@ public class group extends BaseController {
 		modelview.setViewName("group/groupBoxList");
 		return modelview;
 	}
+	
+	
+	/**
+	 * 
+	 * 话题审核
+	 */
+	@RequestMapping("/checkGroup")
+	public String checkCourse(HttpServletRequest request) {
+		 
+		String dryid = request.getParameter("gid");
+		//排行榜id
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+	 
+		modelview.addObject("addDryBoxList", checkcourse(dryid));
+		
+		return "redirect:/group/groupList";
+	}
+	
+	private JSONObject checkcourse(String groupid) {
+		String url = Config.YXTSERVER3 + "oss/group/groupChecked?gid=" + groupid;
+		return getRestApiData(url);
+	}
+	
 	
 	private JSONObject bindBoxDry(String boxPostId,String sourceType,String sourceId,String ctime) {
 		String url = Config.YXTSERVER3 + "oss/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId+"&ctime="+ctime;

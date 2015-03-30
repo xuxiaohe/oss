@@ -52,9 +52,10 @@
 
 
 								<div class="col-xs-12 btn-group-sm">
+								<a href="${cbasePath}category/categoryDetail?id=${Recourse.id}">
 									<button data="${Recourse.id}" type="button"
 										class="deleteBtn btn btn-primary">删除</button>
-										
+										</a>
 										<button data="${Recourse.id}" type="button"
 										class="info btn btn-primary">详情</button>
 									 

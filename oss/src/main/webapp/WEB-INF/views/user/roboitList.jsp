@@ -38,7 +38,7 @@
 						<pageNation:PageNation currPage="${resuserList.data.curr_page}"
 							totalPages="${resuserList.data.page_rows}" perPageRows="10"
 							totalRows="${resuserList.data.total_rows}"
-							linkBaseUrl="${cbasePath}user/userList?">
+							linkBaseUrl="${cbasePath}user/roboitList?">
 						</pageNation:PageNation>
 					</ul>
 
@@ -104,7 +104,7 @@
 						<pageNation:PageNation currPage="${resuserList.data.curr_page}"
 							totalPages="${resuserList.data.page_rows}" perPageRows="10"
 							totalRows="${resuserList.data.total_rows}"
-							linkBaseUrl="${cbasePath}user/userList?">
+							linkBaseUrl="${cbasePath}user/roboitList?">
 						</pageNation:PageNation>
 					</ul>
 
