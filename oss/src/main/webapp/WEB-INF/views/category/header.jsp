@@ -19,6 +19,7 @@
 			</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="${cbasePath}category/createFirstCategoryForm">创建一级分类</a></li>
+				<li><a href="${cbasePath }category/categoryBoxDetail">二级分类与推荐绑定</a></li>
 				<!-- <li><a href="#">用户导入</a></li> -->
 				<li class="divider"></li>
 			</ul>
