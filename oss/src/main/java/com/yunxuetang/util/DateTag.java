@@ -22,16 +22,26 @@ public class DateTag extends TagSupport {
 	public int doStartTag() throws JspException {
 		String vv = "" + value;
 		long time = Long.valueOf(vv);
-		Calendar c = Calendar.getInstance();
-		c.setTimeInMillis(time);
-		SimpleDateFormat dateformat = new SimpleDateFormat(
-				"yyyy-MM-dd");
-		String s = dateformat.format(c.getTime());
-		try {
-			pageContext.getOut().write(s);
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(time!=0){
+			Calendar c = Calendar.getInstance();
+			c.setTimeInMillis(time);
+			SimpleDateFormat dateformat = new SimpleDateFormat(
+					"yyyy-MM-dd");
+			String s = dateformat.format(c.getTime());
+			try {
+				pageContext.getOut().write(s);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else{
+			try {
+				pageContext.getOut().write("------");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 		return super.doStartTag();
 	}
 
