@@ -13,7 +13,7 @@ public class Config {
 	// 标签服务
 	public static String YXTSERVER4 = "http://s1.xuewen.yunxuetang.com:8161/";
 	public static String WIKERSERVER = "http://s1.xuewen.yunxuetang.com:8089/";
-	public static String QDANSERVER = "http://s1.xuewen.yunxuetang.com:8092/";
+	public static String QDANSERVER = "http://bj.api.qd.ztiao.cn/";
 	public static String ACCESS_KEY = "PN6SV6Fm-Ueu-D8NYN_NfJwpPuedsQALNKmwL_IQ";
 	public static String SECRET_KEY = "O6sBs8dw9cJjamEx2d6vgY1sXnPnIlg5Nsn6CwPH";
 }
