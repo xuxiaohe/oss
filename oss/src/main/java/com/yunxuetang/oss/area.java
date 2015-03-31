@@ -221,6 +221,11 @@ public class area extends BaseController{
 			modelview.addObject("addDryBoxList", courseInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "activity");
 		}
+		if(type.equals("category")){
+			path="categoryInBoxList";
+			modelview.addObject("addDryBoxList", courseInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "category");
+		}
 		modelview.setViewName("toplist/"+path);
 		return modelview;
 	}
