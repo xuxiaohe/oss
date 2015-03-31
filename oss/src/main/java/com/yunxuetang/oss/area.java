@@ -59,7 +59,7 @@ public class area extends BaseController{
 		l.add("group");
 		l.add("course");
 		l.add("activity");
-		
+		l.add("category");
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -152,6 +152,10 @@ public class area extends BaseController{
 		if(type.equals("activity")){
 			path="activityInBoxList";
 			modelview.addObject("addDryBoxList", activityInBox(id,pagenumber,pagelines));
+		}
+		if(type.equals("category")){
+			path="categoryInBoxList";
+			modelview.addObject("addDryBoxList", categoryInBox(id,pagenumber,pagelines));
 		}
 		modelview.setViewName("toplist/"+path);
 		return modelview;
@@ -334,7 +338,10 @@ public class area extends BaseController{
 		String url = Config.YXTSERVER3 + "oss/box/activityInBox?boxPostId=" + boxPostId+"&n="+n+"&s="+s;
 		return getRestApiData(url);
 	}
-	
+	private JSONObject categoryInBox(String boxPostId,String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/box/categoryInBox?boxPostId=" + boxPostId+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
 	
 	private JSONObject drycargoInBox(String boxPostId,String n,String s) {
 		String url = Config.YXTSERVER3 + "oss/box/drycargoInBox?boxPostId=" + boxPostId+"&n="+n+"&s="+s;

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -400,4 +401,149 @@ public class category extends BaseController {
 		String url = Config.YXTSERVER3 + "category/update?id=" + id + "&logoUrl=" + logoUrl + "&categoryName=" + categoryName;
 		return getRestApiData(url);
 	}
+	
+	
+//推荐
+	@RequestMapping("/categoryBoxDetail")
+	public ModelAndView categoryBoxDetail(HttpServletRequest request) {
+		 
+		String type = "category";
+		
+		JSONObject objj = dryboxpost(type);
+		
+		JSONObject objj2 =objj.getJSONObject("data");
+		
+		JSONArray objj3 =objj2.getJSONArray("result");
+		
+		JSONObject objj4=(JSONObject) objj3.get(0);
+		
+		String objj5=objj4.getString("id");
+		String objj6=objj4.getString("chinaName");
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", objj);
+		modelview.addObject("name", objj6);
+		modelview.addObject("id", objj5);
+		modelview.addObject("addDryBoxList", getCategoryboxlist(objj5,"0","10"));
+		modelview.setViewName("category/categoryBoxList");
+		return modelview;
+	}
+	
+	private JSONObject dryboxpost(String type) {
+		String url = Config.YXTSERVER3 + "oss/box/getBoxPostByType?type=" + type;
+		return getRestApiData(url);
+	}
+	private JSONObject getCategoryboxlist(String boxPostId,String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/box/categoryListNotInBoxPost?boxPostId="+boxPostId+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	
+	
+	/**
+	 * 
+	 * 群组关联到具体的排行榜
+	 */
+	@RequestMapping("/bindBoxCategory")
+	public ModelAndView bindBoxActivity(HttpServletRequest request) {
+		String type = "category";
+		String sourceType = "category";
+		String name = request.getParameter("name");
+		//位置id
+		String boxPostId = request.getParameter("boxPostId");
+		//干货id
+		String sourceId = request.getParameter("sourceId");
+		/*String ctime = request.getParameter("ctime"); */
+		String ctime=System.currentTimeMillis()+"";
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("addDryBoxList", bindBoxCategory(boxPostId, sourceType, sourceId,ctime));
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		modelview.addObject("name", name);
+		modelview.addObject("id", boxPostId);
+		modelview.addObject("addDryBoxList", getCategoryboxlist( boxPostId,"0","10"));
+		
+		modelview.setViewName("category/categoryBoxList");
+		return modelview;
+	}
+	private JSONObject bindBoxCategory(String boxPostId,String sourceType,String sourceId,String ctime) {
+		String url = Config.YXTSERVER3 + "oss/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId+"&ctime="+ctime;
+		return getRestApiData(url);
+	}
+	
+	/**
+	 * 
+	 * 查询未关联排行版的干货列表
+	 */
+	@RequestMapping("/categoryBoxList")
+	public ModelAndView categoryBoxList(HttpServletRequest request) {
+		 
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		
+		String type = "category";
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		modelview.addObject("name", name);
+		modelview.addObject("id", id);
+		modelview.addObject("addDryBoxList", getCategoryboxlist(id,pagenumber,pagelines));
+		modelview.setViewName("category/categoryBoxList");
+		return modelview;
+	}
+	
+	/**
+	 * 
+	 * 查询未关联排行版的干货列表
+	 */
+	@RequestMapping("/searchCategoryBoxList")
+	public ModelAndView searchActivityBoxList(HttpServletRequest request) {
+		 
+		String keyword = request.getParameter("keyword");
+		String boxPostId = request.getParameter("id");
+		
+		String type = "category";
+		 
+		String name = request.getParameter("name");
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		
+		modelview.addObject("addDryBoxposition", dryboxpost(type));
+		modelview.addObject("name", name);
+		modelview.addObject("id", boxPostId);
+		modelview.addObject("addDryBoxList", getcategoryboxlistNotIn( boxPostId, keyword));
+		modelview.setViewName("category/categoryBoxList");
+		return modelview;
+	}
+	
+	private JSONObject getcategoryboxlistNotIn(String boxPostId,String keyword) {
+		String url = Config.YXTSERVER3 + "oss/box/searchcategoryListNotInBoxPost?boxPostId="+boxPostId+"&keyword="+keyword;
+		return getRestApiData(url);
+	}
+	
+	
 }
