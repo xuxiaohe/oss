@@ -304,6 +304,111 @@ public class area extends BaseController{
 		return "redirect:/area/BoxDryList?type="+type;
 	}
 	
+	
+	
+	/**
+	 * 
+	 * 修改权重页面
+	 */
+	@RequestMapping("/updateweightsortform")
+	public ModelAndView updateweightsortform(HttpServletRequest request) {
+		String type = request.getParameter("type");
+		 
+		String name = request.getParameter("name");
+		//位置id
+		String boxPostId = request.getParameter("boxPostId");
+		//排行榜id
+		String sourceid = request.getParameter("sourceid");
+		 
+		String weightSort = request.getParameter("weightSort");
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		
+		//updateweightsort(boxPostId, sourceid, weightsort);
+		
+		modelview.addObject("name", name);
+		modelview.addObject("boxPostId", boxPostId);
+		modelview.addObject("sourceid", sourceid);
+		modelview.addObject("type", type);
+		modelview.addObject("weightSort", weightSort);
+		modelview.setViewName("toplist/updateweightsortForm");
+		return modelview;
+	}
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * 修改权重
+	 */
+	@RequestMapping("/updateweightsort")
+	public ModelAndView updateweightsort(HttpServletRequest request) {
+		String path=null;
+		String type = request.getParameter("type");
+		 
+		String name = request.getParameter("name");
+		//位置id
+		String boxPostId = request.getParameter("boxPostId");
+		//排行榜id
+		String sourceid = request.getParameter("sourceid");
+		String weightSort = request.getParameter("weightSort");
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		
+		updateweightsort(boxPostId, sourceid, weightSort);
+		
+		modelview.addObject("name", name);
+		modelview.addObject("id", boxPostId);
+		
+		if(type.equals("dry")){
+			path="dryInBoxList";
+			modelview.addObject("addDryBoxList", drycargoInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "dry");
+		}
+		if(type.equals("topic")){
+			path="topicInBoxList";
+			modelview.addObject("addDryBoxList", topicInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "topic");
+		}
+		if(type.equals("group")){
+			path="groupInBoxList";
+			modelview.addObject("addDryBoxList", groupInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "group");
+		}
+		if(type.equals("course")){
+			path="courseInBoxList";
+			modelview.addObject("addDryBoxList", courseInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "course");
+		}
+		
+		if(type.equals("activity")){
+			path="activityInBoxList";
+			modelview.addObject("addDryBoxList", activityInBox(boxPostId,"0","10"));
+			modelview.addObject("type", "activity");
+		}
+		
+		modelview.setViewName("toplist/"+path);
+		return modelview;
+	}
+	
+	private JSONObject updateweightsort(String postid,String sourceid,String weightsort) {
+		String url = Config.YXTSERVER3 + "oss/box/updateweightSort?postId=" + postid+"&sourceId="+sourceid+"&weightSort="+weightsort;
+		return getRestApiData(url);
+	}
+	
+	
+	
 	private JSONObject deleteBoxPost(String boxId) {
 		String url = Config.YXTSERVER3 + "oss/box/deleteBoxPost?id=" + boxId;
 		return getRestApiData(url);
