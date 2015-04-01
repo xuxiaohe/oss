@@ -62,7 +62,25 @@
 							name="content" class="form-control" id="exampleInputEmail1"
 							value="${resuserTopic.data.result.content }" placeholder="">
 					</div>
-
+					<div class="form-group">
+						<label for="exampleInputEmail1">话题分类</label>
+						<select  class="form-control" id="categorySelect" name="categoryId">
+						
+							<c:forEach items="${categoryList}" var="cate">
+								<option <c:if test="${cate.id == resuserTopic.data.result.categoryId}">selected</c:if>  value="${cate.id}">${cate.categoryName}</option>
+							</c:forEach> 
+						</select>
+						原群组分类为：${currCategory.data.result.categoryName}
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail1">二级分类</label>
+						<select class="form-control" id="childCategorySelect" name="childCategoryId">
+							<c:forEach items="${currCategory.data.result.childCategory}" var="cate">
+								<option <c:if test="${cate.id == resuserTopic.data.result.childCategoryId}">selected</c:if> value="${cate.id}" >${cate.categoryName}</option>
+							</c:forEach>
+						</select>
+						原群组二级分类为：${currChildCategory.data.result.categoryName}
+					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">如果修改请上传话题图片(支持JPEG,JPG,PNG)</label> <input
 							id="file" type="file" name="file" />
@@ -88,6 +106,29 @@
 
 				}
 			});
+			//二级分类联动
+			$("#categorySelect").change(function(){
+				//
+				var categoryId = $("#categorySelect").val();
+				if(categoryId != ''){
+					$.ajax({
+						url : '${cbasePath}category/getChildCategory',
+						data : {'categoryId' : categoryId},
+						type : 'post',
+						dataType : 'json',
+						success : function(result){
+							var categorys = result.data.result.childCategory;
+							var $childCategorySelect = $("#childCategorySelect");
+							$childCategorySelect.empty();
+							$.each(categorys, function(index, content){
+								if(content.id != ''){
+									$childCategorySelect.append("<option value='" + content.id + "'>" + content.categoryName + "</option>");
+								}
+							});
+						}
+					});
+				}
+			});	
 		});
 	</script>
 </body>
