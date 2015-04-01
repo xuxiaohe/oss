@@ -98,11 +98,27 @@ public class dry extends BaseController {
 
 		try {
 			JSONObject objj3 = getOneDry(dryid);
+			JSONObject ttt = objj3.getJSONObject("data").getJSONObject("result");
+			/**
+			 * 获取一级分类列表
+			 * */
+			JSONObject category = categoryList();
+			JSONArray categoryList = category.getJSONObject("data").getJSONArray("result");
+			
+			/**
+			 * 当前课程的分类
+			 * */
+			JSONObject currCategory = categoryDetail(ttt.getString("categoryId"));
+			JSONObject currChildCategory = categoryDetail(ttt.getString("childCategoryId"));
 
 			String url = objj3.getJSONObject("data").getJSONObject("result").getString("url");
 			url = URLDecoder.decode(url, "utf-8");
 
 			modelview.addObject("url", url);
+			
+			modelview.addObject("currCategory", currCategory);//干货的当前分类信息
+			modelview.addObject("currChildCategory", currChildCategory);
+			modelview.addObject("categoryList", categoryList);//一级分类列表
 			if (userid != null) {
 				modelview.addObject("resuserDetail", getUserDetail(userid));
 
@@ -130,6 +146,8 @@ public class dry extends BaseController {
 		String dryid = request.getParameter("dryid");
 		String userid = request.getParameter("userid");
 		String fileUrl = request.getParameter("fileUrl");
+		String categoryId = request.getParameter("categoryId");
+		String childCategoryId = request.getParameter("childCategoryId");
 
 		try {
 			String t[]=file.getContentType().split("/");
@@ -168,6 +186,8 @@ public class dry extends BaseController {
 			m.put("fileUrl", URLEncoder.encode(fileUrl, "utf-8"));
 			m.put("message", message);
 			m.put("description", description);
+			m.put("categoryId", categoryId);
+			m.put("childCategoryId", childCategoryId);
 			edit(dryid, m);
 		} catch (RestClientException e1) {
 			// TODO Auto-generated catch block
@@ -1160,7 +1180,7 @@ public class dry extends BaseController {
 	}
 
 	private JSONObject edit(String dryid, Map m) {
-		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryid + "&fileUrl=" + m.get("fileUrl") + "&message=" + m.get("message")+ "&description=" + m.get("description");
+		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryid + "&fileUrl=" + m.get("fileUrl") + "&message=" + m.get("message")+ "&description=" + m.get("description") + "&categoryId=" + m.get("categoryId") + "&childCategoryId" + m.get("childCategoryId");
 		return getRestApiData(url);
 	}
 
@@ -1272,4 +1292,17 @@ public class dry extends BaseController {
 		return getRestApiData(url);
 	}
 
+	
+	/**
+	 * 以下为分类相关方法
+	 * */
+	private JSONObject categoryList() {
+		String url = Config.YXTSERVER3 + "category/all";
+		return getRestApiData(url);
+	}
+
+	private JSONObject categoryDetail(String id) {
+		String url = Config.YXTSERVER3 + "category/one?categoryId=" + id;
+		return getRestApiData(url);
+	}
 }

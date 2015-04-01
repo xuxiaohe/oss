@@ -233,8 +233,24 @@ public class topic extends BaseController {
 		String topicid = request.getParameter("topicid");
 
 		ModelAndView modelview = new ModelAndView();
-
-		modelview.addObject("resuserTopic", getOneTopic(topicid));
+		JSONObject resuserTopic = getOneTopic(topicid);
+		JSONObject ttt = resuserTopic.getJSONObject("data").getJSONObject("result");
+		/**
+		 * 获取一级分类列表
+		 * */
+		JSONObject category = categoryList();
+		JSONArray categoryList = category.getJSONObject("data").getJSONArray("result");
+		
+		/**
+		 * 当前课程的分类
+		 * */
+		JSONObject currCategory = categoryDetail(ttt.getString("categoryId"));
+		JSONObject currChildCategory = categoryDetail(ttt.getString("childCategoryId"));
+		
+		modelview.addObject("resuserTopic", resuserTopic);
+		modelview.addObject("currCategory", currCategory);//群的当前分类信息
+		modelview.addObject("currChildCategory", currChildCategory);
+		modelview.addObject("categoryList", categoryList);//一级分类列表
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -298,6 +314,8 @@ public class topic extends BaseController {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String picUrl = request.getParameter("picUrl");
+		String categoryId = request.getParameter("categoryId");
+		String childCategoryId = request.getParameter("childCategoryId");
 		try {
 			String t[]=file.getContentType().split("/");
 			String tt="."+t[1];
@@ -325,7 +343,7 @@ public class topic extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateTopicByGroup", updateTopicByGroup(topicid, title, content, picUrl));
+		modelview.addObject("rescreateTopicByGroup", updateTopicByGroup(topicid, title, content, picUrl, categoryId, childCategoryId));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -1037,9 +1055,9 @@ public class topic extends BaseController {
 		return getRestApiData(url);
 	}
 
-	private JSONObject updateTopicByGroup(String topicid, String title, String content, String picUrl) {
+	private JSONObject updateTopicByGroup(String topicid, String title, String content, String picUrl, String categoryId, String childCategoryId) {
 		String url = Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicId=" + topicid + "&title=" + title + "&content=" + content + "&picUrl="
-				+ picUrl;
+				+ picUrl + "&categoryId=" + categoryId + "&childCategoryId=" + childCategoryId;
 		return getRestApiData(url);
 	}
 
@@ -1131,5 +1149,16 @@ public class topic extends BaseController {
 		
 		
 	}
-	
+	/**
+	 * 以下为分类相关方法
+	 * */
+	private JSONObject categoryList() {
+		String url = Config.YXTSERVER3 + "category/all";
+		return getRestApiData(url);
+	}
+
+	private JSONObject categoryDetail(String id) {
+		String url = Config.YXTSERVER3 + "category/one?categoryId=" + id;
+		return getRestApiData(url);
+	}
 }

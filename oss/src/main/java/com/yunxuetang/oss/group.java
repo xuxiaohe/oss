@@ -1,6 +1,7 @@
 package com.yunxuetang.oss;
 
 import java.io.InputStream;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -182,10 +184,25 @@ public class group extends BaseController {
 
 			JSONObject tt = (JSONObject) objj.get("data");
 			JSONObject ttt = (JSONObject) tt.get("result");
-
+			/**
+			 * 获取一级分类列表
+			 * */
+			JSONObject category = categoryList();
+			JSONArray categoryList = category.getJSONObject("data").getJSONArray("result");
+			
+			/**
+			 * 当前课程的分类
+			 * */
+			JSONObject currCategory = categoryDetail(ttt.getString("categoryId"));
+			JSONObject currChildCategory = categoryDetail(ttt.getString("childCategoryId"));
+			
+			
 			JSONArray t = ttt.getJSONArray("owner");
-
+			
 			String tttt = t.get(0).toString();
+			modelview.addObject("currCategory", currCategory);//群的当前分类信息
+			modelview.addObject("currChildCategory", currChildCategory);
+			modelview.addObject("categoryList", categoryList);//一级分类列表
 			modelview.addObject("Group", getGroupInfo(id));
 			modelview.addObject("resupdateGroupView", objj);
 			modelview.addObject("resOwner", tttt);
@@ -200,6 +217,8 @@ public class group extends BaseController {
 		modelview.setViewName("group/updateGroupForm");
 		return modelview;
 	}
+	
+	
 
 	/**
 	 * 
@@ -218,6 +237,19 @@ public class group extends BaseController {
 		String intro = request.getParameter("intro");
 		String tag = request.getParameter("tag");
 		String logoUrl = request.getParameter("logoUrl");
+		
+		//群组分类
+		String categoryId = request.getParameter("categoryId");
+//		String oldCatagoryId = request.getParameter("oldCatagoryId");
+//		if(!categoryId.equals(oldCatagoryId)){
+//			categoryId = oldCatagoryId;
+//		}
+		
+		String childCategoryId = request.getParameter("childCategoryId");
+//		String oldChildCatagoryId = request.getParameter("oldChildCatagoryId");
+//		if(!childCategoryId.equals(oldChildCatagoryId)){
+//			childCategoryId = oldChildCatagoryId;
+//		}
 		try {
 
 			if (file.getSize()!=0) {
@@ -248,7 +280,7 @@ public class group extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 
 		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/" + gid + "/update?uid=" + uid + "&intro=" + intro + "&tag="
-				+ tag + "&logoUrl=" + logoUrl + "&groupName=" + groupName + "&bgUrl=" + bgUrl, null, String.class);
+				+ tag + "&logoUrl=" + logoUrl + "&groupName=" + groupName + "&bgUrl=" + bgUrl + "&categoryId=" + categoryId + "&childCategoryId=" + childCategoryId, null, String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -1344,6 +1376,19 @@ public class group extends BaseController {
 	
 	private JSONObject categorySecondList(String categoryType,String parentId) {
 		String url = Config.YXTSERVER3 + "category/allSecond?categoryType="+categoryType+"&parentId="+parentId;
+		return getRestApiData(url);
+	}
+	
+	/**
+	 * 以下为分类相关方法
+	 * */
+	private JSONObject categoryList() {
+		String url = Config.YXTSERVER3 + "category/all";
+		return getRestApiData(url);
+	}
+
+	private JSONObject categoryDetail(String id) {
+		String url = Config.YXTSERVER3 + "category/one?categoryId=" + id;
 		return getRestApiData(url);
 	}
 

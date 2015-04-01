@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -321,6 +322,15 @@ public class category extends BaseController {
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("category/categoryDetail");
 		return modelview;
+	}
+	
+	/**
+	 * 获取二级分类
+	 * */
+	@RequestMapping("/getChildCategory")
+	public @ResponseBody JSONObject getChildCategoryById(HttpServletRequest request) {
+		JSONObject currChildCategory = categoryDetail(request.getParameter("categoryId"));
+		return currChildCategory;
 	}
 
 	/**
