@@ -78,7 +78,7 @@
 										${Recourse.title} </a><br> <small><small
 										class="pull-right">注册时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
-									<br>权重：${Recourse.sourceId.weightSort}			
+									<br>权重：${Recourse.weightSort}			
 								</h4>
 
 
@@ -89,8 +89,8 @@
 										</a> 
 										
 										<a
-										href="${cbasePath}area/updateweightsortform?boxPostId=${id}&sourceid=${Recourse.sourceId.id}&name=${name}&type=${type}&weightSort=${Recourse.sourceId.weightSort}">
-										<button data="${Recourse.id}" type="button"
+										href="${cbasePath}area/updateweightsortform?boxPostId=${id}&sourceid=${Recourse.topicId}&name=${name}&type=${type}&weightSort=${Recourse.weightSort}">
+										<button data="${Recourse.topicId}" type="button"
 											class="deleteBtn btn btn-primary">修改排序权重</button>
 									</a>
 
