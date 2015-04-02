@@ -199,7 +199,65 @@ public class course extends BaseController {
 		return modelview;
 	}
 	
+	@RequestMapping("/updateView")
+	public ModelAndView updateCourseView(HttpServletRequest request){
+		String cid = request.getParameter("cid");
+		ModelAndView modelview = new ModelAndView();
+		
+		JSONObject course = courseDetail(cid);
+		JSONObject ttt = course.getJSONObject("data").getJSONObject("result");
+		/**
+		 * 获取一级分类列表
+		 * */
+		JSONObject category = categoryList();
+		JSONArray categoryList = category.getJSONObject("data").getJSONArray("result");
+		
+		/**
+		 * 当前课程的分类
+		 * */
+		JSONObject currCategory = categoryDetail(ttt.getString("categoryId"));
+		JSONObject currChildCategory = categoryDetail(ttt.getString("childCategoryId"));
+		
+		modelview.addObject("courseDetail", course);
+		modelview.addObject("currCategory", currCategory);//群的当前分类信息
+		modelview.addObject("currChildCategory", currChildCategory);
+		modelview.addObject("categoryList", categoryList);//一级分类列表
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("course/updateCourseForm");
+		return modelview;
+	}
 	
+	
+	/**
+	 * 更新课程信息
+	 * @param cid 课程ID
+	 * @param categoryId 一级分类
+	 * @param childCategoryId 二级分类
+	 * @param title 标题
+	 * @param intro 详情
+	 * */
+	@RequestMapping("/updateCourse")
+	public String updateCourse(HttpServletRequest request){
+		String cid = request.getParameter("cid");
+		String title = request.getParameter("title");
+		String intro = request.getParameter("intro");
+		String categoryId = request.getParameter("categoryId");
+		String childCategoryId = request.getParameter("childCategoryId");
+		
+		
+		
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		
+		ModelAndView modelview = new ModelAndView();
+		modelview.addObject("updateResult", modifyCourse(cid, title, intro, categoryId, childCategoryId));
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		return "redirect:/course/courseList";
+	}
 	
 	/**
 	 * 
@@ -484,6 +542,11 @@ public class course extends BaseController {
 	
 	private JSONObject deleteCourses(String courseId) {
 		String url = Config.YXTSERVER3 + "oss/course/deleteCourse?cid="+courseId;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject modifyCourse(String cid, String title, String intro, String categoryId, String childCategoryId){
+		String url = Config.YXTSERVER3 + "oss/course/modifyCourse?cid="+cid + "&title=" + title + "&intro=" + intro + "&categoryId=" + categoryId + "&childCategoryId=" + childCategoryId;
 		return getRestApiData(url);
 	}
 	
@@ -790,6 +853,19 @@ public class course extends BaseController {
 	
 	private JSONObject bindBoxDry(String boxPostId,String sourceType,String sourceId,String ctime) {
 		String url = Config.YXTSERVER3 + "oss/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId+"&ctime="+ctime;
+		return getRestApiData(url);
+	}
+	
+	/**
+	 * 以下为分类相关方法
+	 * */
+	private JSONObject categoryList() {
+		String url = Config.YXTSERVER3 + "category/all";
+		return getRestApiData(url);
+	}
+
+	private JSONObject categoryDetail(String id) {
+		String url = Config.YXTSERVER3 + "category/one?categoryId=" + id;
 		return getRestApiData(url);
 	}
 }
