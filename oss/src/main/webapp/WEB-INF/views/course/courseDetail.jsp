@@ -47,6 +47,8 @@
 						</a> --%>
 						<!-- <button type="button" class="btn btn-warning btn-block">删除</button> -->
 						<hr />
+						<a href="${cbasePath}course/updateView?cid=${courseDetail.data.result.id}">
+						<button type="button" class="edit btn-warning btn-block">编辑</button></a><br>
 						<%-- <div id="btnGroupDiv" class="col-xs-12">
 							<a
 								href="${cbasePath}user/userTopic?userid=${courseDetail.data.result.id }">
