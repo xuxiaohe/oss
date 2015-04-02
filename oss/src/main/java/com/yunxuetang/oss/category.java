@@ -380,6 +380,65 @@ public class category extends BaseController {
 	}
 	
 	
+	
+	/**
+	 * 
+	 * 转换二级分类 
+	 */
+	@RequestMapping("/changeSecondCategoryAction")
+	public String  changeSecondCategoryAction(HttpServletRequest request) {
+		//旧二级分类
+		String oldid = request.getParameter("oldid");
+		//新二级分类
+		String newid = request.getParameter("newid");
+		//一级分类
+		String fid = request.getParameter("fid");
+		ModelAndView modelview = new ModelAndView();
+		changeSecond(oldid,newid);
+		 
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		return "redirect:/category/categoryDetail?id="+fid;
+	}
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * 转换二级分类  展示页
+	 */
+	@RequestMapping("/changeSecondCategoryForm")
+	public ModelAndView  changeSecondCategoryForm(HttpServletRequest request) {
+		//一级分类
+		String cid = request.getParameter("cid");
+		//二级分类
+		String oldid = request.getParameter("oldid");
+		ModelAndView modelview = new ModelAndView();
+		
+		 
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.addObject("categoryDetail", categoryDetail(cid));
+		modelview.addObject("categoryDetail2", categoryDetail(oldid));
+		modelview.addObject("fid", cid);
+		modelview.addObject("oldid", oldid);
+		modelview.setViewName("category/changecatgoryForm");
+		return modelview;
+	}
+	
+	
+	private JSONObject changeSecond(String oldid,String newid) {
+		String url = Config.YXTSERVER3 + "oss/category/changeSecond?oldcategoryid="+oldid+"&newcategoryid="+newid;
+		return getRestApiData(url);
+	}
+	
+	
 	private JSONObject deletesecond(String cid) {
 		String url = Config.YXTSERVER3 + "oss/category/deleteSecond";
 		Map<String, String> map=new HashMap<String, String>();
