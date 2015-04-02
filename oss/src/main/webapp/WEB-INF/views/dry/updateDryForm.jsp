@@ -57,9 +57,13 @@
 					</div>
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">信息</label> <input type="text"
+						<label for="exampleInputEmail1">信息</label> 
+						
+						<textarea name="message" class="form-control" rows="3" cols="20" value="${resuserTopic.data.result.message }">${resuserTopic.data.result.message }</textarea>
+						
+						<%-- <input type="text"
 							name="message" class="form-control" id="exampleInputEmail1"
-							value="${resuserTopic.data.result.message }" placeholder="">
+							value="${resuserTopic.data.result.message }" placeholder=""> --%>
 					</div>
 					
 					<div class="form-group">

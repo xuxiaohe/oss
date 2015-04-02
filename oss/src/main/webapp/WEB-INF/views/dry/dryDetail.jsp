@@ -82,6 +82,11 @@
 						</div>
 						<div class="col-xs-6">收藏人数统计：${dryDetail.data.result.favCount}
 						</div>
+						<%-- <div class="col-xs-6">URL：${dryDetail.data.result.url}
+						</div> --%>
+						<h4 style="margin-left: 12px;">
+							<div class="col-xs-6">URL：${dryDetail.data.result.url}</div>
+						</h4>
 						<br><br><br><br><br>
 						
 						

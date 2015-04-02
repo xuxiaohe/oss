@@ -84,9 +84,13 @@
 					</div>
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">信息</label> <input type="text"
+						<label for="exampleInputEmail1">信息</label> 
+						
+						<textarea name="message" class="form-control" rows="3" cols="20"></textarea>
+						
+						<!-- <input type="text"
 							name="message" class="form-control" id="exampleInputEmail1"
-							placeholder="">
+							placeholder=""> -->
 					</div>
 					
 					<div class="form-group">
