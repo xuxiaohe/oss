@@ -316,6 +316,9 @@ public class topic extends BaseController {
 		String picUrl = request.getParameter("picUrl");
 		String categoryId = request.getParameter("categoryId");
 		String childCategoryId = request.getParameter("childCategoryId");
+		if("null".equals(picUrl)){
+			picUrl="";
+		}
 		try {
 			String t[]=file.getContentType().split("/");
 			String tt="."+t[1];

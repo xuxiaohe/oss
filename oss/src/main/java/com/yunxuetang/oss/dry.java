@@ -149,6 +149,9 @@ public class dry extends BaseController {
 		String categoryId = request.getParameter("categoryId");
 		String childCategoryId = request.getParameter("childCategoryId");
 
+		if("null".equals(fileUrl)){
+			fileUrl="";
+		}
 		try {
 			String t[]=file.getContentType().split("/");
 			String tt="."+t[1];
