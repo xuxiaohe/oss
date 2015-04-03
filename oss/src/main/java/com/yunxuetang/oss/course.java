@@ -546,7 +546,7 @@ public class course extends BaseController {
 	}
 	
 	private JSONObject modifyCourse(String cid, String title, String intro, String categoryId, String childCategoryId){
-		String url = Config.YXTSERVER3 + "oss/course/modifyCourse?cid="+cid + "&title=" + title + "&intro=" + intro + "&categoryId=" + categoryId + "&childCategoryId=" + childCategoryId;
+		String url = Config.YXTSERVER3 + "oss/course/modifyCourse?id="+cid + "&title=" + title + "&intro=" + intro + "&categoryId=" + categoryId + "&childCategoryId=" + childCategoryId;
 		return getRestApiData(url);
 	}
 	

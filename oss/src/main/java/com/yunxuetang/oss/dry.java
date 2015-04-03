@@ -1180,7 +1180,7 @@ public class dry extends BaseController {
 	}
 
 	private JSONObject edit(String dryid, Map m) {
-		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryid + "&fileUrl=" + m.get("fileUrl") + "&message=" + m.get("message")+ "&description=" + m.get("description") + "&categoryId=" + m.get("categoryId") + "&childCategoryId" + m.get("childCategoryId");
+		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryid + "&fileUrl=" + m.get("fileUrl") + "&message=" + m.get("message")+ "&description=" + m.get("description") + "&categoryId=" + m.get("categoryId") + "&childCategoryId=" + m.get("childCategoryId");
 		return getRestApiData(url);
 	}
 

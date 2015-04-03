@@ -47,7 +47,7 @@
 			<div class="col-xs-9">
 				<%-- <a href="${url }" target="_blank">${resuserTopic.data.result.message }</a> --%>
 				<form role="form" method="post"
-					action="${cbasePath}course/updateCourse?cid=${resuserTopic.data.result.id}"
+					action="${cbasePath}course/updateCourse?cid=${courseDetail.data.result.id}"
 					enctype="multipart/form-data">
 
 
@@ -59,7 +59,7 @@
 
 					<div class="form-group">
 						<label for="exampleInputEmail1">课程信息</label> <input type="text"
-							name="content" class="form-control" id="exampleInputEmail1"
+							name="intro" class="form-control" id="exampleInputEmail1"
 							value="${courseDetail.data.result.intro }" placeholder="">
 					</div>
 					<div class="form-group">
