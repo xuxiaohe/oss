@@ -1,5 +1,6 @@
 package com.yunxuetang.oss;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,15 +41,25 @@ public class tag extends BaseController{
 	
 	/**
 	 * 标签详情
+	 * @throws UnsupportedEncodingException 
 	 * */
 	@RequestMapping("/detailView")
-	public ModelAndView tagDetails(HttpServletRequest request){
-		String tid = request.getParameter("tid");
-		String type = request.getParameter("type");
-		String domain = Config.YXTDOMAIN;
-		JSONObject tag = getTagDetail(tid, type, domain);
+	public ModelAndView tagDetails(HttpServletRequest request) throws UnsupportedEncodingException{
+		request.setCharacterEncoding("utf-8");
+//		String tid = request.getParameter("tid");
+//		String type = request.getParameter("type");
+//		String domain = Config.YXTDOMAIN;
+		HashMap<String, String> tag = new HashMap<String, String>();
+		tag.put("tid", request.getParameter("tid"));
+		tag.put("tagName", request.getParameter("tagName"));
+		tag.put("tagNameLowCase", request.getParameter("tagNameLowCase"));
+		tag.put("type", request.getParameter("type"));
+		tag.put("status", request.getParameter("status"));
+		tag.put("score", request.getParameter("score"));
+		
+//		JSONObject tag = getTagDetail(tid, type, domain);
 		ModelAndView modelview = new ModelAndView();
-		System.out.println(tag.toString());
+//		System.out.println(tag.toString());
 		modelview.addObject("tagDetail", tag);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -64,10 +75,16 @@ public class tag extends BaseController{
 	@RequestMapping("/updateView")
 	public ModelAndView updateView(HttpServletRequest request){
 		String tid = request.getParameter("tid");
-		String type = request.getParameter("type");
-		String domain = Config.YXTDOMAIN;
-		JSONObject tag = getTagDetail(tid, type, domain);
+		String tagName = request.getParameter("tagName");
+		String score = request.getParameter("score");
+//		String type = request.getParameter("type");
+//		String domain = Config.YXTDOMAIN;
+//		JSONObject tag = getTagDetail(tid, type, domain);
 		ModelAndView modelview = new ModelAndView();
+		HashMap<String, String> tag = new HashMap<String, String>();
+		tag.put("tid", tid);
+		tag.put("tagName", tagName);
+		tag.put("score", score);
 		modelview.addObject("tagDetail", tag);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -86,7 +103,7 @@ public class tag extends BaseController{
 		String newTagName = request.getParameter("newTagName");
 		String domain = Config.YXTDOMAIN;
 		JSONObject result = updateTag(oldTagName, newTagName, domain);
-		
+		System.out.println(result.toString());
 		ModelAndView modelview = new ModelAndView();
 		modelview.addObject("tag", result);
 		String cpath = request.getContextPath();
@@ -94,6 +111,20 @@ public class tag extends BaseController{
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		return "redirect:/tag/tagList";
+	}
+	
+	/**
+	 * 添加标签页面
+	 * */
+	@RequestMapping("/addTagView")
+	public ModelAndView addTagView(HttpServletRequest request){
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("tag/addTag");
+		return modelview;
 	}
 	
 	/**
@@ -136,8 +167,8 @@ public class tag extends BaseController{
 	private JSONObject updateTag(String oldTagName, String newTagName, String domain){
 		String url = Config.YXTSERVER4 + "tag/editBaseTag";
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("itemId", oldTagName);
-		params.put("itemType", newTagName);
+		params.put("oldTagName", oldTagName);
+		params.put("newTagName", newTagName);
 		params.put("domain", domain);
 		return getRestApiData(url, params);
 	}
