@@ -88,9 +88,9 @@
 								</div>
 								<div class="col-xs-4">
 								
-									注册方式：
-									<c:if test="${Recourse.registType == '01'}">
-									手机注册用户
+								注册方式：
+								<c:if test="${Recourse.registType == '01'}">
+								手机注册用户
 								</c:if>
 								<c:if test="${Recourse.registType == '02'}">
 								邮箱注册用户
