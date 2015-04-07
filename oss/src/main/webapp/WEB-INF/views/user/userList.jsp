@@ -86,6 +86,25 @@
 								<div class="col-xs-4">
 									用户编号：${Recourse.userNumber}
 								</div>
+								<div class="col-xs-4">
+								
+									注册方式：
+									<c:if test="${Recourse.registType == '01'}">
+									手机注册用户
+								</c:if>
+								<c:if test="${Recourse.registType == '02'}">
+								邮箱注册用户
+								</c:if>
+								<c:if test="${Recourse.registType == '11'}">
+								QQ第三方登录
+								</c:if>
+								<c:if test="${Recourse.registType == '12'}">
+								微信第三方登录
+								</c:if>
+								<c:if test="${Recourse.registType == '13'}">
+								新浪微博第三方登录
+								</c:if>
+								</div>
 								<div class="col-xs-12">
 									介绍：${Recourse.intro}
 								</div>
