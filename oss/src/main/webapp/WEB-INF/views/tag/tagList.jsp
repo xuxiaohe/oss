@@ -9,10 +9,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head lang="en">
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
 <title>用户管理</title>
-<script src="${sourcePath}/resources/assets/js/jquery.min.js"></script>
-<script src="${sourcePath}/resources/assets/js/bootstrap.min.js"></script>
 <link href="${sourcePath}/resources/assets/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="${sourcePath}/resources/assets/css/font.css" rel="stylesheet">
@@ -24,7 +22,7 @@
 		<jsp:include page="header.jsp"></jsp:include>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<form class="form-inline" action="${cbasePath}dry/dryList"
+				<form class="form-inline" action="${cbasePath}tag/tagList"
 					method="get" role="form">
 					<div class="form-group">
 						<label class="sr-only" for="keyword">Search:</label> <input
@@ -51,7 +49,6 @@
 					<%-- ${fn:length(tags.data.result)} --%>
 					<c:forEach items="${tags.data.result.content}" varStatus="key"
 						var="Recourse">
-
 						<div class="row" style="padding: 20px;">
 							<div class="col-xs-1">
 								<h5 style="margin-top: 40px;">
@@ -61,14 +58,15 @@
 
 							<div class="col-xs-10">
 								<h4 style="margin-left: 12px;">
-									<a href="${cbasePath}tag/detailView?tid=${Recourse.id}&type=${Recourse.tagType}">${Recourse.tagName}</a>
+									<%-- <a href="${cbasePath}tag/detailView?tid=${Recourse.id}&type=${Recourse.type}&tagName=${Recourse.tagName}&tagNameLowCase=${Recourse.tagNameLowCase}&status=${Recourse.status}&score=${Recourse.score}">${Recourse.tagName}</a> --%>
+									<a href="#" onclick="javascript:loadDetail('${cbasePath}tag/detailView', '${Recourse.id}', '${Recourse.tagType}', '${Recourse.tagName}', '${Recourse.tagNameLowCase}', '${Recourse.status}', '${Recourse.score}')">${Recourse.tagName}</a>
 								</h4>
 
 								<div class="col-xs-12 btn-group-sm">
-									<button data="${Recourse.id}" type="button"
-										class="deleteBtn btn btn-primary">删除</button>
+										<button data="${Recourse.id}" type="button" 
+										class="deleteBtn btn btn-primary" onclick="javascript:toUpdate('${cbasePath}tag/updateView', '${Recourse.id}', '${Recourse.tagName}', '${Recourse.score}')">编辑</button>
 										
-										<button data="${Recourse.id}" type="button"
+										<button data="${Recourse.id}" type="button" onclick="javascript:loadDetail('${cbasePath}tag/detailView', '${Recourse.id}', '${Recourse.tagType}', '${Recourse.tagName}', '${Recourse.tagNameLowCase}', '${Recourse.status}', '${Recourse.score}')"
 										class="info btn btn-primary">详情</button>
 								</div>
 
@@ -89,7 +87,34 @@
 			</div>
 		</div>
 	</div>
-	<script>
+	<script src="${sourcePath}/resources/assets/js/jquery.min.js"></script>
+	<script type="text/javascript">
+		function loadDetail(url, tid, type, tagName, tagNameLowCase, status, score){
+			$.ajax({
+				url : url,
+				data : {'tid' : tid, 'type' : type, 'tagName' : tagName, 'tagNameLowCase' : tagNameLowCase, 'status' : status, 'score' : score},
+				type : 'post',
+				success : function(data){
+					$("html").empty().html(data);
+				}
+				
+			}); 
+			//jQuery.post(url,{'tid' : tid, 'type' : type, 'tagName' : tagName, 'tagNameLowCase' : tagNameLowCase, 'status' : status, 'score' : score});
+			//$("#mainFrame").load(url,  {'tid' : tid, 'type' : type, 'tagName' : tagName, 'tagNameLowCase' : tagNameLowCase, 'status' : status, 'score' : score});
+		}
+		
+		function toUpdate(url, tid, tagName, score){
+			$.ajax({
+				url : url,
+				data : {'tid' : tid, 'tagName' : tagName,  'score' : score},
+				type : 'post',
+				success : function(data){
+					$("html").empty().html(data);
+				}
+				
+			}); 
+		}
+		
 	</script>
 </body>
 </html>

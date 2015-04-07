@@ -18,7 +18,7 @@
 				标签管理 <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="${cbasePath}dry/createDryByGroupView">添加标签</a></li>
+				<li><a href="${cbasePath}tag/addTagView">添加标签</a></li>
 				<%-- <li><a href="${cbasePath}dry/catchDryByGroupView">干货抓取</a></li> --%>
 				<%-- <li><a href="${cbasePath}dry/addDryBoxForm">干货排行榜创建</a></li>
 				<li><a href="${cbasePath}dry/BoxDryList">干货排行榜管理</a></li> --%>

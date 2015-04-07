@@ -39,9 +39,8 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-xs-2">
-						<a href="${cbasePath}tag/updateView?tid=${tagDetail.data.result.id }">
-						<button type="button" class="btn btn-warning btn-block">编辑</button></a><br>
-						<button data="${tagDetail.data.result.id }" type="button" class="deleteBtn btn-warning btn-block">删除</button><br>
+						<a href="#">
+						<button type="button" class="btn btn-warning btn-block" onclick="javascript:toUpdate('${cbasePath}tag/updateView', '${tagDetail.id}', '${tagDetail.tagName}', '${tagDetail.score}')">编辑</button></a><br>
 						<%-- <div id="btnGroupDiv" class="col-xs-12">
 							<a
 								href="${cbasePath}user/userTopic?userid=${resuserDetail.data.result.id }">
@@ -59,11 +58,11 @@
 					</div>
 					<div id="userInfoDiv" class="col-xs-10" style="">
 						<h4 style="margin-left: 12px;">
-							${tagDetail.data.result.tagName}
+							标签名 : ${tagDetail.tagName}
 						</h4>
-						<div class="col-xs-6">LowCase：${tagDetail.data.result.tagNameLowCase}
+						<div class="col-xs-6">LowCase : ${tagDetail.tagNameLowCase}
 						</div>
-						<div class="col-xs-12">热度：${tagDetail.data.result.score}
+						<div class="col-xs-12">热度 : ${tagDetail.score}
 						</div>
 						
 						
@@ -78,25 +77,18 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		$(function() {
-			/* $("#searchIt").click(function(){
-				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
-			}); */
-			
-			$(".deleteBtn")
-			.click(
-					function() {
-						if (window.confirm('你确定要删除吗？')) {
-							//alert("${cbasePath}dry/deleteDry?dryid="+$(this).attr("data"));
-							 window.location.href = "${cbasePath}dry/deleteDry?dryid="+ $(this).attr("data");
-						} else {
-
-						}
-					});
-			
-			
-		});
+	<script type="text/javascript">
+		function toUpdate(url, tid, tagName, score){
+			$.ajax({
+				url : url,
+				data : {'tid' : tid, 'tagName' : tagName,  'score' : score},
+				type : 'post',
+				success : function(data){
+					$("html").empty().html(data);
+				}
+				
+			}); 
+		}
 	</script>
 </body>
 </html>
