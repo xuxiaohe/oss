@@ -29,7 +29,8 @@ public class tag extends BaseController{
 		String s = request.getParameter("s");
 		if(StringUtil.isEmpty(n)) n = "0";
 		if(StringUtil.isEmpty(s)) s = "10";
-		JSONObject tags = getBaseTagList(n, s, "score", "DESC");
+		String keyWord = request.getParameter("keyWord");
+		JSONObject tags = getBaseTagList(n, s, "score", "DESC", keyWord);
 		modelview.addObject("tags", tags);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -146,13 +147,16 @@ public class tag extends BaseController{
 	}
 	
 	
-	private JSONObject getBaseTagList(String n, String s, String sort, String mode){
+	private JSONObject getBaseTagList(String n, String s, String sort, String mode, String keyWord){
 		String url = Config.YXTSERVER4 + "tag/searchTagList";
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("n", n);
 		params.put("s", s);
 		params.put("sort", sort);
 		params.put("mode", mode);
+		if(!StringUtil.isEmpty(keyWord)){
+			params.put("keyWord", keyWord);
+		}
 		return getRestApiData(url, params);
 	}
 	
