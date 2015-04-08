@@ -23,11 +23,11 @@
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<form class="form-inline" action="${cbasePath}tag/tagList"
-					method="get" role="form">
+					method="post" role="form">
 					<div class="form-group">
 						<label class="sr-only" for="keyword">Search:</label> <input
-							class="form-control" id="keyword" name="keyword"
-							placeholder="Enter keyword" value="${keyword}">
+							class="form-control" id="keyword" name="keyWord"
+							placeholder="Enter keyword" >
 					</div>
 
 					<button id="searchIt" type="submit" class="btn btn-default">Search

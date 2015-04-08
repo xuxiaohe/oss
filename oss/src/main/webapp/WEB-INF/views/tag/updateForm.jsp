@@ -46,7 +46,7 @@
 						<label for="exampleInputEmail1">标签名:</label> 
 						<input type="hidden" value="${tagDetail.tagName}" name="oldTagName">
 						<input type="text"
-							name="tagName" class="form-control" id="exampleInputEmail1" value="${tagDetail.tagName}" name="tagName"
+							 class="form-control" id="exampleInputEmail1" value="${tagDetail.tagName}" name="newTagName"
 							  placeholder="">
 					</div>
 					
