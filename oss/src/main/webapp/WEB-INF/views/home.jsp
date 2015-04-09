@@ -102,6 +102,9 @@ String cbasePath2 = "http://oss.ztiao.cn/oss";
                     <li role="presentation">
                         <a href="<%=cbasePath%>feedback/FeedBackList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>用户反馈信息</a>
                     </li>
+                    <%--  <li role="presentation">
+                        <a href="<%=cbasePath%>message/sendNormalForm" target="mainFrame"><span class="glyphicon glyphicon-star"></span>系统消息发送</a>
+                    </li> --%>
                 </ul>
             </div>
         </div>

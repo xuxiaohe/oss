@@ -316,6 +316,22 @@ public class topic extends BaseController {
 		String picUrl = request.getParameter("picUrl");
 		String categoryId = request.getParameter("categoryId");
 		String childCategoryId = request.getParameter("childCategoryId");
+		
+		String tagName = request.getParameter("tagName");
+
+		String tagNameArry[] = tagName.split(",");
+
+		List<String> ll = new ArrayList<String>();
+
+		for (String a : tagNameArry) {
+
+		ll.add("\"" + a + "\"");
+
+		}
+
+		String i = ll.toString();
+		
+		
 		if("null".equals(picUrl)){
 			picUrl="";
 		}
@@ -346,7 +362,7 @@ public class topic extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateTopicByGroup", updateTopicByGroup(topicid, title, content, picUrl, categoryId, childCategoryId));
+		modelview.addObject("rescreateTopicByGroup", updateTopicByGroup(topicid, title, content, picUrl, categoryId, childCategoryId,tagName));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -1058,9 +1074,9 @@ public class topic extends BaseController {
 		return getRestApiData(url);
 	}
 
-	private JSONObject updateTopicByGroup(String topicid, String title, String content, String picUrl, String categoryId, String childCategoryId) {
+	private JSONObject updateTopicByGroup(String topicid, String title, String content, String picUrl, String categoryId, String childCategoryId,String tagName) {
 		String url = Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicId=" + topicid + "&title=" + title + "&content=" + content + "&picUrl="
-				+ picUrl + "&categoryId=" + categoryId + "&childCategoryId=" + childCategoryId;
+				+ picUrl + "&categoryId=" + categoryId + "&childCategoryId=" + childCategoryId+ "&tagNames=" + tagName;
 		return getRestApiData(url);
 	}
 

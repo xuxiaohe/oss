@@ -31,6 +31,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -123,10 +124,38 @@ public class dry extends BaseController {
 				modelview.addObject("resuserDetail", getUserDetail(userid));
 
 			}
+			RestTemplate restTemplate = new RestTemplate();
+
+			String tag = restTemplate.getForObject(Config.YXTSERVER4
+
+			+ "tag/getTagsByIdAndType?domain=" + "yxtapp" + "&itemId="
+
+			+ dryid + "&itemType=6", String.class);
+
+			JSONObject objj = JSONObject.fromObject(tag);
+
+			JSONObject obss = objj.getJSONObject("data");
+
+			net.sf.json.JSONArray childs = obss.getJSONArray("result");
+			
+			String a="";
+			if(!("[]".equals(childs.toString()))){
+				for(Object j:childs){
+					
+					a+=j.toString();
+					
+				}
+			}
+		
+
+			modelview.addObject("tagname", a);
+			
 			modelview.addObject("resuserTopic", objj3);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -149,6 +178,21 @@ public class dry extends BaseController {
 		String categoryId = request.getParameter("categoryId");
 		String childCategoryId = request.getParameter("childCategoryId");
 
+		String tagName = request.getParameter("tagName");
+
+		String tagNameArry[] = tagName.split(",");
+
+		List<String> ll= new ArrayList<String>();
+
+		for (String a : tagNameArry) {
+
+			ll.add("\"" + a + "\"");
+
+		}
+
+		String i = ll.toString();
+		
+		
 		if("null".equals(fileUrl)){
 			fileUrl="";
 		}
@@ -191,6 +235,7 @@ public class dry extends BaseController {
 			m.put("description", description);
 			m.put("categoryId", categoryId);
 			m.put("childCategoryId", childCategoryId);
+			m.put("tagName", i);
 			edit(dryid, m);
 		} catch (RestClientException e1) {
 			// TODO Auto-generated catch block
@@ -1183,7 +1228,7 @@ public class dry extends BaseController {
 	}
 
 	private JSONObject edit(String dryid, Map m) {
-		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryid + "&fileUrl=" + m.get("fileUrl") + "&message=" + m.get("message")+ "&description=" + m.get("description") + "&categoryId=" + m.get("categoryId") + "&childCategoryId=" + m.get("childCategoryId");
+		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryid + "&fileUrl=" + m.get("fileUrl") + "&message=" + m.get("message")+ "&description=" + m.get("description") + "&categoryId=" + m.get("categoryId") + "&childCategoryId=" + m.get("childCategoryId")+"&tagName="+m.get("tagName");
 		return getRestApiData(url);
 	}
 

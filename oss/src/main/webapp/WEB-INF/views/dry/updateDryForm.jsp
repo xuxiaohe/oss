@@ -55,6 +55,12 @@
 						<label for="exampleInputEmail1">如果要修改请上传干货的图片</label>  
 						<input id="file" type="file" name="file" /> 
 					</div>
+					
+					<div class="form-group">
+						<label for="exampleInputEmail1">标签</label> <input type="text"
+							name="tagName" class="form-control" id="exampleInputEmail1"
+							placeholder="" value="${tagname}"> 例如：name,age,sex
+					</div>
 
 					<div class="form-group">
 						<label for="exampleInputEmail1">信息</label> 
@@ -65,6 +71,7 @@
 							name="message" class="form-control" id="exampleInputEmail1"
 							value="${resuserTopic.data.result.message }" placeholder=""> --%>
 					</div>
+					
 					
 					<div class="form-group">
 						<label for="exampleInputEmail1">干货详情</label> <input type="text"

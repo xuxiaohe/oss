@@ -56,6 +56,12 @@
 							name="title" class="form-control" id="exampleInputEmail1"
 							value="${resuserTopic.data.result.title }" placeholder="">
 					</div>
+					
+					<div class="form-group">
+						<label for="exampleInputEmail1">标签</label> <input type="text"
+							name="tagName" class="form-control" id="exampleInputEmail1"
+							placeholder="" value="${resuserTopic.data.result.tagNames }"> 例如：name,age,sex
+					</div>
 
 					<div class="form-group">
 						<label for="exampleInputEmail1">content</label> 

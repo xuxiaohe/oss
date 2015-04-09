@@ -67,7 +67,7 @@
 							</div>
 							<div class="col-xs-10">
 								<h4 style="margin-left: 12px;">
-									<a href="${cbasePath}dry/dryDetail?dryid=${Recourse.id}">
+									<a href="${cbasePath}xuanye/xuanyeDetail?dryid=${Recourse.id}">
 										${Recourse.message} </a><br> <small><small
 										class="pull-right">注册时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
@@ -89,7 +89,7 @@
 									<c:if test="${Recourse.review==false}">
 									<a 
 										class="btn btn-success" href="${cbasePath}xuanye/checkXuanye?xyid=${Recourse.id}">
-										审核干货通过 </a>
+										炫页干货通过 </a>
 									<%-- <button data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">关联群组</button> --%>
 									</c:if>
 								</div>
@@ -135,7 +135,7 @@
 					function() {
 						 
 							//alert("info");
-							window.location.href = "${cbasePath}dry/dryDetail?dryid="
+							window.location.href = "${cbasePath}xuanye/xuanyeDetail?dryid="
 									+ $(this).attr("data");
 						 
 					});

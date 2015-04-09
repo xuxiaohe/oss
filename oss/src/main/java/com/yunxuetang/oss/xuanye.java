@@ -1,5 +1,7 @@
 package com.yunxuetang.oss;
 
+import java.net.URLDecoder;
+
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONArray;
@@ -186,6 +188,41 @@ public class xuanye extends BaseController{
 		return modelview;
 	}
 	
+	
+	
+	/**
+	 * 干货详情
+	 */
+	@RequestMapping("/xuanyeDetail")
+	public ModelAndView dryDetail(HttpServletRequest request) {
+		// 当前第几页
+		String dryid = request.getParameter("dryid");
+
+		ModelAndView modelview = new ModelAndView();
+
+		try {
+			JSONObject objj3 = dryDetail(dryid);
+
+			String url = objj3.getJSONObject("data").getJSONObject("result").getString("url");
+			url = URLDecoder.decode(url, "utf-8");
+
+			modelview.addObject("url", url);
+
+			modelview.addObject("dryDetail", objj3);
+			modelview.addObject("resTopicPost", findPost(dryid));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("xuanye/xuanyeDetail");
+		return modelview;
+
+	}
+	
 	/**
 	 * 
 	 * 话题审核
@@ -207,6 +244,17 @@ public class xuanye extends BaseController{
 		
 		return "redirect:/xuanye/xuanyeList";
 	}
+	
+	private JSONObject dryDetail(String dryid) {
+		String url = Config.YXTSERVER3 + "oss/dry/getOneDry?dryid=" + dryid;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject findPost(String dryid) {
+		String url = Config.YXTSERVER3 + "oss/dry/searchAllPostAndSubPost?dryid=" + dryid;
+		return getRestApiData(url);
+	}
+	
 	
 	private JSONObject checkDry(String dryid) {
 		String url = Config.YXTSERVER3 + "oss/dry/dryChecked?dryid=" + dryid;
