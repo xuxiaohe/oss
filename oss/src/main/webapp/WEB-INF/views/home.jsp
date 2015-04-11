@@ -68,11 +68,11 @@ String cbasePath2 = "http://oss.ztiao.cn/oss";
                      <li role="presentation">
                         <a href="<%=cbasePath%>category/categoryList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>分类管理</a>
                     </li>
-                    <%--  <li role="presentation">
+                     <%-- <li role="presentation">
                         <a href="<%=cbasePath%>tools/uploadqiniuForm" target="mainFrame"><span class="glyphicon glyphicon-star"></span>图片上传</a>
                     </li> --%>
                     <li role="presentation">
-                        <a href="<%=cbasePath%>tools/allqiniufiles" target="mainFrame"><span class="glyphicon glyphicon-star"></span>图声审核</a>
+                        <a href="<%=cbasePath%>tools/allqiniufiles" target="mainFrame"><span class="glyphicon glyphicon-star"></span>图片审核</a>
                     </li>
                      <li role="presentation">
                         <a href="<%=cbasePath%>knowledge/knowledgeList?keywords=" target="mainFrame"><span class="glyphicon glyphicon-star"></span>知识管理</a>

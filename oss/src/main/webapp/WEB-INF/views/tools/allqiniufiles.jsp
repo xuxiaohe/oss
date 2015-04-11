@@ -25,45 +25,80 @@
 	<div class="container-fluid">
 
 		<ol class="breadcrumb">
-			<li><a href="#">干货仓库</a></li>
-			<li><a href="${cbasePath}dry/dryList">干货列表</a></li>
+			<li><a href="#">图片审核</a></li>
+			<%-- <li><a href="${cbasePath}dry/dryList">干货列表</a></li>
 			<li><a
 				href="${cbasePath}dry/dryDetail?dryid=${resuserTopic.data.result.id}">干货详情:
 			</a></li>
-			<li class="active">干货编辑</li>
+			<li class="active">干货编辑</li> --%>
 		</ol>
 
 		<div class="row">
 
-			点击图片查看图片地址 <br>
+			注：由于七牛服务器替换图片刷新需要时间跟浏览器缓存问题，可能替换完还显示原图片，稍等片刻并刷新下缓存即可显示更换后的图片。 <br><br>
 				 
      	
      			
 				<%-- <c:forEach items="${imageurls}" varStatus="key" var="img">
 					<img src="http://yxt-bj.qiniudn.com/${img}" alt="" />
 				</c:forEach> --%>
-				
+			<nav> <!-- 分页开始 -->
+					<ul class="pagination">
+						<pageNation:PageNation currPage="${currpage}"
+							totalPages="${pages}" perPageRows="10"
+							totalRows="${sum}"
+							linkBaseUrl="${cbasePath}tools/allqiniufilesforpages?">
+						</pageNation:PageNation>
+					</ul>
+
+					<!-- 分页结束 --> </nav>	
 				
 				<c:forEach items="${imageurls}"
 								varStatus="key" var="img">
 								
-								<div class="col-xs-2">
+								<%-- <div class="col-xs-2">
 									  <img src="http://yxt-bj.qiniudn.com/${img}"
 										onclick="sendurll('http://yxt-bj.qiniudn.com/${img}')" >
 										<br>
-										<%-- <div class="caption">
+										<div class="caption">
 											<p class="text-center">${group.nickName}</p>
 											<a
 								href="${cbasePath}group/kickGroupMenber?userId=${group.id }&gid=${gid}&ownerid=${ownerid}">
 								<button type="button" class="btn btn-success btn-block">踢出</button>
 							</a>
-										</div> --%>
+										</div>
 									 
-								</div>
-								
-							</c:forEach>
-		 
+								</div> --%>
 
+
+				<div class="row">
+					<div class="col-sm-6 col-md-4">
+						<div class="thumbnail">
+							<img src="http://yxt-bj.qiniudn.com/${img}" alt="...">
+							<div class="caption">
+								<!-- <h3>请审核改图片</h3> -->
+								<p>如违规请点击替换图片</p>
+								<p>图片地址：http://yxt-bj.qiniudn.com${img}</p>
+								<p>
+									<a href="${cbasePath}tools/checkandchange?url=http://yxt-bj.qiniudn.com${img}" class="btn btn-primary" role="button">替换图片</a> 
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</c:forEach>
+		 
+<nav> <!-- 分页开始 -->
+					<ul class="pagination">
+						<pageNation:PageNation currPage="${currpage}"
+							totalPages="${pages}" perPageRows="10"
+							totalRows="${sum}"
+							linkBaseUrl="${cbasePath}tools/allqiniufilesforpages?">
+						</pageNation:PageNation>
+					</ul>
+
+					<!-- 分页结束 --> </nav>	
 			
 			</div>
 		</div>
