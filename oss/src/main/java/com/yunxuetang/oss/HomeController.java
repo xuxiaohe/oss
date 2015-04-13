@@ -46,7 +46,7 @@ public class HomeController {
 		 
 	String password=	request.getParameter("password");	 
 		
-		 if("admin".equals(name)&&"123456".equals(password)){
+		 if("admin".equals(name)&&"oss123".equals(password)){
 		 
 			 request.getSession().setAttribute("name", name);
 			 return "home";
