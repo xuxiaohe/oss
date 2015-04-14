@@ -37,7 +37,17 @@
 
 			注：由于七牛服务器替换图片刷新需要时间跟浏览器缓存问题，可能替换完还显示原图片，稍等片刻并刷新下缓存即可显示更换后的图片。 <br><br>
 				 
-     	
+     	<form class="form-inline" action="${cbasePath}tools/serachpics"
+					method="get" role="form">
+					<div class="form-group">
+						<label class="sr-only" for="keyword">Search:</label> <input
+							class="form-control" id="keyword" name="keyword"
+							placeholder="Enter keyword" value="${keyword }">
+					</div>
+
+					<button id="searchIt" type="submit" class="btn btn-default">Search
+						it!</button>
+				</form>
      			
 				<%-- <c:forEach items="${imageurls}" varStatus="key" var="img">
 					<img src="http://yxt-bj.qiniudn.com/${img}" alt="" />

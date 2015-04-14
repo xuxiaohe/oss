@@ -135,6 +135,49 @@ public class tools {
 	
 }
 	
+
+	
+	
+	/**
+	 * 搜索七牛所有文件列表
+	 */
+	@RequestMapping("/serachpics")
+	public ModelAndView serachpics(HttpServletRequest request ) {
+		
+		String keyword = request.getParameter("keyword");
+		List l=new ArrayList();
+		for(Object a:imageurls){
+			if(("http://yxt-bj.qiniudn.com"+(String)a).equals(keyword)){
+				l.add(a);
+			}
+		}
+		//所有图片
+//		 List l=new ArrayList();
+//		for(int i=0;i<10;i++){
+//			l.add(imageurls.get(i));
+//		}
+//		 imageurls.get(0);
+		 //总数
+		 int sum=imageurls.size();
+		 //共有多少页
+		 int pages=sum/10+1;
+		 //当前为0页
+		 int currpage=1;
+		ModelAndView modelview = new ModelAndView();
+		modelview.addObject("imageurls",l);
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.addObject("sum", sum);
+		modelview.addObject("pages", pages);
+		modelview.addObject("currpage", currpage);
+		modelview.setViewName("tools/allqiniufiles");
+		return modelview;
+	
+}
+	
+	
 	
 	
 	/**
@@ -199,6 +242,9 @@ public class tools {
 		return modelview;
 	
 }
+	
+	
+	
 	
 	
 	
