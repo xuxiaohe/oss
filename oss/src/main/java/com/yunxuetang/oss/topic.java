@@ -40,7 +40,7 @@ public class topic extends BaseController {
 
 	// 删除话题
 	@RequestMapping("/deleteTopic")
-	public ModelAndView deleteTopic(HttpServletRequest request) {
+	public String deleteTopic(HttpServletRequest request) {
 		ModelAndView modelview = new ModelAndView();
 		String topicid = request.getParameter("topicid");
 
@@ -50,7 +50,8 @@ public class topic extends BaseController {
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("topic/show");
-		return modelview;
+		
+		return "redirect:/topic/topicList";
 	}
 
 	// 删除话题For User

@@ -59,7 +59,7 @@
 					<div class="form-group">
 						<label for="exampleInputEmail1">标签</label> <input type="text"
 							name="tagName" class="form-control" id="exampleInputEmail1"
-							placeholder="" value="${tagname}"> 例如：name,age,sex
+							placeholder="" value="${tagname.value}"> 例如：name,age,sex
 					</div>
 
 					<div class="form-group">

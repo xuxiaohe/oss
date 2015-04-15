@@ -128,7 +128,7 @@ public class dry extends BaseController {
 
 			String tag = restTemplate.getForObject(Config.YXTSERVER4
 
-			+ "tag/getTagsByIdAndType?domain=" + "yxtapp" + "&itemId="
+			+ "tag/getTagsByIdAndType?domain=" + "yxt" + "&itemId="
 
 			+ dryid + "&itemType=6", String.class);
 
@@ -138,17 +138,18 @@ public class dry extends BaseController {
 
 			net.sf.json.JSONArray childs = obss.getJSONArray("result");
 			
-			String a="";
-			if(!("[]".equals(childs.toString()))){
-				for(Object j:childs){
-					
-					a+=j.toString();
-					
-				}
-			}
+			JSONObject obss2 =(JSONObject) childs.get(0);
+//			String a="";
+//			if(!("[]".equals(childs.toString()))){
+//				for(Object j:childs){
+//					
+//					a+=j.toString();
+//					
+//				}
+//			}
 		
 
-			modelview.addObject("tagname", a);
+			modelview.addObject("tagname", obss2);
 			
 			modelview.addObject("resuserTopic", objj3);
 		} catch (Exception e) {
