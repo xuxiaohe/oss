@@ -122,6 +122,7 @@
 					});
 				}
 			});	
+			$("#categorySelect").change();
 		});
 	</script>
 </body>

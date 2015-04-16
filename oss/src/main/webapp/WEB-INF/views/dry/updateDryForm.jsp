@@ -144,7 +144,7 @@
 						});
 					}
 				});	
-			
+				$("#categorySelect").change();
 		});
 	</script>
 </body>

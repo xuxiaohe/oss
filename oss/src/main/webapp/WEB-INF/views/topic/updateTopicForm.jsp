@@ -140,6 +140,7 @@
 					});
 				}
 			});	
+			$("#categorySelect").change();
 		});
 	</script>
 </body>
