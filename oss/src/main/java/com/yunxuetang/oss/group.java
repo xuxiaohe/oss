@@ -196,6 +196,40 @@ public class group extends BaseController {
 			JSONObject currCategory = categoryDetail(ttt.getString("categoryId"));
 			JSONObject currChildCategory = categoryDetail(ttt.getString("childCategoryId"));
 			
+			RestTemplate restTemplate2 = new RestTemplate();
+
+			String tag = restTemplate2.getForObject(Config.YXTSERVER4
+
+			+ "tag/getTagsByIdAndType?domain=" + "yxt" + "&itemId="
+
+			+ id + "&itemType=3", String.class);
+			
+			JSONObject objj2 = JSONObject.fromObject(tag);
+
+			JSONObject obss = objj2.getJSONObject("data");
+
+			net.sf.json.JSONArray childs = obss.getJSONArray("result");
+			String tags2="";
+			int i=0;
+			if(childs.size()!=0){
+				for(Object o:childs){
+					if(i==0){
+						JSONObject p=(JSONObject) o;
+						tags2+=p.getString("value");
+					}
+					else{
+						JSONObject p=(JSONObject) o;
+						tags2+=","+p.getString("value");
+					}
+					i++;
+					
+				}
+				//JSONObject obss2 =(JSONObject) childs.get(0);
+				modelview.addObject("tagname", tags2);
+			}
+			else{
+				modelview.addObject("tagname", "");
+			}
 			
 			JSONArray t = ttt.getJSONArray("owner");
 			
@@ -279,7 +313,7 @@ public class group extends BaseController {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/" + gid + "/update?uid=" + uid + "&intro=" + intro + "&tag="
+		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/" + gid + "/update?uid=" + uid + "&intro=" + intro + "&tagName="
 				+ tag + "&logoUrl=" + logoUrl + "&groupName=" + groupName + "&bgUrl=" + bgUrl + "&categoryId=" + categoryId + "&childCategoryId=" + childCategoryId, null, String.class);
 
 		try {

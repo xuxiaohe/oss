@@ -81,7 +81,7 @@
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">群组标签</label> <input type="text"
-							name="tag" class="form-control" id="exampleInputEmail1">原群组标签为：${resupdateGroupView.data.result.tag }
+							name="tag" class="form-control" id="exampleInputEmail1" value="${tagname}"><%-- 原群组标签为：${tagname} --%>
 					</div>
 					<br>
 					<div class="form-group">
