@@ -64,6 +64,18 @@ public class knowledge extends BaseController{
 		modelview.setViewName("knowledge/knowledgeList");
 		return modelview;
 	}
+	@RequestMapping("/knowledgeDetail")
+	public ModelAndView knowledgeDetail(HttpServletRequest request) {
+		ModelAndView modelview = new ModelAndView();
+		String id=request.getParameter("id");
+		modelview.addObject("resuserDetail",getKnowledgeById(id));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("knowledge/knowledgeDetail");
+		return modelview;
+	}
 	/**
 	 * 
 	 * 审核知识
@@ -158,6 +170,10 @@ public class knowledge extends BaseController{
 		}
 		UUID uuid=UUID.randomUUID();
 		return temp+uuid.toString()+"."+ext;
+	}
+	private JSONObject getKnowledgeById(String id) {
+		String url = Config.YXTSERVER3 + "oss/knowledge/getKng?id="+id;
+		return getRestApiData(url);
 	}
 	private JSONObject getCourses(String n,String s,String keywords) {
 		String url = Config.YXTSERVER3 + "oss/knowledge/knowledgeList?n="+n+"&s="+s+"&keywords="+keywords;
