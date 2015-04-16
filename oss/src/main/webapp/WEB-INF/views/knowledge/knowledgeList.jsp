@@ -75,7 +75,7 @@ $.noConflict();
 							</div>
 							<div class="col-xs-10">
 								<h4 style="margin-left: 12px;">
-									<a href="${Recourse.furl}" target="_Blank">
+									<a href="${cbasePath}knowledge/knowledgeDetail?id=${Recourse.id}" >
 										${Recourse.name} </a><br> <small><small
 										class="pull-right">上传时间：：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
