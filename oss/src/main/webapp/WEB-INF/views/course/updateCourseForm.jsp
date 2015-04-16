@@ -65,21 +65,28 @@
 					<div class="form-group">
 						<label for="exampleInputEmail1">话题分类</label>
 						<select  class="form-control" id="categorySelect" name="categoryId">
-						
-							<c:forEach items="${categoryList}" var="cate">
-								<option <c:if test="${cate.id == courseDetail.data.result.categoryId}">selected</c:if>  value="${cate.id}">${cate.categoryName}</option>
-							</c:forEach> 
+							<c:if test="${categoryList != null}">
+								<c:forEach items="${categoryList}" var="cate">
+									<option <c:if test="${cate.id == courseDetail.data.result.categoryId}">selected</c:if>  value="${cate.id}">${cate.categoryName}</option>
+								</c:forEach> 
+							</c:if>
 						</select>
 						原课程分类为：${currCategory.data.result.categoryName}
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">二级分类</label>
 						<select class="form-control" id="childCategorySelect" name="childCategoryId">
-							<c:forEach items="${currCategory.data.result.childCategory}" var="cate">
-								<option <c:if test="${cate.id == courseDetail.data.result.childCategoryId}">selected</c:if> value="${cate.id}" >${cate.categoryName}</option>
-							</c:forEach>
+							<c:if test="${currCategory.data.result.childCategory != null}">
+								<c:forEach items="${currCategory.data.result.childCategory}" var="cate">
+									<option <c:if test="${cate.id == courseDetail.data.result.childCategoryId}">selected</c:if> value="${cate.id}" >${cate.categoryName}</option>
+								</c:forEach>
+							</c:if>
 						</select>
 						原课程二级分类为：${currChildCategory.data.result.categoryName}
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail1">标签</label>
+						<input type="text" class="form-control" name="tagNames" value="${courseDetail.data.result.tagNames}">
 					</div>
 
 
