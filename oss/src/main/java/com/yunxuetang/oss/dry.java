@@ -155,6 +155,9 @@ public class dry extends BaseController {
 				//JSONObject obss2 =(JSONObject) childs.get(0);
 				modelview.addObject("tagname", tags);
 			}
+			else{
+				modelview.addObject("tagname", "");
+			}
 			
 			
 //			String a="";
@@ -597,6 +600,37 @@ public class dry extends BaseController {
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("dry/dryList");
+		return modelview;
+	}
+	
+	
+	/**
+	 * 
+	 * 查询所有未审核干货
+	 */
+	@RequestMapping("/noCheckDryList")
+	public ModelAndView noCheckDryList(HttpServletRequest request) {
+		String keyword = request.getParameter("keyword");
+		// 当前第几页
+		String n = request.getParameter("n");
+		if (n == null) {
+			n = "0";
+		}
+		// 每页条数
+		String s = request.getParameter("s");
+
+		if (s == null) {
+			s = "10";
+		}
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("Drys", nocheckdryList(keyword, n, s));
+		System.out.print(dryList(keyword, n, s));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("dry/nocheckdryList");
 		return modelview;
 	}
 	
@@ -1276,6 +1310,17 @@ public class dry extends BaseController {
 			url = Config.YXTSERVER3 + "oss/dry/searchDrys?n=" + n + "&s=" + s;
 		} else {
 			url = Config.YXTSERVER3 + "oss/dry/searchDrys?n=" + n + "&s=" + s + "&keywords=" + keyword;
+		}
+		return getRestApiData(url);
+	}
+	
+	
+	private JSONObject nocheckdryList(String keyword, String n, String s) {
+		String url = null;
+		if (keyword == null) {
+			url = Config.YXTSERVER3 + "oss/dry/searchNoCheckDrys?n=" + n + "&s=" + s;
+		} else {
+			url = Config.YXTSERVER3 + "oss/dry/searchNoCheckDrys?n=" + n + "&s=" + s + "&keywords=" + keyword;
 		}
 		return getRestApiData(url);
 	}

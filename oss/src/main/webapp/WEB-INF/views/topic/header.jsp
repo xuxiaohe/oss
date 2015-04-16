@@ -22,6 +22,7 @@
 				<%-- <li><a href="${cbasePath}topic/addTopicBoxForm">话题排行榜创建</a></li>
 				<li><a href="${cbasePath}topic/BoxTopicList">话题排行榜管理</a></li> --%>
 				<li><a href="${cbasePath}topic/TopicBoxDetail">话题与推荐绑定</a></li>
+				<li><a href="${cbasePath}topic/noCheckTopicList">未审核话题列表</a></li>
 				<%-- <li><a href="${cbasePath}topic/TopicBoxDetail">话题与推荐绑定</a></li> --%>
 				<%-- <li><a href="${cbasePath}topic/TopicBoxBindedDetail">话题已关联排行榜管理</a></li> --%>
 				<!-- <li><a href="#">批量创建</a></li>

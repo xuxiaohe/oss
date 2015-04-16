@@ -111,6 +111,44 @@ public class topic extends BaseController {
 		modelview.setViewName("topic/topicList");
 		return modelview;
 	}
+	
+	
+	/**
+	 * 
+	 * 查找所有未审核话题 
+	 */
+	@RequestMapping("/noCheckTopicList")
+	public ModelAndView noCheckTopicList(HttpServletRequest request) {
+		// 群组id
+		String keyword = request.getParameter("keyword");
+		// 当前第几页
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("topicList", nochecktopicList(keyword, pagenumber, pagelines));
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("topic/nochecktopicList");
+		return modelview;
+	}
+	
+	
 
 	/**
 	 * 
@@ -1009,6 +1047,18 @@ public class topic extends BaseController {
 			url = Config.YXTSERVER3 + "oss/topic/search?n=" + n + "&s=" + s;
 		} else {
 			url = Config.YXTSERVER3 + "oss/topic/search?keyword=" + keyword + "&n=" + n + "&s=" + s;
+		}
+
+		return getRestApiData(url);
+	}
+	
+	
+	private JSONObject nochecktopicList(String keyword, String n, String s) {
+		String url;
+		if (keyword == null) {
+			url = Config.YXTSERVER3 + "oss/topic/searchNoCheckTopic?n=" + n + "&s=" + s;
+		} else {
+			url = Config.YXTSERVER3 + "oss/topic/searchNoCheckTopic?keyword=" + keyword + "&n=" + n + "&s=" + s;
 		}
 
 		return getRestApiData(url);
