@@ -137,8 +137,26 @@ public class dry extends BaseController {
 			JSONObject obss = objj.getJSONObject("data");
 
 			net.sf.json.JSONArray childs = obss.getJSONArray("result");
+			String tags="";
+			int i=0;
+			if(childs.size()!=0){
+				for(Object o:childs){
+					if(i==0){
+						JSONObject p=(JSONObject) o;
+						tags+=p.getString("value");
+					}
+					else{
+						JSONObject p=(JSONObject) o;
+						tags+=","+p.getString("value");
+					}
+					i++;
+					
+				}
+				//JSONObject obss2 =(JSONObject) childs.get(0);
+				modelview.addObject("tagname", tags);
+			}
 			
-			JSONObject obss2 =(JSONObject) childs.get(0);
+			
 //			String a="";
 //			if(!("[]".equals(childs.toString()))){
 //				for(Object j:childs){
@@ -149,7 +167,7 @@ public class dry extends BaseController {
 //			}
 		
 
-			modelview.addObject("tagname", obss2);
+			//modelview.addObject("tagname", obss2);
 			
 			modelview.addObject("resuserTopic", objj3);
 		} catch (Exception e) {
@@ -236,7 +254,7 @@ public class dry extends BaseController {
 			m.put("description", description);
 			m.put("categoryId", categoryId);
 			m.put("childCategoryId", childCategoryId);
-			m.put("tagName", i);
+			m.put("tagName", tagName);
 			edit(dryid, m);
 		} catch (RestClientException e1) {
 			// TODO Auto-generated catch block
