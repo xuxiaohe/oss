@@ -87,16 +87,18 @@
 								<option <c:if test="${cate.id == resuserTopic.data.result.categoryId}">selected</c:if>  value="${cate.id}">${cate.categoryName}</option>
 							</c:forEach> 
 						</select>
-						原干货分类为：<c:if test="${currCategory.data.result != null}">${currCategory.data.result.categoryName}</c:if>
+						原干货分类为：<c:if test="${currCategory.data.result != ''}">${currCategory.data.result.categoryName}</c:if>
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">二级分类</label>
 						<select class="form-control" id="childCategorySelect" name="childCategoryId">
-							<c:forEach items="${currCategory.data.result.childCategory}" var="cate">
-								<option <c:if test="${cate.id == resuserTopic.data.result.childCategoryId}">selected</c:if> value="${cate.id}" >${cate.categoryName}</option>
-							</c:forEach>
+							<c:if test="${currCategory.data.result != ''}">
+								<c:forEach items="${currCategory.data.result.childCategory}" var="cate">
+									<option <c:if test="${cate.id == resuserTopic.data.result.childCategoryId}">selected</c:if> value="${cate.id}" >${cate.categoryName}</option>
+								</c:forEach>
+							</c:if>
 						</select>
-						原干货二级分类为：<c:if test="${currChildCategory.data.result != null}">${currChildCategory.data.result.categoryName}</c:if>
+						原干货二级分类为：<c:if test="${currChildCategory.data.result != ''}">${currChildCategory.data.result.categoryName}</c:if>
 					</div>
 
 					<button type="submit" class="btn btn-default">Submit</button>

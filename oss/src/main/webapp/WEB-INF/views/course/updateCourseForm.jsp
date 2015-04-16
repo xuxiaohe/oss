@@ -71,18 +71,18 @@
 								</c:forEach> 
 							</c:if>
 						</select>
-						原课程分类为：<c:if test="${currCategory.data.result != null}">${currCategory.data.result.categoryName}</c:if>
+						原课程分类为：<c:if test="${currCategory.data.result != ''}">${currCategory.data.result.categoryName}</c:if>
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">二级分类</label>
 						<select class="form-control" id="childCategorySelect" name="childCategoryId">
-							<c:if test="${currCategory.data.result.childCategory != null}">
+							<c:if test="${currCategory.data.result != ''}">
 								<c:forEach items="${currCategory.data.result.childCategory}" var="cate">
 									<option <c:if test="${cate.id == courseDetail.data.result.childCategoryId}">selected</c:if> value="${cate.id}" >${cate.categoryName}</option>
 								</c:forEach>
 							</c:if>
 						</select>
-						原课程二级分类为：<c:if test="${currChildCategory.data.result != null}">${currChildCategory.data.result.categoryName}</c:if>
+						原课程二级分类为：<c:if test="${currChildCategory.data.result != ''}">${currChildCategory.data.result.categoryName}</c:if>
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">标签</label>
