@@ -190,7 +190,7 @@ function upload(s){
 			</div>
 		</div>
 		<div>
-			<button class="btn btn-primary" onclick="saveCourse()">提交</button>
+			<button class="btn btn-primary" onclick="saveCourse()">提交</button>（提交课程时先提交章节）
 		</div>
 	</div>
 </div>
@@ -206,7 +206,7 @@ function upload(s){
 					+"<div class='panel-body'>"
 					+"<div class='col-xs-12 col-sm-10'><div class='row'><label>章节名称</label><input type='text' class='form-control c-title' /><label>序号</label><input type='text' class='form-control c-order' /></div></div>"
 					+"<div class='col-xs-12'><div class='row'><h5><button class='btn btn-info addlesson'>点击添加课时</button></h5><div class='col-xs-6' style='margin-bottom:10px;'>课时名称</div><div class='col-xs-4' style='margin-bottom:10px;'>序号</div></div></div>"
-					+"<div class='col-xs-12'><div class='row'><button class='btn btn-default cancel' style='margin-right:15px;'>取消</button><button class='btn btn-primary chapter'>提交</button></div></div>"
+					+"<div class='col-xs-12'><div class='row'><button class='btn btn-default cancel' style='margin-right:15px;'>取消</button><button class='btn btn-primary chapter'>提交章节</button></div></div>"
 					+"</div></div></div></div>";
 
 		var createChapter = $("#createChapter");

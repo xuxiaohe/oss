@@ -253,19 +253,23 @@ public class knowledge extends BaseController{
 		nvps.add(new BasicNameValuePair("bucket", bucket));
 		nvps.add(new BasicNameValuePair("key",key ));
 		String newkey=key.substring(0,key.indexOf("."));
+		String ext=key.substring(key.lastIndexOf(".")+1);
+		String video="wmv,mp4,flv,avi,mkv";
 		String m3u8=EncodeUtils.urlsafeEncode(bucket+":"+newkey+".m3u8");
 		String jpg=EncodeUtils.urlsafeEncode(bucket+":"+newkey+".jpg");
-		String url=baseurl+key+"?avinfo";
-		JSONObject jb=getRestApiData(url);
-		String streams =jb.get("streams").toString();
-		JSONArray stream=JSONArray.fromObject(streams);
-		JSONObject format=(JSONObject) jb.get("format");
-		String bit_rate=format.get("bit_rate").toString();
-		String codec_type=JSONObject.fromObject(stream.get(0)).get("codec_type").toString();
 		int size=1280;
-		if (codec_type.equals("video")) {
-			if(Integer.parseInt(bit_rate)/1024<1280){
-				size=Integer.parseInt(bit_rate)/1024;
+		if(video.indexOf(ext)!=-1){
+			String url=baseurl+key+"?avinfo";
+			JSONObject jb=getRestApiData(url);
+			String streams =jb.get("streams").toString();
+			JSONArray stream=JSONArray.fromObject(streams);
+			JSONObject format=(JSONObject) jb.get("format");
+			String bit_rate=format.get("bit_rate").toString();
+			String codec_type=JSONObject.fromObject(stream.get(0)).get("codec_type").toString();
+			if (codec_type.equals("video")) {
+				if(Integer.parseInt(bit_rate)/1024<1280){
+					size=Integer.parseInt(bit_rate)/1024;
+				}
 			}
 		}
 		nvps.add(new BasicNameValuePair("fops","avthumb/m3u8/vb/"+size+"k/noDomain/1|saveas/"+m3u8+";vframe/jpg/offset/2/w/480/h/360|saveas/"+jpg+";"));

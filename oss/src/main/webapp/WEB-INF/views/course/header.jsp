@@ -22,6 +22,8 @@
 				<li><a href="${cbasePath}course/courseListNoCheck">未审核课程</a></li>
 				<li><a href="${cbasePath}course/createcourseview">创建课程</a></li>
 				<li><a href="${cbasePath}course/courseBoxDetail">课程推荐绑定</a></li>
+				<li><a href="${cbasePath}course/unUsedChapterList">无用章节</a></li>
+				<li><a href="${cbasePath}course/unUsedLessonList">无用课时</a></li>
 				<!-- <li><a href="#">批量创建</a></li>
 				<li><a href="#">用户导入</a></li> -->
 				<li class="divider"></li>

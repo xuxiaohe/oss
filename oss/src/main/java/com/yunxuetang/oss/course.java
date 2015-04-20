@@ -1,11 +1,13 @@
 package com.yunxuetang.oss;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -876,4 +878,118 @@ public class course extends BaseController {
 		String url = Config.YXTSERVER3 + "category/one?categoryId=" + id;
 		return getRestApiData(url);
 	}
+	/**
+	 * 
+	 * 无用章节
+	 */
+	@RequestMapping("/unUsedChapterList")
+	public ModelAndView unUsedChapterList(HttpServletRequest request) {
+		// 当前第几页
+		String n = request.getParameter("n");
+		if (n == null) {
+			n = "0";
+		}
+		// 每页条数
+		String s = request.getParameter("s");
+
+		if (s == null) {
+			s = "10";
+		}
+		ModelAndView modelview = new ModelAndView();
+		modelview.addObject("chapters", getChapters( n, s));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("course/chapterList");
+		return modelview;
+	}
+	private JSONObject getChapters(String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/course/getUnusedChapters?n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	/**
+	 * 
+	 * @Title: deleteChapter
+	 * @Description: 删除
+	 * @param request
+	 * @param response void
+	 * @throws
+	 */
+	@RequestMapping("/deleteChapter")
+	public void deleteChapter(HttpServletRequest request,HttpServletResponse response){
+		String id=request.getParameter("id");
+		deleteChapter(id);
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		try {
+			response.sendRedirect(cbasePath+"course/unUsedChapterList");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private JSONObject deleteChapter(String id) {
+		String url = Config.YXTSERVER3 + "oss/course/deleteChapter?id="+id;
+		return getRestApiData(url);
+		
+	}
+	
+	/**
+	 * 
+	 * 无用课时
+	 */
+	@RequestMapping("/unUsedLessonList")
+	public ModelAndView unUsedLessonList(HttpServletRequest request) {
+		// 当前第几页
+		String n = request.getParameter("n");
+		if (n == null) {
+			n = "0";
+		}
+		// 每页条数
+		String s = request.getParameter("s");
+
+		if (s == null) {
+			s = "10";
+		}
+		ModelAndView modelview = new ModelAndView();
+		modelview.addObject("lessons", getLessons( n, s));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("course/lessonList");
+		return modelview;
+	}
+	private JSONObject getLessons(String n,String s) {
+		String url = Config.YXTSERVER3 + "oss/course/getUnusedLessons?n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	/**
+	 * 
+	 * @Title: deleteLesson
+	 * @Description: 删除
+	 * @param request
+	 * @param response void
+	 * @throws
+	 */
+	@RequestMapping("/deleteLesson")
+	public void deleteLesson(HttpServletRequest request,HttpServletResponse response){
+		String id=request.getParameter("id");
+		deleteLesson(id);
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		try {
+			response.sendRedirect(cbasePath+"course/unUsedChapterList");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private JSONObject deleteLesson(String id) {
+		String url = Config.YXTSERVER3 + "oss/course/deleteLesson?id="+id;
+		return getRestApiData(url);
+		
+	}
+	
 }
