@@ -110,21 +110,21 @@
 											
 										<br> <br>	   副楼回复：${subpost.message}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											
-									<a href="${cbasePath}dry/deleteSubPostByDryId?postid=${Recourse.post.postId}&index=${key.count-1}&dryid=${dryDetail.data.result.id}">		 
+									<a href="${cbasePath}dry/deleteSubPostByDryId?postid=${Recourse.post.postId}&index=${key.count-1}&dryid=${dryDetail.data.result.id}&subpostid=${subpost.post_id}">		 
 									<button name="subpostdelete"   type="button" class="subpostdelete btn btn-danger"">删除</button></a>
 											</c:forEach>
 										</c:if>
 										
-										<c:if test="${Recourse.number != '0'}">
+										<%-- <c:if test="${Recourse.number != '0'}">
 											
 											<c:forEach items="${Recourse.subpost}" varStatus="key" var="subpost">
 											
 											<br><br>  副楼回复：${subpost.message}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											
-									<a href="${cbasePath}topic/deleteSubPostByTopicId?postid=${Recourse.post.postId}&subpostid=${subpost.post_id}">		 
+									<a href="${cbasePath}dry/deleteSubPostByTopicId?postid=${Recourse.post.postId}&subpostid=${subpost.post_id}">		 
 									<button name="subpostdelete"   type="button" class="subpostdelete btn btn-danger"">删除</button></a>
 											</c:forEach>
-										</c:if>
+										</c:if> --%>
 										</li>
 								</ul>
 

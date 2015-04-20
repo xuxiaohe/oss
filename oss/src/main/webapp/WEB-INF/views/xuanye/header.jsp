@@ -25,6 +25,7 @@
 				<li><a href="${cbasePath}xuanye/DryBoxDetail">炫页与推荐绑定</a></li>
 				<%-- <li><a href="${cbasePath}dry/DryBoxBindedDetail">干货已关联排行榜管理</a></li> --%>
 				<!-- <li><a href="#">用户导入</a></li> -->
+				<li><a href="${cbasePath}xuanye/noCheckDryList">未审核炫页列表</a></li>
 				<li class="divider"></li>
 			</ul>
 		</div>

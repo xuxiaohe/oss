@@ -314,8 +314,7 @@ public class user extends BaseController {
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
-		courSharResoStr3 = restTemplate.getForObject(Config.YXTSERVER3 + "oss/user/getMyTopic?userid=" + userid + "&n=" + pagenumber + "&s="
-				+ pagelines, String.class);
+		courSharResoStr3 = restTemplate.getForObject(Config.YXTSERVER3 + "oss/user/getMyCourse?userid=" + userid , String.class);
 
 		try {
 			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
@@ -457,7 +456,7 @@ public class user extends BaseController {
 	 * 
 	 */
 	@RequestMapping("/createRobotAction")
-	private ModelAndView createRobotAction(HttpServletRequest request) {
+	private String createRobotAction(HttpServletRequest request) {
 
 		String userName = request.getParameter("userName");
 		String passWord = request.getParameter("passWord");
@@ -472,8 +471,7 @@ public class user extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		modelview.setViewName("user/show");
-		return modelview;
+		return "redirect:/user/roboitList";
 	}
 	
 	
@@ -550,7 +548,6 @@ public class user extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 		try {
-			// courSharReso = new ObjectMapper().readValue(courSharResoStr,
 			// CourseShareResponse.class);
 			modelview.addObject("resresetPassword", getResetPassword(uid, password));
 		} catch (Exception e) {

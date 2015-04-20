@@ -57,6 +57,7 @@
 										style="margin-top: 10px;" alt="" />
 								</div>
 							</div>
+							
 							<div class="col-xs-10">
 								<h4 style="margin-left:12px;">
 									<a href="${cbasePath}user/userDetail?userid=${Recourse.id}">

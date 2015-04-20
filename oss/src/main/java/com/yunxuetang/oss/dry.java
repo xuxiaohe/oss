@@ -1318,9 +1318,9 @@ public class dry extends BaseController {
 	private JSONObject nocheckdryList(String keyword, String n, String s) {
 		String url = null;
 		if (keyword == null) {
-			url = Config.YXTSERVER3 + "oss/dry/searchNoCheckDrys?n=" + n + "&s=" + s;
+			url = Config.YXTSERVER3 + "oss/xuanye/searchNoCheckDrys?n=" + n + "&s=" + s;
 		} else {
-			url = Config.YXTSERVER3 + "oss/dry/searchNoCheckDrys?n=" + n + "&s=" + s + "&keywords=" + keyword;
+			url = Config.YXTSERVER3 + "oss/xuanye/searchNoCheckDrys?n=" + n + "&s=" + s + "&keywords=" + keyword;
 		}
 		return getRestApiData(url);
 	}
@@ -1336,7 +1336,7 @@ public class dry extends BaseController {
 	}
 	
 	private JSONObject deletePost(String topicid,String postid) {
-		String url = Config.YXTSERVER3 + "oss/topic/deletePost?topicid=" + topicid+"&postid="+postid;
+		String url = Config.YXTSERVER3 + "oss/topic/deletePostByDry?topicid=" + topicid+"&postid="+postid;
 		return getRestApiData(url);
 	}
 	

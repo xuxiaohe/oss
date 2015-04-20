@@ -101,7 +101,7 @@
 											
 											<br><br>  副楼回复：${subpost.message}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											
-									<a href="${cbasePath}topic/deleteSubPostByTopicId?postid=${Recourse.post.postId}&subpostid=${subpost.post_id}">		 
+									<a href="${cbasePath}topic/deleteSubPostByTopicId?postid=${Recourse.post.postId}&subpostid=${subpost.post_id}&topicid=${topicDetail.data.result.topicId }">		 
 									<button name="subpostdelete"   type="button" class="subpostdelete btn btn-danger"">删除</button></a>
 											</c:forEach>
 										</c:if>

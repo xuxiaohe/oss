@@ -35,27 +35,18 @@
 		</ol>
 
 		<c:if test="${resuserTopic.status == '200' }">
-			<!-- 分页开始 -->
-			<nav>
-			<ul class="pagination">
-				<pageNation:PageNation currPage="${resuserTopic.data.curr_page}"
-					totalPages="${resuserTopic.data.page_rows}" perPageRows="10"
-					totalRows="${resuserTopic.data.total_rows}"
-					linkBaseUrl="${cbasePath}user/userTopic?userid=${resuserDetail.data.result.id}">
-				</pageNation:PageNation>
-			</ul>
-			</nav>
+			
 			<!-- 分页结束 -->
 			<c:forEach items="${resuserTopic.data.result}" varStatus="key"
 				var="group">
 				<div id="topicDiv" style="margin: 10px;" class="row">
 					<div class="col-xs-2">
-						<img class="thumbnail col-xs-12" src="${group.picUrl}"
-							alt="${group.groupInfo.groupName}">
+						<img class="thumbnail col-xs-12" src="${group.logoUrl}"
+							alt="${group.title}">
 					</div>
 					<div class="col-xs-10">
 						<div class="caption">
-							<p class="">${group.content}</p>
+							<p class="">${group.title}</p>
 						</div>
 					</div>
 				</div>
