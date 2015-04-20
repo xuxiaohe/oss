@@ -26,7 +26,7 @@ public class DateTag extends TagSupport {
 			Calendar c = Calendar.getInstance();
 			c.setTimeInMillis(time);
 			SimpleDateFormat dateformat = new SimpleDateFormat(
-					"yyyy-MM-dd hh:mm");
+					"yyyy-MM-dd HH:mm:ss");
 			String s = dateformat.format(c.getTime());
 			try {
 				pageContext.getOut().write(s);
