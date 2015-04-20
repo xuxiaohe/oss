@@ -249,14 +249,17 @@ public class course extends BaseController {
 		String categoryId = request.getParameter("categoryId");
 		String childCategoryId = request.getParameter("childCategoryId");
 		String tagNames = request.getParameter("tagNames");
-		
+		String logoUrl = request.getParameter("logoUrl");
+		if(logoUrl == null || "".equals(logoUrl)){
+			logoUrl = request.getParameter("oldLogoUrl");
+		}
 		
 		
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		
 		ModelAndView modelview = new ModelAndView();
-		modelview.addObject("updateResult", modifyCourse(cid, title, intro, categoryId, childCategoryId, tagNames));
+		modelview.addObject("updateResult", modifyCourse(cid, title, intro, categoryId, childCategoryId, tagNames, logoUrl));
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		return "redirect:/course/courseList";
@@ -548,7 +551,7 @@ public class course extends BaseController {
 		return getRestApiData(url);
 	}
 	
-	private JSONObject modifyCourse(String cid, String title, String intro, String categoryId, String childCategoryId, String tagNames){
+	private JSONObject modifyCourse(String cid, String title, String intro, String categoryId, String childCategoryId, String tagNames, String logoUrl){
 		String url = Config.YXTSERVER3 + "oss/course/modifyCourse";
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("id", cid);
@@ -557,6 +560,7 @@ public class course extends BaseController {
 		params.put("categoryId", categoryId);
 		params.put("childCategoryId", childCategoryId);
 		params.put("tagNames", tagNames);
+		params.put("logoUrl", logoUrl);
 		return getRestApiData(url, params);
 	}
 	
