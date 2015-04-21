@@ -39,7 +39,7 @@ String cbasePath2 = "http://oss.ztiao.cn/oss";
             <div class="menu">
                 <ul id="mainMenu" class="nav nav-pills nav-stacked" role="tablist">
                     <li role="presentation" class="active">
-                        <a href="<%=cbasePath%>user/userList" target="mainFrame"><span class="glyphicon glyphicon-cloud"></span>控制中心</a>
+                        <a href="<%=cbasePath%>table/index" target="mainFrame"><span class="glyphicon glyphicon-cloud"></span>控制中心</a>
                     </li>
                     <li role="presentation">
                         <a href="<%=cbasePath%>user/userList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>用户管理</a>
