@@ -146,7 +146,6 @@
 					});
 				}
 			});	
-			$("#categorySelect").change();
 			upload("10007");
 		});
 		function upload(s){

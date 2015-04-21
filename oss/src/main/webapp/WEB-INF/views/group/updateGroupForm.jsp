@@ -135,7 +135,6 @@
 					});
 				}
 			});
-			$("#categorySelect").change();
 		});
 		
 	</script>
