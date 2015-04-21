@@ -346,13 +346,25 @@ public class topic extends BaseController {
 	 * 更新话题
 	 */
 	@RequestMapping("/updateTopicByGroup")
-	public String updateTopicByGroup(HttpServletRequest request,@RequestParam MultipartFile file) {
+	public String updateTopicByGroup(HttpServletRequest request) {
 
 		// 必输
 		String topicid = request.getParameter("topicid");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		String picUrl = request.getParameter("picUrl");
+		//String picUrl = request.getParameter("picUrl");
+		String picUrl = request.getParameter("logoUrl");
+		if(picUrl == null || "".equals(picUrl)){
+			picUrl = request.getParameter("oldLogoUrl");
+		}
+		String height = request.getParameter("height");
+		String width = request.getParameter("width");
+		if("null".equals(height)||"".equals(height)){
+			height="0";
+		}
+		if("null".equals(width)||"".equals(width)){
+			width="0";
+		}
 		String categoryId = request.getParameter("categoryId");
 		String childCategoryId = request.getParameter("childCategoryId");
 		
@@ -374,34 +386,34 @@ public class topic extends BaseController {
 		if("null".equals(picUrl)){
 			picUrl="";
 		}
-		try {
-			String t[]=file.getContentType().split("/");
-			String tt="."+t[1];
-			if (file.getSize()!=0) {
-
-			Long l=System.currentTimeMillis();
-
-			String urlString="/data/ossImgTemp";
-
-			String urlString2=topicid+l+tt;
-
-			InputStream stream=	file.getInputStream();
-
-			picUrl=saveimage.save(urlString, urlString2, stream,"topic");
-
-			}
-
-			} catch (Exception e) {
-
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
-
-			}
+//		try {
+//			String t[]=file.getContentType().split("/");
+//			String tt="."+t[1];
+//			if (file.getSize()!=0) {
+//
+//			Long l=System.currentTimeMillis();
+//
+//			String urlString="/data/ossImgTemp";
+//
+//			String urlString2=topicid+l+tt;
+//
+//			InputStream stream=	file.getInputStream();
+//
+//			picUrl=saveimage.save(urlString, urlString2, stream,"topic");
+//
+//			}
+//
+//			} catch (Exception e) {
+//
+//			// TODO Auto-generated catch block
+//
+//			e.printStackTrace();
+//
+//			}
 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateTopicByGroup", updateTopicByGroup(topicid, title, content, picUrl, categoryId, childCategoryId,tagName));
+		modelview.addObject("rescreateTopicByGroup", updateTopicByGroup(topicid, title, content, picUrl, categoryId, childCategoryId,tagName,height,width));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -1125,9 +1137,11 @@ public class topic extends BaseController {
 		return getRestApiData(url);
 	}
 
-	private JSONObject updateTopicByGroup(String topicid, String title, String content, String picUrl, String categoryId, String childCategoryId,String tagName) {
+	private JSONObject updateTopicByGroup(String topicid, String title, String content, String picUrl, String categoryId, String childCategoryId,
+			String tagName, String height, String width) {
 		String url = Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicId=" + topicid + "&title=" + title + "&content=" + content + "&picUrl="
-				+ picUrl + "&categoryId=" + categoryId + "&childCategoryId=" + childCategoryId+ "&tagNames=" + tagName;
+				+ picUrl + "&categoryId=" + categoryId + "&childCategoryId=" + childCategoryId + "&tagNames=" + tagName + "&picHeight=" + height
+				+ "&picWidth=" + width;
 		return getRestApiData(url);
 	}
 

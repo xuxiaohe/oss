@@ -192,11 +192,23 @@ public class dry extends BaseController {
 	 * 干货修改提交
 	 */
 	@RequestMapping("/edit")
-	public String edit(HttpServletRequest request,@RequestParam MultipartFile file) {
+	public String edit(HttpServletRequest request) {
 		// 当前第几页
 		String dryid = request.getParameter("dryid");
 		String userid = request.getParameter("userid");
-		String fileUrl = request.getParameter("fileUrl");
+		String fileUrl = request.getParameter("logoUrl");
+		if(fileUrl == null || "".equals(fileUrl)){
+			fileUrl = request.getParameter("oldLogoUrl");
+		}
+		String height = request.getParameter("height");
+		String width = request.getParameter("width");
+		if("null".equals(height)){
+			height="";
+		}
+		if("null".equals(width)){
+			width="";
+		}
+		//String fileUrl = request.getParameter("fileUrl");
 		String categoryId = request.getParameter("categoryId");
 		String childCategoryId = request.getParameter("childCategoryId");
 
@@ -218,31 +230,31 @@ public class dry extends BaseController {
 		if("null".equals(fileUrl)){
 			fileUrl="";
 		}
-		try {
-			String t[]=file.getContentType().split("/");
-			String tt="."+t[1];
-
-		if (file.getSize()!=0) {
-
-		Long l=System.currentTimeMillis();
-
-		String urlString="/data/ossImgTemp";
-
-		String urlString2=userid+l+tt;
-
-		InputStream stream=	file.getInputStream();
-
-		fileUrl=saveimage.save(urlString, urlString2, stream, "dry");
-
-		}
-
-		} catch (Exception e) {
-
-		// TODO Auto-generated catch block
-
-		e.printStackTrace();
-
-		}
+//		try {
+//			String t[]=file.getContentType().split("/");
+//			String tt="."+t[1];
+//
+//		if (file.getSize()!=0) {
+//
+//		Long l=System.currentTimeMillis();
+//
+//		String urlString="/data/ossImgTemp";
+//
+//		String urlString2=userid+l+tt;
+//
+//		InputStream stream=	file.getInputStream();
+//
+//		fileUrl=saveimage.save(urlString, urlString2, stream, "dry");
+//
+//		}
+//
+//		} catch (Exception e) {
+//
+//		// TODO Auto-generated catch block
+//
+//		e.printStackTrace();
+//
+//		}
 
 
 		String message = request.getParameter("message");
@@ -254,6 +266,8 @@ public class dry extends BaseController {
 			Map<String, String> m = new HashMap<String, String>();
 			m.put("fileUrl", URLEncoder.encode(fileUrl, "utf-8"));
 			m.put("message", message);
+			m.put("height", height);
+			m.put("width", width);
 			m.put("description", description);
 			m.put("categoryId", categoryId);
 			m.put("childCategoryId", childCategoryId);
@@ -1282,7 +1296,9 @@ public class dry extends BaseController {
 	}
 
 	private JSONObject edit(String dryid, Map m) {
-		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryid + "&fileUrl=" + m.get("fileUrl") + "&message=" + m.get("message")+ "&description=" + m.get("description") + "&categoryId=" + m.get("categoryId") + "&childCategoryId=" + m.get("childCategoryId")+"&tagName="+m.get("tagName");
+		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryid + "&fileUrl=" + m.get("fileUrl") + "&message=" + m.get("message")
+				+ "&description=" + m.get("description") + "&categoryId=" + m.get("categoryId") + "&childCategoryId=" + m.get("childCategoryId")
+				+ "&tagName=" + m.get("tagName")+ "&height=" + m.get("height")+ "&width=" + m.get("width");
 		return getRestApiData(url);
 	}
 
