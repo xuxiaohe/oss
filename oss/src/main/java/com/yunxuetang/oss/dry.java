@@ -611,6 +611,7 @@ public class dry extends BaseController {
 	@RequestMapping("/noCheckDryList")
 	public ModelAndView noCheckDryList(HttpServletRequest request) {
 		String keyword = request.getParameter("keyword");
+		
 		// 当前第几页
 		String n = request.getParameter("n");
 		if (n == null) {
@@ -1318,9 +1319,9 @@ public class dry extends BaseController {
 	private JSONObject nocheckdryList(String keyword, String n, String s) {
 		String url = null;
 		if (keyword == null) {
-			url = Config.YXTSERVER3 + "oss/xuanye/searchNoCheckDrys?n=" + n + "&s=" + s;
+			url = Config.YXTSERVER3 + "oss/dry/searchNoCheckDrys?n=" + n + "&s=" + s;
 		} else {
-			url = Config.YXTSERVER3 + "oss/xuanye/searchNoCheckDrys?n=" + n + "&s=" + s + "&keywords=" + keyword;
+			url = Config.YXTSERVER3 + "oss/dry/searchNoCheckDrys?n=" + n + "&s=" + s + "&keywords=" + keyword;
 		}
 		return getRestApiData(url);
 	}
