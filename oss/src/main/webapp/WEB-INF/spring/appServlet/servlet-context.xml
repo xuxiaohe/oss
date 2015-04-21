@@ -22,6 +22,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.yunxuetang.oss" />
+	<context:component-scan base-package="com.yunxuetang.table" />
 	<context:component-scan base-package="com.yunxuetang.util" />
 	<context:component-scan base-package="com.yunxuetang.share" />
 	
