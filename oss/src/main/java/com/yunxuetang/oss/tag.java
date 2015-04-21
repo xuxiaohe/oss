@@ -9,6 +9,7 @@ import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -146,6 +147,16 @@ public class tag extends BaseController{
 		return "redirect:/tag/tagList";
 	}
 	
+	/**
+	 * 修改标签状态
+	 * */
+	@RequestMapping("/updateTagStatus")
+	public @ResponseBody JSONObject updateTagStatus(HttpServletRequest request){
+		String status = request.getParameter("status");
+		String tagName = request.getParameter("tagName");
+		JSONObject result = updateTagStatus(tagName, status);
+		return result;
+	}
 	
 	private JSONObject getBaseTagList(String n, String s, String sort, String mode, String keyWord){
 		String url = Config.YXTSERVER4 + "tag/searchTagList";
@@ -186,4 +197,12 @@ public class tag extends BaseController{
 		return getRestApiData(url, params);
 	}
 	
+	
+	private JSONObject updateTagStatus(String tagName, String status){
+		String url = Config.YXTSERVER4 + "tag/editBaseTagStatus";
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("tagName", tagName);
+		params.put("status", status);
+		return getRestApiData(url, params);
+	}
 }
