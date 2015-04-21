@@ -59,15 +59,24 @@
 							<div class="col-xs-10">
 								<h4 style="margin-left: 12px;">
 									<%-- <a href="${cbasePath}tag/detailView?tid=${Recourse.id}&type=${Recourse.type}&tagName=${Recourse.tagName}&tagNameLowCase=${Recourse.tagNameLowCase}&status=${Recourse.status}&score=${Recourse.score}">${Recourse.tagName}</a> --%>
-									<a href="#" onclick="javascript:loadDetail('${cbasePath}tag/detailView', '${Recourse.id}', '${Recourse.tagType}', '${Recourse.tagName}', '${Recourse.tagNameLowCase}', '${Recourse.status}', '${Recourse.score}')">${Recourse.tagName}</a>
+									<a href="#" onclick="javascript:loadDetail('${cbasePath}tag/detailView', '${Recourse.id}', '${Recourse.tagType}', '${Recourse.tagName}', '${Recourse.tagNameLowCase}', '${Recourse.status}', '${Recourse.score}')">${Recourse.tagName}(热度:${Recourse.score})</a>
+									<small><small>&nbsp;&nbsp;&nbsp;&nbsp;<c:if test="${Recourse.status == 1}">已推荐</c:if></small></small>
 								</h4>
 
 								<div class="col-xs-12 btn-group-sm">
-										<button data="${Recourse.id}" type="button" 
+										<%-- <button data="${Recourse.id}" type="button" 
 										class="deleteBtn btn btn-primary" onclick="javascript:toUpdate('${cbasePath}tag/updateView', '${Recourse.id}', '${Recourse.tagName}', '${Recourse.score}')">编辑</button>
 										
 										<button data="${Recourse.id}" type="button" onclick="javascript:loadDetail('${cbasePath}tag/detailView', '${Recourse.id}', '${Recourse.tagType}', '${Recourse.tagName}', '${Recourse.tagNameLowCase}', '${Recourse.status}', '${Recourse.score}')"
-										class="info btn btn-primary">详情</button>
+										class="info btn btn-primary">详情</button> --%>
+										<c:if test="${Recourse.status == 1}">
+											<button data="${Recourse.id}" type="button" onclick="javascript:recommend('2', '${Recourse.tagName}');"
+												class="info btn btn-primary">取消推荐</button>
+										</c:if>
+										<c:if test="${Recourse.status != 1}">
+											<button data="${Recourse.id}" type="button" onclick="javascript:recommend('1', '${Recourse.tagName}');"
+											class="info btn btn-primary">推荐标签</button>
+										</c:if>
 								</div>
 
 							</div>
@@ -114,7 +123,27 @@
 				
 			}); 
 		}
-		
+		/*
+		*推荐标签
+		*/
+		function recommend(status, tagName){
+			$.ajax({
+				url : '${cbasePath}tag/updateTagStatus',
+				data : {'status' : status, 'tagName' : tagName},
+				type : 'post',
+				success : function(data){
+					console.log(data);
+					if(data.status == 200){
+						alert('设置成功!');
+						var n = '${tags.data.curr_page}';
+						n--;
+						window.location.href = '${cbasePath}tag/tagList?n=' + n + '&s=10';
+					}else{
+						alert('设置失败!');
+					}
+				}
+			});
+		}
 	</script>
 </body>
 </html>
