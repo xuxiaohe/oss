@@ -431,45 +431,60 @@ public class dry extends BaseController {
 	 * 用机器人id创建干货
 	 */
 	@RequestMapping("/createDryByGroup")
-	public String createDryByGroup(HttpServletRequest request,@RequestParam MultipartFile file) {
+	public String createDryByGroup(HttpServletRequest request) {
 
+		
+		String fileUrl = request.getParameter("logoUrl");
+		if(fileUrl == null || "".equals(fileUrl)){
+			fileUrl = "";
+		}
+		String height = request.getParameter("height");
+		String width = request.getParameter("width");
+		if("null".equals(height)){
+			height="";
+		}
+		if("null".equals(width)){
+			width="";
+		}
+		
+		
 		// 必输
 		String id = request.getParameter("uid");
 		String tagName = request.getParameter("tagName");
-		String tagNameArry[] = tagName.split(",");
-		List<String> l = new ArrayList<String>();
-		for (String a : tagNameArry) {
-			l.add("\"" + a + "\"");
-		}
-		String i = l.toString();
+//		String tagNameArry[] = tagName.split(",");
+//		List<String> l = new ArrayList<String>();
+//		for (String a : tagNameArry) {
+//			l.add("\"" + a + "\"");
+//		}
+//		String i = l.toString();
 		String group = request.getParameter("gid");
 		String url = request.getParameter("url");
-		String fileUrl = "";
-		try {
-
-			String t[]=file.getContentType().split("/");
-			String tt="."+t[1];
-			if (file.getSize()!=0) {
-
-			Long l1=System.currentTimeMillis();
-
-			String urlString="/data/ossImgTemp";
-
-			String urlString2=id+l1+tt;
-
-			InputStream stream=	file.getInputStream();
-
-			fileUrl=saveimage.save(urlString, urlString2, stream,"dry");
-
-			}
-
-			} catch (Exception e) {
-
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
-
-			}
+//		String fileUrl = "";
+//		try {
+//
+//			String t[]=file.getContentType().split("/");
+//			String tt="."+t[1];
+//			if (file.getSize()!=0) {
+//
+//			Long l1=System.currentTimeMillis();
+//
+//			String urlString="/data/ossImgTemp";
+//
+//			String urlString2=id+l1+tt;
+//
+//			InputStream stream=	file.getInputStream();
+//
+//			fileUrl=saveimage.save(urlString, urlString2, stream,"dry");
+//
+//			}
+//
+//			} catch (Exception e) {
+//
+//			// TODO Auto-generated catch block
+//
+//			e.printStackTrace();
+//
+//			}
 		
 		
 		String message = request.getParameter("message");
@@ -480,7 +495,7 @@ public class dry extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateDryByGroup", createDryByGroup(id, i, group, url, fileUrl, message, description, dryFlag));
+		modelview.addObject("rescreateDryByGroup", createDryByGroupAndself(id, tagName, group, url, fileUrl, message, description, dryFlag,height,width));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -1309,9 +1324,16 @@ public class dry extends BaseController {
 		return getRestApiData(url);
 	}
 
+	private JSONObject createDryByGroupAndself(String id, String tagName, String group, String url, String fileUrl, String message, String description,
+			String dryFlag,String height,String width) {
+		String url2 = Config.YXTSERVER3 + "oss/dry/createDry?uid=" + id + "&tagName=" + tagName + "&groupid=" + group + "&url=" + url + "&fileUrl="
+				+ fileUrl + "&message=" + message + "&description=" + description + "&dryFlag=" + dryFlag+ "&height=" + height+ "&width=" + width;
+		return getRestApiData(url2);
+	}
+	
 	private JSONObject createDryByGroup(String id, String tagName, String group, String url, String fileUrl, String message, String description,
 			String dryFlag) {
-		String url2 = Config.YXTSERVER3 + "oss/dry/uploadDrycargo?uid=" + id + "&tagName=" + tagName + "&group=" + group + "&url=" + url + "&fileUrl="
+		String url2 = Config.YXTSERVER3 + "oss/dry/createDry?uid=" + id + "&tagName=" + tagName + "&groupid=" + group + "&url=" + url + "&fileUrl="
 				+ fileUrl + "&message=" + message + "&description=" + description + "&dryFlag=" + dryFlag;
 		return getRestApiData(url2);
 	}
@@ -1343,7 +1365,7 @@ public class dry extends BaseController {
 	}
 
 	private JSONObject UpdateDryById(String dryId, String groupid) {
-		String url = Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryId + "&groupid=" + groupid;
+		String url = Config.YXTSERVER3 + "oss/dry/bindGroup?dryid=" + dryId + "&groupid=" + groupid;
 		return getRestApiData(url);
 	}
 	

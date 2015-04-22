@@ -72,7 +72,10 @@
 										class="pull-right">注册时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
 								</h4>
-							主楼回复数：${Recourse.replyCount}
+							主楼回复数：${Recourse.replyCount} &nbsp&nbsp&nbsp&nbsp
+							<c:if test="${Recourse.authorId=='552f61c1e4b028d5b163cfa2'}">  
+							定时抓取的干货   ${Recourse.group}
+							</c:if>
 
 								<div class="col-xs-12 btn-group-sm">
 									<button data="${Recourse.id}" type="button"
@@ -81,6 +84,12 @@
 										<button data="${Recourse.id}" type="button"
 										class="info btn btn-primary">详情</button>
 									<c:if test="${Recourse.group==''}">
+										<a class="btn btn-success"
+											href="${cbasePath}dry/updateDryForm?dryid=${Recourse.id}">
+											关联群组 </a>
+										<%-- <button data="${Recourse.id}" type="button" class="deleteBtn btn btn-primary">关联群组</button> --%>
+									</c:if>
+									<c:if test="${Recourse.group=='null'}">
 										<a class="btn btn-success"
 											href="${cbasePath}dry/updateDryForm?dryid=${Recourse.id}">
 											关联群组 </a>

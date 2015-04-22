@@ -33,18 +33,20 @@
 
 		<div class="row">
 
-			<%-- <div class="col-xs-3">
-				<img class="thumbnail col-xs-12" src="${resuserTopic.data.result.fileUrl}" alt="" />
-
-				<c:forEach items="${imgUrls}" varStatus="key" var="img">
-					<img src="${img}" alt="" />
-				</c:forEach>
-			</div> --%>
+			<div class="col-xs-3">
+				<img class="thumbnail col-xs-12" name="picUrl" id="picUrl"
+					src="" alt="" />
+			</div>
 
 			<div class="col-xs-9">
 				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
 				<form role="form" method="post"
 					action="${cbasePath}dry/createDryByGroup" enctype="multipart/form-data">
+					
+					<input type="hidden" value="" id="logoUrl" name="logoUrl"/>
+					
+					<input type="hidden" value="" id="height" name="height"/>
+					<input type="hidden" value="" id="width" name="width"/>
 					<div class="form-group">
 						<label for="exampleInputEmail1">用户名</label> 
 							<select class="form-control" name="uid" id="uidSelect">
@@ -78,9 +80,29 @@
 							name="url" class="form-control" id="exampleInputEmail1"
 							placeholder="">
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="exampleInputEmail1">上传干货图片(支持JPEG,JPG,PNG)</label> 
 						<input id="file" type="file" name="file" /> 
+					</div> -->
+					
+					<div class="form-group">
+						<!-- <label for="exampleInputEmail1">文件地址（图片/语音）</label> <input type="text"
+							name="fileUrl" class="form-control" id="exampleInputEmail1"
+							placeholder="">  -->
+						<div class="media" id="picFrame">
+							<div class="media-body">
+								<div id="container">
+									<div class="row">
+										<div class="col-xs-9">
+											<label for="exampleInputEmail1">修改课程图片</label>
+											<button id="pic" type="button" class="btn btn-default">上传图片</button>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+						</div>
 					</div>
 
 					<div class="form-group">
@@ -107,6 +129,10 @@
 
 
 	</div>
+	<script src="${cbasePath}/resources/assets/js/html5shiv.js"></script>
+	<script src="${cbasePath}/resources/assets/js/plupload.full.min.js"></script>
+	<script src="${cbasePath}/resources/assets/js/qiniu.js"></script>
+	<script src="${cbasePath}/resources/assets/js/moxie.min.js"></script>
 	<script>
 		$(function() {
 			/* $("#searchIt").click(function(){
@@ -119,7 +145,72 @@
 
 				}
 			});
+			upload("10007");
 		});
+		
+		function upload(s){
+		    var uploader = Qiniu.uploader({
+		        runtimes: 'html5,flash,html4',
+		        browse_button: 'pic',
+		        container: 'container',
+		        drop_element: 'container',
+		        max_file_size: '100mb',
+		        flash_swf_url: '${cbasePath}/js/Moxie.swf',
+		        dragdrop: true,
+		        chunk_size: '4mb',
+		        uptoken_url: '${cbasePath}/knowledge/getToken?ckey='+s,
+		        domain: 'tpublic.qiniudn.com',
+		       	filters:"{mime_types : [{ title : \"Image files\", extensions : \"jpg,gif,png\" }  ],  max_file_size : '2mb', \r\n  prevent_duplicates : true}",
+		        auto_start: true,
+		        multi_selection:false,
+		        
+		        init: {
+		             'UploadComplete': function() {
+		             	
+		            }, 
+		            'FileUploaded': function(up, file, info) {//完成一张图片之后
+		            	
+		            	var res=$.parseJSON(info);
+		            	var imgUrl = 'http://tpublic.qiniudn.com/' + res.key;
+		            	jQuery.getJSON(imgUrl + '?imageInfo',
+		            			function(result){
+	            			var height = result.height; //图片高度
+	            			var width = result.width; //图片宽度
+	            			//通过dom动态添加image
+	            			var $imgContainer = jQuery("#picUrl");
+	            			$imgContainer.attr("src", imgUrl);
+	            			jQuery("#logoUrl").val(imgUrl);
+	            			jQuery("#height").val(height);
+	            			jQuery("#width").val(width);
+	            			alert("上传成功");
+		            	});
+		            	
+		            },
+		            'Error': function(up, err, errTip) {
+		                alert(errTip);
+		            }
+		            ,
+		            'Key': function(up, file) {
+		            	var key="";
+		            	 $.ajax({
+								url :"${cbasePath}topic/getFileName",
+								type : "POST",
+								async : false,
+								data :{
+									"name" : file.name,
+									"pathrule" : "dry/imgs/{yyyymm}/"
+								},
+								success : function(result) {
+									key=result;
+								}
+						 });
+		                 return key;
+		             }
+		        }
+		    });
+			
+		}
+		
 	</script>
 </body>
 </html>

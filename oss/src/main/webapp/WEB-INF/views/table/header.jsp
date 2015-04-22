@@ -13,5 +13,14 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 		<button type="button" class="btn btn-primary">数据统计</button>
+		
+		<a href="http://v1.bj.api.ztiao.cn/oss/schedule/addIndex?token=717E13E6AEA8AD5BA2086207C5EB807B">
+			<button type="button" class="btn btn-primary">刷新app首页数据</button>
+			</a>
 	</div>
+	<!-- <div class="panel-body">
+		<a href="http://v1.bj.api.ztiao.cn/oss/schedule/addIndex?token=717E13E6AEA8AD5BA2086207C5EB807B">
+			<button type="button" class="btn btn-primary">刷新app首页数据</button>
+			</a>
+	</div> -->
 </div>

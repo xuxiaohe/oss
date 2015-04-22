@@ -15,6 +15,8 @@ import com.yunxuetang.util.Config;
 @Controller
 @RequestMapping("/table")
 public class CountGroupController extends BaseController{
+	
+	
 
 	/**
 	 * 图表索引页
