@@ -179,7 +179,7 @@
 			            		    ],
 			            		    series : [
 			            		        {
-			            		            name:'用户总数',
+			            		            name:'用户数',
 			            		            type:'line',
 			            		            data: count,
 			            		            markPoint : {
