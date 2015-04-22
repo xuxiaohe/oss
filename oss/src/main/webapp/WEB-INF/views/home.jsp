@@ -109,7 +109,7 @@ String cbasePath2 = "http://oss.ztiao.cn/oss";
             </div>
         </div>
         <div class="col-md-10">
-            <iframe style="min-height:1600px;" id="mainFrame" name="mainFrame" class="col-md-12" src="<%=cbasePath%>user/userList" frameborder="0"></iframe>
+            <iframe style="min-height:1600px;" id="mainFrame" name="mainFrame" class="col-md-12" src="<%=cbasePath%>table/index" frameborder="0"></iframe>
         </div>
     </div>
 
