@@ -215,7 +215,7 @@ public class knowledge extends BaseController{
 		requestParams.put("userId", userId);
 		requestParams.put("status", "1");
 		String ext=name.substring(name.lastIndexOf(".")+1);
-		String video="wmv,mp4,flv,avi,mkv";
+		String video="wmv,mp4,flv,avi,mkv,mov";
 		if(video.indexOf(ext)!=-1){
 			requestParams.put("kngType", "1");
 		}else{
@@ -254,7 +254,7 @@ public class knowledge extends BaseController{
 		nvps.add(new BasicNameValuePair("key",key ));
 		String newkey=key.substring(0,key.indexOf("."));
 		String ext=key.substring(key.lastIndexOf(".")+1);
-		String video="wmv,mp4,flv,avi,mkv";
+		String video="wmv,mp4,flv,avi,mkv,mov";
 		String m3u8=EncodeUtils.urlsafeEncode(bucket+":"+newkey+".m3u8");
 		String jpg=EncodeUtils.urlsafeEncode(bucket+":"+newkey+".jpg");
 		int size=1280;
