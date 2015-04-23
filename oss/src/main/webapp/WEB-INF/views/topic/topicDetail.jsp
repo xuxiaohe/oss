@@ -66,8 +66,10 @@
 						
 						<br><br>
 						<c:if test="${resTopicPost.status == '200'}">
+						<table>
 						<c:forEach items="${resTopicPost.data.result}" varStatus="key" var="Recourse">
-						 
+						 	<tr>
+						 		<div>
 								<ul class="list-group">
 									<li class="list-group-item"><span class="badge">副楼回复数：${Recourse.number}</span>
 										主楼回复：${Recourse.post.message} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -107,8 +109,10 @@
 										</c:if>
 										</li>
 								</ul>
-
+							</div>
+							</tr>
 							</c:forEach>
+							</table>
 						</c:if>
 						 
 						 
