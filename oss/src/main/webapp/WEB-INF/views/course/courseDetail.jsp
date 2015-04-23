@@ -49,6 +49,8 @@
 						<hr />
 						<a href="${cbasePath}course/updateView?cid=${courseDetail.data.result.id}">
 						<button type="button" class="edit btn-warning btn-block">编辑</button></a><br>
+						<a href="${cbasePath}course/updateChapterView?cid=${courseDetail.data.result.id}">
+						<button type="button" class="edit btn-warning btn-block">编辑章节</button></a><br>
 						<%-- <div id="btnGroupDiv" class="col-xs-12">
 							<a
 								href="${cbasePath}user/userTopic?userid=${courseDetail.data.result.id }">

@@ -232,6 +232,56 @@ public class course extends BaseController {
 		return modelview;
 	}
 	
+	@RequestMapping("/updateChapterView")
+	public ModelAndView updateChapterView(HttpServletRequest request){
+		String cid = request.getParameter("cid");
+		ModelAndView modelview = new ModelAndView();
+		JSONObject course = courseDetail(cid);
+		modelview.addObject("chapters", course.getJSONObject("data").getJSONObject("result").getJSONArray("chapters"));
+		modelview.addObject("cid", cid);
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("course/updateChapterForm");
+		return modelview;
+	}
+	/**
+	 * 更新章节
+	 * @Title: updateChapter
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param request
+	 * @return String
+	 * @throws
+	 */
+	@RequestMapping("/updateChapter")
+	public @ResponseBody String updateChapter(HttpServletRequest request){
+		String id = request.getParameter("id");
+		String title = request.getParameter("title");
+		String order = request.getParameter("order");
+		String url = Config.YXTSERVER3 + "oss/course/modifyChapter";
+		Map<String, Object> params=new HashMap<String, Object>();
+		params.put("id", id);
+		params.put("title", title);
+		params.put("order", order);
+		return HttpUtil.sendPost(url, params);
+		
+	}
+	
+	@RequestMapping("/updateLesson")
+	public @ResponseBody String updateLesson(HttpServletRequest request){
+		String id = request.getParameter("id");
+		String title = request.getParameter("title");
+		String order = request.getParameter("order");
+		String url = Config.YXTSERVER3 + "oss/course/modifyLesson";
+		Map<String, Object> params=new HashMap<String, Object>();
+		params.put("id", id);
+		params.put("title", title);
+		params.put("order", order);
+		return HttpUtil.sendPost(url, params);
+		
+	}
+	
 	
 	/**
 	 * 更新课程信息
@@ -264,6 +314,7 @@ public class course extends BaseController {
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		return "redirect:/course/courseList";
 	}
+	
 	
 	/**
 	 * 
