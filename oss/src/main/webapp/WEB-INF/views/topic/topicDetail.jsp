@@ -66,27 +66,39 @@
 						
 						<br><br>
 						<c:if test="${resTopicPost.status == '200'}">
-						<table>
-						<c:forEach items="${resTopicPost.data.result}" varStatus="key" var="Recourse">
-						 	<tr>
-						 		<div>
-								<ul class="list-group">
-									<li class="list-group-item"><span class="badge">副楼回复数：${Recourse.number}</span>
-										主楼回复：${Recourse.post.message} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										
-										<a href="${cbasePath}topic/deletePostByTopicId?topicid=${topicDetail.data.result.topicId }&postid=${Recourse.post.postId}">
-										<button name="postdelete"   type="button" class="postdelete btn btn-danger">删除</button></a>
-								 <a href="${cbasePath}topic/addSubPostForm?topicid=${topicDetail.data.result.topicId }&postid=${Recourse.post.postId}">
-								 <button name="postedit"   type="button" class="postedit btn btn-primary">添加副楼回复</button></a>
-										
-										<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<ul class="list-group">
-										<c:forEach items="${Recourse.images}" var="image">
-												<img class="col-xs-3 thumbnail" src="${image.picUrl}"
-													alt="" />
-										</c:forEach>
-									</ul>
-										<%-- <c:if test="${Recourse.post.subPosts != null}">
+							<div>
+								<table style="margin-top: 5px;">
+
+									<c:forEach items="${resTopicPost.data.result}" varStatus="key"
+										var="Recourse">
+										<tr>
+											<ul class="list-group">
+												<li class="list-group-item"><span class="badge">副楼回复数：${Recourse.number}</span>
+													主楼回复：${Recourse.post.message}
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a
+													href="${cbasePath}topic/deletePostByTopicId?topicid=${topicDetail.data.result.topicId }&postid=${Recourse.post.postId}">
+														<button name="postdelete" type="button"
+															class="postdelete btn btn-danger">删除</button>
+												</a> <a
+													href="${cbasePath}topic/addSubPostForm?topicid=${topicDetail.data.result.topicId }&postid=${Recourse.post.postId}">
+														<button name="postedit" type="button"
+															class="postedit btn btn-primary">添加副楼回复</button>
+												</a> <br>
+												<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<table>
+														<tr>
+															<c:forEach items="${Recourse.images}" var="image"
+																varStatus="sta">
+																<td><c:if test="${sta.index%3==0&&sta.index!=0}">
+																		<tr>
+																		</tr>
+																		<td>
+																	</c:if> <img class="" src="${image.picUrl}" width="150"
+																	height="150" />&nbsp;&nbsp;</td>
+															</c:forEach>
+														</tr>
+													</table>
+													</div> <%-- <c:if test="${Recourse.post.subPosts != null}">
 											
 											<c:forEach items="${Recourse.post.subPosts}" varStatus="key" var="subpost">
 											
@@ -95,24 +107,25 @@
 									<a href="${cbasePath}topic/deleteSubPostByTopicId?postid=${Recourse.post.postId}&index=${key.count-1}&topicid=${topicDetail.data.result.topicId }">		 
 									<button name="subpostdelete"   type="button" class="subpostdelete btn btn-danger"">删除</button></a>
 											</c:forEach>
-										</c:if> --%>
-										
-										<c:if test="${Recourse.number != '0'}">
+										</c:if> --%> <c:if test="${Recourse.number != '0'}">
+
+														<c:forEach items="${Recourse.subpost}" varStatus="key"
+															var="subpost">
+
+															<br>
+															<br>  副楼回复：${subpost.message}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											
-											<c:forEach items="${Recourse.subpost}" varStatus="key" var="subpost">
-											
-											<br><br>  副楼回复：${subpost.message}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											
-									<a href="${cbasePath}topic/deleteSubPostByTopicId?postid=${Recourse.post.postId}&subpostid=${subpost.post_id}&topicid=${topicDetail.data.result.topicId }">		 
-									<button name="subpostdelete"   type="button" class="subpostdelete btn btn-danger"">删除</button></a>
-											</c:forEach>
-										</c:if>
-										</li>
-								</ul>
-							</div>
-							</tr>
-							</c:forEach>
-							</table>
+									<a
+																href="${cbasePath}topic/deleteSubPostByTopicId?postid=${Recourse.post.postId}&subpostid=${subpost.post_id}&topicid=${topicDetail.data.result.topicId }">
+																<button name="subpostdelete" type="button"
+																	class="subpostdelete btn btn-danger"">删除</button>
+															</a>
+														</c:forEach>
+													</c:if></li>
+											</ul>
+										</tr>
+									</c:forEach>
+								</table>
 						</c:if>
 						 
 						 
