@@ -603,7 +603,7 @@ public class course extends BaseController {
 	}
 	
 	private JSONObject modifyCourse(String cid, String title, String intro, String categoryId, String childCategoryId, String tagNames, String logoUrl){
-		String url = Config.YXTSERVER3 + "oss/course/modifyCourse";
+		String url = Config.YXTSERVER3 + "oss/course/modifyBaseInfo";
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("id", cid);
 		params.put("title", title);
@@ -614,6 +614,7 @@ public class course extends BaseController {
 		params.put("logoUrl", logoUrl);
 		return getRestApiData(url, params);
 	}
+	
 	
 	private JSONObject searchCourse(String keyword,String n,String s) {
 		String url = Config.YXTSERVER3 + "oss/course/search?keywords="+keyword+"&n="+n+"&s="+s;
