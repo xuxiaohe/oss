@@ -280,10 +280,10 @@ function uploadDesMainImg(s){
 							需要报名
 							<c:choose>
 							<c:when test="${activityjson.data.result.type==0}">
-							<input type="radio" name="type" id="type" checked="checked">
+							<input type="checkbox" name="type" id="type" checked="checked">
 							</c:when>
 							<c:otherwise>
-							<input type="radio" name="type" id="type" >
+							<input type="checkbox" name="type" id="type" >
 							</c:otherwise>
 							</c:choose>
 							报名上限<input type="text" id="maxCount"  value="${activityjson.data.result.maxCount}">
