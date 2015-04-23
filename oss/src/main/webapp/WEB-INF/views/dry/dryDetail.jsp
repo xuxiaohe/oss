@@ -91,9 +91,13 @@
 						
 						
 				<br><br>
+					
+						
 						<c:if test="${resTopicPost.status == '200'}">
+						<table>
 						<c:forEach items="${resTopicPost.data.result}" varStatus="key" var="Recourse">
-						 
+						 	<tr>
+						 		<div>
 								<ul class="list-group">
 									<li class="list-group-item"><span class="badge">副楼回复数：${Recourse.number}</span>
 										主楼回复：${Recourse.post.message} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -111,7 +115,7 @@
 										<br> <br>	   副楼回复：${subpost.message}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											
 									<a href="${cbasePath}dry/deleteSubPostByDryId?postid=${Recourse.post.postId}&index=${key.count-1}&dryid=${dryDetail.data.result.id}&subpostid=${subpost.post_id}">		 
-									<button name="subpostdelete"   type="button" class="subpostdelete btn btn-danger"">删除</button></a>
+									<button name="subpostdelete"   type="button" class="subpostdelete btn btn-danger">删除</button></a>
 											</c:forEach>
 										</c:if>
 										
@@ -126,9 +130,11 @@
 											</c:forEach>
 										</c:if> --%>
 										</li>
-								</ul>
-
+										</ul>
+								</div>
+							</tr>
 							</c:forEach>
+							</table>
 						</c:if>
 						 
 						
