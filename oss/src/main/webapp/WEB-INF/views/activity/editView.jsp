@@ -276,7 +276,7 @@ function uploadDesMainImg(s){
 							name="activityStartTime" class="" id="activityStartTime" 
 							value="<Date:date value='${activityjson.data.result.activityStartTime}'></Date:date>">-
 							<input type="text" name="activityEndTime" class="" id="activityEndTime"
-							value="<Date:date value='${activityjson.data.result.activityStartTime}'></Date:date>"><br>
+							value="<Date:date value='${activityjson.data.result.activityEndTime}'></Date:date>"><br>
 							需要报名
 							<c:choose>
 							<c:when test="${activityjson.data.result.type==0}">
