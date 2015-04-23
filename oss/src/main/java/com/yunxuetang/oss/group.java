@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,8 @@ import com.yunxuetang.util.Saveimage;
 @Controller
 @RequestMapping("/group")
 public class group extends BaseController {
+	
+	private Logger logger = LoggerFactory.getLogger(group.class);
 
 	@Autowired
 	Saveimage saveimage;
@@ -111,6 +115,7 @@ public class group extends BaseController {
 		String groupName = request.getParameter("groupName");
 		String groupDesc = request.getParameter("groupDesc");
 		String parentId = request.getParameter("parentId");
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "创建群, 用户ID:" + userid + "=======群名字:" + groupName);
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 		modelview.addObject("categorySecondList", categorySecondList("10",parentId));
@@ -141,6 +146,7 @@ public class group extends BaseController {
 		String groupDesc = request.getParameter("groupDesc");
 		String categoryId = request.getParameter("parentId");
 		String childCategoryId = request.getParameter("childCategoryId");
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "创建群, 用户ID:" + userid + "=============群名字:" + groupName);
 		ModelAndView modelview = new ModelAndView();
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -263,7 +269,7 @@ public class group extends BaseController {
 		String courSharResoStr;
 		// 拥有者id
 		String uid = request.getParameter("uid");
-
+		
 		// 群组id
 
 		String gid = request.getParameter("gid");
@@ -285,7 +291,7 @@ public class group extends BaseController {
 //			childCategoryId = oldChildCatagoryId;
 //		}
 		try {
-
+			logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "修改群信息, 用户马甲ID:" + uid + "===============群ID:" + gid);
 			if (file.getSize()!=0) {
 
 			Long l=System.currentTimeMillis();
@@ -399,7 +405,7 @@ public class group extends BaseController {
 		String lng = request.getParameter("lng");
 		String localName = request.getParameter("localName");
 		String barCode = request.getParameter("barCode");
-
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "创建群话题, 用户ID:" + uid + "===============话题:" + title);
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
 
@@ -437,7 +443,7 @@ public class group extends BaseController {
 
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "删除话题, 话题ID:" + topicid);
 		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/delete?topicid=" + topicid, null, String.class);
 
 		try {
@@ -507,7 +513,7 @@ public class group extends BaseController {
 
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "更新话题, 话题ID:" + topicid + "=================标题:" + title);
 		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicid=" + topicid + "&title=" + title
 				+ "&content=" + content + "&picUrl=" + picUrl, null, String.class);
 
@@ -588,7 +594,7 @@ public class group extends BaseController {
 		String url = request.getParameter("url");
 		String fileUrl = "";
 		try {
-
+			logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "创建干货, 用户ID:" + id + "=================群组:" + group);
 			String t[]=file.getContentType().split("/");
 			String tt="."+t[1];
 			if (file.getSize()!=0) {
@@ -652,7 +658,7 @@ public class group extends BaseController {
 
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "删除干货, 干货ID:" + dryid);
 		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/delete?dryCargoId=" + dryid, null, String.class);
 
 		try {
@@ -719,7 +725,7 @@ public class group extends BaseController {
 
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "更新, 干货ID:" + dryCargoId);
 		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/dry/updateOne?dryid=" + dryCargoId + "&fileUrl=" + fileUrl
 				+ "&message=" + message, null, String.class);
 
@@ -753,7 +759,7 @@ public class group extends BaseController {
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "剔除群成员, 群ID:" + gid + "===========成员ID:" + uid + "===========拥有者:" + ownerid);
 		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/" + gid + "/" + uid + "/kick?ownerid=" + ownerid, null,
 				String.class);
 
@@ -787,7 +793,7 @@ public class group extends BaseController {
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "添加群成员, 用户ID:" + users + "============群ID:" + groupId);
 		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER3 + "oss/group/registGroupUser?users=" + users + "&groupId=" + groupId
 				+ "&md5=dsfgfdrgsh", null, String.class);
 
@@ -851,7 +857,7 @@ public class group extends BaseController {
 		String courSharResoStr;
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
-
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "更新群组标签, 群ID:" + id + "=================标签:" + tagNames);
 		courSharResoStr = restTemplate.postForObject(Config.YXTSERVER4 + "tag/editTagsDelAdd?domain=yxtoss&itemId=" + id + "&itemType=3"
 				+ "&tagNames=" + tagNames + "&userId=542010dde4b01ccc1ee95d28&userName=donny", null, String.class);
 		try {
@@ -1013,6 +1019,7 @@ public class group extends BaseController {
 	public String deleteGroup(HttpServletRequest request) {
 		ModelAndView modelview = new ModelAndView();
 		String gid = request.getParameter("gid");
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "删除群, 群ID:" + gid);
 		deleteGroupByID(gid);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -1061,7 +1068,11 @@ public class group extends BaseController {
 		String groupId = request.getParameter("groupId");
 		String courseId = request.getParameter("courseId");
 		String appKey = "yxtapp";
+		
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "分享课程到群组, 群组ID:" + groupId + "==============课程ID:" + courseId);
+		
 		ModelAndView modelview = new ModelAndView();
+		
 
 		modelview.addObject("shareToMyGroup", shareToMyGroup(groupId, courseId, appKey));
 		String cpath = request.getContextPath();
@@ -1082,7 +1093,7 @@ public class group extends BaseController {
 		String groupid = request.getParameter("gid");
 		String dryid = request.getParameter("dryid");
 		// 当前第几页
-
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "关联, 群组ID:" + groupid + "干货ID:" + dryid);
 		String n = request.getParameter("n");
 
 		if (n == null) {
@@ -1286,6 +1297,7 @@ public class group extends BaseController {
 	public String checkCourse(HttpServletRequest request) {
 		 
 		String dryid = request.getParameter("gid");
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "审核话题, ID:" + dryid);
 		//排行榜id
 		ModelAndView modelview = new ModelAndView();
 		String cpath = request.getContextPath();
