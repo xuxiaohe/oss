@@ -36,7 +36,8 @@ public class SystemFilter implements Filter {
 		HttpSession session = httpRequest.getSession(true);
 		String name=(String) session.getAttribute("name");
 		StringBuffer url = httpRequest.getRequestURL();
-		System.out.println("================="+session.getAttribute("name"));
+		//System.out.println("================="+session.getAttribute("name"));
+		logger.warn("=================登录用户为："+session.getAttribute("name"));
 		if(name==null){
 			wrapper.sendRedirect("/oss");
 			return;

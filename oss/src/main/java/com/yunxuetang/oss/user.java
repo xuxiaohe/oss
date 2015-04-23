@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,11 +26,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yunxuetang.util.Config;
 import com.yunxuetang.util.PoiService;
 import com.yunxuetang.util.Saveimage;
+import com.yunxuetang.util.SystemFilter;
 
 @Controller
 @RequestMapping("/user")
 public class user extends BaseController {
-
+	Logger logger = LoggerFactory.getLogger(user.class);
 	@Resource(name = "poiService")
 	public PoiService service;
 	
@@ -80,6 +83,7 @@ public class user extends BaseController {
 
 		JSONObject objj = getUserList(keyword, pagenumber, pagelines);
 		modelview.addObject("resuserList", objj);
+		logger.warn("======================================刷新用户列表操作的用户："+request.getSession().getAttribute("name"));
 		String s = objj.getString("msg");
 		System.out.println(s);
 
