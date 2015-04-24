@@ -10,6 +10,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +28,7 @@ import com.yunxuetang.util.qiniu;
 @RequestMapping("/tools")
 public class tools {
 
-	
+	Logger logger = LoggerFactory.getLogger(tools.class);
 	@Autowired
 	Saveimage saveimage;
 	//所有图片
@@ -257,6 +259,7 @@ public class tools {
 		String url = request.getParameter("url");
 		// 当前第几页
 		qiniu qn=new qiniu(); 
+		logger.warn("===================审核替换图片操作的管理员："+request.getSession().getAttribute("name")+"===图片URL"+url);
 		//所有图片
 		qn.changandcheck(url);
 //		

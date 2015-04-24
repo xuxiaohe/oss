@@ -397,6 +397,7 @@ public class user extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		logger.warn("=====================更新用户操作的管理员："+request.getSession().getAttribute("name")+"====修改的用户的id："+userid);
 		modelview.addObject("resupdateUser", getUpdateUser(userid, sex, phoneNumber, email, tag, logoURL, intro, nickName,robot));
 
 		if("1".equals(robot)){
@@ -464,7 +465,7 @@ public class user extends BaseController {
 
 		String userName = request.getParameter("userName");
 		String passWord = request.getParameter("passWord");
-
+		logger.warn("================创建马甲用户操作的管理员："+request.getSession().getAttribute("name")+"======马甲用户的名称："+userName);
 		ModelAndView modelview = new ModelAndView();
 		try {
 			modelview.addObject("rescreateRobot", getCreateRobot(userName, passWord));
@@ -553,6 +554,7 @@ public class user extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 		try {
 			// CourseShareResponse.class);
+			logger.warn("======================更改用户密码的管理员："+request.getSession().getAttribute("name")+"====修改的用户id："+uid);
 			modelview.addObject("resresetPassword", getResetPassword(uid, password));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -575,6 +577,7 @@ public class user extends BaseController {
 	private String deleteUser(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		String uid = request.getParameter("userid");
+		logger.warn("=================删除用户操作的管理员："+request.getSession().getAttribute("name")+"====删除的用户id:"+uid);
 		getDeleteUser(uid);
 		return "redirect:/user/userList";
 
@@ -803,6 +806,7 @@ public class user extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		logger.warn("======================删除主楼回复的管理员："+request.getSession().getAttribute("name")+"====主楼回复的id："+postid);
 		return "redirect:/user/findAllUserPost?userid="+uid;
 	}
 
@@ -817,6 +821,7 @@ public class user extends BaseController {
 		String postid = request.getParameter("postid");
 		String subpostid = request.getParameter("subpostid");
 		String uid = request.getParameter("uid");
+		logger.warn("====================删除副楼回复操作的管理员："+request.getSession().getAttribute("name")+"====副楼id："+subpostid);
 			modelview.addObject("subpostList", deleteSubPost(postid, subpostid));
 
 		String cpath = request.getContextPath();

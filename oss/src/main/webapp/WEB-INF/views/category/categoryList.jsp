@@ -30,7 +30,7 @@
 					<!---数据显示区域-->
 					<c:forEach items="${categoryList.data.result}" varStatus="key"
 						var="Recourse">
-
+                  <h4>一级分类</h4><br>
 						<div class="row" style="padding: 20px;">
 							<div class="col-xs-1">
 								<h5 style="margin-top: 40px;">
@@ -53,8 +53,8 @@
 
 								<div class="col-xs-12 btn-group-sm">
 								<a href="${cbasePath}category/categoryDetail?id=${Recourse.id}">
-									<button data="${Recourse.id}" type="button"
-										class="deleteBtn btn btn-primary">删除</button>
+									<%-- <button data="${Recourse.id}" type="button"
+										class="deleteBtn btn btn-primary">删除</button> --%>
 										</a>
 										<button data="${Recourse.id}" type="button"
 										class="info btn btn-primary">详情</button>
@@ -75,7 +75,7 @@
 				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
 			}); */
 			
-			$(".deleteBtn")
+			/* $(".deleteBtn")
 					.click(
 							function() {
 								if (window.confirm('你确定要删除吗？')) {
@@ -85,7 +85,7 @@
 								} else {
 
 								}
-							});
+							}); */
 			
 			
 			$(".info")

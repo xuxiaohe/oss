@@ -153,7 +153,7 @@
 					function() {
 						if (window.confirm('你确定要删除吗？')) {
 							//alert("${cbasePath}dry/deleteDry?dryid="+$(this).attr("data"));
-							 window.location.href = "${cbasePath}dry/deleteDry?dryid="+ $(this).attr("data");
+							 window.location.href = "${cbasePath}xuanye/deletexuanye?dryid="+ $(this).attr("data");
 						} else {
 
 						}

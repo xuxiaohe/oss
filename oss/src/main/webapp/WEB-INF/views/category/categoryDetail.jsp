@@ -45,8 +45,8 @@
 							href="${cbasePath}category/updateFirstCategoryForm?id=${categoryDetail.data.result.id }">
 							<button type="button" class="btn btn-warning btn-block">编辑</button><br>
 						</a>
-						<button type="button" class="btn btn-warning btn-block">删除</button><br>
-						<a
+						<!-- <button type="button" class="btn btn-warning btn-block">删除</button><br>
+						<a -->
 							href="${cbasePath}category/createSecondCategoryForm?parentId=${categoryDetail.data.result.id }">
 						<button type="button" class="btn btn-warning btn-block">添加二级分类</button>
 						</a>
@@ -79,8 +79,8 @@
 							</div>
 							<div class="col-xs-10">
 								<h4 style="margin-left: 12px;">
-									<a href="${cbasePath}category/categoryDetail?id=${Recourse.id}">
-										${Recourse.categoryName} </a><br> 
+									<%-- <a href="${cbasePath}category/categoryDetail?id=${Recourse.id}"> --%>
+										${Recourse.categoryName} <!-- </a> --><br> 
 								</h4>
 
 

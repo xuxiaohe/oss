@@ -16,6 +16,8 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +33,7 @@ import com.yunxuetang.util.Saveimage;
 @Controller
 @RequestMapping("/topic")
 public class topic extends BaseController {
-
+	Logger logger = LoggerFactory.getLogger(topic.class);
 	@Autowired
 	Saveimage saveimage;
 	public topic() {
@@ -59,6 +61,7 @@ public class topic extends BaseController {
 	public String deleteTopicForUser(HttpServletRequest request) {
 		String topicid = request.getParameter("topicid");
 		String userid = request.getParameter("userid");
+		logger.warn("=====================从用户管理里删除话题的管理员："+request.getSession().getAttribute("name")+"====用户id："+userid+"====话题id："+topicid);
 		deleteTopicByID(topicid);
 		return "redirect:/user/userTopic?userid=" + userid;
 	}

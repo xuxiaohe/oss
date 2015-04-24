@@ -163,19 +163,19 @@ public class version extends BaseController {
 	}
 
 	private JSONObject versionList(String n, String s) {
-		String url = Config.YXTSERVER2 + "version/versionList?n=" + n + "&s=" + s;
+		String url = Config.YXTSERVER3 + "version/versionList?n=" + n + "&s=" + s;
 		return getRestApiData(url);
 	}
 
 	private JSONObject updateVersion(String id, String vnumber, String message, String url, String context) {
-		String url1 = Config.YXTSERVER2 + "version/updateVersionInfo?id=" + id + "&vnumber=" + vnumber + "&message=" + message + "&url=" + url
+		String url1 = Config.YXTSERVER3 + "version/updateVersionInfo?id=" + id + "&vnumber=" + vnumber + "&message=" + message + "&url=" + url
 				+ "&context=" + context;
 		return getRestApiData(url1);
 	}
 
 	private JSONObject createVersion(String vdomain, String vappkey, String vcertificate, String vphase, String vnumber, String message, String url,
 			String context) {
-		String url1 = Config.YXTSERVER2 + "version/updateVersion?vdomain=" + vdomain + "&vappkey=" + vappkey + "&vcertificate=" + vcertificate + "&vphase=" + vphase
+		String url1 = Config.YXTSERVER3 + "version/updateVersion?vdomain=" + vdomain + "&vappkey=" + vappkey + "&vcertificate=" + vcertificate + "&vphase=" + vphase
 				+ "&vnumber=" + vnumber+ "&message=" + message+ "&url=" + url+ "&context=" + context;
 		return getRestApiData(url1);
 	}

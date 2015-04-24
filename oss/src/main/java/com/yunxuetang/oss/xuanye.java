@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,7 +18,7 @@ import com.yunxuetang.util.Config;
 @Controller
 @RequestMapping("/xuanye")
 public class xuanye extends BaseController{
-
+	Logger logger = LoggerFactory.getLogger(xuanye.class);
 	public xuanye() {
 		// TODO Auto-generated constructor stub
 	}
@@ -176,7 +178,7 @@ public class xuanye extends BaseController{
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
-	 
+		logger.warn("======================炫页关联到具体的排行榜操作的管理员："+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===炫页id"+sourceId);
 		modelview.addObject("addDryBoxList", bindBoxDry(boxPostId, sourceType, sourceId,ctime));
 		
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
@@ -275,6 +277,27 @@ public class xuanye extends BaseController{
 		modelview.setViewName("dry/nocheckdryList");
 		return modelview;
 	}
+	
+	
+	/**
+	 * 
+	 * 删除干货
+	 */
+	@RequestMapping("/deletexuanye")
+	public String deleteDry(HttpServletRequest request) {
+		// 必输
+		String dryid = request.getParameter("dryid");
+		logger.warn("=====================删除炫页操作的管理员："+request.getSession().getAttribute("name")+"炫页id"+dryid);
+		deleteDryById(dryid);
+		return "redirect:/xuanye/xuanyeList";
+	}
+	
+	
+	private JSONObject deleteDryById(String dryId) {
+		String url = Config.YXTSERVER3 + "oss/dry/deleteDry?dryCargoId=" + dryId;
+		return getRestApiData(url);
+	}
+	
 	
 	private JSONObject nocheckdryList(String keyword, String n, String s) {
 		String url = null;
