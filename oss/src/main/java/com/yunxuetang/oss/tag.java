@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +21,8 @@ import com.yunxuetang.util.StringUtil;
 @RequestMapping("/tag")
 public class tag extends BaseController{
 
+	private Logger logger = LoggerFactory.getLogger(tag.class);
+	
 	
 	/**
 	 * 标签列表
@@ -137,6 +141,7 @@ public class tag extends BaseController{
 	public String addNewTag(HttpServletRequest request){
 		String tagName = request.getParameter("tagName");
 		String score = request.getParameter("score");
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "创建标签, 标签名:" + tagName);
 		JSONObject result = addNewTag(tagName, score);
 		ModelAndView modelview = new ModelAndView();
 		modelview.addObject("tag", result);
@@ -154,6 +159,7 @@ public class tag extends BaseController{
 	public @ResponseBody JSONObject updateTagStatus(HttpServletRequest request){
 		String status = request.getParameter("status");
 		String tagName = request.getParameter("tagName");
+		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "修改标签状态, 标签名:" + tagName + "======status:" + status);
 		JSONObject result = updateTagStatus(tagName, status);
 		return result;
 	}
