@@ -67,7 +67,53 @@
 						<div class="col-xs-10">
 							<h4 style="margin-left: 12px;">
 								<a href="<%=contextPath%>/table/groupTable"> 群组数据统计</a><br>
-								<small><small class="pull-right">(日/月)群组的总量及新增量统计</small></small>
+								<small><small class="pull-right">(日/月)群组的总数及新增量统计</small></small>
+							</h4>
+						</div>
+	
+					</div>
+					
+					<div class="row" style="padding: 20px;">
+						<div class="col-xs-1">
+							<h5 style="margin-top: 40px;">
+								<span class="label label-default">5</span>
+							</h5>
+						</div>
+	
+						<div class="col-xs-1">
+							<div class="row">
+								<img class="col-xs-12 thumbnail"
+									src="http://echarts.baidu.com/doc/asset/img/example/line1.png"
+									style="margin-top: 10px;" alt="" />
+							</div>
+						</div>
+						<div class="col-xs-10">
+							<h4 style="margin-left: 12px;">
+								<a href="<%=contextPath%>/table/topic/page"> 话题数据统计</a><br>
+								<small><small class="pull-right">(日/月)发表话题总数及新增话题统计</small></small>
+							</h4>
+						</div>
+	
+					</div>
+					
+					<div class="row" style="padding: 20px;">
+						<div class="col-xs-1">
+							<h5 style="margin-top: 40px;">
+								<span class="label label-default">4</span>
+							</h5>
+						</div>
+	
+						<div class="col-xs-1">
+							<div class="row">
+								<img class="col-xs-12 thumbnail"
+									src="http://echarts.baidu.com/doc/asset/img/example/line1.png"
+									style="margin-top: 10px;" alt="" />
+							</div>
+						</div>
+						<div class="col-xs-10">
+							<h4 style="margin-left: 12px;">
+								<a href="<%=contextPath%>/table/dry/page"> 干货数据统计</a><br>
+								<small><small class="pull-right">(日/月)干货总数及新增干货统计</small></small>
 							</h4>
 						</div>
 	
