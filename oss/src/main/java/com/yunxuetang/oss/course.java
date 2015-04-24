@@ -1036,7 +1036,7 @@ public class course extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		try {
-			response.sendRedirect(cbasePath+"course/unUsedChapterList");
+			response.sendRedirect(cbasePath+"course/unUsedLessonList");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
