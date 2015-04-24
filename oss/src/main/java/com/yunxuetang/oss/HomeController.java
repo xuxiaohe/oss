@@ -49,7 +49,8 @@ public class HomeController {
 	   
 		if (("admin1".equals(name) && "oss1234".equals(password)) || ("admin2".equals(name) && "oss5678".equals(password))
 				|| ("admin3".equals(name) && "oss01234".equals(password)) || ("admin4".equals(name) && "oss2345".equals(password))
-				|| ("admin5".equals(name) && "oss3456".equals(password)) || ("admin6".equals(name) && "oss4567".equals(password))|| ("admin7".equals(name) && "oss8901".equals(password))) {
+				|| ("admin5".equals(name) && "oss3456".equals(password)) || ("admin6".equals(name) && "oss4567".equals(password))
+				|| ("admin7".equals(name) && "oss8901".equals(password))|| ("admin8".equals(name) && "oss9012".equals(password))) {
 
 			 request.getSession().setAttribute("name", name);
 			 return "home";
