@@ -17,7 +17,7 @@ import com.yunxuetang.util.Config;
 public class CountUserController extends BaseController{
 
 	/**
-	 * 群组图表页面跳转
+	 * 用户图表页面跳转
 	 * */
 	@RequestMapping("/page")
 	public String toGroupView(HttpServletRequest request, Model model){
@@ -25,7 +25,7 @@ public class CountUserController extends BaseController{
 	}
 	
 	/**
-	 * 获取群组图表数据
+	 * 获取用户图表数据
 	 * @param type 数据类型日/月
 	 * @param date 日期
 	 * */
@@ -36,7 +36,7 @@ public class CountUserController extends BaseController{
 	
 	/**
 	 * 发送POST请求
-	 * 获取日/月群组统计数据
+	 * 获取日/月用户统计数据
 	 * */
 	private JSONObject getGroupCountData(String type, String date){
 		String url = Config.SCHEDULE_SERVER + "/user/count?type=" + type + "&date=" + date;
