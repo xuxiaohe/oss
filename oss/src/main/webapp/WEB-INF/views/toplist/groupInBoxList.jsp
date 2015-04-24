@@ -91,8 +91,8 @@
 							</div>
 							<div class="col-xs-10">
 								<h4 style="margin-left: 12px;">
-									<a href="${cbasePath}dry/dryDetail?dryid=${Recourse.id}">
-										${Recourse.groupName} </a><br> <small><small
+									<%-- <a href="${cbasePath}dry/dryDetail?dryid=${Recourse.id}"> --%>
+										${Recourse.groupName} <!-- </a> --><br> <small><small
 										class="pull-right">注册时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
 									<br>权重：${Recourse.weightSort}			

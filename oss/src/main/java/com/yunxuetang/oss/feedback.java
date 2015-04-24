@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,7 +15,7 @@ import com.yunxuetang.util.Config;
 @Controller
 @RequestMapping("/feedback")
 public class feedback extends BaseController{
-	
+	Logger logger = LoggerFactory.getLogger(xuanye.class);
 	public feedback() {
 		// TODO Auto-generated constructor stub
 	} 
@@ -60,7 +62,7 @@ public class feedback extends BaseController{
 	public String deleteFeedBack(HttpServletRequest request) {
 		 
 		String feedbackid = request.getParameter("id");
-
+		logger.warn("======================删除用户反馈信息操作的管理员："+request.getSession().getAttribute("name")+"===反馈信息id"+feedbackid);
 		deleteFeedBack(feedbackid);
 		
 		return "redirect:/feedback/FeedBackList";
