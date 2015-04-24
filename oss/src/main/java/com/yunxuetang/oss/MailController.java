@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +28,7 @@ import com.yunxuetang.util.ResponseContainer;
 @Controller
 @RequestMapping("mail")
 public class MailController {
+	Logger logger = LoggerFactory.getLogger(MailController.class);
 	@RequestMapping("/")
 	public ModelAndView index(HttpServletRequest request){
 		ModelAndView mView=new ModelAndView("email/mail");
@@ -60,10 +63,11 @@ public class MailController {
 	
 	@RequestMapping("modify")
 	@ResponseBody
-	public Object getById(String id,String content){
+	public Object getById(HttpServletRequest request, String id,String content){
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("content", content);
+		logger.warn("=======================修改邮件模板的管理员："+request.getSession().getAttribute("name")+"===模板id"+id);
 		ResponseContainer responseContainer=HttpUtil.doPost(Config.YXTSERVER3+"oss/email/modify", map, ResponseContainer.class);
 		return responseContainer;
 	}

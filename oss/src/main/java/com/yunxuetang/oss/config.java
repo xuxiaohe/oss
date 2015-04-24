@@ -11,6 +11,8 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.http.HttpResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +24,7 @@ import com.yunxuetang.util.Config;
 @Controller
 @RequestMapping(value="/config")
 public class config extends BaseController{
+	Logger logger = LoggerFactory.getLogger(config.class);
 	/**
 	 * 
 	 * 查询所有待审核的知识
@@ -85,6 +88,7 @@ public class config extends BaseController{
 		map.put("fileParam", fileParam);
 		map.put("pathrule", pathrule);
 		map.put("baseUrlList", baseUrls);
+		logger.warn("=======================创建配置文件的管理员："+request.getSession().getAttribute("name")+"===配置cket"+ckey);
 		createConfigs(map);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -127,6 +131,8 @@ public class config extends BaseController{
 	@RequestMapping("/deleteConfig")
 	public void deleteConfig(HttpServletRequest request,HttpServletResponse response){
 		String configId=request.getParameter("configId");
+		logger.warn("=======================删除配置文件的管理员："+request.getSession().getAttribute("name")+"===配置id"+configId);
+
 		deleteConfig(configId);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -164,6 +170,8 @@ public class config extends BaseController{
 		map.put("fileParam", fileParam);
 		map.put("pathrule", pathrule);
 		map.put("baseUrlList", baseUrls);
+		logger.warn("=======================更新配置文件的管理员："+request.getSession().getAttribute("name")+"===配置id"+id);
+
 		updateConfig(map);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";

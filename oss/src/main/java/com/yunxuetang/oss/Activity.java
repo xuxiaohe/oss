@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +27,7 @@ import com.yunxuetang.util.StringUtil;
 @Controller
 @RequestMapping("/activity")
 public class Activity extends BaseController{
+	Logger logger = LoggerFactory.getLogger(Activity.class);
 	/**
 	 * 
 	 * @Title: adPage
@@ -108,7 +111,7 @@ public class Activity extends BaseController{
 		if(!StringUtil.isBlank(maxCount)){
 			map.put("maxCount", maxCount);
 		}
-		
+		logger.warn("=======================创建或修改活动管理员："+request.getSession().getAttribute("name")+"===活动名称"+name);
 		HttpUtil.sendPost(Config.YXTSERVER3+"oss/activity/create", map);
 		String cpath = request.getContextPath();
 		//String Config.YXTSERVER5 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";

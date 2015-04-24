@@ -13,6 +13,8 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.jsoup.helper.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -26,7 +28,7 @@ import com.yunxuetang.util.HttpUtil;
 @Controller
 @RequestMapping("/course")
 public class course extends BaseController {
-
+	Logger logger = LoggerFactory.getLogger(course.class);
 	 
 
 	public course() {
@@ -259,6 +261,7 @@ public class course extends BaseController {
 		String id = request.getParameter("id");
 		String title = request.getParameter("title");
 		String order = request.getParameter("order");
+		logger.warn("=======================更新课程章节操作的管理员："+request.getSession().getAttribute("name")+"===章节id"+id);
 		String url = Config.YXTSERVER3 + "oss/course/modifyChapter";
 		Map<String, Object> params=new HashMap<String, Object>();
 		params.put("id", id);
@@ -273,6 +276,7 @@ public class course extends BaseController {
 		String id = request.getParameter("id");
 		String title = request.getParameter("title");
 		String order = request.getParameter("order");
+		logger.warn("=======================更新课程课时操作的管理员："+request.getSession().getAttribute("name")+"===课时id"+id);
 		String url = Config.YXTSERVER3 + "oss/course/modifyLesson";
 		Map<String, Object> params=new HashMap<String, Object>();
 		params.put("id", id);
@@ -309,6 +313,8 @@ public class course extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		
 		ModelAndView modelview = new ModelAndView();
+		logger.warn("=======================更新课程基本信息操作的管理员："+request.getSession().getAttribute("name")+"===课程id"+cid);
+
 		modelview.addObject("updateResult", modifyCourse(cid, title, intro, categoryId, childCategoryId, tagNames, logoUrl));
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
@@ -326,7 +332,7 @@ public class course extends BaseController {
 		String courseId = request.getParameter("courseId");
 		String appKey = "yxtapp";
 		ModelAndView modelview = new ModelAndView();
-
+		logger.warn("=======================分享课程到群组操作的管理员："+request.getSession().getAttribute("name")+"===群组id"+groupId+"===课程id"+courseId);
 		modelview.addObject("shareToMyGroup", shareToMyGroup(groupId,courseId,appKey));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -348,7 +354,7 @@ public class course extends BaseController {
 		 String course ="[\""+courseId+"\"]";
 		 
 		ModelAndView modelview = new ModelAndView();
-
+		logger.warn("=======================课程从群组删除操作的管理员："+request.getSession().getAttribute("name")+"===群组id"+groupId+"===课程id"+course);
 		modelview.addObject("deleteToMyGroup", deleteGroupCourses(groupId,course));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -369,7 +375,7 @@ public class course extends BaseController {
 		 
 		 
 		ModelAndView modelview = new ModelAndView();
-
+		logger.warn("=======================课程从课程池删除操作的管理员："+request.getSession().getAttribute("name")+"===课程id"+courseId);
 		modelview.addObject("deleteToMyGroup", deleteCourses(courseId));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -476,6 +482,7 @@ public class course extends BaseController {
 		String childCategoryId = request.getParameter("childCategoryId");
 		
 		ModelAndView modelview = new ModelAndView();
+		logger.warn("=======================提交课程审核操作的管理员："+request.getSession().getAttribute("name")+"===课程id"+courseId);
 
 		modelview.addObject("categorySecondList", categoryAction(categoryId, childCategoryId, courseId));
 
@@ -665,6 +672,7 @@ public class course extends BaseController {
 		}
 		map.put("order", order);
 		map.put("lessonIds", lessonIds);
+		logger.warn("=======================保存章节操作的管理员："+request.getSession().getAttribute("name")+"===章节id"+ids);
 		JSONObject json=createChapter(map);
 		JSONObject data=JSONObject.fromObject(json.get("data"));
 		JSONObject result=JSONObject.fromObject(data.get("result"));
@@ -707,6 +715,8 @@ public class course extends BaseController {
 
 		map.put("chapterIds", ids);
 		map.put("id", courseId);
+		logger.warn("=======================更新课程操作的管理员："+request.getSession().getAttribute("name")+"===课程id"+courseId);
+
 		JSONObject json=modifyCourse(map);
 		JSONObject data=JSONObject.fromObject(json.get("data"));
 		JSONObject result=JSONObject.fromObject(data.get("result"));
@@ -733,6 +743,7 @@ public class course extends BaseController {
 		map.put("userId", userId);
 		map.put("order", order);
 		map.put("status", "3");
+		logger.warn("=======================创建课时操作的管理员："+request.getSession().getAttribute("name")+"===课时名称"+title);
 		JSONObject json=createLesson(map);
 		JSONObject data=JSONObject.fromObject(json.get("data"));
 		JSONObject result=JSONObject.fromObject(data.get("result"));
@@ -753,12 +764,14 @@ public class course extends BaseController {
    
 	@RequestMapping("checkLesson")
 	@ResponseBody
-	public Object checkLesson(String lessonId,String knowledgeId, String status){
+	public Object checkLesson(HttpServletRequest request,String lessonId,String knowledgeId, String status){
 		Map<String, Object>map=new HashMap<String, Object>();
 		map.put("lessonId", lessonId);
 		map.put("kngId", knowledgeId);
 		map.put("status", status);
 		try{
+			logger.warn("=======================审核课时操作的管理员："+request.getSession().getAttribute("name")+"===课时id"+lessonId);
+
 		 HttpUtil.doPost(Config.YXTSERVER3+"oss/lesson/checkLesson", map,String.class);
 		}catch(Exception e){
 			
@@ -905,7 +918,8 @@ public class course extends BaseController {
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
-	 
+		logger.warn("=======================课程关联到具体的排行榜操作的管理员："+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"课程ID"+sourceId);
+
 		modelview.addObject("addDryBoxList", bindBoxDry(boxPostId, sourceType, sourceId,ctime));
 		
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
@@ -975,6 +989,8 @@ public class course extends BaseController {
 	@RequestMapping("/deleteChapter")
 	public void deleteChapter(HttpServletRequest request,HttpServletResponse response){
 		String id=request.getParameter("id");
+		logger.warn("=======================删除章节操作的管理员："+request.getSession().getAttribute("name")+"===章节id"+id);
+
 		deleteChapter(id);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -1032,6 +1048,8 @@ public class course extends BaseController {
 	@RequestMapping("/deleteLesson")
 	public void deleteLesson(HttpServletRequest request,HttpServletResponse response){
 		String id=request.getParameter("id");
+		logger.warn("=======================删除课时操作的管理员："+request.getSession().getAttribute("name")+"===课时id"+id);
+
 		deleteLesson(id);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";

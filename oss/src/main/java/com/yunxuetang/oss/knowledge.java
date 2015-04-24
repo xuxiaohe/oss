@@ -15,7 +15,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,13 +28,14 @@ import com.qiniu.api.net.CallRet;
 import com.qiniu.api.rs.Entry;
 import com.qiniu.api.rs.RSClient;
 import com.qiniu.api.net.EncodeUtils;
-
 import com.yunxuetang.util.Config;
 import com.yunxuetang.util.qiniu;
 
 @Controller
 @RequestMapping(value="/knowledge")
 public class knowledge extends BaseController{
+	Logger logger = LoggerFactory.getLogger(knowledge.class);
+
 	
 	/**
 	 * 
@@ -84,6 +86,8 @@ public class knowledge extends BaseController{
 	private String verify(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String status=request.getParameter("status");
+		logger.warn("=======================审核知识操作的管理员："+request.getSession().getAttribute("name")+"===知识id"+id);
+
 		verifyKnowledge(id,status);
 		return "redirect:/knowledge/knowledgeList";
 
@@ -221,6 +225,8 @@ public class knowledge extends BaseController{
 		}else{
 			requestParams.put("kngType", "2");
 		}
+		logger.warn("=======================添加知识操作的管理员："+request.getSession().getAttribute("name")+"===知识名称"+name);
+
 		JSONObject json=addKnowledge(requestParams);
 		JSONObject data=JSONObject.fromObject(json.get("data"));
 		JSONObject result=JSONObject.fromObject(data.get("result"));

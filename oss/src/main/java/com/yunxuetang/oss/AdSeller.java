@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,7 @@ import com.yunxuetang.util.StringUtil;
 @Controller
 @RequestMapping("/adSeller")
 public class AdSeller extends BaseController{
+	Logger logger = LoggerFactory.getLogger(AdSeller.class);
 	/**
 	 * 
 	 * @Title: adSellerPage
@@ -95,6 +98,7 @@ public class AdSeller extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		Map<String, Object> reMap=new HashMap<String, Object>();
+		logger.warn("=======================创建渠道商管理员："+request.getSession().getAttribute("name")+"===渠道商名称"+name);
 		reMap.put("result", create(map));
 		reMap.put("cbasePath",cbasePath);
 		return reMap;
@@ -114,6 +118,7 @@ public class AdSeller extends BaseController{
 	@RequestMapping("/delete")
 	public void delete(HttpServletRequest request,HttpServletResponse response){
 		String id=request.getParameter("id");
+		logger.warn("=======================删除渠道商管理员："+request.getSession().getAttribute("name")+"===删除商名称ID"+id);
 		delete(id);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -212,6 +217,8 @@ public class AdSeller extends BaseController{
 	 */
 	@RequestMapping("/deleteAd")
 	public void deleteAd(String id,HttpServletRequest request,HttpServletResponse response){
+		logger.warn("=======================删除广告管理员："+request.getSession().getAttribute("name")+"===广告ID"+id);
+
 		deleteById(id);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -244,6 +251,7 @@ public class AdSeller extends BaseController{
 		map.put("name", name);
 		map.put("remark", remark);
 		map.put("creater", creater);
+		logger.warn("=======================创建广告管理员："+request.getSession().getAttribute("name")+"===广告名称"+name);
 		createAd(map);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";

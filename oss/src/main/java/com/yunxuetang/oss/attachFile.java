@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +19,7 @@ import com.yunxuetang.util.Config;
 @Controller
 @RequestMapping(value="/attachFile")
 public class attachFile extends BaseController{
+	Logger logger = LoggerFactory.getLogger(attachFile.class);
 	
 	@RequestMapping("/add")
 	@ResponseBody
@@ -30,6 +33,7 @@ public class attachFile extends BaseController{
 		requestParams.put("fkey", fkey);
 		requestParams.put("fsize", fsize);
 //		requestParams.put("token", "81FEAE852CB6D554A02CED0F46B7A9F4");
+		logger.warn("=======================创建附件的管理员："+request.getSession().getAttribute("name")+"===附件名称"+fname);
 		JSONObject json=addAttachFile(requestParams);
 		Map<String, Object> map=new HashMap<String, Object>();
 		JSONObject data=JSONObject.fromObject(json.get("data"));
