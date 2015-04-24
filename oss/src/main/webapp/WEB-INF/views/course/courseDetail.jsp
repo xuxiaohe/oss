@@ -46,8 +46,7 @@
 							<button type="button" class="btn btn-warning btn-block">审核课程</button>
 						</a> --%>
 						<!-- <button type="button" class="btn btn-warning btn-block">删除</button> -->
-						
-						<br>
+						<hr />
 						<a href="${cbasePath}course/updateView?cid=${courseDetail.data.result.id}">
 						<button type="button" class="edit btn-warning btn-block">编辑</button></a><br>
 						<a href="${cbasePath}course/updateChapterView?cid=${courseDetail.data.result.id}">
@@ -101,15 +100,17 @@
 											
 										
 										<select id="${Lesson.id}">
-												<c:if test="${Lesson.knowledge.status==3}">
+												<c:choose>  
+											   <c:when test="${Lesson.knowledge.status==2}">  
+											   <option value="0" >不通过</option>
+												<option value="1" selected="selected">通过</option> 
+											   </c:when>  
+											     
+											   <c:otherwise>  
 												<option value="0" selected="selected">不通过</option>
 												<option value="1">通过</option>
-												</c:if>
-												<c:if test="${Lesson.knowledge.status==2}">
-												.<option value="0" >不通过</option>
-												<option value="1" selected="selected">通过</option>
-												</c:if>
-													
+											   </c:otherwise>  
+											</c:choose>  
 											</select>
 											<button type="button" class="deleteBtn btn btn-primary" onclick="checkLesson('${Lesson.id}','${Lesson.knowledge.id}')">审核课时</button>
 										
