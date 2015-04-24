@@ -45,12 +45,7 @@ public class HomeController {
 	String name=	request.getParameter("name");
 		 
 	String password=	request.getParameter("password");	 
-		//admin1-------->艳姐
-	    //admin2-------->周博海
-		//admin3-------->孙鹏
-	    //admin4-------->顺哥
-	    //admin5-------->许瑞
-	    //admin6-------->雨哥
+		
 	   
 		if (("admin1".equals(name) && "oss1234".equals(password)) || ("admin2".equals(name) && "oss5678".equals(password))
 				|| ("admin3".equals(name) && "oss01234".equals(password)) || ("admin4".equals(name) && "oss2345".equals(password))
