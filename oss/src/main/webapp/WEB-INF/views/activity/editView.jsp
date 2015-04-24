@@ -427,7 +427,7 @@ function uploadDesMainImg(s){
 		var name=$.trim($("#name").val());
 		var activityStartTime=$.trim($("#activityStartTime").val());
 		var activityEndTime=$.trim($("#activityEndTime").val());
-		var type=$('input:radio[name="type"]:checked').val();
+		var type=$('input:checkbox[name="type"]:checked').val();
 		
 		if(type==null){
 			type=1;
