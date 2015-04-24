@@ -47,8 +47,15 @@ public class HomeController {
 	String password=	request.getParameter("password");	 
 		//admin1-------->艳姐
 	    //admin2-------->周博海
-		 if(("admin1".equals(name)&&"1234oss".equals(password))||("admin2".equals(name)&&"oss5678".equals(password))){
-		 
+		//admin3-------->孙鹏
+	    //admin4-------->顺哥
+	    //admin5-------->许瑞
+	    //admin6-------->雨哥
+	   
+		if (("admin1".equals(name) && "oss1234".equals(password)) || ("admin2".equals(name) && "oss5678".equals(password))
+				|| ("admin3".equals(name) && "oss01234".equals(password)) || ("admin4".equals(name) && "oss2345".equals(password))
+				|| ("admin5".equals(name) && "oss3456".equals(password)) || ("admin6".equals(name) && "oss4567".equals(password))) {
+
 			 request.getSession().setAttribute("name", name);
 			 return "home";
 		 }
