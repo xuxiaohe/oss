@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -95,8 +96,9 @@ public class Activity extends BaseController{
 		map.put("activityStartTime", DateUtil.toLongtimeHM(activityStartTime)+"");
 		map.put("activityEndTime", DateUtil.toLongtimeHM(activityEndTime)+"");
 		map.put("type", type);
-		map.put("intro", intro);
-		map.put("des", des);
+		
+		map.put("intro", intro.replaceAll("(\r\n|\r|\n|\n\r)", "/r/n"));
+		map.put("des", des.replaceAll("(\r\n|\r|\n|\n\r)", "/r/n"));
 		map.put("desImgsStr", desImgs);
 		map.put("mainImg", mainImg);
 		map.put("price", price);
