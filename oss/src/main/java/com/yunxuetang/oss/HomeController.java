@@ -50,11 +50,18 @@ public class HomeController {
 		if (("admin1".equals(name) && "oss1234".equals(password)) || ("admin2".equals(name) && "oss5678".equals(password))
 				|| ("admin3".equals(name) && "oss01234".equals(password)) || ("admin4".equals(name) && "oss2345".equals(password))
 				|| ("admin5".equals(name) && "oss3456".equals(password)) || ("admin6".equals(name) && "oss4567".equals(password))
-				|| ("admin7".equals(name) && "oss8901".equals(password))|| ("admin8".equals(name) && "oss9012".equals(password))|| ("admin9".equals(name) && "oss0123".equals(password))) {
+				|| ("admin7".equals(name) && "oss8901".equals(password)) || ("admin8".equals(name) && "oss9012".equals(password))
+				|| ("admin9".equals(name) && "oss0123".equals(password)) || ("admin10".equals(name) && "oss0123".equals(password))
+				|| ("admin11".equals(name) && "oss0123".equals(password)) || ("admin12".equals(name) && "oss0123".equals(password))
+				|| ("admin13".equals(name) && "oss0123".equals(password)) || ("admin14".equals(name) && "oss0123".equals(password))
+				|| ("admin15".equals(name) && "oss0123".equals(password)) || ("admin16".equals(name) && "oss0123".equals(password))
+				|| ("admin17".equals(name) && "oss0123".equals(password)) || ("admin18".equals(name) && "oss0123".equals(password))
+				|| ("admin19".equals(name) && "oss0123".equals(password)) || ("admin20".equals(name) && "oss0123".equals(password))
+				|| ("admin21".equals(name) && "oss0123".equals(password)) || ("admin22".equals(name) && "oss0123".equals(password))) {
 
-			 request.getSession().setAttribute("name", name);
-			 return "home";
-		 }
+			request.getSession().setAttribute("name", name);
+			return "home";
+		}
 		 else {
 			 return "login";
 		}
