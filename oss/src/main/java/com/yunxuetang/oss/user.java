@@ -368,9 +368,18 @@ public class user extends BaseController {
 	@RequestMapping("/updateUser")
 	private String updateUser(HttpServletRequest request,@RequestParam MultipartFile file) {
 		String sex = request.getParameter("sex");
+		if("null".equals(sex)){
+			sex="";
+		}
 		String userid = request.getParameter("userid");
 		String phoneNumber = request.getParameter("phoneNumber");
+		if("null".equals(phoneNumber)){
+			phoneNumber="";
+		}
 		String email = request.getParameter("email");
+		if("null".equals(email)){
+			email="";
+		}
 		String tag = request.getParameter("tag");
 		String robot = request.getParameter("robot");
 		String logoURL = request.getParameter("logoURL");
@@ -389,7 +398,13 @@ public class user extends BaseController {
 			e.printStackTrace();
 		}
 		String intro = request.getParameter("intro");
+		if("null".equals(intro)){
+			intro="";
+		}
 		String nickName = request.getParameter("nickName");
+		if("null".equals(nickName)){
+			nickName="";
+		}
 		
 
 		ModelAndView modelview = new ModelAndView();
@@ -569,7 +584,7 @@ public class user extends BaseController {
 	}
 
 	/**
-	 * 删除用户
+	 * 删除用户  普通用户
 	 * 
 	 * 
 	 */
@@ -580,6 +595,22 @@ public class user extends BaseController {
 		logger.warn("=================删除用户操作的管理员："+request.getSession().getAttribute("name")+"====删除的用户id:"+uid);
 		getDeleteUser(uid);
 		return "redirect:/user/userList";
+
+	}
+	
+	
+	/**
+	 * 删除用户  马甲用户
+	 * 
+	 * 
+	 */
+	@RequestMapping("/deleteRoboitUser")
+	private String deleteRoboitUser(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		String uid = request.getParameter("userid");
+		logger.warn("=================删除用户操作的管理员："+request.getSession().getAttribute("name")+"====删除的用户id:"+uid);
+		getDeleteUser(uid);
+		return "redirect:/user/roboitList";
 
 	}
 

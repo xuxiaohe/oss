@@ -121,8 +121,8 @@
 			
 			$(".deleteBtn").click(function(){
 				if(window.confirm('你确定要删除吗？')){
-					alert("${cbasePath}user/deleteUser?userid="+$(this).attr("data"));
-					window.location.href="${cbasePath}user/deleteUser?userid="+$(this).attr("data");
+					/* alert("${cbasePath}user/deleteUser?userid="+$(this).attr("data")); */
+					window.location.href="${cbasePath}user/deleteRoboitUser?userid="+$(this).attr("data");
 				}else{
 					
 				}

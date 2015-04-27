@@ -86,23 +86,23 @@
 							placeholder="" value="${tagname}"> 例如：name,age,sex
 					</div>
 					<%-- value="${tagname.value}" value="${resuserTopic.data.result.drycargoTagName}"--%>
-
 					<div class="form-group">
-						<label for="exampleInputEmail1">信息</label> 
+						<label for="exampleInputEmail1">干货标题</label> <input type="text"
+							name="message" class="form-control" id="exampleInputEmail1"
+							value="${resuserTopic.data.result.message }" placeholder="">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail1">干货信息</label> 
 						
-						<textarea name="message" class="form-control" rows="3" cols="20" value="${resuserTopic.data.result.message }">${resuserTopic.data.result.message }</textarea>
-						
+						<textarea name="description" class="form-control" rows="3" cols="20" value="${resuserTopic.data.result.description }">${resuserTopic.data.result.description }</textarea>
+						 
 						<%-- <input type="text"
 							name="message" class="form-control" id="exampleInputEmail1"
 							value="${resuserTopic.data.result.message }" placeholder=""> --%>
 					</div>
 					
 					
-					<div class="form-group">
-						<label for="exampleInputEmail1">干货详情</label> <input type="text"
-							name="description" class="form-control" id="exampleInputEmail1"
-							value="${resuserTopic.data.result.description }" placeholder="">
-					</div>
+					
 					<div class="form-group">
 						<label for="exampleInputEmail1">干货分类</label>
 						<select  class="form-control" id="categorySelect" name="categoryId">

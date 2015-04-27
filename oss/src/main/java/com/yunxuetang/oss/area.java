@@ -81,9 +81,9 @@ public class area extends BaseController{
 		String chinaName = request.getParameter("chinaName");
 		String englishName = request.getParameter("englishName");
 		String local = request.getParameter("local");
-		String size = request.getParameter("size");
+		//String size = request.getParameter("size");
 		String type = request.getParameter("type");
-
+		String size = "999999";
 		ModelAndView modelview = new ModelAndView();
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";

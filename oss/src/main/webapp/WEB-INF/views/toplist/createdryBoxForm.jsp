@@ -61,12 +61,12 @@
 
 					</div>
 					
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="exampleInputEmail1">最多显示的top数量</label> 
 						<input type="text"
 							name="size" class="form-control" id="exampleInputEmail1"
 							placeholder="">
-					</div>
+					</div> -->
 					
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>

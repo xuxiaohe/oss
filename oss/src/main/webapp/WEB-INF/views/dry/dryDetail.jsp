@@ -65,7 +65,9 @@
 					</div>
 					<div id="userInfoDiv" class="col-xs-10" style="">
 						<h4 style="margin-left: 12px;">
-							干货信息：${dryDetail.data.result.message} <small><small
+							干货标题：${dryDetail.data.result.message} <br> 
+							<%-- 干货信息：${dryDetail.data.result.description} --%>
+							<small><small
 								class="pull-right">注册时间：<Date:date
 										value="${dryDetail.data.result.ctime}"></Date:date></small></small>
 						</h4>
@@ -73,6 +75,7 @@
 						<div class="col-xs-6">
 							分享人列表：${Recourse.userName}</div>
 						</c:forEach>
+						
 						<div class="col-xs-6">浏览量：${dryDetail.data.result.viewCount}
 						</div>
 						<div class="col-xs-6">回复数：${dryDetail.data.result.replyCount}</div>

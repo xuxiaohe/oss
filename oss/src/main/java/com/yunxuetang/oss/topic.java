@@ -355,7 +355,13 @@ public class topic extends BaseController {
 		// 必输
 		String topicid = request.getParameter("topicid");
 		String title = request.getParameter("title");
+		if("null".equals(title)){
+			title="";
+		}
 		String content = request.getParameter("content");
+		if("null".equals(content)){
+			content="";
+		}
 		//String picUrl = request.getParameter("picUrl");
 		String picUrl = request.getParameter("logoUrl");
 		if(picUrl == null || "".equals(picUrl)){

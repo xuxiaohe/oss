@@ -260,7 +260,14 @@ public class dry extends BaseController {
 
 
 		String message = request.getParameter("message");
+		if("null".equals(message)){
+			message="";
+		}
 		String description = request.getParameter("description");
+		if("null".equals(description)){
+			description="";
+		}
+		
 		/**
 		 * TODO:修改成POST
 		 */
@@ -1294,6 +1301,57 @@ public class dry extends BaseController {
 		modelview.addObject("addDryBoxList", checkDry(dryid));
 		
 		return "redirect:/dry/dryList";
+	}
+	
+	
+	/**
+	 * 
+	 * 根据条件查找群组
+	 */
+	@RequestMapping("/tablegroupList")
+	public ModelAndView tablegroupList(HttpServletRequest request) {
+		String courSharResoStr;
+		// String courSharResoStr2;
+		String keyword = request.getParameter("keyword");
+		// keyword="test123456";
+
+		// 当前第几页
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		if (keyword == null) {
+			courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/group/search?n=" + pagenumber + "&s=" + pagelines, String.class);
+		} else {
+			courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/group/search?n=" + pagenumber + "&s=" + pagelines + "&keyword="
+					+ keyword, String.class);
+		}
+
+		try {
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("groupList", objj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("dry/tablegroup");
+		return modelview;
+
 	}
 	
 	private JSONObject checkDry(String dryid) {
