@@ -97,8 +97,8 @@ public class Activity extends BaseController{
 		map.put("activityEndTime", DateUtil.toLongtimeHM(activityEndTime)+"");
 		map.put("type", type);
 		
-		map.put("intro", intro.replaceAll("(\r\n|\r|\n|\n\r)", "/r/n"));
-		map.put("des", des.replaceAll("(\r\n|\r|\n|\n\r)", "/r/n"));
+		map.put("intro", intro.replaceAll("(\r\n|\r|\n|\n\r)", "\r\n"));
+		map.put("des", des.replaceAll("(\r\n|\r|\n|\n\r)", "\r\n"));
 		map.put("desImgsStr", desImgs);
 		map.put("mainImg", mainImg);
 		map.put("price", price);
