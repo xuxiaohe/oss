@@ -14,6 +14,9 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
+<session-config>
+  <session-timeout>300</session-timeout>
+ </session-config>
 
 
 <filter>
@@ -66,9 +69,95 @@
    
    <filter-mapping>  
        <filter-name>SystemFilter</filter-name>  
-       <url-pattern>/control/*</url-pattern>  
+       <url-pattern>/activity/*</url-pattern>  
    </filter-mapping>
    
+   <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/adSeller/*</url-pattern>  
+   </filter-mapping>
+   
+      <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/area/*</url-pattern>  
+   </filter-mapping>
+   
+      <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/attachFile/*</url-pattern>  
+   </filter-mapping>
+   
+     <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/category/*</url-pattern>  
+   </filter-mapping>
+   
+    <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/config/*</url-pattern>  
+   </filter-mapping>
+   
+   <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/feedback/*</url-pattern>  
+   </filter-mapping>
+   
+   
+    <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/knowledge/*</url-pattern>  
+   </filter-mapping>
+
+ <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/mail/*</url-pattern>  
+   </filter-mapping>
+   
+    <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/message/*</url-pattern>  
+   </filter-mapping>
+   
+   <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/player/*</url-pattern>  
+   </filter-mapping>
+   
+     <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/tag/*</url-pattern>  
+   </filter-mapping>
+   
+    <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/tools/*</url-pattern>  
+   </filter-mapping>
+   
+    <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/userlog/*</url-pattern>  
+   </filter-mapping>
+   
+    <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/version/*</url-pattern>  
+   </filter-mapping>
+   
+   
+   <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/words/*</url-pattern>  
+   </filter-mapping>
+   
+    <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/xuanye/*</url-pattern>  
+   </filter-mapping>
+   
+   <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/table/*</url-pattern>  
+   </filter-mapping>
    
 	<!-- Processes application requests -->
 	<servlet>
