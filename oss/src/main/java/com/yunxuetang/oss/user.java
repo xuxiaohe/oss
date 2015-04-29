@@ -102,6 +102,59 @@ public class user extends BaseController {
 	 * 分页获得系统的所有账户 支持搜索功能 字段： 用户名 手机号 邮箱 支持排序 （按时间倒序，正序,其他字段）
 	 * 
 	 */
+	@RequestMapping("/userNickNameList")
+	private ModelAndView userNickNameList(HttpServletRequest request) {
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String keyword = null;
+
+		keyword = request.getParameter("keyword");
+
+		if (keyword == null) {
+			keyword = "";
+		}
+
+		// 当前第几页
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+
+		ModelAndView modelview = new ModelAndView();
+
+		getUserList(keyword, pagenumber, pagelines);
+
+		JSONObject objj = getUserNickNameList(keyword, pagenumber, pagelines);
+		modelview.addObject("resuserList", objj);
+		logger.warn("======================================刷新用户花名册列表操作的用户："+request.getSession().getAttribute("name"));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.addObject("keyword", keyword);
+		modelview.setViewName("user/userNickNameList");
+		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 分页获得系统的所有账户 支持搜索功能 字段： 用户名 手机号 邮箱 支持排序 （按时间倒序，正序,其他字段）
+	 * 
+	 */
 	@RequestMapping("/roboitList")
 	private ModelAndView roboitList(HttpServletRequest request) {
 		try {
@@ -862,10 +915,125 @@ public class user extends BaseController {
 		return "redirect:/user/findAllUserSubPost?userid="+uid;
 	}
 	
+	
+	/**
+	 * 
+	 * 创建用户花名册  展示页
+	 */
+	@RequestMapping("/createUserNickNameForm")
+	public ModelAndView createUserNickNameForm(HttpServletRequest request) {
+		ModelAndView modelview = new ModelAndView();
+		// 当前第几页
+		 
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("user/createUserNickNameForm");
+		return modelview;
+	}
+	
+	/**
+	 * 
+	 * 创建用户花名册
+	 */
+	@RequestMapping("/createUserNickNameAction")
+	public String createUserNickNameAction(HttpServletRequest request) {
+		ModelAndView modelview = new ModelAndView();
+		// 当前第几页
+		String nickname = request.getParameter("nickname");
+		createUserNickName(nickname);
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		return "redirect:/user/userNickNameList";
+	}
+	
+	
+	
+	
+	/**
+	 * 
+	 * 更新用户花名册  展示页
+	 */
+	@RequestMapping("/updateUserNickNameForm")
+	public ModelAndView updateUserNickNameForm(HttpServletRequest request) {
+		ModelAndView modelview = new ModelAndView();
+		// 当前第几页
+		String id = request.getParameter("id");
+		String nickname = request.getParameter("nickname");
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("id", id);
+		modelview.addObject("nickname", nickname);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("user/updateUserNickNameForm");
+		return modelview;
+	}
+	
+	/**
+	 * 
+	 * 更新用户花名册
+	 */
+	@RequestMapping("/updateUserNickNameAction")
+	public String updateUserNickNameAction(HttpServletRequest request) {
+		ModelAndView modelview = new ModelAndView();
+		String id = request.getParameter("id");
+		String nickname = request.getParameter("nickname");
+		// 当前第几页
+		updateUserNickName(nickname,id);
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		return "redirect:/user/userNickNameList";
+	}
+	
+	
+	/**
+	 * 
+	 * 删除用户花名册
+	 */
+	@RequestMapping("/deleteUserNickName")
+	public String deleteUserNickName(HttpServletRequest request) {
+		ModelAndView modelview = new ModelAndView();
+		// 当前第几页
+		String nickname = request.getParameter("nickname");
+		deleteUsernickname(nickname);
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		return "redirect:/user/userNickNameList";
+	}
+	
+	private JSONObject deleteUsernickname(String nikename) {
+		String url = Config.YXTSERVER3 + "oss/user/deleteusenickname?nickname=" + nikename;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject updateUserNickName(String nikename,String id) {
+		String url = Config.YXTSERVER3 + "oss/user/updateusernickname?nickname=" + nikename+"&id="+id;
+		return getRestApiData(url);
+	}
+	
+	
+	private JSONObject createUserNickName(String nikename) {
+		String url = Config.YXTSERVER3 + "oss/user/createusenickname?nickname=" + nikename;
+		return getRestApiData(url);
+	}
 	 
 
 	private JSONObject getUserList(String keyword, String n, String s) {
 		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&keyword=" + keyword;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getUserNickNameList(String keyword, String n, String s) {
+		String url = Config.YXTSERVER3 + "oss/user/getusenicknamelist?n=" + n + "&s=" + s + "&keywords=" + keyword;
 		return getRestApiData(url);
 	}
 

@@ -23,6 +23,8 @@
 				<li><a href="#">批量创建</a></li>
 				<li><a href="${cbasePath}user/importUserView">用户导入</a></li> --%>
 				<li><a href="${cbasePath}user/roboitList">马甲用户列表</a></li>
+				<li><a href="${cbasePath }user/createUserNickNameForm">创建用户花名册</a></li>
+				<li><a href="${cbasePath}user/userNickNameList">用户花名册列表</a></li>
 				<li class="divider"></li>
 			</ul>
 		</div>
