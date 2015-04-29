@@ -943,6 +943,7 @@ public class user extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 		// 当前第几页
 		String nickname = request.getParameter("nickname");
+		logger.warn("====================创建用户花名册操作的管理员："+request.getSession().getAttribute("name")+"====名称："+nickname);
 		createUserNickName(nickname);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -984,6 +985,7 @@ public class user extends BaseController {
 		String id = request.getParameter("id");
 		String nickname = request.getParameter("nickname");
 		// 当前第几页
+		logger.warn("====================更新用户花名册操作的管理员："+request.getSession().getAttribute("name")+"====id："+id+"===名称"+nickname);
 		updateUserNickName(nickname,id);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -1002,6 +1004,7 @@ public class user extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 		// 当前第几页
 		String nickname = request.getParameter("nickname");
+		logger.warn("====================删除用户花名册操作的管理员："+request.getSession().getAttribute("name")+"===名称"+nickname);
 		deleteUsernickname(nickname);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
