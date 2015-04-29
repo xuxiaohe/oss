@@ -65,13 +65,20 @@
 						</div><br> 
 						
 						<br><br>
-						<c:if test="${resTopicPost.status == '200'}">
-							<div>
-								<table style="margin-top: 5px;">
+						
+						 
+				</div>
+
+
+
+
+			</div>
+		</div>
+	</div>
+	<c:if test="${resTopicPost.status == '200'}">
 
 									<c:forEach items="${resTopicPost.data.result}" varStatus="key"
 										var="Recourse">
-										<tr>
 											<ul class="list-group">
 												<li class="list-group-item"><span class="badge">副楼回复数：${Recourse.number}</span>
 													主楼回复：${Recourse.post.message}
@@ -98,7 +105,7 @@
 															</c:forEach>
 														</tr>
 													</table>
-													</div> <%-- <c:if test="${Recourse.post.subPosts != null}">
+													 <%-- <c:if test="${Recourse.post.subPosts != null}">
 											
 											<c:forEach items="${Recourse.post.subPosts}" varStatus="key" var="subpost">
 											
@@ -123,20 +130,9 @@
 														</c:forEach>
 													</c:if></li>
 											</ul>
-										</tr>
 									</c:forEach>
-								</table>
 						</c:if>
 						 
-						 
-				</div>
-
-
-
-
-			</div>
-		</div>
-	</div>
 	<script>
 		$(function() {
 			/* $("#searchIt").click(function(){
