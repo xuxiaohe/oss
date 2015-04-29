@@ -96,7 +96,20 @@
 				<br><br>
 					
 						
-						<c:if test="${resTopicPost.status == '200'}">
+						
+						 
+						
+						 
+				</div>
+				
+				
+
+
+
+			</div>
+		</div>
+	</div>
+	<c:if test="${resTopicPost.status == '200'}">
 						<table>
 						<c:forEach items="${resTopicPost.data.result}" varStatus="key" var="Recourse">
 						 	<tr>
@@ -139,18 +152,6 @@
 							</c:forEach>
 							</table>
 						</c:if>
-						 
-						
-						 
-				</div>
-				
-				
-
-
-
-			</div>
-		</div>
-	</div>
 	<script>
 		$(function() {
 			/* $("#searchIt").click(function(){
