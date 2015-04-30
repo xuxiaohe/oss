@@ -1,20 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="pageNation" uri="/WEB-INF/tld/pagenation.tld"%>
 <%@ taglib prefix="Date" uri="/WEB-INF/tld/datetag.tld"%>
+<%
+	String contextPath = request.getContextPath();
+%>
 <html>
 <head lang="en">
 <meta charset="UTF-8">
 <title>用户管理</title>
-<script src="${sourcePath}/resources/assets/js/jquery.min.js"></script>
-<script src="${sourcePath}/resources/assets/js/bootstrap.min.js"></script>
-<link href="${sourcePath}/resources/assets/css/bootstrap.min.css"
+<script src="<%=contextPath %>/resources/assets/js/jquery.min.js"></script>
+	<script src="<%=contextPath %>/resources/assets/js/bootstrap.min.js"></script>
+	<link href="<%=contextPath %>/resources/assets/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="${sourcePath}/resources/assets/css/font.css" rel="stylesheet">
+	<link href="<%=contextPath %>/resources/assets/css/font.css" rel="stylesheet">
 <style>
 #userInfoDiv div {
 	padding: 10px;
@@ -64,6 +67,12 @@
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">群组</label> 
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+							  选择群组
+							</button>
+							<input type="text" id="qnametext" class="form-control"/>
+							<input type="hidden" id="qidtext" name="qid"/>
+						<%-- <label for="exampleInputEmail1">群组</label> 
 							<select class="form-control" name="gid" id="gidSelect">
 							<c:if test="${groupList.status == '200' }">
 								<c:forEach items="${groupList.data.result}" varStatus="key"
@@ -71,7 +80,7 @@
 									<option value="${Recourse.id }">${Recourse.groupName }</option>
 								</c:forEach>
 							</c:if>
-						</select>
+						</select> --%>
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">类型</label> <input type="text"
@@ -117,7 +126,29 @@
 			</div>
 		</div>
 
-
+		
+		<!-- Modal -->
+		<!-- Modal -->
+		<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">群组搜索</h4>
+					</div>
+					<div class="modal-body" id="modalHtml"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+						<!-- <button type="button" class="btn btn-primary">确定</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 	<script src="${cbasePath}/resources/assets/js/html5shiv.js"></script>
 	<script src="${cbasePath}/resources/assets/js/plupload.full.min.js"></script>
@@ -135,8 +166,22 @@
 
 				}
 			});
+			$.ajax({
+				url : '<%=contextPath%>/dry/tablegroupList',
+				type : 'post',
+				dataType : 'html',
+				success : function(data){
+					$("#modalHtml").html("").html(data);
+				}
+			});
+			//$("#myModal").load("<%=contextPath%>/dry/tablegroupList");
 			upload("10007");
 		});
+		function selectGroup(groupId, groupName){
+			var $groupSelec = $("#qnametext");
+			$groupSelec.val(groupName);
+			$("#qidtext").val(groupId);
+		}
 		function upload(s){
 		    var uploader = Qiniu.uploader({
 		        runtimes: 'html5,flash,html4',
@@ -165,7 +210,7 @@
 		            	var imgs = jQuery("#imgContainer").children('img').length;
 		            	if(imgs >= 9){//大于9张则不能再上传
 		            		jQuery("#pic").hiden();
-		            		break;
+		            		return;
 		            	}
 		            	jQuery.getJSON(imgUrl + '?imageInfo',
 		            			function(result){

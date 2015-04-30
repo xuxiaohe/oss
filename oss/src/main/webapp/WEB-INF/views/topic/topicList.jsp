@@ -6,6 +6,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="pageNation" uri="/WEB-INF/tld/pagenation.tld"%>
 <%@ taglib prefix="Date" uri="/WEB-INF/tld/datetag.tld"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <html>
 <head lang="en">
 <meta charset="UTF-8">
@@ -64,7 +65,18 @@
 								<h4 style="margin-left:12px;">
 									<a href="${cbasePath}topic/topicDetail?topicid=${Recourse.topicId}">
 										标题：${Recourse.title} </a><br>
-										内容：${Recourse.content}
+										内容：
+										<c:if test="${Recourse.content != null && Recourse.content != 'null'}">					
+											<c:choose>
+									          <c:when test="${fn:length(Recourse.content) > 30}"> 
+									          
+									              <c:out value="${fn:substring(Recourse.content, 0, 30)}......" />
+									         </c:when>
+									         <c:otherwise>
+									            <c:out value="${Recourse.intro}" />
+									          </c:otherwise>
+									      </c:choose>
+									      </c:if> 
 										<small><small
 										class="pull-right">注册时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
@@ -105,6 +117,28 @@
 
 					<!-- 分页结束 --> </nav>
 				</c:if>
+			</div>
+		</div>
+		
+		<!-- Modal -->
+		<!-- Modal -->
+		<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">群组搜索</h4>
+					</div>
+					<div class="modal-body" id="modalHtml"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+						<!-- <button type="button" class="btn btn-primary">确定</button> -->
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
