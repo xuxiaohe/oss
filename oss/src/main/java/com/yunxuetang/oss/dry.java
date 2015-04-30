@@ -232,31 +232,7 @@ public class dry extends BaseController {
 		if("null".equals(fileUrl)){
 			fileUrl="";
 		}
-//		try {
-//			String t[]=file.getContentType().split("/");
-//			String tt="."+t[1];
-//
-//		if (file.getSize()!=0) {
-//
-//		Long l=System.currentTimeMillis();
-//
-//		String urlString="/data/ossImgTemp";
-//
-//		String urlString2=userid+l+tt;
-//
-//		InputStream stream=	file.getInputStream();
-//
-//		fileUrl=saveimage.save(urlString, urlString2, stream, "dry");
-//
-//		}
-//
-//		} catch (Exception e) {
-//
-//		// TODO Auto-generated catch block
-//
-//		e.printStackTrace();
-//
-//		}
+
 
 
 		String message = request.getParameter("message");

@@ -73,7 +73,7 @@
 							  选择群组
 							</button>
 							<input type="text" id="qnametext" class="form-control"/>
-							<input type="hidden" id="qidtext" name="qid"/>
+							<input type="hidden" id="qidtext" name="gid"/>
 							<%-- <select class="form-control" name="gid" id="dialog-link"> --%>
 							<%-- <c:if test="${groupList.status == '200' }">
 								<c:forEach items="${groupList.data.result}" varStatus="key"

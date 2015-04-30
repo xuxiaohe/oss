@@ -71,7 +71,7 @@
 							  选择群组
 							</button>
 							<input type="text" id="qnametext" class="form-control"/>
-							<input type="hidden" id="qidtext" name="qid"/>
+							<input type="hidden" id="qidtext" name="gid"/>
 						<%-- <label for="exampleInputEmail1">群组</label> 
 							<select class="form-control" name="gid" id="gidSelect">
 							<c:if test="${groupList.status == '200' }">

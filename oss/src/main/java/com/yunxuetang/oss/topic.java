@@ -396,30 +396,6 @@ public class topic extends BaseController {
 		if("null".equals(picUrl)){
 			picUrl="";
 		}
-//		try {
-//			String t[]=file.getContentType().split("/");
-//			String tt="."+t[1];
-//			if (file.getSize()!=0) {
-//
-//			Long l=System.currentTimeMillis();
-//
-//			String urlString="/data/ossImgTemp";
-//
-//			String urlString2=topicid+l+tt;
-//
-//			InputStream stream=	file.getInputStream();
-//
-//			picUrl=saveimage.save(urlString, urlString2, stream,"topic");
-//
-//			}
-//
-//			} catch (Exception e) {
-//
-//			// TODO Auto-generated catch block
-//
-//			e.printStackTrace();
-//
-//			}
 		logger.warn("======================================管理员-"+ request.getSession().getAttribute("name") + "更新话题, 话题ID:" + topicid + "=======标题:" + title);
 		ModelAndView modelview = new ModelAndView();
 
