@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="pageNation" uri="/WEB-INF/tld/pagenation.tld"%>
 <%@ taglib prefix="Date" uri="/WEB-INF/tld/datetag.tld"%>
+<%
+	String contextPath = request.getContextPath();
+%>
 <html>
 <head lang="en">
 <meta charset="UTF-8">
@@ -52,16 +55,12 @@
 
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">群组ID</label>  
-							  <select
-							class="form-control" name="groupId" id="gidSelect">
-							<c:if test="${groupList.status == '200' }">
-								<c:forEach items="${groupList.data.result}" varStatus="key"
-									var="Recourse">
-									<option value="${Recourse.id }">${Recourse.groupName }</option>
-								</c:forEach>
-							</c:if>
-						</select>
+						<label for="exampleInputEmail1">群组</label> 
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+							  选择群组
+							</button>
+							<input type="text" id="qnametext" class="form-control"/>
+							<input type="hidden" id="qidtext" name="groupId"/>
 					</div>
 
 					<button type="submit" class="btn btn-default">Submit</button>
@@ -69,6 +68,28 @@
 			</div>
 		</div>
 
+
+		<!-- Modal -->
+		<!-- Modal -->
+		<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">群组搜索</h4>
+					</div>
+					<div class="modal-body" id="modalHtml"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+						<!-- <button type="button" class="btn btn-primary">确定</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</div>
 	<script>
@@ -83,7 +104,20 @@
 
 				}
 			});
+			$.ajax({
+				url : '<%=contextPath%>/dry/tablegroupList',
+				type : 'post',
+				dataType : 'html',
+				success : function(data){
+					$("#modalHtml").html("").html(data);
+				}
+			});
 		});
+		function selectGroup(groupId, groupName){
+			var $groupSelec = $("#qnametext");
+			$groupSelec.val(groupName);
+			$("#qidtext").val(groupId);
+		}
 	</script>
 </body>
 </html>
