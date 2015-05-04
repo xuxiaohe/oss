@@ -46,6 +46,7 @@
 							<option value="201502">2015年2月</option>
 							<option value="201503">2015年3月</option>
 							<option value="201504">2015年4月</option>
+							<option value="201505">2015年5月</option>
 						</select>	
 						<select class="form-control" style="display:none;" onchange="javascript:loadData();" id="yearSelect">
 							<option value="2015">2015年</option>
