@@ -1,35 +1,24 @@
 #/bin/sh 
 
-#echo "===============创建目录==============="
-#`mkdir /data/testoss`
-#echo "===============复制文件==============="
-#`cp /usr/local/tomcat/webapps/oss.war  /data/testoss`
-
-
-
 echo "===============切换oss目录==============="
 cd /data/source/yxt_oss/yunxuetang_oss/oss/
-echo "===============svn up==============="
+echo "===============svn更新==============="
 svn up
-echo "===============mvn install==============="
+echo "===============mvn install工程==============="
 mvn install
-echo "===============target==============="
+echo "===============切换target目录==============="
 cd target/
-echo "===============cp oss-1.0.0-BUILD-SNAPSHOT.war  /data/tomcat/webapps/==============="
+echo "===============负责项目到tomcat目录==============="
 cp oss-1.0.0-BUILD-SNAPSHOT.war  /data/tomcat/webapps/
-echo "===============cd /data/tomcat/webapps/==============="
+echo "===============切换到tomcat目录下==============="
 cd /data/tomcat/webapps/
-echo "===============mv==============="
+echo "===============删除原oss文件==============="
 rm -rf oss.war
-echo "===============mv==============="
+echo "===============修改项目名称为oss.war==============="
 mv oss-1.0.0-BUILD-SNAPSHOT.war oss.war
 
 
-
-
-
-
 #echo "===============关闭服务==============="
-#sh /usr/local/tomcat/bin/shutdown.sh
+sh /data/tomcat/bin/shutdown.sh
 #echo "===============开启服务==============="
-#sh /usr/local/tomcat/bin/startup.sh
+sh /data/tomcat/bin/startup.sh
