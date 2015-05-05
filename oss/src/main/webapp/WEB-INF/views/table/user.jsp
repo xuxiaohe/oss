@@ -195,12 +195,12 @@
 			            		                    {type : 'max', name: '最大值'},
 			            		                    {type : 'min', name: '最小值'}
 			            		                ]
-			            		            },
+			            		            }/* ,
 			            		            markLine : {
 			            		                data : [
 			            		                    {type : 'average', name: '平均值'}
 			            		                ]
-			            		            }
+			            		            } */
 			            		        },
 			            		        {
 			            		            name:'新增用户数',
@@ -211,12 +211,12 @@
 			            		                    {type : 'max', name: '最大值'},
 			            		                    {type : 'min', name: '最小值'}
 			            		                ]
-			            		            },
+			            		            }/* ,
 			            		            markLine : {
 			            		                data : [
 			            		                    {type : 'average', name: '平均值'}
 			            		                ]
-			            		            }
+			            		            } */
 			            		        }
 			            		    ]
 			            		};
