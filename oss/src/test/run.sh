@@ -18,7 +18,9 @@ echo "===============修改项目名称为oss.war==============="
 mv oss-1.0.0-BUILD-SNAPSHOT.war oss.war
 
 
-#echo "===============关闭服务==============="
-sh /data/tomcat/bin/shutdown.sh
-#echo "===============开启服务==============="
-sh /data/tomcat/bin/startup.sh
+echo "===============关闭服务==============="
+cd /data/tomcat/bin/
+./shutdown.sh
+echo "===============开启服务==============="
+cd /data/tomcat/bin/
+./startup.sh
