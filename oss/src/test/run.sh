@@ -11,12 +11,12 @@ echo "============================切换target目录======================="
 cd target/
 echo "===========================负责项目到tomcat目录===================="
 cp oss-1.0.0-BUILD-SNAPSHOT.war  /data/tomcat/webapps/
-echo "============================切换到tomcat目录下====================="
-cd /data/tomcat/webapps/
 echo "============================关闭服务==============================="
 cd /data/tomcat/bin/
 ./shutdown.sh
 ps -ef |grep tomcat  |awk {'print $2'} | sed -e "s/^/kill -9 /g" | sh -
+echo "============================切换到tomcat目录下====================="
+cd /data/tomcat/webapps/
 echo "============================删除原oss=========================="
 rm -rf oss.war
 rm -rf oss
