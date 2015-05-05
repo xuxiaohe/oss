@@ -35,7 +35,10 @@
 								<option value="1">日</option>
 								<option value="2">月</option>
 						</select>
-						
+						<!-- <div class="input-append date" id="datetimepicker" data-date="201501" data-date-format="yyyymm">
+						    <input class="span2" size="16" type="text" value="201501">
+						    <span class="add-on"><i class="icon-th"></i></span>
+						</div>  -->
 					</div>
 				</div>
 				<div class="row">	
