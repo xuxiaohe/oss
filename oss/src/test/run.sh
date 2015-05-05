@@ -19,8 +19,9 @@ mv oss-1.0.0-BUILD-SNAPSHOT.war oss.war
 
 
 echo "===============关闭服务==============="
-cd /data/tomcat/bin/
-./shutdown.sh
+#cd /data/tomcat/bin/
+#./shutdown.sh
+ps -ef |grep tomcat  |awk {'print $2'} | sed -e "s/^/kill -9 /g" | sh -
 echo "===============开启服务==============="
 cd /data/tomcat/bin/
 ./startup.sh
