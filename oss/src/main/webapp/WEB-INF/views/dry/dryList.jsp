@@ -74,8 +74,10 @@
 								</h4>
 							主楼回复数：${Recourse.replyCount} &nbsp&nbsp&nbsp&nbsp
 							<c:if test="${Recourse.authorId=='552f61c1e4b028d5b163cfa2'}">  
-							定时抓取的干货   ${Recourse.group}
+							定时抓取的干货   <%-- ${Recourse.group} --%>
 							</c:if>
+							&nbsp&nbsp&nbsp&nbsp
+							群组的名称：${Recourse.groupName}
 
 								<div class="col-xs-12 btn-group-sm">
 									<button data="${Recourse.id}" type="button"
