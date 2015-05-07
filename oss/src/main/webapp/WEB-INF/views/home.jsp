@@ -94,6 +94,9 @@ String cbasePath2 = "http://oss.ztiao.cn/oss";
                         <a href="<%=cbasePath%>userlog/" target="mainFrame"><span class="glyphicon glyphicon-star"></span>效果统计</a>
                     </li>
                     <li role="presentation">
+                        <a href="<%=cbasePath%>/banner/list" target="mainFrame"><span class="glyphicon glyphicon-star"></span>Banner管理</a>
+                     </li>
+                    <li role="presentation">
                         <a href="<%=cbasePath%>adSeller/adPage" target="mainFrame"><span class="glyphicon glyphicon-star"></span>广告位管理</a>
                     </li>
                     <li role="presentation">
