@@ -40,7 +40,7 @@
 				<div class="row">
 					<div class="col-xs-2">
 						<img class="thumbnail col-xs-12"
-							src="${bannerDetail.data.result.fileUrl }" alt="" /> <a
+							src="${bannerDetail.data.result.picUrl }" alt="" /> <a
 							href="${cbasePath}dry/editForm?dryid=${bannerDetail.data.result.id }">
 							<button type="button" class="btn btn-warning btn-block">编辑</button>
 						</a><br>
@@ -61,19 +61,14 @@
 						<div class="col-xs-6">渠道商：${bannerDetail.data.result.adSid}</div>
 						<div class="col-xs-6">渠道：${bannerDetail.data.result.adSellerId}
 						</div>
-						<div class="col-xs-6">不赞数量：${dryDetail.data.result.unLikeCount}
+						<div class="col-xs-6">广告是否有效：${bannerDetail.data.result.effective}
 						</div>
-						<div class="col-xs-6">收藏人数统计：${dryDetail.data.result.favCount}
+						<div class="col-xs-6">点击数量：${bannerDetail.data.result.ccount}
 						</div>
 						<%-- <div class="col-xs-6">URL：${dryDetail.data.result.url}
 						</div> --%>
-						<h4 style="margin-left: 12px;">
-							<div class="col-xs-6">URL：${dryDetail.data.result.url}</div>
-						</h4>
-						<br>
-						<br>
-						<br>
-						<br>
+						
+						
 						<br> <br>
 						<br>
 

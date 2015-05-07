@@ -60,11 +60,6 @@ public class Banner extends BaseController{
 		try {
 			JSONObject objj3 = bannerDetail(id);
 
-			String url = objj3.getJSONObject("data").getJSONObject("result").getString("url");
-			url = URLDecoder.decode(url, "utf-8");
-
-			modelview.addObject("url", url);
-
 			modelview.addObject("bannerDetail", objj3);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -66,7 +66,7 @@
 							</div>
 							<div class="col-xs-10">
 								<h4 style="margin-left: 12px;">
-									<a href="${cbasePath}dry/dryDetail?dryid=${Recourse.id}">
+									<a href="${cbasePath}banner/bannerDetail?id=${Recourse.id}">
 										渠道商名称：${Recourse.adSellerName} </a><br> <small><small
 										class="pull-right">注册时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
@@ -82,6 +82,7 @@
 							<c:if test="${Recourse.adSid=='20'}">  
 							&nbsp&nbsp位置：站外（机构网校）   
 							</c:if>
+							是否显示：${effective}
 								<%-- <div class="col-xs-12 btn-group-sm">
 									<button data="${Recourse.id}" data1="${Recourse.authorId}" type="button"
 										class="deleteBtn btn btn-primary">删除</button>
