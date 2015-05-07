@@ -83,6 +83,23 @@ public class Banner extends BaseController{
 	}
 	
 	
+	/**
+	 * 创建banner视图
+	 * */
+	@RequestMapping("/saveBanner")
+	public String saveBanner(HttpServletRequest request){
+		String picUrl=request.getParameter("picUrl");
+		String picWidth=request.getParameter("picWidth");
+		String picHeight= request.getParameter("picHeight");
+		String adSid=request.getParameter("adSid");
+		String linkUrl=request.getParameter("linkUrl");
+		String name=request.getParameter("name");
+		
+		savebanner(picUrl,picWidth,picHeight,adSid,linkUrl,name);
+		return "redirect:/banner/bannerlist";
+	}
+	
+	
 	private JSONObject BannerList(String keyword, String n, String s) {
 		String url = null;
 		if (keyword == null) {
@@ -98,6 +115,9 @@ public class Banner extends BaseController{
 		return getRestApiData(url);
 	}
 	
-	
+	private JSONObject savebanner(String picUrl,String picWidth,String picHeight,String adSid,String linkUrl,String name) {
+		String url = Config.YXTSERVER3 + "oss/ztiaoad/addNew?picUrl=" + picUrl+"&picWidth="+picWidth+"&picHeight="+picHeight+"&adSid="+adSid+"&linkUrl="+linkUrl+"&name="+name;
+		return getRestApiData(url);
+	}
 
 }
