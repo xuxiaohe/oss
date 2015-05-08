@@ -50,12 +50,35 @@
 					<div class="form-group">
 						<label for="exampleInputEmail1">类型: &nbsp;&nbsp;&nbsp;&nbsp;</label>
 						<label class="radio-inline"> <input type="radio"
-							name="adSid" id="inlineRadio1" value="0" onclick="javascript:changeBannerType();" checked>
+							name="adSid" id="inlineRadio1" value="10" onclick="javascript:changeBannerType();" checked>
 							站外
 						</label> <label class="radio-inline"> <input type="radio"
-							name="adSid" id="inlineRadio2" value="10" onclick="javascript:changeBannerType();">
+							name="adSid" id="inlineRadio2" value="0" onclick="javascript:changeBannerType();">
 							站内
 						</label>
+
+					</div>
+					<div class="form-group clearfix">
+						<div class="media">
+							<div class="media-left">
+								<img id="img" width="100" height="100" src=""> <input
+									type="hidden" name="picUrl" id="picUrl" /> <input type="hidden"
+									name="picWidth" id="picWidth" /> <input type="hidden"
+									name="picHeight" id="picHeight" />
+							</div>
+							<div class="media-body">
+								<div id="container" style="position: relative;">
+									<div class="row">
+										<div class="col-xs-9">
+											<button id="pic" type="button" class="btn btn-primary">上传图片</button>
+										</div>
+									</div>
+
+								</div>
+
+
+							</div>
+						</div>
 
 					</div>
 					<div id="innerSite">
@@ -63,29 +86,7 @@
 							<label for="exampleInputEmail1">外链地址</label> <input type="text" name="linkUrl"
 								class="form-control" />
 						</div>
-						<div class="form-group clearfix">
-							<div class="media">
-								<div class="media-left">
-									<img id="img" width="100" height="100" src="">
-									<input type="hidden" name="picUrl" id="picUrl"/>
-									<input type="hidden" name="picWidth" id="picWidth"/>
-									<input type="hidden" name="picHeight" id="picHeight"/>
-								</div>
-								<div class="media-body">
-									<div id="container" style="position: relative;">
-										<div class="row">
-											<div class="col-xs-9">
-												<button id="pic" type="button" class="btn btn-primary">上传图片</button>
-											</div>
-										</div>
-
-									</div>
-
-
-								</div>
-							</div>
-
-						</div>
+						
 					</div>
 					<div id="outSite" style="display:none;">
 						<div class="form-group">
@@ -98,7 +99,7 @@
 						</div>
 						<div class="form-group">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-							  选择群组
+							  选择
 							</button>
 						</div>
 					</div>
