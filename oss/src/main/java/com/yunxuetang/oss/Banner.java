@@ -127,6 +127,37 @@ public class Banner extends BaseController{
 		return "redirect:/banner/bannerlist";
 	}
 	
+	/**
+	 * 搜索干货
+	 * 
+	 * @param keywords
+	 *            关键字
+	 * */
+	@RequestMapping("/searchDry")
+	public String searchDrycagro(HttpServletRequest request, Model model) {
+		String keyword = request.getParameter("keyword");
+		// 当前第几页
+		String n = request.getParameter("n");
+		if (n == null) {
+			n = "0";
+		}
+		// 每页条数
+		String s = request.getParameter("s");
+
+		if (s == null) {
+			s = "10";
+		}
+		// ModelAndView modelview = new ModelAndView();
+
+		model.addAttribute("Drys", dryList(keyword, n, s));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "banner/drylist";
+	}
 	
 	private JSONObject BannerList(String keyword, String n, String s) {
 		String url = null;
@@ -145,6 +176,20 @@ public class Banner extends BaseController{
 	
 	private JSONObject savebanner(String picUrl,String picWidth,String picHeight,String adSid,String linkUrl,String name) {
 		String url = Config.YXTSERVER3 + "oss/ztiaoad/addNew?picUrl=" + picUrl+"&picWidth="+picWidth+"&picHeight="+picHeight+"&adSid="+adSid+"&linkUrl="+linkUrl+"&name="+name;
+		return getRestApiData(url);
+	}
+	
+	/**
+	 * 搜索干货方法
+	 * */
+	private JSONObject dryList(String keyword, String n, String s) {
+		String url = null;
+		if (keyword == null) {
+			url = Config.YXTSERVER3 + "oss/dry/searchDrys?n=" + n + "&s=" + s;
+		} else {
+			url = Config.YXTSERVER3 + "oss/dry/searchDrys?n=" + n + "&s=" + s
+					+ "&keywords=" + keyword;
+		}
 		return getRestApiData(url);
 	}
 
