@@ -173,7 +173,7 @@
 		/*
 		*/
 		function changeBannerType(){
-			if($('input:radio[name=adSid]:checked').val() == '0'){
+			if($('input:radio[name=adSid]:checked').val() != '0'){
 				$("#innerSite").show();
 				$("#outSite").hide();
 			}else{
