@@ -88,14 +88,42 @@ public class Banner extends BaseController{
 	 * */
 	@RequestMapping("/saveBanner")
 	public String saveBanner(HttpServletRequest request){
+		String adSid=request.getParameter("adSid");
+		//3  站外
+		String adSellerId=request.getParameter("adSellerId");
+		//站外链接
+		String adSellerName=request.getParameter("adSellerName");
+		//创建人
+		String creater=(String) request.getSession().getAttribute("name");
+		
+		String name=request.getParameter("name");
+		
 		String picUrl=request.getParameter("picUrl");
 		String picWidth=request.getParameter("picWidth");
 		String picHeight= request.getParameter("picHeight");
-		String adSid=request.getParameter("adSid");
-		String linkUrl=request.getParameter("linkUrl");
-		String name=request.getParameter("name");
-		
-		savebanner(picUrl,picWidth,picHeight,adSid,linkUrl,name);
+		if("10".equals(adSid)){
+			
+			String linkUrl=request.getParameter("linkUrl");
+			
+			//savebanner(picUrl,picWidth,picHeight,adSid,linkUrl,name,adSellerId,adSellerName,creater);
+		}
+		else {
+			if("0".equals(adSellerId)){
+				String groupId=request.getParameter("groupId");
+				String topicId=request.getParameter("topicId");
+				
+			}
+			if("1".equals(adSellerId)){
+				String groupId=request.getParameter("groupId");
+				String dryCargoId=request.getParameter("dryCargoId");
+				
+			}
+			if("2".equals(adSellerId)){
+				String groupId=request.getParameter("groupId");
+				String topicId=request.getParameter("topicId");
+				
+			}
+		}
 		return "redirect:/banner/bannerlist";
 	}
 	
