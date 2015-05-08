@@ -48,7 +48,7 @@
 			<div class="col-xs-9">
 				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
 				<form role="form" method="post"
-					action="${cbasePath}dry/updateDryAction?dryid=${resuserTopic.data.result.id}">
+					action="${cbasePath}dry/updateDryAction?dryid=${resuserTopic.data.result.id}&uid=${uid}">
 
 
 					<div class="form-group">

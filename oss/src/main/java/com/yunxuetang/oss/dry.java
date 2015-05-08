@@ -556,9 +556,16 @@ public class dry extends BaseController {
 	public String deleteDry(HttpServletRequest request) {
 		// 必输
 		String dryid = request.getParameter("dryid");
+		String uid = request.getParameter("uid"); 
+		String s="";
+		if("552f61c1e4b028d5b163cfa2".equals(uid)||"5518e96a8832707f69e39aa7".equals(uid)){
+			s="redirect:/dry/catchDryList";
+		}else {
+			s="redirect:/dry/dryList";
+}
 		logger.warn("=====================删除干货操作的管理员："+request.getSession().getAttribute("name")+"干货id"+dryid);
 		deleteDryById(dryid);
-		return "redirect:/dry/dryList";
+		return s;
 	}
 
 	/**
@@ -620,6 +627,38 @@ public class dry extends BaseController {
 	}
 	
 	
+	
+	/**
+	 * 
+	 * 查询所有定时抓取干货 包括没有关联群组的
+	 */
+	@RequestMapping("/catchDryList")
+	public ModelAndView catchDryList(HttpServletRequest request) {
+		String keyword = request.getParameter("keyword");
+		// 当前第几页
+		String n = request.getParameter("n");
+		if (n == null) {
+			n = "0";
+		}
+		// 每页条数
+		String s = request.getParameter("s");
+
+		if (s == null) {
+			s = "10";
+		}
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("Drys", catchdryList(keyword, n, s));
+		System.out.print(dryList(keyword, n, s));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("dry/catchdryList");
+		return modelview;
+	}
+	
+	
 	/**
 	 * 
 	 * 查询所有未审核干货
@@ -664,7 +703,13 @@ public class dry extends BaseController {
 		// 必输
 		String groupid = request.getParameter("gid");
 		String dryid = request.getParameter("dryid");
-
+		String uid = request.getParameter("uid"); 
+		String s="";
+		if("552f61c1e4b028d5b163cfa2".equals(uid)||"5518e96a8832707f69e39aa7".equals(uid)){
+			s="redirect:/dry/catchDryList";
+		}else {
+			s="redirect:/dry/dryList";
+}
 		ModelAndView modelview = new ModelAndView();
 		logger.warn("=====================干货关联群组操作的管理员："+request.getSession().getAttribute("name")+"===群组id"+groupid+"===干货id"+dryid);
 		modelview.addObject("rescreateTopicByGroup", UpdateDryById(dryid, groupid));
@@ -672,7 +717,7 @@ public class dry extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		return "redirect:/dry/dryList";
+		return s;
 	}
 
 	/**
@@ -684,7 +729,7 @@ public class dry extends BaseController {
 
 		// 当前第几页
 		String dryid = request.getParameter("dryid");
-
+		String uid = request.getParameter("uid"); 
 		ModelAndView modelview = new ModelAndView();
 
 		try {
@@ -698,6 +743,7 @@ public class dry extends BaseController {
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("uid", uid);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("dry/bindDryByGroupForm");
 		return modelview;
@@ -1266,8 +1312,8 @@ public class dry extends BaseController {
 		 
 		String dryid = request.getParameter("dryid");
 		//排行榜id
-		 
-		 
+		String uid = request.getParameter("uid"); 
+		String s="";
 		ModelAndView modelview = new ModelAndView();
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -1275,8 +1321,12 @@ public class dry extends BaseController {
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		logger.warn("========================干货审核的管理员："+request.getSession().getAttribute("name")+"===干货id"+dryid);
 		modelview.addObject("addDryBoxList", checkDry(dryid));
-		
-		return "redirect:/dry/dryList";
+		if("552f61c1e4b028d5b163cfa2".equals(uid)||"5518e96a8832707f69e39aa7".equals(uid)){
+			s="redirect:/dry/catchDryList";
+		}else {
+			s="redirect:/dry/dryList";
+		}
+		return s;
 	}
 	
 	
@@ -1389,6 +1439,16 @@ public class dry extends BaseController {
 			url = Config.YXTSERVER3 + "oss/dry/searchDrys?n=" + n + "&s=" + s;
 		} else {
 			url = Config.YXTSERVER3 + "oss/dry/searchDrys?n=" + n + "&s=" + s + "&keywords=" + keyword;
+		}
+		return getRestApiData(url);
+	}
+	
+	private JSONObject catchdryList(String keyword, String n, String s) {
+		String url = null;
+		if (keyword == null) {
+			url = Config.YXTSERVER3 + "oss/dry/searchCatchDrys?n=" + n + "&s=" + s;
+		} else {
+			url = Config.YXTSERVER3 + "oss/dry/searchCatchDrys?n=" + n + "&s=" + s + "&keywords=" + keyword;
 		}
 		return getRestApiData(url);
 	}

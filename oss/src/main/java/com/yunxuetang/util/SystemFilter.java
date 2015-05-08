@@ -1,8 +1,12 @@
 package com.yunxuetang.util;
 
+import net.sf.json.JSONObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +40,19 @@ public class SystemFilter implements Filter {
 		HttpSession session = httpRequest.getSession(true);
 		String name=(String) session.getAttribute("name");
 		StringBuffer url = httpRequest.getRequestURL();
+		RestTemplate restTemplate = new RestTemplate();
 		//System.out.println("================="+session.getAttribute("name"));
+		String courSharResoStr = null;
+		try {
+			courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/checkip", String.class);
+		} catch (RestClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		JSONObject objj = JSONObject.fromObject(courSharResoStr);
 		
 		if(name==null){
 			wrapper.sendRedirect("/oss");

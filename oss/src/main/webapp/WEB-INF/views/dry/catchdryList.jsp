@@ -24,7 +24,7 @@
 		<jsp:include page="header.jsp"></jsp:include>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<form class="form-inline" action="${cbasePath}dry/dryList"
+				<form class="form-inline" action="${cbasePath}dry/catchDryList"
 					method="get" role="form">
 					<div class="form-group">
 						<label class="sr-only" for="keyword">Search:</label> <input
@@ -41,7 +41,7 @@
 						<pageNation:PageNation currPage="${Drys.data.curr_page}"
 							totalPages="${Drys.data.page_rows}" perPageRows="10"
 							totalRows="${Drys.data.total_rows}"
-							linkBaseUrl="${cbasePath}dry/dryList?">
+							linkBaseUrl="${cbasePath}dry/catchDryList?">
 						</pageNation:PageNation>
 					</ul>
 
@@ -51,7 +51,6 @@
 					<%-- ${fn:length(Drys.data.result)} --%>
 					<c:forEach items="${Drys.data.result}" varStatus="key"
 						var="Recourse">
-					
 						<div class="row" style="padding: 20px;">
 							<div class="col-xs-1">
 								<h5 style="margin-top: 40px;">
@@ -115,7 +114,7 @@
 						<pageNation:PageNation currPage="${Drys.data.curr_page}"
 							totalPages="${Drys.data.page_rows}" perPageRows="10"
 							totalRows="${Drys.data.total_rows}"
-							linkBaseUrl="${cbasePath}dry/dryList?">
+							linkBaseUrl="${cbasePath}dry/catchDryList?">
 						</pageNation:PageNation>
 					</ul>
 
@@ -131,16 +130,16 @@
 			}); */
 			
 			$(".deleteBtn")
-					.click(
-							function() {
-								if (window.confirm('你确定要删除吗？')) {
-									//alert("${cbasePath}dry/deleteDry?dryid="+$(this).attr("data"));
-									window.location.href = "${cbasePath}dry/deleteDry?dryid="
-											+ $(this).attr("data")+"&uid="+$(this).attr("data1");
-								} else {
+			.click(
+					function() {
+						if (window.confirm('你确定要删除吗？')) {
+							//alert("${cbasePath}dry/deleteDry?dryid="+$(this).attr("data"));
+							window.location.href = "${cbasePath}dry/deleteDry?dryid="
+									+ $(this).attr("data")+"&uid="+$(this).attr("data1");
+						} else {
 
-								}
-							});
+						}
+					});
 			
 			
 			$(".info")

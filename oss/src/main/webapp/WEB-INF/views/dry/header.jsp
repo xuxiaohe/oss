@@ -24,6 +24,7 @@
 				<li><a href="${cbasePath}dry/BoxDryList">干货排行榜管理</a></li> --%>
 				<li><a href="${cbasePath}dry/DryBoxDetail">干货与推荐绑定</a></li>
 				<li><a href="${cbasePath}dry/noCheckDryList">未审核干货列表</a></li>
+				<li><a href="${cbasePath}dry/catchDryList">定时抓取干货列表</a></li>
 				<%-- <li><a href="${cbasePath}dry/DryBoxBindedDetail">干货已关联排行榜管理</a></li> --%>
 				<!-- <li><a href="#">用户导入</a></li> -->
 				<li class="divider"></li>
