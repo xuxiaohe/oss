@@ -23,7 +23,7 @@ public class Config {
 	//生产
 	public static String YXTSERVER4 = "http://bj.tag.ztiao.cn/";
 	
-	public static String WIKERSERVER = "http://s1.xuewen.yunxuetang.com:8089/";
+	public static String WIKERSERVER = "http://bj.api.wiker.ztiao.cn/";
 	public static String QDANSERVER = "http://bj.api.qd.ztiao.cn/";
 	public static String SCHEDULE_SERVER = "http://bj.schedule.ztiao.cn";
 	public static String ACCESS_KEY = "PN6SV6Fm-Ueu-D8NYN_NfJwpPuedsQALNKmwL_IQ";
