@@ -14,7 +14,7 @@
 
 <head lang="en">
 <meta charset="UTF-8">
-<title>创建Banner</title>
+<title>修改广告条内容</title>
 <script src="<%=contextPath%>/resources/assets/js/jquery.min.js"></script>
 <script src="<%=contextPath%>/resources/assets/js/bootstrap.min.js"></script>
 <link href="<%=contextPath%>/resources/assets/css/bootstrap.min.css"
@@ -30,29 +30,29 @@
 			<li><a href="<%=contextPath%>/banner/bannerlist">banner管理</a></li>
 			<li><a href="<%=contextPath%>/banner/bannerlist">banner列表</a></li>
 
-			<li class="active">banner创建</li>
+			<li class="active">banner修改</li>
 		</ol>
 
 		<div class="row">
 			<div class="col-xs-9">
 				<form role="form" method="post" onsubmit="return beforeSubmit();"
-					action="<%=contextPath%>/banner/saveBanner">
-					<input type="hidden" name="groupId" id="groupId" value=""/>
-					<input type="hidden" name="topicId" id="topicId" value=""/>
-					<input type="hidden" name="dryCargoId" id="dryCargoId" value=""/>
-					<input type="hidden" name="groupCourseId" id="groupCourseId" value=""/>
-					<input type="hidden" name="courseId" id="courseId" value=""/> 
+					action="<%=contextPath%>/banner/updateBanner">
+					<input type="hidden" name="groupId" id="groupId" value="${ad.data.result.groupId}"/>
+					<input type="hidden" name="topicId" id="topicId" value="${ad.data.result.topicId}"/>
+					<input type="hidden" name="dryCargoId" id="dryCargoId" value="${ad.data.result.dryCargoId}"/>
+					<input type="hidden" name="groupCourseId" id="groupCourseId" value="${ad.data.result.groupCourseId}"/>
+					<input type="hidden" name="courseId" id="courseId" value="${ad.data.result.courseId}"/> 
 					<input type="hidden" name="adId" value="0"/>
-					<input type="hidden" name="adSellerName" id="adSellerName"/>
-					<input type="hidden" name="adSellerId" id="adSellerId"/>
+					<input type="hidden" name="adSellerName" id="adSellerName" value="${ad.data.result.adSellerName}"/>
+					<input type="hidden" name="adSellerId" id="adSellerId" value="${ad.data.result.adSellerId}"/>
 					<div class="form-group">
-						<label for="exampleInputEmail1">名称:</label> <input type="text" name="name"
+						<label for="exampleInputEmail1">名称:</label> <input type="text" name="name" value="${ad.data.result.name}"
 							class="form-control" />
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">类型: &nbsp;&nbsp;&nbsp;&nbsp;</label>
 						<label class="radio-inline"> <input type="radio"
-							name="adSid" id="inlineRadio1" value="10" onclick="javascript:changeBannerType();" checked>
+							name="adSid" id="inlineRadio1" value="10" onclick="javascript:changeBannerType();">
 							站外
 						</label> <label class="radio-inline"> <input type="radio"
 							name="adSid" id="inlineRadio2" value="0" onclick="javascript:changeBannerType();">
@@ -63,7 +63,7 @@
 					<div class="form-group clearfix">
 						<div class="media">
 							<div class="media-left">
-								<img id="img" width="100" height="100" src=""> <input
+								<img id="img" width="100" height="100" src="${ad.data.result.picUrl}"> <input
 									type="hidden" name="picUrl" id="picUrl" /> <input type="hidden"
 									name="picWidth" id="picWidth" /> <input type="hidden"
 									name="picHeight" id="picHeight" />
@@ -85,7 +85,7 @@
 					</div>
 					<div id="innerSite">
 						<div class="form-group">
-							<label for="exampleInputEmail1">外链地址</label> <input type="text" name="linkUrl" id="linkUrl"
+							<label for="exampleInputEmail1">外链地址</label> <input type="text" name="linkUrl" value="${ad.data.result.linkUrl}" id="linkUrl"
 								class="form-control" />
 						</div>
 						
@@ -93,11 +93,11 @@
 					<div id="outSite" style="display:none;">
 						<div class="form-group">
 							<label for="exampleInputEmail1">类型:</label> <input type="text" id="typeText"  
-								class="form-control" readonly="readonly"/>
+								class="form-control" readonly="readonly" value="${ad.data.result.adSellerName}"/>
 						</div>
 						<div class="form-group">
 							<label for="exampleInputEmail1">内容:</label> <input type="text"
-								class="form-control" readonly="readonly" id="contentText" name="sourceName"/>
+								class="form-control" readonly="readonly" id="contentText" value="${ad.data.result.sourceName}" name="sourceName"/>
 						</div>
 						<div class="form-group">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -105,17 +105,17 @@
 							</button>
 						</div>
 					</div>
-					<!-- <div class="form-group">
+					<div class="form-group">
 						<label for="exampleInputEmail1">是否展示: &nbsp;&nbsp;&nbsp;&nbsp;</label>
 						<label class="radio-inline"> <input type="radio"
-							name="isShow" id="inlineRadio1" value="1" checked>
+							name="effective" id="inlineRadio1" value=true>
 							是
 						</label> <label class="radio-inline"> <input type="radio"
-							name="isShow" id="inlineRadio2" value="0" >
+							name="effective" id="inlineRadio2" value=false>
 							否
 						</label>
 
-					</div> -->
+					</div>
 					<br><br><br>
 					<button type="submit" class="form-control btn btn-primary" >提交</button>
 				</form>
@@ -170,6 +170,28 @@
 	<script src="<%=contextPath%>/resources/assets/js/moxie.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
+			/**
+				设置radio的初始属性
+			*/
+			var adSid = '${ad.data.result.adSid}';
+			var bannerType = ${ad.data.result.effective};
+			if(adSid == '10'){
+				$("input[name='adSid'][value='10']").attr("checked",true); 
+			}else{
+				$("input[name='adSid'][value='0']").attr("checked",true); 
+			}
+			if(bannerType){
+				$("input[name='effective'][value=true]").attr("checked",true); 
+			}else{
+				$("input[name='effective'][value=false]").attr("checked",true); 
+			}
+			if($('input:radio[name=adSid]:checked').val() != '0'){
+				$("#innerSite").show();
+				$("#outSite").hide();
+			}else{
+				$("#outSite").show();
+				$("#innerSite").hide();
+			}
 			upload("10007");
 		});
 		/*

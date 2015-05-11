@@ -41,7 +41,7 @@
 					<div class="col-xs-2">
 						<img class="thumbnail col-xs-12"
 							src="${bannerDetail.data.result.picUrl }" alt="" /> <a
-							href="${cbasePath}dry/editForm?dryid=${bannerDetail.data.result.id }">
+							href="${cbasePath}banner/modify?id=${bannerDetail.data.result.id }">
 							<button type="button" class="btn btn-warning btn-block">编辑</button>
 						</a><br>
 						<button data="${bannerDetail.data.result.id }" type="button"
