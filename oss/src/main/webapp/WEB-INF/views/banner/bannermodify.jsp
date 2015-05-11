@@ -65,9 +65,9 @@
 						<div class="media">
 							<div class="media-left">
 								<img id="img" width="100" height="100" src="${ad.data.result.picUrl}"> <input
-									type="hidden" name="picUrl" id="picUrl" /> <input type="hidden"
-									name="picWidth" id="picWidth" /> <input type="hidden"
-									name="picHeight" id="picHeight" />
+									type="hidden" name="picUrl" id="picUrl" value="${ad.data.result.picUrl}" /> <input type="hidden"
+									name="picWidth" id="picWidth" value="${ad.data.result.picWidth}"/> <input type="hidden"
+									name="picHeight" id="picHeight" value="${ad.data.result.picHeight}"/>
 							</div>
 							<div class="media-body">
 								<div id="container" style="position: relative;">
