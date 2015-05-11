@@ -301,6 +301,20 @@ public class Banner extends BaseController {
 		modelview.setViewName("banner/courselist");
 		return modelview;
 	}
+	
+	@RequestMapping("/modify")
+	public String toUpdateVeiw(HttpServletRequest request, Model model){
+		String id = request.getParameter("id");
+		model.addAttribute("ad", bannerDetail(id));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		model.addAttribute("banner/courselist");
+		return "banner/bannermodify";
+	}
 
 	private JSONObject BannerList(String keyword, String n, String s) {
 		String url = null;
