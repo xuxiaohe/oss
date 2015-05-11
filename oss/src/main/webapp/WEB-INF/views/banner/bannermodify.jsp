@@ -37,6 +37,7 @@
 			<div class="col-xs-9">
 				<form role="form" method="post" onsubmit="return beforeSubmit();"
 					action="<%=contextPath%>/banner/updateBanner">
+					<input type="hidden" name="id" id="id" value="${ad.data.result.id}"/>
 					<input type="hidden" name="groupId" id="groupId" value="${ad.data.result.groupId}"/>
 					<input type="hidden" name="topicId" id="topicId" value="${ad.data.result.topicId}"/>
 					<input type="hidden" name="dryCargoId" id="dryCargoId" value="${ad.data.result.dryCargoId}"/>
