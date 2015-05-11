@@ -40,6 +40,8 @@
 					<input type="hidden" name="groupId" id="groupId" value=""/>
 					<input type="hidden" name="topicId" id="topicId" value=""/>
 					<input type="hidden" name="dryCargoId" id="dryCargoId" value=""/>
+					<input type="hidden" name="groupCourseId" id="groupCourseId" value=""/>
+					<input type="hidden" name="courseId" id="courseId" value=""/> 
 					<input type="hidden" name="adId" value="0"/>
 					<input type="hidden" name="adSellerName" id="adSellerName"/>
 					<input type="hidden" name="adSellerId" id="adSellerId"/>
