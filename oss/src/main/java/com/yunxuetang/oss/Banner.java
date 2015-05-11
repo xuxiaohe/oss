@@ -197,7 +197,6 @@ public class Banner extends BaseController {
 
 		modelview.addObject("topicList",
 				topicList(keyword, pagenumber, pagelines));
-		System.out.println(topicList(keyword, pagenumber, pagelines));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
@@ -205,6 +204,43 @@ public class Banner extends BaseController {
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("banner/topiclist");
+		return modelview;
+	}
+	
+	/**
+	 * 
+	 * 查找所有课程 包含没有关联群组的
+	 */
+	@RequestMapping("/searchCourse")
+	public ModelAndView courseList(HttpServletRequest request) {
+		// 群组id
+		String keyword = request.getParameter("keyword");
+		// 当前第几页
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("courseList",
+				courseList(keyword, pagenumber, pagelines));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("banner/courselist");
 		return modelview;
 	}
 
@@ -259,6 +295,18 @@ public class Banner extends BaseController {
 			url = Config.YXTSERVER3 + "oss/topic/search?n=" + n + "&s=" + s;
 		} else {
 			url = Config.YXTSERVER3 + "oss/topic/search?keyword=" + keyword
+					+ "&n=" + n + "&s=" + s;
+		}
+
+		return getRestApiData(url);
+	}
+	
+	private JSONObject courseList(String keyword, String n, String s) {
+		String url;
+		if (keyword == null) {
+			url = Config.YXTSERVER3 + "oss/course/getGroupCourseList?n=" + n + "&s=" + s;
+		} else {
+			url = Config.YXTSERVER3 + "oss/course/getGroupCourseList?keywords=" + keyword
 					+ "&n=" + n + "&s=" + s;
 		}
 
