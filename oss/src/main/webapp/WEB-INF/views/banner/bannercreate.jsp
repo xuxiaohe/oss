@@ -103,7 +103,7 @@
 							</button>
 						</div>
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="exampleInputEmail1">是否展示: &nbsp;&nbsp;&nbsp;&nbsp;</label>
 						<label class="radio-inline"> <input type="radio"
 							name="isShow" id="inlineRadio1" value="1" checked>
@@ -113,7 +113,7 @@
 							否
 						</label>
 
-					</div>
+					</div> -->
 					<br><br><br>
 					<button type="submit" class="form-control btn btn-primary" >提交</button>
 				</form>
@@ -186,30 +186,20 @@
 		提交前检测, 主要是为了清空不必要的值
 		*/
 		function beforeSubmit(){
-			if($('input:radio[name=adSid]:checked').val() == '0'){
-				$("#groupId").val("");
-				$("#topicId").val("");
-				$("#dryCargoId").val("");
-				$("#typeText").val("");
-				$("#contentText").val("");
-				$("#adSellerName").val("");
-				$("#adSellerID").val("");
-			}else{
-			}
 			return true;
 		}
 		
 		/*重置搜索内容方法
 		*/
 		function resetContent(){
-			$("#searchContent").html("");
+			/*$("#searchContent").html("");
 			$("#groupId").val("");
 			$("#topicId").val("");
 			$("#dryCargoId").val("");
 			$("#typeText").val("");
 			$("#contentText").val("");
 			$("#adSellerName").val("");
-			$("#adSellerID").val("");
+			$("#adSellerID").val("");*/
 		}
 		
 		/**
@@ -226,7 +216,7 @@
 			}
 			var url = '';
 			if(searchType == 0){
-				
+				url = '<%=contextPath%>/banner/searchTopic';
 			}else if(searchType == 1){
 				url = '<%=contextPath%>/banner/searchDry';
 			}else if(searchType == 2){
