@@ -186,6 +186,10 @@
 		提交前检测, 主要是为了清空不必要的值
 		*/
 		function beforeSubmit(){
+			if($('input:radio[name=adSid]:checked').val() == '10'){
+				$("#adSellerId").val("3");
+				$("#adSellerName").val("站外链接");
+			}
 			return true;
 		}
 		
@@ -220,7 +224,7 @@
 			}else if(searchType == 1){
 				url = '<%=contextPath%>/banner/searchDry';
 			}else if(searchType == 2){
-				
+				url = '<%=contextPath%>/banner/searchCourse';
 			}
 			$.ajax({
 				url : url,
