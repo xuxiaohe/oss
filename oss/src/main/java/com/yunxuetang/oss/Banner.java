@@ -100,7 +100,7 @@ public class Banner extends BaseController {
 		String creater = (String) request.getSession().getAttribute("name");
 
 		String name = request.getParameter("name");
-
+		
 		String picUrl = request.getParameter("picUrl");
 		String picWidth = request.getParameter("picWidth");
 		String picHeight = request.getParameter("picHeight");
@@ -110,31 +110,34 @@ public class Banner extends BaseController {
 		String dryCargoId = "";
 		String courseId = "";
 		String groupCourseId = "";
-
+		String sourceName ="";
 		if ("10".equals(adSid)) {
 			linkUrl = request.getParameter("linkUrl");
 		} else {
 			if ("0".equals(adSellerId)) {
 				groupId = request.getParameter("groupId");
 				topicId = request.getParameter("topicId");
+				 sourceName = request.getParameter("sourceName");
 
 			}
 			if ("1".equals(adSellerId)) {
 				groupId = request.getParameter("groupId");
 				dryCargoId = request.getParameter("dryCargoId");
+				 sourceName = request.getParameter("sourceName");
 
 			}
 			if ("2".equals(adSellerId)) {
 				groupId = request.getParameter("groupId");
 				courseId = request.getParameter("courseId");
 				groupCourseId = request.getParameter("groupCourseId");
+				 sourceName = request.getParameter("sourceName");
 
 			}
 		}
 
 		savebanner(picUrl, picWidth, picHeight, adSid, linkUrl, name,
 				adSellerId, adSellerName, creater, adId, groupId, topicId,
-				dryCargoId, courseId, groupCourseId);
+				dryCargoId, courseId, groupCourseId,sourceName);
 		return "redirect:/banner/bannerlist";
 	}
 	
@@ -155,9 +158,8 @@ public class Banner extends BaseController {
 		String adSellerName = request.getParameter("adSellerName");
 		// 创建人
 		String creater = (String) request.getSession().getAttribute("name");
-
+		String id = request.getParameter("id");
 		String name = request.getParameter("name");
-
 		String picUrl = request.getParameter("picUrl");
 		String picWidth = request.getParameter("picWidth");
 		String picHeight = request.getParameter("picHeight");
@@ -167,7 +169,7 @@ public class Banner extends BaseController {
 		String dryCargoId = "";
 		String courseId = "";
 		String groupCourseId = "";
-
+		String sourceName ="";
 		
 		if ("10".equals(adSid)) {
 			linkUrl = request.getParameter("linkUrl");
@@ -175,24 +177,24 @@ public class Banner extends BaseController {
 			if ("0".equals(adSellerId)) {
 				groupId = request.getParameter("groupId");
 				topicId = request.getParameter("topicId");
-
+				 sourceName = request.getParameter("sourceName");
 			}
 			if ("1".equals(adSellerId)) {
 				groupId = request.getParameter("groupId");
 				dryCargoId = request.getParameter("dryCargoId");
-
+				 sourceName = request.getParameter("sourceName");
 			}
 			if ("2".equals(adSellerId)) {
 				groupId = request.getParameter("groupId");
 				courseId = request.getParameter("courseId");
 				groupCourseId = request.getParameter("groupCourseId");
-
+				 sourceName = request.getParameter("sourceName");
 			}
 		}
 
 		updatebanner(picUrl, picWidth, picHeight, adSid, linkUrl, name,
 				adSellerId, adSellerName, creater, adId, groupId, topicId,
-				dryCargoId, courseId, groupCourseId,effective);
+				dryCargoId, courseId, groupCourseId,effective,sourceName,id);
 		return "redirect:/banner/bannerlist";
 	}
 
@@ -333,22 +335,22 @@ public class Banner extends BaseController {
 	}
 
 	private JSONObject savebanner(String picUrl, String picWidth, String picHeight, String adSid, String linkUrl, String name, String adSellerId,
-			String adSellerName, String creater, String adId, String groupId, String topicId, String dryCargoId, String courseId, String groupCourseId) {
+			String adSellerName, String creater, String adId, String groupId, String topicId, String dryCargoId, String courseId, String groupCourseId,String sourceName) {
 		String url = Config.YXTSERVER3 + "oss/ztiaoad/addNew?picUrl=" + picUrl + "&picWidth=" + picWidth + "&picHeight=" + picHeight + "&adSid="
 				+ adSid + "&linkUrl=" + linkUrl + "&name=" + name + "&adSellerId=" + adSellerId + "&adSellerName=" + adSellerName + "&creater="
 				+ creater + "&adId=" + adId + "&groupId=" + groupId + "&topicId=" + topicId + "&dryCargoId=" + dryCargoId + "&courseId=" + courseId
-				+ "&groupCourseId=" + groupCourseId;
+				+ "&groupCourseId=" + groupCourseId+ "&sourceName=" + sourceName;
 		return getRestApiData(url);
 	}
 	
 	
 	private JSONObject updatebanner(String picUrl, String picWidth, String picHeight, String adSid, String linkUrl, String name, String adSellerId,
 			String adSellerName, String creater, String adId, String groupId, String topicId, String dryCargoId, String courseId,
-			String groupCourseId, String effective) {
-		String url = Config.YXTSERVER3 + "oss/ztiaoad/addNew?picUrl=" + picUrl + "&picWidth=" + picWidth + "&picHeight=" + picHeight + "&adSid="
+			String groupCourseId, String effective,String sourceName,String id) {
+		String url = Config.YXTSERVER3 + "oss/ztiaoad/updateAdInfo?picUrl=" + picUrl + "&picWidth=" + picWidth + "&picHeight=" + picHeight + "&adSid="
 				+ adSid + "&linkUrl=" + linkUrl + "&name=" + name + "&adSellerId=" + adSellerId + "&adSellerName=" + adSellerName + "&creater="
 				+ creater + "&adId=" + adId + "&groupId=" + groupId + "&topicId=" + topicId + "&dryCargoId=" + dryCargoId + "&courseId=" + courseId
-				+ "&groupCourseId=" + groupCourseId + "&effective=" + effective;
+				+ "&groupCourseId=" + groupCourseId + "&effective=" + effective+ "&sourceName=" + sourceName+ "&id=" + id;
 		return getRestApiData(url);
 	}
 

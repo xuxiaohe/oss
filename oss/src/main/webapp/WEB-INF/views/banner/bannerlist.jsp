@@ -82,7 +82,13 @@
 							<c:if test="${Recourse.adSid=='20'}">  
 							&nbsp&nbsp位置：站外（机构网校）   
 							</c:if>
-							是否显示：${effective}
+							<c:if test="${Recourse.effective==true}">  
+							&nbsp&nbsp是否显示：是 
+							</c:if>
+							<c:if test="${Recourse.effective==false}">  
+							&nbsp&nbsp是否显示：否
+							</c:if>
+							
 								<%-- <div class="col-xs-12 btn-group-sm">
 									<button data="${Recourse.id}" data1="${Recourse.authorId}" type="button"
 										class="deleteBtn btn btn-primary">删除</button>
