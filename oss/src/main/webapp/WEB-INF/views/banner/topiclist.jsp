@@ -72,7 +72,6 @@
 		$("#contentText").val(topicName);
 
 		$("#groupId").val(groupId);
-		alert($("#groupId").val());
 		$("#adSellerName").val($("#searchType").find("option:selected").text());
 		$("#typeText").val($("#searchType").find("option:selected").text());
 		$("#adSellerId").val($("#searchType").val());
