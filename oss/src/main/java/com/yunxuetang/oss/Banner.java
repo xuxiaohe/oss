@@ -137,6 +137,64 @@ public class Banner extends BaseController {
 				dryCargoId, courseId, groupCourseId);
 		return "redirect:/banner/bannerlist";
 	}
+	
+	
+	
+	/**
+	 * 更新banner视图
+	 * */
+	@RequestMapping("/updateBanner")
+	public String updateBanner(HttpServletRequest request) {
+		String adId = request.getParameter("adId");
+		String adSid = request.getParameter("adSid");
+		// 3 站外
+		String adSellerId = request.getParameter("adSellerId");
+		//是否显示
+		String effective = request.getParameter("effective");
+		// 站外链接
+		String adSellerName = request.getParameter("adSellerName");
+		// 创建人
+		String creater = (String) request.getSession().getAttribute("name");
+
+		String name = request.getParameter("name");
+
+		String picUrl = request.getParameter("picUrl");
+		String picWidth = request.getParameter("picWidth");
+		String picHeight = request.getParameter("picHeight");
+		String linkUrl = "";
+		String groupId = "";
+		String topicId = "";
+		String dryCargoId = "";
+		String courseId = "";
+		String groupCourseId = "";
+
+		
+		if ("10".equals(adSid)) {
+			linkUrl = request.getParameter("linkUrl");
+		} else {
+			if ("0".equals(adSellerId)) {
+				groupId = request.getParameter("groupId");
+				topicId = request.getParameter("topicId");
+
+			}
+			if ("1".equals(adSellerId)) {
+				groupId = request.getParameter("groupId");
+				dryCargoId = request.getParameter("dryCargoId");
+
+			}
+			if ("2".equals(adSellerId)) {
+				groupId = request.getParameter("groupId");
+				courseId = request.getParameter("courseId");
+				groupCourseId = request.getParameter("groupCourseId");
+
+			}
+		}
+
+		updatebanner(picUrl, picWidth, picHeight, adSid, linkUrl, name,
+				adSellerId, adSellerName, creater, adId, groupId, topicId,
+				dryCargoId, courseId, groupCourseId,effective);
+		return "redirect:/banner/bannerlist";
+	}
 
 	/**
 	 * 搜索干货
@@ -260,18 +318,23 @@ public class Banner extends BaseController {
 		return getRestApiData(url);
 	}
 
-	private JSONObject savebanner(String picUrl, String picWidth,
-			String picHeight, String adSid, String linkUrl, String name,
-			String adSellerId, String adSellerName, String creater,
-			String adId, String groupId, String topicId, String dryCargoId,
-			String courseId, String groupCourseId) {
-		String url = Config.YXTSERVER3 + "oss/ztiaoad/addNew?picUrl=" + picUrl
-				+ "&picWidth=" + picWidth + "&picHeight=" + picHeight
-				+ "&adSid=" + adSid + "&linkUrl=" + linkUrl + "&name=" + name
-				+ "&adSellerId=" + adSellerId + "&adSellerName=" + adSellerName
-				+ "&creater=" + creater + "&adId=" + adId + "&groupId="
-				+ groupId + "&topicId=" + topicId + "&dryCargoId=" + dryCargoId
-				+ "&courseId=" + courseId + "&groupCourseId=" + groupCourseId;
+	private JSONObject savebanner(String picUrl, String picWidth, String picHeight, String adSid, String linkUrl, String name, String adSellerId,
+			String adSellerName, String creater, String adId, String groupId, String topicId, String dryCargoId, String courseId, String groupCourseId) {
+		String url = Config.YXTSERVER3 + "oss/ztiaoad/addNew?picUrl=" + picUrl + "&picWidth=" + picWidth + "&picHeight=" + picHeight + "&adSid="
+				+ adSid + "&linkUrl=" + linkUrl + "&name=" + name + "&adSellerId=" + adSellerId + "&adSellerName=" + adSellerName + "&creater="
+				+ creater + "&adId=" + adId + "&groupId=" + groupId + "&topicId=" + topicId + "&dryCargoId=" + dryCargoId + "&courseId=" + courseId
+				+ "&groupCourseId=" + groupCourseId;
+		return getRestApiData(url);
+	}
+	
+	
+	private JSONObject updatebanner(String picUrl, String picWidth, String picHeight, String adSid, String linkUrl, String name, String adSellerId,
+			String adSellerName, String creater, String adId, String groupId, String topicId, String dryCargoId, String courseId,
+			String groupCourseId, String effective) {
+		String url = Config.YXTSERVER3 + "oss/ztiaoad/addNew?picUrl=" + picUrl + "&picWidth=" + picWidth + "&picHeight=" + picHeight + "&adSid="
+				+ adSid + "&linkUrl=" + linkUrl + "&name=" + name + "&adSellerId=" + adSellerId + "&adSellerName=" + adSellerName + "&creater="
+				+ creater + "&adId=" + adId + "&groupId=" + groupId + "&topicId=" + topicId + "&dryCargoId=" + dryCargoId + "&courseId=" + courseId
+				+ "&groupCourseId=" + groupCourseId + "&effective=" + effective;
 		return getRestApiData(url);
 	}
 
