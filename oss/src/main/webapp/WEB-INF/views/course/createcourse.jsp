@@ -60,6 +60,14 @@ function upload(s){
             'FileUploaded': function(up, file, info) {
             	$("#key").val("");
             	var res=$.parseJSON(info);
+            	var imgUrl = 'http://tpublic.qiniudn.com/' + res.key;
+            	jQuery.getJSON(imgUrl + '?imageInfo',
+            			function(result){
+            		var height = result.height; //图片高度
+        			var width = result.width; //图片宽度
+        			jQuery("#height").val(height);
+        			jQuery("#width").val(width);
+            	});
             	$("#key").val(res.key);
             	$.ajax({
 					url :"${cbasePath}attachFile/add",
@@ -161,7 +169,7 @@ function upload(s){
 		</select>
 	</div>
 	<div class="form-group clearfix">
-		<label for="pricemodel">付费模式</label>
+		<label for="pricemodel">付费模式:</label>
 		<label class="radio-inline"><input type="radio" name="pricemodel" value="0" checked onclick="javascript:checkPriceModel(this);"/>免费</label>
 		<label class="radio-inline"><input type="radio" name="pricemodel" value="1" onclick="javascript:checkPriceModel(this);"/>付费</label>
 		<label class="radio-inline"><input type="radio" name="pricemodel" value="2" onclick="javascript:checkPriceModel(this);"/>打赏</label>
@@ -188,6 +196,8 @@ function upload(s){
 					<input type="hidden" id="kngName">
 					<input type="hidden" id="input">
 					<input type="hidden" id="logoUrl" class="form-control" />
+					<input type="hidden" id="width"/>
+					<input type="hidden" id="height"/>
 			</div>
 		</div>
 		
@@ -369,16 +379,17 @@ function upload(s){
 		var intro=$.trim($("#intro").val());
 		var tagNames=$.trim($("#tagNames").val());
 		var price = $.trim($("#price").val());
-		var pricemodel = $.trim($("input[name='pricemodel'][checked]").val() );
+		var pricemodel = $('input:radio[name=pricemodel]:checked').val();
 		var uid = $.trim($("#uid").val());
 		var userName = $.trim($("#userName").val());
 		var userLogoUrl = $.trim($("#userLogoUrl").val());
 		var categoryId = $.trim($("#categorySelect").val());
 		var childCategoryId = $.trim($("#childCategorySelect").val());
+		
 		if(pricemodel == '1' && price == ''){
 			alert("请输入价格!");
 			return false;
-		}else{
+		}else if(pricemodel != '1'){
 			price = 0;
 		}
 		if(title==""){
@@ -413,7 +424,9 @@ function upload(s){
 					"childCategoryId" : childCategoryId,
 					"userId":uid,
 					"price" : price,
-					"pricemodel" : pricemodel
+					"pricemodel" : pricemodel,
+					"width" : $("#width").val(),
+					"height" : $("#height").val()
 				},
 				success : function(result) {
 					alert("课程创建成功");
