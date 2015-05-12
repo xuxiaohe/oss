@@ -373,8 +373,8 @@ function upload(s){
 		var uid = $.trim($("#uid").val());
 		var userName = $.trim($("#userName").val());
 		var userLogoUrl = $.trim($("#userLogoUrl").val());
-		var categoryId = $.trim($("#categorySelect"));
-		var childCategoryId = $.trim($("#childCategorySelect"));
+		var categoryId = $.trim($("#categorySelect").val());
+		var childCategoryId = $.trim($("#childCategorySelect").val());
 		if(pricemodel == '1' && price == ''){
 			alert("请输入价格!");
 			return false;
