@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -36,9 +36,6 @@
 <script src="${sourcePath}/resources/assets/js/qiniu.js"></script>
 <script src="${sourcePath}/resources/assets/js/moxie.min.js"></script>
 <script type="text/javascript">
-$(function (){
-	upload("10007");
-})
 function upload(s){
 	var ckey=s;
     var uploader = Qiniu.uploader({
@@ -120,7 +117,7 @@ function upload(s){
 	<div class="panel panel-default">
 	<div class="panel-body">
 	<div class="form-group clearfix">
-		<div class="h4">用户名</div> 
+		<%-- <div class="h4">用户名</div> 
 		<div class="col-xs-10 col-sm-6 col-md-4">
 		<div class="row">
 			<select class="form-control" name="uid" id="uidSelect">
@@ -133,9 +130,13 @@ function upload(s){
 		</select>
 		</div>
 			
-		</div>
-			
-
+		</div> --%>
+		<label for="uid">所属用户</label>
+		<input type="text" class="form-control" name = "userName" id="userName" readonly="readonly"/>	
+		<input type="hidden" name="uid" id="uid"/>
+		<input type="hidden" name="logoURL" id="logoUrl">
+		<br/>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">选择用户</button>
 	</div>
 	<div class="form-group clearfix">
 		<div class="h4">课程名称</div>
@@ -144,6 +145,16 @@ function upload(s){
 				<input type="text" id="courseTitle" class="form-control" />
 			</div>
 		</div>
+	</div>
+	<div class="form-group clearfix">
+		<label for="pricemodel">付费模式</label>
+		<label class="radio-inline"><input type="radio" name="pricemodel" value="0" checked onclick="javascript:checkPriceModel(this);"/>免费</label>
+		<label class="radio-inline"><input type="radio" name="pricemodel" value="1" onclick="javascript:checkPriceModel(this);"/>付费</label>
+		<label class="radio-inline"><input type="radio" name="pricemodel" value="2" onclick="javascript:checkPriceModel(this);"/>打赏</label>
+	</div>
+	<div class="form-group clearfix">
+		<label for="price">价格</label>
+		<input type="text" class="form-control" name="price" id="price" value="" disabled="disabled" onblur="javascript:checkIsNum(this);"/>
 	</div>
 	<div class="form-group clearfix">
 		<div class="media">
@@ -169,6 +180,7 @@ function upload(s){
 		
 		</div>
 	</div>
+	
 	<div class="form-group clearfix">
 		<div class="h4">课程简介</div>
 		<div class="col-xs-10 col-sm-6 col-md-4">
@@ -194,6 +206,28 @@ function upload(s){
 		</div>
 	</div>
 </div>
+
+		<!-- Modal -->
+		<!-- Modal -->
+		<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">用户搜索</h4>
+					</div>
+					<div class="modal-body" id="modalHtml"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+						<!-- <button type="button" class="btn btn-primary">确定</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
 </div>
 <script>
 	var courseId="${courseId}";
@@ -202,6 +236,17 @@ function upload(s){
 	//var lesson=[];
 	var userId="";
 	$(function(){
+		upload("10007");
+		/**
+		判断价格是否非法
+		*/
+		/*$("#price").blur(function(){
+			var pirce = $("#price").val();
+			if(!isNaN(price)){
+				alert("价格非法!");
+				$("#price").val("");
+			}
+		});*/
 		var html = "<div class='row'><div class='col-xs-10 col-sm-9'><div class='panel panel-default'>"
 					+"<div class='panel-body'>"
 					+"<div class='col-xs-12 col-sm-10'><div class='row'><label>章节名称</label><input type='text' class='form-control c-title' /><label>序号</label><input type='text' class='form-control c-order' /></div></div>"
@@ -229,6 +274,19 @@ function upload(s){
 		createChapter.parent().parent().delegate(".chapter","click",function(){
 			saveChapter(this);
 		});
+		
+		//加载用户搜索列表
+		var url = '${cbasePath}course/selectUser';
+		$.ajax({
+			url : url,
+			type : 'post',
+			dataType : 'html',
+			success : function(data){
+				$("#modalHtml").html(data);
+			}
+			
+		});
+		
 		
 	});
 	
@@ -273,6 +331,16 @@ function upload(s){
 		var logoUrl=$.trim($("#logoUrl").val());
 		var intro=$.trim($("#intro").val());
 		var tagNames=$.trim($("#tagNames").val());
+		var price = $.trim($("#price").val());
+		var pricemodel = $.trim($("#pricemodel").val());
+		var uid = $.trim($("#uid").val());
+		var userName = $.trim($("#userName").val());
+		var logoUrl = $.trim($("#logoUrl").val());
+		
+		if(pricemodel == '1' && price == ''){
+			alert("请输入价格!");
+			return false;
+		}
 		if(title==""){
 			alert("课程名称非空！");
 			return false;
@@ -293,6 +361,9 @@ function upload(s){
 				url :"${cbasePath}course/modifyCourse",
 				type : "POST",
 				data :{
+					"uid" : uid,
+					"userName" : userName,
+					"logoURL" : logoUrl,
 					"chapterIds": chapter,
 					"courseId" : courseId,
 					"title":title,
@@ -399,6 +470,38 @@ function upload(s){
 		$("#ModalId").modal("hide");	
 	}
 	
+	/**
+	选择用户
+	*/
+	function selectUser(userId, userName, logoUrl){
+		$("#uid").val(userId);
+		$("#userName").val(userName);
+		$("#logoUrl").val(logoUrl);
+	}
+	//判断价格是否非法
+	function checkIsNum(obj){
+		/*var pirce = parseFloat($(obj).val());
+		if(prise == NaN){
+			alert("价格非法!");
+			$(obj).val("");
+		}else{
+			if(price < 0){
+				alert("价格非法!");
+				$(obj).val("");
+			}
+		}*/
+	}
+	/*判断收费模式*/
+	function checkPriceModel(obj){
+		var val = $(obj).val();
+		if(val == '1'){
+			$("#price").attr("disabled", false);
+		}else{
+			$("#price").attr("disabled",true);
+			$("#price").val("");
+		}
+		
+	}
 </script>
 </body>
 </html>

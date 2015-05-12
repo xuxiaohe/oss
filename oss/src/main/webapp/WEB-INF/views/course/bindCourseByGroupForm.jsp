@@ -25,6 +25,7 @@
 </style>
 </head>
 <body>
+	
 	<div class="container-fluid">
 
 		<ol class="breadcrumb">
@@ -49,6 +50,7 @@
 
 
 			<div class="col-xs-9">
+				
 				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
 				<form role="form" method="post"
 					action="${cbasePath}course/shareToMyGroup?courseId=${resuserCourse.data.result.id}">
@@ -59,7 +61,7 @@
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
 							  选择群组
 							</button>
-							<input type="text" id="qnametext" class="form-control"/>
+							<input type="text" id="qnametext" class="form-control" value=""/>
 							<input type="hidden" id="qidtext" name="groupId"/>
 					</div>
 
@@ -104,8 +106,11 @@
 
 				}
 			});
+			var uid = '${resuserTopic.data.result.createUser}';
+			if(uid == 'null' || uid == '') return;
 			$.ajax({
-				url : '<%=contextPath%>/dry/tablegroupList',
+				url : '<%=contextPath%>/course/selectGroup',
+				data : {'uid' : uid},
 				type : 'post',
 				dataType : 'html',
 				success : function(data){
