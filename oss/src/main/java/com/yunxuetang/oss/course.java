@@ -16,6 +16,7 @@ import org.jsoup.helper.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -1066,4 +1067,39 @@ public class course extends BaseController {
 		
 	}
 	
+	@RequestMapping("selectUser")
+	public String selectUser(HttpServletRequest request, Model model){
+		String n = request.getParameter("n");
+		String s = request.getParameter("s");
+		String keyword = request.getParameter("keyword");
+		model.addAttribute("userList", getUserList(n, s, keyword));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		model.addAttribute("cpath", cpath);
+		model.addAttribute("cbasePath", cbasePath);
+		return "course/selectUser";
+	}
+	
+	private JSONObject getUserList(String n, String s, String keyword){
+		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo";
+		HashMap<String, String> param = new HashMap<String, String>();
+		if(n != null) param.put("n", n);
+		if(s != null) param.put("s", s);
+		if(keyword != null) param.put("keyword", keyword);
+		return getRestApiData(url, param);
+	}
+	
+	/**
+	 * 查询自己的群组
+	 * */
+	@RequestMapping("selectGroup")
+	public String getOneselfGroup(HttpServletRequest request, Model model){
+		model.addAttribute("groupList", getOtherGroup(request.getParameter("uid")));
+		return "course/selectGroup";
+	}
+	
+	private JSONObject getOtherGroup(String uid){
+		String url = Config.YXTSERVER3 + "oss/group/findMyGroups/" + uid;
+		return getRestApiData(url);
+	}
 }
