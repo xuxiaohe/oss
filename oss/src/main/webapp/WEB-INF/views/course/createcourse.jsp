@@ -134,7 +134,7 @@ function upload(s){
 		<label for="uid">所属用户</label>
 		<input type="text" class="form-control" name = "userName" id="userName" readonly="readonly"/>	
 		<input type="hidden" name="uid" id="uid"/>
-		<input type="hidden" name="logoURL" id="logoUrl">
+		<input type="hidden" name="userLogoUrl" id="userLogoUrl">
 		<br/>
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">选择用户</button>
 	</div>
@@ -369,12 +369,13 @@ function upload(s){
 		var intro=$.trim($("#intro").val());
 		var tagNames=$.trim($("#tagNames").val());
 		var price = $.trim($("#price").val());
-		var pricemodel = $.trim($("#pricemodel").val());
+		var pricemodel = $.trim($("input[name='pricemodel'][checked]").val() );
 		var uid = $.trim($("#uid").val());
 		var userName = $.trim($("#userName").val());
-		var logoUrl = $.trim($("#logoUrl").val());
+		var userLogoUrl = $.trim($("#userLogoUrl").val());
 		var categoryId = $.trim($("#categorySelect"));
 		var childCategoryId = $.trim($("#childCategorySelect"));
+		
 		if(pricemodel == '1' && price == ''){
 			alert("请输入价格!");
 			return false;
@@ -402,7 +403,7 @@ function upload(s){
 				type : "POST",
 				data :{
 					"createUserName" : userName,
-					"userLogo" : logoUrl,
+					"userLogo" : userLogoUrl,
 					"chapterIds": chapter,
 					"courseId" : courseId,
 					"title":title,
@@ -411,7 +412,9 @@ function upload(s){
 					"tagNames":tagNames,
 					"categoryId" : categoryId,
 					"childCategoryId" : childCategoryId,
-					"createUser":uid
+					"createUser":uid,
+					"price" : price,
+					"pricemodel" : pricemodel
 				},
 				success : function(result) {
 					alert("课程创建成功");
@@ -517,7 +520,7 @@ function upload(s){
 	function selectUser(userId, userName, logoUrl){
 		$("#uid").val(userId);
 		$("#userName").val(userName);
-		$("#logoUrl").val(logoUrl);
+		$("#userLogoUrl").val(logoUrl);
 	}
 	//判断价格是否非法
 	function checkIsNum(obj){
