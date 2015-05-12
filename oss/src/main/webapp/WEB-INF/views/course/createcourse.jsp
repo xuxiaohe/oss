@@ -146,6 +146,20 @@ function upload(s){
 			</div>
 		</div>
 	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">一级分类</label>
+		<select  class="form-control" id="categorySelect" name="categoryId">
+						
+			<c:forEach items="${categoryList}" var="cate">
+				<option value="${cate.id}">${cate.categoryName}</option>
+			</c:forEach> 
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">二级分类</label>
+		<select class="form-control" id="childCategorySelect" name="childCategoryId">
+		</select>
+	</div>
 	<div class="form-group clearfix">
 		<label for="pricemodel">付费模式</label>
 		<label class="radio-inline"><input type="radio" name="pricemodel" value="0" checked onclick="javascript:checkPriceModel(this);"/>免费</label>
@@ -274,7 +288,30 @@ function upload(s){
 		createChapter.parent().parent().delegate(".chapter","click",function(){
 			saveChapter(this);
 		});
-		
+		//二级分类联动
+		$("#categorySelect").change(function(){
+			//
+			var categoryId = $("#categorySelect").val();
+			if(categoryId != ''){
+				$.ajax({
+					url : '${cbasePath}category/getChildCategory',
+					data : {'categoryId' : categoryId},
+					type : 'post',
+					dataType : 'json',
+					success : function(result){
+						var categorys = result.data.result.childCategory;
+						var $childCategorySelect = $("#childCategorySelect");
+						$childCategorySelect.empty();
+						$.each(categorys, function(index, content){
+							if(content.id != ''){
+								$childCategorySelect.append("<option value='" + content.id + "'>" + content.categoryName + "</option>");
+							}
+						});
+					}
+				});
+			}
+		});
+		$("#categorySelect").change();
 		//加载用户搜索列表
 		var url = '${cbasePath}course/selectUser';
 		$.ajax({
@@ -336,10 +373,13 @@ function upload(s){
 		var uid = $.trim($("#uid").val());
 		var userName = $.trim($("#userName").val());
 		var logoUrl = $.trim($("#logoUrl").val());
-		
+		var categoryId = $.trim($("#categorySelect"));
+		var childCategoryId = $.trim($("#childCategorySelect"));
 		if(pricemodel == '1' && price == ''){
 			alert("请输入价格!");
 			return false;
+		}else{
+			price = 0;
 		}
 		if(title==""){
 			alert("课程名称非空！");
@@ -361,16 +401,17 @@ function upload(s){
 				url :"${cbasePath}course/modifyCourse",
 				type : "POST",
 				data :{
-					"uid" : uid,
-					"userName" : userName,
-					"logoURL" : logoUrl,
+					"createUserName" : userName,
+					"userLogo" : logoUrl,
 					"chapterIds": chapter,
 					"courseId" : courseId,
 					"title":title,
 					"logoUrl":logoUrl,
 					"intro":intro,
 					"tagNames":tagNames,
-					"userId":$("#uidSelect").val()
+					"categoryId" : categoryId,
+					"childCategoryId" : childCategoryId,
+					"createUser":uid
 				},
 				success : function(result) {
 					alert("课程创建成功");
@@ -393,7 +434,7 @@ function upload(s){
 					"title":title,
 					"order":order,
 					"knowledgeId":knowledgeId,
-					"userId":$("#uidSelect").val()
+					"userId":$("#uid").val()
 				},
 				success : function(result) {
 					var obj = {};
