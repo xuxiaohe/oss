@@ -375,7 +375,8 @@ function upload(s){
 		var userLogoUrl = $.trim($("#userLogoUrl").val());
 		var categoryId = $.trim($("#categorySelect"));
 		var childCategoryId = $.trim($("#childCategorySelect"));
-		
+		alert(uid);
+		alert(userName);
 		if(pricemodel == '1' && price == ''){
 			alert("请输入价格!");
 			return false;
