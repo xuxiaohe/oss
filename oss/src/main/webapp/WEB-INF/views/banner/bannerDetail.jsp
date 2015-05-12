@@ -32,7 +32,7 @@
 		<jsp:include page="header.jsp"></jsp:include>
 		<ol class="breadcrumb">
 			<li><a href="#">APP广告位管理</a></li>
-			<li><a href="${cbasePath}dry/dryList">广告位列表</a></li>
+			<li><a href="${cbasePath}banner/bannerlist">广告位列表</a></li>
 			<li class="active">APP广告位详情 <small></li>
 		</ol>
 		<div class="panel panel-default">
