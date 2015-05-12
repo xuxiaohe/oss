@@ -504,6 +504,13 @@ public class course extends BaseController {
 	public ModelAndView  createcourseview(HttpServletRequest request) {
 		
 		ModelAndView modelview = new ModelAndView();
+		
+		/**
+		 * 获取一级分类列表
+		 * */
+		JSONObject category = categoryList();
+		JSONArray categoryList = category.getJSONObject("data").getJSONArray("result");
+		modelview.addObject("categoryList", categoryList);//一级分类列表
 
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -1102,4 +1109,5 @@ public class course extends BaseController {
 		String url = Config.YXTSERVER3 + "oss/group/findMyGroups/" + uid;
 		return getRestApiData(url);
 	}
+	
 }
