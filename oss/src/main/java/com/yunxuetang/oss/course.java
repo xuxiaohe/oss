@@ -429,13 +429,11 @@ public class course extends BaseController {
 		 
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("categoryOneList", categoryOneList("00"));
-
+		modelview.addObject("courseDetail", courseDetail(cid));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		modelview.addObject("cid", cid);
 		modelview.setViewName("course/checkCourseOneForm");
 		return modelview;
 	}
