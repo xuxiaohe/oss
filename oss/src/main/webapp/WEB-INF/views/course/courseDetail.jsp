@@ -68,10 +68,11 @@
 					</div>
 					<div id="userInfoDiv" class="row" style="">
 						<h4 style="margin-left: 12px;">
-							课程信息：${courseDetail.data.result.intro} <small><small
+							课程信息：${courseDetail.data.result.title} <small><small
 								class="pull-right">注册时间：<Date:date
 										value="${courseDetail.data.result.ctime}"></Date:date></small></small>
 						</h4>
+						<div class="col-xs-6">简介:${courseDetail.data.result.intro}</div>
 						<div class="col-xs-6">创建者:${courseDetail.data.result.createUserName}</div>
 						<div class="col-xs-6">
 							收费模式: <c:choose>
@@ -82,6 +83,9 @@
 						</div>
 						
 						<div class="col-xs-6">价格: ${courseDetail.data.result.price}
+						</div>
+						
+						<div class="col-xs-6">是否审核通过:<c:if test="${courseDetail.data.result.checked}">是</c:if><c:if test="${!courseDetail.data.result.checked}">否</c:if>
 						</div>
 						
 						<%-- <div class="col-xs-6">浏览量：${dryDetail.data.result.viewCount}
