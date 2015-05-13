@@ -51,7 +51,7 @@
 
 			<div class="col-xs-9">
 				
-				<a href="${url }" target="_blank">${resuserTopic.data.result.message }</a>
+				<a href="${url }" target="_blank">${resuserCourse.data.result.message }</a>
 				<form role="form" method="post"
 					action="${cbasePath}course/shareToMyGroup?courseId=${resuserCourse.data.result.id}">
 
@@ -106,7 +106,8 @@
 
 				}
 			});
-			var uid = '${resuserTopic.data.result.createUser}';
+			var uid = '${resuserCourse.data.result.createUser}';
+			alert(uid);
 			if(uid == 'null' || uid == '') return;
 			$.ajax({
 				url : '<%=contextPath%>/course/selectGroup',
