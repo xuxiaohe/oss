@@ -107,7 +107,6 @@
 				}
 			});
 			var uid = '${resuserCourse.data.result.createUser}';
-			alert(uid);
 			if(uid == 'null' || uid == '') return;
 			$.ajax({
 				url : '<%=contextPath%>/course/selectGroup',
