@@ -229,6 +229,7 @@
 			var val = $(obj).val();
 			if(val == '1'){
 				$("#price").attr("disabled", false);
+				$("#price").val('${courseDetail.data.result.price}');
 				$("#scaleDiv").show();
 			}else{
 				$("#price").attr("disabled",true);
