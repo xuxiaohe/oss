@@ -82,6 +82,16 @@
 							name="intro" class="form-control" id="exampleInputEmail1"
 							value="${courseDetail.data.result.intro }" placeholder="">
 					</div>
+					<div class="form-group clearfix">
+						<label for="pricemodel">付费模式:</label>
+						<label class="radio-inline"><input type="radio" name="pricemodel" value="0" checked onclick="javascript:checkPriceModel(this);"/>免费</label>
+						<label class="radio-inline"><input type="radio" name="pricemodel" value="1" onclick="javascript:checkPriceModel(this);"/>付费</label>
+						<label class="radio-inline"><input type="radio" name="pricemodel" value="2" onclick="javascript:checkPriceModel(this);"/>打赏</label>
+					</div>
+					<div class="form-group clearfix">
+						<label for="price">分成比例</label>
+						<input type="text" class="form-control" name="price" id="price" value="${courseDetail.data.result.price}" disabled="disabled" onblur="javascript:checkIsNum(this);"/>
+					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">话题分类</label>
 						<select  class="form-control" id="categorySelect" name="categoryId">
@@ -123,6 +133,7 @@
 	<script src="${cbasePath}/resources/assets/js/moxie.min.js"></script>
 	<script>
 		$(function() {
+			$("input[name='pricemodel'][value=${courseDetail.data.result.pricemodel}]").attr("checked",true); 
 			//二级分类联动
 			$("#categorySelect").change(function(){
 				//
@@ -206,6 +217,19 @@
 		             }
 		        }
 		    });
+			
+		}
+		/*判断收费模式*/
+		function checkPriceModel(obj){
+			var val = $(obj).val();
+			if(val == '1'){
+				$("#price").attr("disabled", false);
+				$("#scaleDiv").show();
+			}else{
+				$("#price").attr("disabled",true);
+				$("#price").val("0");
+				$("#scaleDiv").hide();
+			}
 			
 		}
 	</script>

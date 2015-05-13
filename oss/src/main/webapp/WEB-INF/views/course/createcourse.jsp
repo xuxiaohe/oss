@@ -177,6 +177,11 @@ function upload(s){
 	<div class="form-group clearfix">
 		<label for="price">价格</label>
 		<input type="text" class="form-control" name="price" id="price" value="" disabled="disabled" onblur="javascript:checkIsNum(this);"/>
+		
+	</div>
+	<div class="form-group clearfix"  style="display:none;" id="scaleDiv">
+		<label for="scale">分成比例</label>
+		<input type="text" class="form-control" name="scale" id="scale" value="" >
 	</div>
 	<div class="form-group clearfix">
 		<div class="media">
@@ -552,9 +557,11 @@ function upload(s){
 		var val = $(obj).val();
 		if(val == '1'){
 			$("#price").attr("disabled", false);
+			$("#scaleDiv").show();
 		}else{
 			$("#price").attr("disabled",true);
-			$("#price").val("");
+			$("#price").val("0");
+			$("#scaleDiv").hide();
 		}
 		
 	}
