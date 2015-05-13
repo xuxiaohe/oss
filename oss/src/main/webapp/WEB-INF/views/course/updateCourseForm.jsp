@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
@@ -80,7 +80,7 @@
 					<div class="form-group">
 						<label for="exampleInputEmail1">课程信息</label> <input type="text"
 							name="intro" class="form-control" id="exampleInputEmail1"
-							value="${courseDetail.data.result.intro }" placeholder="">
+							value="${courseDetail.data.result.intro } " placeholder="">
 					</div>
 					<div class="form-group clearfix">
 						<label for="pricemodel">付费模式:</label>
@@ -137,8 +137,8 @@
 	<script src="${cbasePath}/resources/assets/js/moxie.min.js"></script>
 	<script>
 		$(function() {
-			$("input[name='pricemodel'][value=${courseDetail.data.result.pricemodel}]").attr("checked",true); 
-			$("input:radio[name=pricemodel]:checked").change();
+			$("input[name='pricemodel'][value='${courseDetail.data.result.pricemodel}']").attr("checked",true); 
+			$("input:radio[name=pricemodel]:checked").click();
 			//二级分类联动
 			$("#categorySelect").change(function(){
 				//
