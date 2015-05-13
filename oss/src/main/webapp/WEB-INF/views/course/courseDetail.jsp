@@ -66,13 +66,36 @@
 									type="button" class="btn btn-success btn-block">查看群组</button></a>
 						</div> --%>
 					</div>
-					<div id="userInfoDiv" class="col-xs-10" style="">
+					<div id="userInfoDiv" class="row" style="">
 						<h4 style="margin-left: 12px;">
 							课程信息：${courseDetail.data.result.intro} <small><small
 								class="pull-right">注册时间：<Date:date
 										value="${courseDetail.data.result.ctime}"></Date:date></small></small>
 						</h4>
-						<ul class="list-group">
+						<div class="col-xs-6">创建者:${courseDetail.data.result.createUserName}</div>
+						<div class="col-xs-6">
+							收费模式: <c:choose>
+										<c:when test="${courseDetail.data.result.pricemodel=='0'}">免费</c:when>
+										<c:when test="${courseDetail.data.result.pricemodel=='1'}">付费</c:when>
+										<c:when test="${courseDetail.data.result.pricemodel=='2'}">打赏</c:when>
+									</c:choose>
+						</div>
+						
+						<div class="col-xs-6">价格: ${courseDetail.data.result.price}
+						</div>
+						
+						<%-- <div class="col-xs-6">浏览量：${dryDetail.data.result.viewCount}
+						</div>
+						<div class="col-xs-6">回复数：${dryDetail.data.result.replyCount}</div>
+						<div class="col-xs-6">被点赞的次数：${dryDetail.data.result.likesCount}
+						</div>
+						<div class="col-xs-6">不赞数量：${dryDetail.data.result.unLikeCount}
+						</div>
+						<div class="col-xs-6">收藏人数统计：${dryDetail.data.result.favCount}
+						</div> --%>
+
+					</div>
+					<ul class="list-group">
 							<c:forEach items="${courseDetail.data.result.chapters}"
 								varStatus="key" var="Recourse">
 								<c:forEach items="${Recourse.lessons}" varStatus="key"
@@ -116,20 +139,8 @@
 										
 									</li>
 								</c:forEach>
+								</c:forEach>
 						</ul>
-						</c:forEach>
-						<%-- <div class="col-xs-6">浏览量：${dryDetail.data.result.viewCount}
-						</div>
-						<div class="col-xs-6">回复数：${dryDetail.data.result.replyCount}</div>
-						<div class="col-xs-6">被点赞的次数：${dryDetail.data.result.likesCount}
-						</div>
-						<div class="col-xs-6">不赞数量：${dryDetail.data.result.unLikeCount}
-						</div>
-						<div class="col-xs-6">收藏人数统计：${dryDetail.data.result.favCount}
-						</div> --%>
-
-					</div>
-
 
 
 
