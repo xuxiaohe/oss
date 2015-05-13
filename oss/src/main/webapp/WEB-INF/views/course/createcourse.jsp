@@ -390,7 +390,7 @@ function upload(s){
 		var userLogoUrl = $.trim($("#userLogoUrl").val());
 		var categoryId = $.trim($("#categorySelect").val());
 		var childCategoryId = $.trim($("#childCategorySelect").val());
-		
+		var scale = $("#scale").val();
 		if(pricemodel == '1' && price == ''){
 			alert("请输入价格!");
 			return false;
@@ -430,6 +430,7 @@ function upload(s){
 					"userId":uid,
 					"price" : price,
 					"pricemodel" : pricemodel,
+					"scale" : scale,
 					"width" : $("#width").val(),
 					"height" : $("#height").val()
 				},

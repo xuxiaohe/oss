@@ -89,8 +89,12 @@
 						<label class="radio-inline"><input type="radio" name="pricemodel" value="2" onclick="javascript:checkPriceModel(this);"/>打赏</label>
 					</div>
 					<div class="form-group clearfix">
-						<label for="price">分成比例</label>
+						<label for="price">价格</label>
 						<input type="text" class="form-control" name="price" id="price" value="${courseDetail.data.result.price}" disabled="disabled" onblur="javascript:checkIsNum(this);"/>
+					</div>
+					<div class="form-group clearfix"  style="display:none;" id="scaleDiv">
+						<label for="scale">分成比例</label>
+						<input type="text" class="form-control" name="scale" id="scale" value="${courseDetail.data.result.scale}" >
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">话题分类</label>
@@ -134,6 +138,7 @@
 	<script>
 		$(function() {
 			$("input[name='pricemodel'][value=${courseDetail.data.result.pricemodel}]").attr("checked",true); 
+			$("input:radio[name=pricemodel]:checked").change();
 			//二级分类联动
 			$("#categorySelect").change(function(){
 				//
