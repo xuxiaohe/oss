@@ -1,83 +1,92 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="pageNation" uri="/WEB-INF/tld/pagenation.tld"%>
 <%@ taglib prefix="Date" uri="/WEB-INF/tld/datetag.tld"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head lang="en">
 <meta charset="UTF-8">
-<title>课程审核</title>
+<title>用户管理</title>
 <script src="${sourcePath}/resources/assets/js/jquery.min.js"></script>
 <script src="${sourcePath}/resources/assets/js/bootstrap.min.js"></script>
 <link href="${sourcePath}/resources/assets/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="${sourcePath}/resources/assets/css/font.css" rel="stylesheet">
+<link href="${sourcePath}/resources/assets/css/font.css"
+	rel="stylesheet">
 <style>
 #userInfoDiv div {
 	padding: 10px;
+}
+
+#btnGroupDiv button {
+	margin: 10px;
 }
 </style>
 </head>
 <body>
 	<div class="container-fluid">
-
+		<jsp:include page="header.jsp"></jsp:include>
 		<ol class="breadcrumb">
-		<li><a href="#">课程管理</a></li>
-			<li><a href="${cbasePath}course/courseList">课程列表</a></li>
-			 
+			<li><a href="#">课程管理</a></li>
+			<li><a href="${cbasePath}course/courseListNoCheck">课程列表</a></li>
+			<li class="active">课程详情 <small> </small>
+			</li>
 		</ol>
-
-		<div class="row">
-
-			<%-- <div class="col-xs-3">
-				<img class="thumbnail col-xs-12" src="${resuserTopic.data.result.fileUrl}" alt="" />
-
-				<c:forEach items="${imgUrls}" varStatus="key" var="img">
-					<img src="${img}" alt="" />
-				</c:forEach>
-			</div> --%>
-
-			<div class="col-xs-9">
-				<form role="form" method="post"
-					action="${cbasePath}course/checkCourseSecondForm?cid=${cid}">
-					<div class="form-group">
-						<label for="exampleInputEmail1">请选择一级分类</label> 
-							<select class="form-control" name="parentId" id="uidSelect">
-							<c:if test="${categoryOneList.status == '200' }">
-								<c:forEach items="${categoryOneList.data.result}" varStatus="key"
-									var="Recourse">
-									<option value="${Recourse.id }">${Recourse.categoryName }</option>
-								</c:forEach>
-							</c:if>
-						</select>
-
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-2">
+						<c:if test="${courseDetail.data.result.logoUrl != null}">
+						<img class="thumbnail col-xs-12"
+							src="${courseDetail.data.result.logoUrl }" alt="" />
+						</c:if>
+						<hr />
 					</div>
-					 
+					<div id="userInfoDiv" class="row" >
+						<h4 style="margin-left: 12px;">
+							课程信息：${courseDetail.data.result.title} <small><small
+								class="pull-right">注册时间：<Date:date
+										value="${courseDetail.data.result.ctime}"></Date:date></small></small>
+						</h4>
+						<div class="col-xs-6">简介:${courseDetail.data.result.intro}</div>
+						<div class="col-xs-6">创建者:${courseDetail.data.result.createUserName}</div>
+						<div class="col-xs-6">
+							收费模式:
+							<c:choose>
+								<c:when test="${courseDetail.data.result.pricemodel=='0'}">免费</c:when>
+								<c:when test="${courseDetail.data.result.pricemodel=='1'}">付费</c:when>
+								<c:when test="${courseDetail.data.result.pricemodel=='2'}">打赏</c:when>
+							</c:choose>
+							
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							价格: ${courseDetail.data.result.price}
+						</div>
 
-
-					<button type="submit" class="btn btn-default">下一步</button>
-				</form>
+						
+					</div>
+					
+				</div>
+				<div class="row" >
+					<div class="dol-xs-4"></div>
+					<div class="col-xs-4">
+							<form role="form" method="post" action="${cbasePath}course/checkCourseAction" >
+								<input type="hidden" name="cid" value="${courseDetail.data.result.id}">
+								<button type="submit" class="btn btn-primary">通过</button>
+								<button type="button" class="btn btn-primary" onclick="javascript:toUncheckPage();">不通过</button>
+							</form>
+					</div>
+				</div>
 			</div>
 		</div>
-
-
 	</div>
-	<script>
-		$(function() {
-			/* $("#searchIt").click(function(){
-				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
-			}); */
-			$(".btnDelete").click(function() {
-				if (window.confirm('你确定要删除吗？')) {
-					window.location.href = $(this).attr("data");
-				} else {
-
-				}
-			});
-		});
+	<script type="text/javascript">
+		function toUncheckPage(){
+			window.location.href='${cbasePath}course/courseListNoCheck';
+		}
 	</script>
 </body>
 </html>
