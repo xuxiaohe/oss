@@ -159,6 +159,13 @@
        <url-pattern>/table/*</url-pattern>  
    </filter-mapping>
    
+    <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/banner/*</url-pattern>  
+   </filter-mapping>
+   
+   
+   
 	<!-- Processes application requests -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>

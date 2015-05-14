@@ -71,7 +71,23 @@
 										class="pull-right">注册时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
 								</h4>
-
+							<c:if test="${Recourse.pricemodel == 1}">
+							<br>
+							收费模式:付费
+							<br><br>
+							价格：${Recourse.price}
+							</c:if>
+							
+							<c:if test="${Recourse.pricemodel == 0}">
+							<br>
+							收费模式:免费
+							</c:if>
+							
+							<c:if test="${Recourse.pricemodel == 2}">
+							<br>
+							收费模式:打赏
+							</c:if>
+							
 
 								<div class="col-xs-12 btn-group-sm">
 									<button data="${Recourse.id}" type="button"

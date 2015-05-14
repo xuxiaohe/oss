@@ -196,6 +196,7 @@ public class course extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 
 		modelview.addObject("courseDetail", courseDetail(cid));
+		
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -305,6 +306,18 @@ public class course extends BaseController {
 		String childCategoryId = request.getParameter("childCategoryId");
 		String tagNames = request.getParameter("tagNames");
 		String logoUrl = request.getParameter("logoUrl");
+		String pricemodel = request.getParameter("pricemodel");
+		String price = request.getParameter("price");
+		String scale = request.getParameter("scale");
+		String height = request.getParameter("height");
+		String width = request.getParameter("width");
+		
+		if(scale==null||"".equals(scale)){
+			scale="0";
+		}
+		if(price==null||"".equals(price)){
+			price="0";
+		}
 		if(logoUrl == null || "".equals(logoUrl)){
 			logoUrl = request.getParameter("oldLogoUrl");
 		}
@@ -316,7 +329,7 @@ public class course extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 		logger.warn("=======================更新课程基本信息操作的管理员："+request.getSession().getAttribute("name")+"===课程id"+cid);
 
-		modelview.addObject("updateResult", modifyCourse(cid, title, intro, categoryId, childCategoryId, tagNames, logoUrl));
+		modelview.addObject("updateResult", modifyCourse(cid, title, intro, categoryId, childCategoryId, tagNames, logoUrl,pricemodel,price,scale,height,width));
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		return "redirect:/course/courseList";
@@ -594,7 +607,7 @@ public class course extends BaseController {
 	}
 	
 	private JSONObject categoryAction(String categoryId,String childCategoryId,String courseId) {
-		String url = Config.YXTSERVER3 + "oss/course/courseChecked?categoryId="+categoryId+"&childCategoryId="+childCategoryId+"&courseId="+courseId;
+		String url = Config.YXTSERVER3 + "oss/course/courseChecked?courseId="+courseId;
 		return getRestApiData(url);
 	}
 	
@@ -615,7 +628,7 @@ public class course extends BaseController {
 		return getRestApiData(url);
 	}
 	
-	private JSONObject modifyCourse(String cid, String title, String intro, String categoryId, String childCategoryId, String tagNames, String logoUrl){
+	private JSONObject modifyCourse(String cid, String title, String intro, String categoryId, String childCategoryId, String tagNames, String logoUrl,String pricemodel,String price,String scale,String height,String width){
 		String url = Config.YXTSERVER3 + "oss/course/modifyBaseInfo";
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("id", cid);
@@ -625,6 +638,11 @@ public class course extends BaseController {
 		params.put("childCategoryId", childCategoryId);
 		params.put("tagNames", tagNames);
 		params.put("logoUrl", logoUrl);
+		params.put("pricemodel", pricemodel);
+		params.put("price", price);
+		params.put("scale", scale);
+		params.put("price", height);
+		params.put("scale", width);
 		return getRestApiData(url, params);
 	}
 	
@@ -696,8 +714,9 @@ public class course extends BaseController {
 	 */
 	@RequestMapping("/modifyCourse")
 	@ResponseBody
-	public Map<String, Object>  modifyCourse(HttpServletRequest request,String title,String logoUrl,String intro,String tagNames,String courseId,String userId) {
-		String[] chapterIds=request.getParameterValues("chapterIds[]");
+	public Map<String, Object> modifyCourse(HttpServletRequest request, String title, String logoUrl, String intro, String tagNames, String courseId,
+			String userId, String pricemodel, String price, String childCategoryId, String categoryId, String userLogo, String createUserName, String scale,String height, String width) {
+	String[] chapterIds=request.getParameterValues("chapterIds[]");
 		Map<String, String> map=new HashMap<String, String>();
 		if(StringUtil.isBlank(title)){
 			map.put("title", "运维");
@@ -710,6 +729,15 @@ public class course extends BaseController {
 		map.put("isPublic", "0");
 		map.put("sourceType", "3");
 		map.put("createUser", userId);
+		map.put("pricemodel", pricemodel);
+		map.put("price", price);
+		map.put("childCategoryId", childCategoryId);
+		map.put("categoryId", categoryId);
+		map.put("userLogo", userLogo);
+		map.put("createUserName", createUserName);
+		map.put("scale", scale);
+		map.put("height", height);
+		map.put("width", width);
 		String  ids="";
 		if(chapterIds!=null){
 			if (chapterIds.length>0) {

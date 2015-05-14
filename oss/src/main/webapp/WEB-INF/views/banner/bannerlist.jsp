@@ -49,7 +49,7 @@
 
 					<!---数据显示区域-->
 					<%-- ${fn:length(Drys.data.result)} --%>
-					<c:forEach items="${BannerList.data.result.content}" varStatus="key"
+					<c:forEach items="${BannerList.data.result.result.content}" varStatus="key"
 						var="Recourse">
 						<div class="row" style="padding: 20px;">
 							<div class="col-xs-1">
@@ -71,7 +71,7 @@
 										class="pull-right">注册时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
 								</h4>
-							&nbsp&nbsp广告位名称：${Recourse.name} &nbsp&nbsp&nbsp&nbsp
+							&nbsp&nbsp广告位名称：${Recourse.name} &nbsp&nbsp&nbsp&nbsp广告位置序列：${Recourse.index+1}
 							<br>
 							<c:if test="${Recourse.adSid=='0'}">  
 							&nbsp&nbsp位置：站内   
@@ -89,13 +89,16 @@
 							&nbsp&nbsp是否显示：否
 							</c:if>
 							
-								<%-- <div class="col-xs-12 btn-group-sm">
-									<button data="${Recourse.id}" data1="${Recourse.authorId}" type="button"
-										class="deleteBtn btn btn-primary">删除</button>
-										
-										<button data="${Recourse.id}" type="button"
-										class="info btn btn-primary">详情</button>
-								</div> --%>
+								<div class="col-xs-12 btn-group-sm">
+								<c:if test="${Recourse.index!=0}">  
+								<a href="${cbasePath}banner/movebanner?currindex=${Recourse.index}&state=0">
+									<button  type="button"
+										class="up btn btn-primary">位置上移</button></a></c:if>
+							    <c:if test="${Recourse.index != (BannerList.data.result.counts)-1}"> 
+									<a href="${cbasePath}banner/movebanner?currindex=${Recourse.index}&state=1">	
+										<button  type="button"
+										class="down btn btn-primary">位置下移</button></a></c:if>
+								</div>
 
 							</div>
 						</div>

@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import com.yunxuetang.util.Config;
 @RequestMapping("/banner")
 public class Banner extends BaseController {
 
+	Logger logger = LoggerFactory.getLogger(Banner.class);
 	/**
 	 * banner列表
 	 * */
@@ -74,6 +77,31 @@ public class Banner extends BaseController {
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.setViewName("banner/bannerDetail");
 		return modelview;
+
+	}
+	
+	
+	/**
+	 * 广告位置上移或下移
+	 */
+	@RequestMapping("/movebanner")
+	public String movebanner(HttpServletRequest request) {
+		// 当前第几页
+		String currindex = request.getParameter("currindex");
+		String state = request.getParameter("state");
+
+		ModelAndView modelview = new ModelAndView();
+
+		 
+		movead(currindex,state);
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		return "redirect:/banner/bannerlist";
 
 	}
 
@@ -331,6 +359,11 @@ public class Banner extends BaseController {
 
 	private JSONObject bannerDetail(String id) {
 		String url = Config.YXTSERVER3 + "oss/ztiaoad/searchAdInfo?id=" + id;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject movead(String currindex,String state) {
+		String url = Config.YXTSERVER3 + "oss/ztiaoad/movead?currindex=" + currindex+"&state="+state;
 		return getRestApiData(url);
 	}
 
