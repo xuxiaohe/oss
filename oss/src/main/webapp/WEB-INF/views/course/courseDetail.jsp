@@ -51,6 +51,7 @@
 						<button type="button" class="edit btn-warning btn-block">编辑</button></a><br>
 						<a href="${cbasePath}course/updateChapterView?cid=${courseDetail.data.result.id}">
 						<button type="button" class="edit btn-warning btn-block">编辑章节</button></a><br>
+						<button type="button" class="edit btn-warning btn-block" onclick="javascript:changeShow(this);">购买用户列表</button><br>
 						<%-- <div id="btnGroupDiv" class="col-xs-12">
 							<a
 								href="${cbasePath}user/userTopic?userid=${courseDetail.data.result.id }">
@@ -99,7 +100,7 @@
 						</div> --%>
 
 					</div>
-					<ul class="list-group">
+					<ul class="list-group" id="chapterList">
 							<c:forEach items="${courseDetail.data.result.chapters}"
 								varStatus="key" var="Recourse">
 								<c:forEach items="${Recourse.lessons}" varStatus="key"
@@ -145,7 +146,9 @@
 								</c:forEach>
 								</c:forEach>
 						</ul>
-
+						<div id="buyusers" class="container-fluid">
+							
+						</div>
 
 
 				</div>
@@ -169,6 +172,21 @@
 						 $("#msg"+lessonId).html("审核不通过");
 					 }
 				});
+			}
+			
+			function changeShow(obj){
+				if($(obj).html()== '购买用户列表'){
+					$(obj).html('章节列表');
+					$("#buyusers").show();
+					$("#chapterList").hide();
+					
+					var url = '${cbasePath}course/buyusers?cid=${courseDetail.data.result.id}';
+					$("#buyusers").html("").load(url);
+				}else if($(obj).html()== '章节列表'){
+					$(obj).html('购买用户列表');
+					$("#buyusers").hide();
+					$("#chapterList").show();
+				}
 			}
 		</script>
 </body>
