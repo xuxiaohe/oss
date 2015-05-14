@@ -842,7 +842,7 @@ public class course extends BaseController {
 		modelview.addObject("addDryBoxposition", objj);
 		modelview.addObject("name", objj6);
 		modelview.addObject("id", objj5);
-		modelview.addObject("addDryBoxList", getdryboxlist(objj5,"0","10000"));
+		modelview.addObject("addDryBoxList", getdryboxlist(objj5,"0","10"));
 		modelview.setViewName("course/courseBoxList");
 		return modelview;
 	}
@@ -959,7 +959,7 @@ public class course extends BaseController {
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
 		modelview.addObject("name", name);
 		modelview.addObject("id", boxPostId);
-		modelview.addObject("addDryBoxList", getdryboxlist( boxPostId,"0","10000"));
+		modelview.addObject("addDryBoxList", getdryboxlist( boxPostId,"0","10"));
 		
 		modelview.setViewName("course/courseBoxList");
 		return modelview;
