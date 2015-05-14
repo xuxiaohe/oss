@@ -1136,4 +1136,19 @@ public class course extends BaseController {
 		return getRestApiData(url);
 	}
 	
+	/**
+	 * 查看购买课程的用户列表
+	 * */
+	@RequestMapping("/buyusers")
+	public String getBuyUsers(HttpServletRequest request, Model model){
+		String cid = request.getParameter("cid");
+		model.addAttribute("buyusers", getBuyUserList(cid));
+		return "course/buyusers";
+	}
+	
+	private JSONObject getBuyUserList(String cid){
+		String url = Config.YXTSERVER3 + "oss/course/getWhoBuyCourseList?courseid=" + cid;
+		return getRestApiData(url);
+	}
+	
 }
