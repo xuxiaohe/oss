@@ -181,7 +181,7 @@ function upload(s){
 	</div>
 	<div class="form-group clearfix"  style="display:none;" id="scaleDiv">
 		<label for="scale">分成比例</label>
-		<input type="text" class="form-control" name="scale" id="scale" value="" >
+		<input type="text" class="form-control" name="scale" id="scale" value="0" >
 	</div>
 	<div class="form-group clearfix">
 		<div class="media">
@@ -396,6 +396,7 @@ function upload(s){
 			return false;
 		}else if(pricemodel != '1'){
 			price = 0;
+			scale = 0;
 		}
 		if(title==""){
 			alert("课程名称非空！");
