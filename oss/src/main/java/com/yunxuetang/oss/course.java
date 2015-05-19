@@ -641,8 +641,8 @@ public class course extends BaseController {
 		params.put("pricemodel", pricemodel);
 		params.put("price", price);
 		params.put("scale", scale);
-		params.put("price", height);
-		params.put("scale", width);
+		params.put("height", height);
+		params.put("width", width);
 		return getRestApiData(url, params);
 	}
 	
