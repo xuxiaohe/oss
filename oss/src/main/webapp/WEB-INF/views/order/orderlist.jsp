@@ -20,16 +20,26 @@
 	<div class="container-fluid">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<form class="form-inline" action="${cbasePath}order/list"
-					method="get" role="form">
+				<form class="form-inline" 
+					method="get" >
 					<div class="form-group">
-						<label class="sr-only" for="keyword">Search:</label> <input
-							class="form-control" id="keyword" name="keyword"
-							placeholder="Enter keyword" value="${keyword }">
+						
+						<div class="col-xs-6"><label class="sr-only" for="keyword">订单状态:</label>
+							<select class="form-control" id="statusSelect" onchange = "javascript:findByStatus(this);">
+								<option value="">全部订单</option>
+								<option value="0">未支付</option>
+								<option value="1">支付中</option>
+								<option value="2">支付成功, 未评价</option>
+								<option value="3">支付失败</option>
+								<option value="4">支付超时</option>
+								<option value="5">支付成功, 已评价</option>
+								<option value="6">订单关闭</option>
+								<option value="7">订单退款</option>
+								<option value="8">订单撤销</option>
+							</select>
+						</div>
 					</div>
 
-					<button id="searchIt" type="submit" class="btn btn-default">Search
-						it!</button>
 				</form>
 				<c:if test="${orderlist.status == '200'}">
 					<nav> <!-- 分页开始 -->
@@ -58,8 +68,7 @@
 							</div>
 							<div class="col-xs-10">
 								<h4 style="margin-left:12px;">
-									<a href="#">
-										${Recourse.courseTitle} </a><small><small
+										${Recourse.courseTitle}<small><small
 										class="pull-right">成交时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
 								</h4>
@@ -74,6 +83,21 @@
 								</div>
 								<div class="col-xs-6">
 									<p>所在群组:${Recourse.groupName}</p>
+								</div>
+								<div class="col-xs-6">
+									<p>订单状态:
+										<c:choose>
+											<c:when test="${Recourse.orderStatus=='0'}">未支付</c:when>
+											<c:when test="${Recourse.orderStatus=='1'}">支付中</c:when>
+											<c:when test="${Recourse.orderStatus=='2'}">支付成功,未成功</c:when>
+											<c:when test="${Recourse.orderStatus=='3'}">支付失败</c:when>
+											<c:when test="${Recourse.orderStatus=='4'}">支付超时</c:when>
+											<c:when test="${Recourse.orderStatus=='5'}">支付成功,已评价</c:when>
+											<c:when test="${Recourse.orderStatus=='6'}">订单关闭</c:when>
+											<c:when test="${Recourse.orderStatus=='7'}">订单退款</c:when>
+											<c:when test="${Recourse.orderStatus=='8'}">订单撤销</c:when>
+										</c:choose>
+									</p>
 								</div>
 								
 
@@ -95,6 +119,21 @@
 		</div>
 	</div>
 	<script>
+		$(function(){
+			var status = '${orderStatus}';
+			if(status != '') $("#statusSelect").val(status);
+		});
+		function findByStatus(obj){
+			var status = $.trim($(obj).val());
+			if(status != ''){
+				var url = '${cbasePath}order/list?orderStatus=' + status;
+				window.location.href = url;
+			}else{
+				var url = '${cbasePath}order/list';
+				window.location.href = url;
+			}
+			
+		}
 	</script>
 </body>
 </html>
