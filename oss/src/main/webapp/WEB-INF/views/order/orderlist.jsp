@@ -43,11 +43,11 @@
 				</form>
 				<c:if test="${orderlist.status == '200'}">
 					<nav> <!-- 分页开始 -->
-					<ul class="pagination">
+					<ul class="pagination" id="pagination">
 						<pageNation:PageNation currPage="${orderlist.data.curr_page}"
 							totalPages="${orderlist.data.page_rows}" perPageRows="10"
 							totalRows="${orderlist.data.total_rows}"
-							linkBaseUrl="${cbasePath}group/groupList?">
+							linkBaseUrl="${cbasePath}order/list?">
 						</pageNation:PageNation>
 					</ul>
 
@@ -105,11 +105,11 @@
 						</div>
 					</c:forEach>
 					<nav> <!-- 分页开始 -->
-					<ul class="pagination">
+					<ul class="pagination" id="pagination">
 						<pageNation:PageNation currPage="${orderlist.data.curr_page}"
 							totalPages="${orderlist.data.page_rows}" perPageRows="10"
 							totalRows="${orderlist.data.total_rows}"
-							linkBaseUrl="${cbasePath}group/groupList?">
+							linkBaseUrl="${cbasePath}order/list?">
 						</pageNation:PageNation>
 					</ul>
 
@@ -121,7 +121,17 @@
 	<script>
 		$(function(){
 			var status = '${orderStatus}';
-			if(status != '') $("#statusSelect").val(status);
+			
+			if(status != '') {
+				$("#statusSelect").val(status);
+				$("#pagination li  a").each(function(index){
+					if($(this).parent().hasClass("disabled")==false){ 
+						var url = $.trim($(this).attr("href"));
+						url = url + '&orderStatus=' + status;
+						$(this).attr('href', url);
+					}
+				});
+			}
 		});
 		function findByStatus(obj){
 			var status = $.trim($(obj).val());
