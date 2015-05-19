@@ -25,6 +25,7 @@ public class Config {
 	
 	public static String WIKERSERVER = "http://bj.api.wiker.ztiao.cn/";
 	public static String QDANSERVER = "http://bj.api.qd.ztiao.cn/";
+	public static String ORDER_SERVER = "http://localhost:8080";
 	public static String SCHEDULE_SERVER = "http://bj.schedule.ztiao.cn";
 	public static String ACCESS_KEY = "PN6SV6Fm-Ueu-D8NYN_NfJwpPuedsQALNKmwL_IQ";
 	public static String SECRET_KEY = "O6sBs8dw9cJjamEx2d6vgY1sXnPnIlg5Nsn6CwPH";
