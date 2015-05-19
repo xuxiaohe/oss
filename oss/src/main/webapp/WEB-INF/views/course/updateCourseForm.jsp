@@ -64,6 +64,7 @@
 											<label for="exampleInputEmail1">修改课程图片</label>
 											<button id="pic" type="button" class="btn btn-default">上传图片</button>
 										</div>
+										<div class="col-xs-9">图片尺寸最低为640*380，且宽和高的比例必须为640 * 380<span style="color:red;">*</span></div>
 									</div>
 
 								</div>
@@ -234,6 +235,7 @@
 			}else{
 				$("#price").attr("disabled",true);
 				$("#price").val("0");
+				$("#scale").val("0");
 				$("#scaleDiv").hide();
 			}
 			
