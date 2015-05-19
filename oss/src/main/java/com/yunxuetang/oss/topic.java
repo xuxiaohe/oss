@@ -1139,7 +1139,7 @@ public class topic extends BaseController {
 //				+ "&picWidth=" + width;
 		
 		
-		String url = Config.YXTSERVER3 + "oss/topic/updateTopicByGroup";
+		String url = Config.YXTSERVER3 + "oss/topic/updateTopic";
 		
 		Map<String, String> m=new HashMap<String, String>();
 		m.put("topicId", topicid);
