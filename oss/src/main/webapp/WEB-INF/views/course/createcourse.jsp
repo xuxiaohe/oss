@@ -194,6 +194,7 @@ function upload(s){
 						<div class="col-xs-9">
 							<button id="pic" type="submit" class="btn btn-default">上传图片</button>
 						</div>
+						<div class="col-xs-9">图片尺寸最低为640*380，且宽和高的比例必须为640 * 380<span style="color:red;">*</span></div>
 					</div>
 				
 					<input type="hidden" id="key">
