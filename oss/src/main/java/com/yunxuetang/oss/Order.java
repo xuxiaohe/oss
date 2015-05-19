@@ -21,10 +21,18 @@ public class Order extends BaseController{
 	@RequestMapping("list")
 	public String orderList(HttpServletRequest request, Model model){
 		String status = request.getParameter("orderStatus");
+		String n = request.getParameter("n");
+		String s = request.getParameter("s");
+		if(StringUtil.isEmpty(n)){
+			n = "0";
+		}
+		if(StringUtil.isEmpty(s)){
+			s = "10";
+		}
 		if(StringUtil.isEmpty(status)){
-			model.addAttribute("orderlist", getOrderList());
+			model.addAttribute("orderlist", getOrderList(n, s));
 		}else{
-			model.addAttribute("orderlist", getOrderListByStatus(status));
+			model.addAttribute("orderlist", getOrderListByStatus(status, n, s));
 			model.addAttribute("orderStatus", status);
 		}
 		//model.addAttribute("orderType", getOrderTypeList());
@@ -37,12 +45,12 @@ public class Order extends BaseController{
 	
 	
 	
-	private JSONObject getOrderList(){
-		String url = Config.ORDER_SERVER + "/order/allOrders";
+	private JSONObject getOrderList(String n, String s){
+		String url = Config.ORDER_SERVER + "/order/allOrders?n=" + n + "&s=" + s;
 		return getRestApiData(url);
 	}
-	private JSONObject getOrderListByStatus(String status){
-		String url = Config.ORDER_SERVER + "/order/findOrdersBystate?orderStatus=" + status;
+	private JSONObject getOrderListByStatus(String status, String n, String s){
+		String url = Config.ORDER_SERVER + "/order/findOrdersBystate?n=" + n + "&s=" + s + "&orderStatus=" + status;
 		return getRestApiData(url);
 	}
 }
