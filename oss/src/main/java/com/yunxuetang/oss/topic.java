@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.UUID;
@@ -1133,10 +1134,24 @@ public class topic extends BaseController {
 
 	private JSONObject updateTopicByGroup(String topicid, String title, String content, String picUrl, String categoryId, String childCategoryId,
 			String tagName, String height, String width) {
-		String url = Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicId=" + topicid + "&title=" + title + "&content=" + content + "&picUrl="
-				+ picUrl + "&categoryId=" + categoryId + "&childCategoryId=" + childCategoryId + "&tagNames=" + tagName + "&picHeight=" + height
-				+ "&picWidth=" + width;
-		return getRestApiData(url);
+//		String url = Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicId=" + topicid + "&title=" + title + "&content=" + content + "&picUrl="
+//				+ picUrl + "&categoryId=" + categoryId + "&childCategoryId=" + childCategoryId + "&tagNames=" + tagName + "&picHeight=" + height
+//				+ "&picWidth=" + width;
+		
+		
+		String url = Config.YXTSERVER3 + "oss/topic/updateTopicByGroup";
+		
+		Map<String, String> m=new HashMap<String, String>();
+		m.put("topicId", topicid);
+		m.put("title", title);
+		m.put("content",content );
+		m.put("picUrl", picUrl);
+		m.put("categoryId", categoryId);
+		m.put("childCategoryId", childCategoryId);
+		m.put("tagNames", tagName);
+		m.put("picHeight", height);
+		m.put("picWidth", width);
+		return getRestApiData(url,m);
 	}
 
 	private JSONObject updateTopic(String topicid, String groupid) {
