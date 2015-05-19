@@ -72,9 +72,9 @@
 									          
 									              <c:out value="${fn:substring(Recourse.content, 0, 30)}......" />
 									         </c:when>
-									         <c:otherwise>
-									            <c:out value="${Recourse.intro}" />
-									          </c:otherwise>
+									         <c:when test="${fn:length(Recourse.content) <= 30}"> 
+									            <c:out value="${Recourse.content}" />
+									          </c:when>
 									      </c:choose>
 									      </c:if> 
 										<small><small
