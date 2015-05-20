@@ -203,6 +203,8 @@
 			if (status != '') {
 				$("#statusSelect").val(status);
 				param = param + '&orderStatus=' + status;
+			}else{
+				param = param + '&orderStatus=';
 			}
 			if($("#startTime").val() != ''){
 				param = param + '&starttime=' + $("#startTime").val();
