@@ -62,6 +62,16 @@ public class Order extends BaseController{
 		if(!("0".equals(starttime))&&!("0".equals(endtime))&&!("".equals(status))){
 			model.addAttribute("orderlist", findOrdersBytimeAndstate(status,n, s,starttime,endtime));
 		}
+		 if(("0".equals(starttime))&&("0".equals(endtime))&&!("".equals(status))){
+			model.addAttribute("orderlist", findOrdersBystate(status, n, s));
+		}
+		 if(!("0".equals(starttime))&&!("0".equals(endtime))&&("".equals(status))){
+			model.addAttribute("orderlist", findOrdersBytime(n, s, starttime, endtime));
+		}
+		if (("0".equals(starttime)) && !("0".equals(endtime)) && ("".equals(status))) {
+			model.addAttribute("orderlist", getOrderList(n, s));
+		}
+		
 		//model.addAttribute("orderType", getOrderTypeList());
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -78,9 +88,19 @@ public class Order extends BaseController{
 	}
 	
 	private JSONObject findOrdersBytimeAndstate(String state,String n, String s,String starttime, String endtime){
-		String url = Config.ORDER_SERVER + "/order/findOrdersBytimeAndstate?n=" + n + "&s=" + s+ "&starttime=" + starttime+ "&endtime=" + endtime;
+		String url = Config.ORDER_SERVER + "/order/findOrdersBytimeAndstate?n=" + n + "&s=" + s+ "&starttime=" + starttime+ "&endtime=" + endtime+ "&orderStatus=" + state;
 		return getRestApiData(url);
 	} 
+	
+	private JSONObject findOrdersBystate(String state,String n, String s){
+		String url = Config.ORDER_SERVER + "/order/findOrdersBystate?n=" + n + "&s=" + s+ "&orderStatus=" + state;
+		return getRestApiData(url);
+	} 
+	
+	private JSONObject findOrdersBytime(String n, String s,String starttime, String endtime){
+		String url = Config.ORDER_SERVER + "/order/findOrdersBytime?n=" + n + "&s=" + s+ "&starttime=" + starttime+ "&endtime=" + endtime;
+		return getRestApiData(url);
+	}
 	
 	private JSONObject getOrderListByStatus(String status, String n, String s){
 		String url = Config.ORDER_SERVER + "/order/findOrdersBystate?n=" + n + "&s=" + s + "&orderStatus=" + status;
