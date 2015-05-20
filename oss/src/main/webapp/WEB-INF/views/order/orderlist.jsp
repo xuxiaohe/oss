@@ -1,31 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="pageNation" uri="/WEB-INF/tld/pagenation.tld"%>
 <%@ taglib prefix="Date" uri="/WEB-INF/tld/datetag.tld"%>
+<%
+	String contextPath = request.getContextPath();
+%>
 <html>
 <head lang="en">
 <meta charset="UTF-8">
 <title>订单管理</title>
-<script src="${sourcePath}/resources/assets/js/jquery.min.js"></script>
-<script src="${sourcePath}/resources/assets/js/bootstrap.min.js"></script>
-<link href="${sourcePath}/resources/assets/css/bootstrap.min.css"
+<script src="<%=contextPath%>/resources/assets/js/jquery.min.js"></script>
+<script src="<%=contextPath%>/resources/assets/js/bootstrap.min.js"></script>
+<link href="<%=contextPath%>/resources/assets/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="${sourcePath}/resources/assets/css/font.css" rel="stylesheet">
+<link href="<%=contextPath%>/resources/assets/css/bootstrap-datepicker.min.css"
+	rel="stylesheet">
+<link href="<%=contextPath%>/resources/assets/css/font.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container-fluid">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<form class="form-inline" 
-					method="get" >
+				<form class="form-inline" action="<%=contextPath%>/order/findOrder"
+					method="post" >
 					<div class="form-group">
 						
-						<div class="col-xs-6"><label class="sr-only" for="keyword">订单状态:</label>
-							<select class="form-control" id="statusSelect" onchange = "javascript:findByStatus(this);">
+						<div class="col-xs-12">订单状态:
+							<select class="form-control" id="statusSelect" >
 								<option value="">全部订单</option>
 								<option value="0">未支付</option>
 								<option value="1">支付中</option>
@@ -37,9 +42,33 @@
 								<option value="7">订单退款</option>
 								<option value="8">订单撤销</option>
 							</select>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="form-control">查询</button>
 						</div>
-					</div>
+						<br><br>
+						<div class="col-xs-6">
+							<label class="control-label" for="starttime">开始时间：</label>
+							<input type="hidden" name="starttime" id="startTime"/>
+							<div class="date form_datetime controls" 
+								id="starttimeDiv">
+								<input type="text" class="form-control" value="" id="starttime"
+									readonly> <span class="add-on"> <i
+									class="icon-th"></i>
+								</span>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<label class="control-label" for="endtime">结束时间：</label>
+							<input type="hidden" name="endtime" id="endTime"/>
+							<div class=" controls date form_datetime" 
+								id="endtimeDiv">
+								<input type="text" class="form-control" value="" id="endtime" readonly>
+								<span class="add-on"><i class="icon-th"></i> </span>
+							</div>
 
+						</div>
+						
+					</div>
+					<br>
 				</form>
 				<c:if test="${orderlist.status == '200'}">
 					<nav> <!-- 分页开始 -->
@@ -47,7 +76,7 @@
 						<pageNation:PageNation currPage="${orderlist.data.curr_page}"
 							totalPages="${orderlist.data.page_rows}" perPageRows="10"
 							totalRows="${orderlist.data.total_rows}"
-							linkBaseUrl="${cbasePath}order/list?">
+							linkBaseUrl="${cbasePath}order/findOrder?">
 						</pageNation:PageNation>
 					</ul>
 
@@ -109,23 +138,69 @@
 						<pageNation:PageNation currPage="${orderlist.data.curr_page}"
 							totalPages="${orderlist.data.page_rows}" perPageRows="10"
 							totalRows="${orderlist.data.total_rows}"
-							linkBaseUrl="${cbasePath}order/list?">
+							linkBaseUrl="${cbasePath}/order/findOrder?">
 						</pageNation:PageNation>
 					</ul>
 
 					<!-- 分页结束 --> </nav>
 				</c:if>
 			</div>
+			
 		</div>
 	</div>
+	<script type="text/javascript" src="<%=contextPath%>/resources/assets/js/bootstrap-datepicker.min.js"></script>
 	<script>
+		var today = new Date().valueOf();
+		var start = 0;
+		var end = 0;
 		$(function(){
-			var status = '${orderStatus}';
 			
-			if(status != '') {
+			
+			$('#starttime').datepicker({
+				format : 'yyyy-mm-dd',
+				autoclose : true,
+				todayHighlight:true,
+				todayBtn : 'linked',
+				language : 'zh-CN'
+			}).on('changeDate', function(ev) {
+				var startTime = ev.date.valueOf();
+				start = startTime;
+				if (startTime > today) {
+					alert('开始日期不能大于今天!');
+					$("#starttime").val("");
+					$("#starttime").focus();
+				}else{
+					$("#startTime").val(startTime);
+				}
+			});
+			$('#endtime').datepicker({
+				format : 'yyyy-mm-dd',
+				autoclose : true,
+				todayHighlight:true,
+				todayBtn : 'linked',
+				language : 'zh-CN'
+			}).on('changeDate', function(ev) {
+				var endTime = ev.date.valueOf();
+				end = endTime;
+				if(end > today){
+					alert('结束日期不能大于今天!');
+					$("#endtime").val("");
+					$("#endtime").focus();
+				}else if (end < start) {
+					alert('结束日期不能早于开始日期!');
+					$("#endtime").val("");
+					$("#endtime").focus();
+				} else {
+					endTime = endTime + (60 * 60 * 24 - 1) * 1000;
+					$("#endTime").val(endTime);
+				}
+			});
+			var status = '${orderStatus}';
+
+			if (status != '') {
 				$("#statusSelect").val(status);
-				$("#pagination li  a").each(function(index){
-					if($(this).parent().hasClass("disabled")==false){ 
+				$("#pagination li  a").each(function(index) {
+					if ($(this).parent().hasClass("disabled") == false) {
 						var url = $.trim($(this).attr("href"));
 						url = url + '&orderStatus=' + status;
 						$(this).attr('href', url);
@@ -133,17 +208,6 @@
 				});
 			}
 		});
-		function findByStatus(obj){
-			var status = $.trim($(obj).val());
-			if(status != ''){
-				var url = '${cbasePath}order/list?orderStatus=' + status;
-				window.location.href = url;
-			}else{
-				var url = '${cbasePath}order/list';
-				window.location.href = url;
-			}
-			
-		}
 	</script>
 </body>
 </html>
