@@ -47,7 +47,7 @@
 						<br><br>
 						<div class="col-xs-6">
 							<label class="control-label" for="starttime">开始时间：</label>
-							<input type="hidden" name="starttime" id="startTime"/>
+							<input type="hidden" name="starttime" id="startTime" value="${starttime}"/>
 							<div class="date form_datetime controls" 
 								id="starttimeDiv">
 								<input type="text" class="form-control" value="" id="starttime"
@@ -58,7 +58,7 @@
 						</div>
 						<div class="col-xs-6">
 							<label class="control-label" for="endtime">结束时间：</label>
-							<input type="hidden" name="endtime" id="endTime"/>
+							<input type="hidden" name="endtime" id="endTime" value="${endtime}"/>
 							<div class=" controls date form_datetime" 
 								id="endtimeDiv">
 								<input type="text" class="form-control" value="" id="endtime" readonly>
@@ -153,6 +153,7 @@
 		var today = new Date().valueOf();
 		var start = 0;
 		var end = 0;
+		var param = '';
 		$(function(){
 			
 			
@@ -195,18 +196,30 @@
 					$("#endTime").val(endTime);
 				}
 			});
+			
+			//以下为补齐分页参数
 			var status = '${orderStatus}';
-
+			
 			if (status != '') {
 				$("#statusSelect").val(status);
+				param = param + '&orderStatus=' + status;
+			}
+			if($("#startTime").val() != ''){
+				param = param + '&starttime=' + $("#startTime").val();
+			}
+			if($("#endTime").val() != ''){
+				param = param + '&endtime=' + $("#endTime").val();
+			}
+			if(param != ''){
 				$("#pagination li  a").each(function(index) {
 					if ($(this).parent().hasClass("disabled") == false) {
 						var url = $.trim($(this).attr("href"));
-						url = url + '&orderStatus=' + status;
+						url = url + param;
 						$(this).attr('href', url);
 					}
 				});
 			}
+			//补齐分页参数 end
 		});
 		function beforeSubmit(){
 			if($("#startTime").val() == ''){
