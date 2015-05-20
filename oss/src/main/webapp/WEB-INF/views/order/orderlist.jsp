@@ -25,7 +25,7 @@
 	<div class="container-fluid">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<form class="form-inline" action="<%=contextPath%>/order/findOrder"
+				<form class="form-inline" action="<%=contextPath%>/order/findOrder" onsubmit="javascript:beforeSubmit();"
 					method="post" >
 					<div class="form-group">
 						
@@ -208,6 +208,14 @@
 				});
 			}
 		});
+		function beforeSubmit(){
+			if($("#startTime").val() == ''){
+				$("#startTime").val("0");
+			}
+			if($("#endTime").val() == ''){
+				$("#endTime").val("0");
+			}
+		}
 	</script>
 </body>
 </html>
