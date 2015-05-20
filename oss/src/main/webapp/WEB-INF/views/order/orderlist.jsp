@@ -30,7 +30,7 @@
 					<div class="form-group">
 						
 						<div class="col-xs-12">订单状态:
-							<select class="form-control" id="statusSelect" >
+							<select class="form-control" id="statusSelect" name="orderStatus" >
 								<option value="">全部订单</option>
 								<option value="0">未支付</option>
 								<option value="1">支付中</option>
