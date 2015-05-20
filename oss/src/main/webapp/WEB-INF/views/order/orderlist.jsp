@@ -118,7 +118,7 @@
 										<c:choose>
 											<c:when test="${Recourse.orderStatus=='0'}">未支付</c:when>
 											<c:when test="${Recourse.orderStatus=='1'}">支付中</c:when>
-											<c:when test="${Recourse.orderStatus=='2'}">支付成功,未成功</c:when>
+											<c:when test="${Recourse.orderStatus=='2'}">支付成功,未评价</c:when>
 											<c:when test="${Recourse.orderStatus=='3'}">支付失败</c:when>
 											<c:when test="${Recourse.orderStatus=='4'}">支付超时</c:when>
 											<c:when test="${Recourse.orderStatus=='5'}">支付成功,已评价</c:when>
@@ -150,12 +150,28 @@
 	</div>
 	<script type="text/javascript" src="<%=contextPath%>/resources/assets/js/bootstrap-datepicker.min.js"></script>
 	<script>
+		/* Date.prototype.Format = function (fmt) { //author: meizz 
+		    var o = {
+		        "M+": this.getMonth() + 1, //月份 
+		        "d+": this.getDate(), //日 
+		        "h+": this.getHours(), //小时 
+		        "m+": this.getMinutes(), //分 
+		        "s+": this.getSeconds(), //秒 
+		        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+		        "S": this.getMilliseconds() //毫秒 
+		    };
+		    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		    for (var k in o)
+		    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		    return fmt;
+		} */
+	
+	
 		var today = new Date().valueOf();
 		var start = 0;
 		var end = 0;
 		var param = '';
 		$(function(){
-			
 			
 			$('#starttime').datepicker({
 				format : 'yyyy-mm-dd',
@@ -199,18 +215,19 @@
 			
 			//以下为补齐分页参数
 			var status = '${orderStatus}';
-			
-			if (status != '') {
+			var startTime = '${starttime}';
+			var endTime = '${endtime}';
+			if (status != '' && status != 'null') {
 				$("#statusSelect").val(status);
 				param = param + '&orderStatus=' + status;
 			}else{
 				param = param + '&orderStatus=';
 			}
-			if($("#startTime").val() != ''){
-				param = param + '&starttime=' + $("#startTime").val();
+			if(startTime != '' && startTime != 'null'){
+				param = param + '&starttime=' + startTime;
 			}
-			if($("#endTime").val() != ''){
-				param = param + '&endtime=' + $("#endTime").val();
+			if(endTime != '' && endTime != 'null'){
+				param = param + '&endtime=' + endTime;
 			}
 			if(param != ''){
 				$("#pagination li  a").each(function(index) {
