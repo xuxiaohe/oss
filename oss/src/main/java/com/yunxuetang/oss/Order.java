@@ -50,7 +50,7 @@ public class Order extends BaseController{
 	public String orderBytime(HttpServletRequest request, Model model){
 		String n = request.getParameter("n");
 		String s = request.getParameter("s");
-		
+		String status = request.getParameter("orderStatus");
 		String starttime = request.getParameter("starttime");
 		String endtime = request.getParameter("endtime");
 		if(StringUtil.isEmpty(n)){
@@ -59,8 +59,8 @@ public class Order extends BaseController{
 		if(StringUtil.isEmpty(s)){
 			s = "10";
 		}
-		if(!("0".equals(starttime))&&!("0".equals(endtime))){
-			model.addAttribute("orderlist", getOrderByTime(n, s,starttime,endtime));
+		if(!("0".equals(starttime))&&!("0".equals(endtime))&&!("".equals(status))){
+			model.addAttribute("orderlist", findOrdersBytimeAndstate(status,n, s,starttime,endtime));
 		}
 		//model.addAttribute("orderType", getOrderTypeList());
 		String cpath = request.getContextPath();
@@ -77,8 +77,8 @@ public class Order extends BaseController{
 		return getRestApiData(url);
 	}
 	
-	private JSONObject getOrderByTime(String n, String s,String starttime, String endtime){
-		String url = Config.ORDER_SERVER + "/order/allOrders?n=" + n + "&s=" + s+ "&starttime=" + starttime+ "&endtime=" + endtime;
+	private JSONObject findOrdersBytimeAndstate(String state,String n, String s,String starttime, String endtime){
+		String url = Config.ORDER_SERVER + "/order/findOrdersBytimeAndstate?n=" + n + "&s=" + s+ "&starttime=" + starttime+ "&endtime=" + endtime;
 		return getRestApiData(url);
 	} 
 	
