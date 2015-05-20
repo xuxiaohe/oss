@@ -61,15 +61,22 @@ public class Order extends BaseController{
 		}
 		if(!("0".equals(starttime))&&!("0".equals(endtime))&&!("".equals(status))){
 			model.addAttribute("orderlist", findOrdersBytimeAndstate(status,n, s,starttime,endtime));
+			model.addAttribute("status",status);
+			model.addAttribute("starttime",starttime);
+			model.addAttribute("endtime",endtime);
 		}
 		 if(("0".equals(starttime))&&("0".equals(endtime))&&!("".equals(status))){
 			model.addAttribute("orderlist", findOrdersBystate(status, n, s));
+			model.addAttribute("status",status);
 		}
 		 if(!("0".equals(starttime))&&!("0".equals(endtime))&&("".equals(status))){
 			model.addAttribute("orderlist", findOrdersBytime(n, s, starttime, endtime));
+			model.addAttribute("starttime",starttime);
+			model.addAttribute("endtime",endtime);
 		}
 		if (("0".equals(starttime)) && !("0".equals(endtime)) && ("".equals(status))) {
 			model.addAttribute("orderlist", getOrderList(n, s));
+			
 		}
 		
 		//model.addAttribute("orderType", getOrderTypeList());
