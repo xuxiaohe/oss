@@ -11,8 +11,8 @@ public class Config {
 	//测试环境
 	 //public static String YXTSERVER3 = "http://chat.yunxuetang.com:8082/";
 	//生产环境
-	 public static String YXTSERVER3 = "http://localhost:8081/";
-	
+	 //public static String YXTSERVER3 = "http://localhost:8081/";
+	public static String YXTSERVER3 = "http://192.168.100.2:8081/";
 	
 	public static String YXTSERVER5 = "http://oss.ztiao.cn/oss";
 	
@@ -25,7 +25,12 @@ public class Config {
 	
 	public static String WIKERSERVER = "http://bj.api.wiker.ztiao.cn/";
 	public static String QDANSERVER = "http://bj.api.qd.ztiao.cn/";
-	public static String ORDER_SERVER = "http://localhost:8080";
+	//订单服务 本地开发环境
+	//public static String ORDER_SERVER = "http://localhost:8080";
+	//订单服务 chat开发环境
+	//public static String ORDER_SERVER = "http://localhost:8087";
+	//订单服务 qingyun生产环境
+	public static String ORDER_SERVER = "http://localhost:8087";
 	public static String SCHEDULE_SERVER = "http://bj.schedule.ztiao.cn";
 	public static String ACCESS_KEY = "PN6SV6Fm-Ueu-D8NYN_NfJwpPuedsQALNKmwL_IQ";
 	public static String SECRET_KEY = "O6sBs8dw9cJjamEx2d6vgY1sXnPnIlg5Nsn6CwPH";
