@@ -227,7 +227,7 @@
 				startTime = 0;
 			}
 			param = param + '&starttime=' + startTime;
-			if(endTime == '' && endTime == null){
+			if(endTime == '' || endTime == null){
 				endTime = 0;
 			}
 			param = param + '&endtime=' + endTime;
