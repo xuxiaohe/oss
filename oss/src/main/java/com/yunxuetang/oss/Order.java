@@ -1,5 +1,8 @@
 package com.yunxuetang.oss;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
@@ -58,6 +61,13 @@ public class Order extends BaseController{
 		}
 		if(StringUtil.isEmpty(s)){
 			s = "10";
+		}
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		if(!StringUtil.isEmpty(starttime)){
+			model.addAttribute("sStartTime", format.format(new Date(Long.parseLong(starttime))));
+		}
+		if(!StringUtil.isEmpty(endtime)){
+			model.addAttribute("sEndTime", format.format(new Date(Long.parseLong(endtime))));
 		}
 		if(!("0".equals(starttime))&&!("0".equals(endtime))&&!("".equals(status))){
 			model.addAttribute("orderlist", findOrdersBytimeAndstate(status,n, s,starttime,endtime));
