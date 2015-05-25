@@ -63,10 +63,10 @@ public class Order extends BaseController{
 			s = "10";
 		}
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		if(!StringUtil.isEmpty(starttime)){
+		if(!StringUtil.isEmpty(starttime) && !"0".equals(starttime)){
 			model.addAttribute("sStartTime", format.format(new Date(Long.parseLong(starttime))));
 		}
-		if(!StringUtil.isEmpty(endtime)){
+		if(!StringUtil.isEmpty(endtime) && !"0".equals(endtime)){
 			model.addAttribute("sEndTime", format.format(new Date(Long.parseLong(endtime))));
 		}
 		if(!("0".equals(starttime))&&!("0".equals(endtime))&&!("".equals(status))){
