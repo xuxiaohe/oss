@@ -223,12 +223,14 @@
 			}else{
 				param = param + '&orderStatus=';
 			}
-			if(startTime != '' && startTime != null){
-				param = param + '&starttime=' + startTime;
+			if(startTime == '' || startTime == null){
+				startTime = 0;
 			}
-			if(endTime != '' && endTime != null){
-				param = param + '&endtime=' + endTime;
+			param = param + '&starttime=' + startTime;
+			if(endTime == '' && endTime == null){
+				endTime = 0;
 			}
+			param = param + '&endtime=' + endTime;
 			if(param != ''){
 				$("#pagination li  a").each(function(index) {
 					if ($(this).parent().hasClass("disabled") == false) {
