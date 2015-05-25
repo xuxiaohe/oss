@@ -217,16 +217,16 @@
 			var status = '${orderStatus}';
 			var startTime = '${starttime}';
 			var endTime = '${endtime}';
-			if (status != '' && status != 'null') {
+			if (status != '' && status != null) {
 				$("#statusSelect").val(status);
 				param = param + '&orderStatus=' + status;
 			}else{
 				param = param + '&orderStatus=';
 			}
-			if(startTime != '' && startTime != 'null'){
+			if(startTime != '' && startTime != null){
 				param = param + '&starttime=' + startTime;
 			}
-			if(endTime != '' && endTime != 'null'){
+			if(endTime != '' && endTime != null){
 				param = param + '&endtime=' + endTime;
 			}
 			if(param != ''){
