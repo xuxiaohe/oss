@@ -50,7 +50,7 @@
 							<input type="hidden" name="starttime" id="startTime" value="${starttime}"/>
 							<div class="date form_datetime controls" 
 								id="starttimeDiv">
-								<input type="text" class="form-control" value="" id="starttime"
+								<input type="text" class="form-control" value="${sStartTime}" id="starttime"
 									readonly> <span class="add-on"> <i
 									class="icon-th"></i>
 								</span>
@@ -61,7 +61,7 @@
 							<input type="hidden" name="endtime" id="endTime" value="${endtime}"/>
 							<div class=" controls date form_datetime" 
 								id="endtimeDiv">
-								<input type="text" class="form-control" value="" id="endtime" readonly>
+								<input type="text" class="form-control" value="${sEndTime}" id="endtime" readonly>
 								<span class="add-on"><i class="icon-th"></i> </span>
 							</div>
 
@@ -150,7 +150,7 @@
 	</div>
 	<script type="text/javascript" src="<%=contextPath%>/resources/assets/js/bootstrap-datepicker.min.js"></script>
 	<script>
-		/* Date.prototype.Format = function (fmt) { //author: meizz 
+		Date.prototype.Format = function (fmt) { //author: meizz 
 		    var o = {
 		        "M+": this.getMonth() + 1, //月份 
 		        "d+": this.getDate(), //日 
@@ -164,7 +164,7 @@
 		    for (var k in o)
 		    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
 		    return fmt;
-		} */
+		}
 	
 	
 		var today = new Date().valueOf();
