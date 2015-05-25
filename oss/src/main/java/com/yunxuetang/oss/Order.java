@@ -69,12 +69,12 @@ public class Order extends BaseController{
 			model.addAttribute("orderlist", findOrdersBystate(status, n, s));
 			model.addAttribute("orderStatus",status);
 		}
-		 if(!("0".equals(starttime))&&!("0".equals(endtime))&&("".equals(status))){
+		 if(starttime!=null&&endtime!=null&&!("0".equals(starttime))&&!("0".equals(endtime))&&("".equals(status))){
 			model.addAttribute("orderlist", findOrdersBytime(n, s, starttime, endtime));
 			model.addAttribute("starttime",starttime);
 			model.addAttribute("endtime",endtime);
 		}
-		if (("0".equals(starttime)) && !("0".equals(endtime)) && ("".equals(status))) {
+		if (starttime==null&&endtime==null&&("".equals(status))) {
 			model.addAttribute("orderlist", getOrderList(n, s));
 			
 		}
@@ -90,27 +90,27 @@ public class Order extends BaseController{
 	
 	
 	private JSONObject getOrderList(String n, String s){
-		String url = Config.ORDER_SERVER + "/order/allOrders?n=" + n + "&s=" + s;
+		String url = Config.ORDER_SERVER + "/ossorder/allOrders?n=" + n + "&s=" + s;
 		return getRestApiData(url);
 	}
 	
 	private JSONObject findOrdersBytimeAndstate(String state,String n, String s,String starttime, String endtime){
-		String url = Config.ORDER_SERVER + "/order/findOrdersBytimeAndstate?n=" + n + "&s=" + s+ "&starttime=" + starttime+ "&endtime=" + endtime+ "&orderStatus=" + state;
+		String url = Config.ORDER_SERVER + "/ossorder/findOrdersBytimeAndstate?n=" + n + "&s=" + s+ "&starttime=" + starttime+ "&endtime=" + endtime+ "&orderStatus=" + state;
 		return getRestApiData(url);
 	} 
 	
 	private JSONObject findOrdersBystate(String state,String n, String s){
-		String url = Config.ORDER_SERVER + "/order/findOrdersBystate?n=" + n + "&s=" + s+ "&orderStatus=" + state;
+		String url = Config.ORDER_SERVER + "/ossorder/findOrdersBystate?n=" + n + "&s=" + s+ "&orderStatus=" + state;
 		return getRestApiData(url);
 	} 
 	
 	private JSONObject findOrdersBytime(String n, String s,String starttime, String endtime){
-		String url = Config.ORDER_SERVER + "/order/findOrdersBytime?n=" + n + "&s=" + s+ "&starttime=" + starttime+ "&endtime=" + endtime;
+		String url = Config.ORDER_SERVER + "/ossorder/findOrdersBytime?n=" + n + "&s=" + s+ "&starttime=" + starttime+ "&endtime=" + endtime;
 		return getRestApiData(url);
 	}
 	
 	private JSONObject getOrderListByStatus(String status, String n, String s){
-		String url = Config.ORDER_SERVER + "/order/findOrdersBystate?n=" + n + "&s=" + s + "&orderStatus=" + status;
+		String url = Config.ORDER_SERVER + "/ossorder/findOrdersBystate?n=" + n + "&s=" + s + "&orderStatus=" + status;
 		return getRestApiData(url);
 	}
 }
