@@ -19,9 +19,9 @@ import com.yunxuetang.util.StringUtil;
 public class message extends BaseController{
 
 	/**
-	 * 获取订单列表
+	 * 发送消息
 	 * */
-	@RequestMapping("list")
+	@RequestMapping("sendmessage")
 	public String orderList(HttpServletRequest request, Model model){
 		String status = request.getParameter("orderStatus");
 		String title = request.getParameter("title");
