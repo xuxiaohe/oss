@@ -31,7 +31,7 @@ public class Config {
 	//public static String ORDER_SERVER = "http://localhost:8087";
 	//订单服务 qingyun生产环境
 	public static String ORDER_SERVER = "http://192.168.100.5:8361";
-	public static String SCHEDULE_SERVER = "http://bj.schedule.ztiao.cn";
+	public static String SCHEDULE_SERVER = "http://192.168.100.5";
 	public static String ACCESS_KEY = "PN6SV6Fm-Ueu-D8NYN_NfJwpPuedsQALNKmwL_IQ";
 	public static String SECRET_KEY = "O6sBs8dw9cJjamEx2d6vgY1sXnPnIlg5Nsn6CwPH";
 	
