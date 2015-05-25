@@ -69,7 +69,7 @@ public class Order extends BaseController{
 		if(!StringUtil.isEmpty(endtime) && !"0".equals(endtime)){
 			model.addAttribute("sEndTime", format.format(new Date(Long.parseLong(endtime))));
 		}
-		if(!("0".equals(starttime))&&!("0".equals(endtime))&&!("".equals(status))){
+		if(starttime!=null&&endtime!=null&&!("0".equals(starttime))&&!("0".equals(endtime))&&!("".equals(status))){
 			model.addAttribute("orderlist", findOrdersBytimeAndstate(status,n, s,starttime,endtime));
 			model.addAttribute("orderStatus",status);
 			model.addAttribute("starttime",starttime);
@@ -84,7 +84,7 @@ public class Order extends BaseController{
 			model.addAttribute("starttime",starttime);
 			model.addAttribute("endtime",endtime);
 		}
-		if (starttime==null&&endtime==null&&("".equals(status))) {
+		if (("0".equals(starttime))&&("0".equals(endtime))&&("".equals(status))) {
 			model.addAttribute("orderlist", getOrderList(n, s));
 			
 		}
