@@ -46,6 +46,62 @@ public class Order extends BaseController{
 		return "order/orderlist";
 	}
 	
+	
+	
+	/**
+	 * 获取用户订单总金额列表
+	 * */
+	@RequestMapping("orderByuserid")
+	public String orderByuserid(HttpServletRequest request, Model model){
+		String uid = request.getParameter("uid");
+		 
+		 
+			model.addAttribute("orderlist", getOrderByuserid(uid));
+	 
+		//model.addAttribute("orderType", getOrderTypeList());
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "order/orderlist";
+	}
+	
+	/**
+	 * 获取用户订单总金额列表
+	 * */
+	@RequestMapping("orderBygroupid")
+	public String orderBygroupid(HttpServletRequest request, Model model){
+		String gid = request.getParameter("gid");
+		 
+		 
+			model.addAttribute("orderlist", getOrderBygroup(gid));
+	 
+		//model.addAttribute("orderType", getOrderTypeList());
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "order/orderlist";
+	}
+	
+	/**
+	 * 获取用户订单总金额列表
+	 * */
+	@RequestMapping("orderBycourseid")
+	public String orderBycourseid(HttpServletRequest request, Model model){
+		String cid = request.getParameter("cid");
+		 
+		 
+			model.addAttribute("orderlist", getOrderBycourse(cid));
+	 
+		//model.addAttribute("orderType", getOrderTypeList());
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "order/orderlist";
+	}
+	
 	/**
 	 * 根据时间间隔获取订单列表
 	 * */
@@ -121,6 +177,21 @@ public class Order extends BaseController{
 	
 	private JSONObject getOrderListByStatus(String status, String n, String s){
 		String url = Config.ORDER_SERVER + "/ossorder/findOrdersBystate?n=" + n + "&s=" + s + "&orderStatus=" + status;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getOrderByuserid(String uid){
+		String url = Config.ORDER_SERVER + "/ossorder/countAllUserOrdersPrice?uid=" + uid;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getOrderBygroup(String gid){
+		String url = Config.ORDER_SERVER + "/ossorder/countAllgroupOrdersPrice?gid=" + gid;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getOrderBycourse(String cid){
+		String url = Config.ORDER_SERVER + "/ossorder/countAllcourseOrdersPrice?cid=" + cid;
 		return getRestApiData(url);
 	}
 }
