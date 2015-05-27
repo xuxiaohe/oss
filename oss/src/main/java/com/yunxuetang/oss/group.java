@@ -1,6 +1,7 @@
 package com.yunxuetang.oss;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -1309,6 +1311,31 @@ public class group extends BaseController {
 		
 		return "redirect:/group/groupList";
 	}
+	
+	@RequestMapping("/selectgroup")
+	public String selectGroupList(HttpServletRequest request, Model model){
+		String n = request.getParameter("n");
+		String s = request.getParameter("s");
+		String keyword = request.getParameter("keyword");
+		model.addAttribute("groupList", searchGroup(n, s, keyword));
+		
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "group/selectGroup";
+	}
+	
+	private JSONObject searchGroup(String n, String s, String keyword){
+		String url = Config.YXTSERVER3 + "oss/group/search";
+		HashMap<String, String> param = new HashMap<String, String>();
+		if(n != null) param.put("n", n);
+		if(s != null) param.put("s", s);
+		if(keyword != null) param.put("keyword", keyword);
+		return getRestApiData(url, param);
+	}
+	
+	
 	
 	private JSONObject checkcourse(String groupid) {
 		String url = Config.YXTSERVER3 + "oss/group/groupChecked?gid=" + groupid;
