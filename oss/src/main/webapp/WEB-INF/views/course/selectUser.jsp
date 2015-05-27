@@ -37,6 +37,7 @@
 		<thead>
 			<tr>
 				<th>选择</th>
+				<th>用户编号</th>
 				<th>用户名</th>
 				<th>昵称</th>
 			</tr>
@@ -47,6 +48,7 @@
 				<tr>
 					<td><input type="radio" name="groupSelectRadio" value=""
 						onclick="javascript:selectUser('${Recourse.id}', '${Recourse.nickName}', '${Recourse.logoURL}');" /></td>
+					<td>${Recourse.userNumber}</td>
 					<td>${Recourse.userName}</td>
 					<td>
 						${Recourse.nickName}
