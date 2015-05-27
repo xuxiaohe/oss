@@ -22,7 +22,7 @@
 				<li class="divider"></li>
 				<li><a href="${cbasePath}order/orderByuserid">用户订单</a></li>
 				<li><a href="${cbasePath}order/orderBygroupid">群组订单</a></li>
-				<li><a href="#">课程订单</a></li>
+				<li><a href="${cbasePath}order/orderBycourseid">课程订单</a></li>
 			</ul>
 		</div>
 		&nbsp;&nbsp;

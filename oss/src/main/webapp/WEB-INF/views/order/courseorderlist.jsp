@@ -26,7 +26,7 @@
 		<jsp:include page="header.jsp"></jsp:include>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<input type="hidden" id="gid">
+				<input type="hidden" id="cid">
 				<c:if test="${orderlist.status == '200'}">
 					<nav> <!-- 分页开始 -->
 					<%-- <ul class="pagination" id="pagination">
@@ -39,7 +39,7 @@
 
 					<!-- 分页结束 --> </nav>
 					<!---数据显示区域-->
-					<h4>群组的订单总金额为 ${orderlist.data.result.countprise} 元</h4><br>
+					<h4>课程的订单总金额为 ${orderlist.data.result.countprise} 元</h4><br>
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -91,7 +91,7 @@
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title" id="myModalLabel">群组搜索</h4>
+						<h4 class="modal-title" id="myModalLabel">课程搜索</h4>
 					</div>
 					<div class="modal-body" id="modalHtml"></div>
 					<div class="modal-footer">
@@ -104,29 +104,29 @@
 	</div>
 	<script type="text/javascript">
 		$(function(){
-			$("#selectBtn").html("选择群组").show();
+			$("#selectBtn").html("选择课程").show();
 			
 		});
 		/**
 		加载群组列表
 		*/
 		function loadContents(){
-			$("#modalHtml").load('${cbasePath}group/selectgroup');
+			$("#modalHtml").load('${cbasePath}course/selectcourse');
 		}
 		
 		/*
 		确认选择用户
 		*/
 		function searchOrder(){
-			var url = '${cbasePath}order/orderBygroupid?gid=' + $("#gid").val();
+			var url = '${cbasePath}order/orderBycourseid?cid=' + $("#cid").val();
 			window.location.href = url;
 		}
 		
 		/**
 		选择用户
 		*/
-		function selectGroup(gid, gname){
-			$("#gid").val(gid);
+		function selectCourse(cid){
+			$("#cid").val(cid);
 		}
 	</script>
 </body>
