@@ -198,6 +198,9 @@ public class topic extends BaseController {
 		String uid = request.getParameter("uid");
 		String sourceId = request.getParameter("gid");
 		String type = request.getParameter("type");
+		if (type == null) {
+			type = "0";
+		}
 		String title = request.getParameter("title");
 		// 可选
 		String tagName = request.getParameter("tagName");

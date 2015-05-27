@@ -82,11 +82,11 @@
 							</c:if>
 						</select> --%>
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="exampleInputEmail1">类型</label> <input type="text"
 							name="type" class="form-control" id="exampleInputEmail1"
 							placeholder="">
-					</div>
+					</div> -->
 					<div class="form-group">
 						<label for="exampleInputEmail1">内容</label>
 						<!-- <input type="text"
