@@ -15,14 +15,14 @@
 		<div class="btn-group">
 			<button type="button" class="btn btn-default dropdown-toggle"
 				data-toggle="dropdown">
-				订单汇总查询<span class="caret"></span>
+				订单明细查询<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="${cbasePath}order/list">全部订单</a></li>
 				<li class="divider"></li>
-				<li><a href="${cbasePath}order/orderByuserid">用户订单</a></li>
-				<li><a href="${cbasePath}order/orderBygroupid">群组订单</a></li>
-				<li><a href="${cbasePath}order/orderBycourseid">课程订单</a></li>
+				<li><a href="${cbasePath}order/orderByuserid">用户订单明细</a></li>
+				<li><a href="${cbasePath}order/orderBygroupid">群组订单明细</a></li>
+				<li><a href="${cbasePath}order/orderBycourseid">课程订单明细</a></li>
 			</ul>
 		</div>
 		&nbsp;&nbsp;
