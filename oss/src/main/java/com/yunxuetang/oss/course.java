@@ -585,6 +585,39 @@ public class course extends BaseController {
 		modelview.setViewName("course/createcourse");
 		return modelview;
 	}
+	
+	/**
+	 * 
+	 * 选择课程模态框
+	 */
+	@RequestMapping("/selectcourse")
+	public ModelAndView selectCourse(HttpServletRequest request) {
+		// 当前第几页
+		String n = request.getParameter("n");
+		if (n == null) {
+			n = "0";
+		}
+		// 每页条数
+		String s = request.getParameter("s");
+
+		if (s == null) {
+			s = "10";
+		}
+		String keyword = request.getParameter("keyword");
+		ModelAndView modelview = new ModelAndView();
+
+		modelview.addObject("courseList", searchCourse(keyword, n, s));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("course/selectCourse");
+		return modelview;
+	}
+	
+	
 	//创建课程Api
 	private JSONObject createCourse(Map<String, String> map){
 		String url = Config.YXTSERVER3 + "oss/course/createCourse";
@@ -648,8 +681,12 @@ public class course extends BaseController {
 	
 	
 	private JSONObject searchCourse(String keyword,String n,String s) {
-		String url = Config.YXTSERVER3 + "oss/course/search?keywords="+keyword+"&n="+n+"&s="+s;
-		return getRestApiData(url);
+		String url = Config.YXTSERVER3 + "oss/course/search";
+		HashMap<String, String> param = new HashMap<String, String>();
+		if(keyword != null) param.put("keywords", keyword);
+		if(n != null) param.put("n", n);
+		if(s != null) param.put("s", s);
+		return getRestApiData(url, param);
 	}
 	
 	private JSONObject getCourses(String n,String s) {
