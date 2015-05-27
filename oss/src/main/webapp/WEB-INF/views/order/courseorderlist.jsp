@@ -39,7 +39,7 @@
 
 					<!-- 分页结束 --> </nav>
 					<!---数据显示区域-->
-					<h4>课程的订单总金额为 ${orderlist.data.result.countprise} 元</h4><br>
+					<h4>课程的订单总金额: ${orderlist.data.result.countprise} 元</h4><br>
 					<table class="table table-hover">
 						<thead>
 							<tr>
