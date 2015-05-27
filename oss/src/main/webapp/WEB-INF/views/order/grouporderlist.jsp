@@ -44,7 +44,7 @@
 						<thead>
 							<tr>
 								<th>课程名</th>
-								<th>用户名</th>
+								<th>群组名</th>
 								<th>作者</th>
 								<th>价格</th>
 							</tr>
@@ -55,7 +55,7 @@
 									<c:if test="${key.count<=100}">
 										<tr>
 											<td>${Recourse.courseTitle}</td>
-											<td>${Recourse.userNickName}</td>
+											<td>${Recourse.groupName}</td>
 											<td>${Recourse.courseOwerNickName}</td>
 											<td>${Recourse.orderPrice}元</td>
 										</tr>
