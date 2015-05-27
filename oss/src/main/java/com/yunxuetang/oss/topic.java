@@ -193,7 +193,7 @@ public class topic extends BaseController {
 	 * 用机器人id创建话题
 	 */
 	@RequestMapping("/createTopicByGroup")
-	public String createTopicByGroup(HttpServletRequest request, String[] courseImg, String[] imgHeight, String[] imgWidth) {
+	public String createTopicByGroup(HttpServletRequest request, String[] courseImg, String[] picHeight, String[] picWidth) {
 		// 必输
 		String uid = request.getParameter("uid");
 		String sourceId = request.getParameter("gid");
@@ -246,7 +246,7 @@ public class topic extends BaseController {
 		if (courseImg != null && courseImg.length > 0) {//将图片转换为JSON
 			ImgUrl[] imgUrls = new ImgUrl[courseImg.length];
 			for(int i = 0;i<courseImg.length;i++){
-				imgUrls[i] = new ImgUrl(courseImg[i], imgHeight[i], imgWidth[i]);
+				imgUrls[i] = new ImgUrl(courseImg[i], picHeight[i], picWidth[i]);
 			}
 			imgJson = JSONArray.fromObject(imgUrls).toString();
 			
@@ -1201,18 +1201,18 @@ public class topic extends BaseController {
 	public class ImgUrl{
 		private String picUrl;
 		
-		private String imgHeight;
+		private String picHeight;
 		
-		private String imgWidth;
+		private String picWidth;
 		
 		public ImgUrl() {
 			// TODO Auto-generated constructor stub
 		}
 		
-		public ImgUrl(String picUrl, String imgHeight, String imgWidth){
+		public ImgUrl(String picUrl, String picHeight, String picWidth){
 			this.picUrl = picUrl;
-			this.imgHeight = imgHeight;
-			this.imgWidth = imgWidth;
+			this.picHeight = picHeight;
+			this.picHeight = picWidth;
 		}
 
 		public String getPicUrl() {
@@ -1223,21 +1223,22 @@ public class topic extends BaseController {
 			this.picUrl = picUrl;
 		}
 
-		public String getImgHeight() {
-			return imgHeight;
+		public String getPicHeight() {
+			return picHeight;
 		}
 
-		public void setImgHeight(String imgHeight) {
-			this.imgHeight = imgHeight;
+		public void setPicHeight(String picHeight) {
+			this.picHeight = picHeight;
 		}
 
-		public String getImgWidth() {
-			return imgWidth;
+		public String getPicWidth() {
+			return picWidth;
 		}
 
-		public void setImgWidth(String imgWidth) {
-			this.imgWidth = imgWidth;
+		public void setPicWidth(String picWidth) {
+			this.picWidth = picWidth;
 		}
+
 		
 		
 		
