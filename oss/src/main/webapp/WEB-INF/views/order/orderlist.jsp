@@ -23,6 +23,7 @@
 </head>
 <body>
 	<div class="container-fluid">
+		<jsp:include page="header.jsp"></jsp:include>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<form class="form-inline" action="<%=contextPath%>/order/findOrder" onsubmit="javascript:beforeSubmit();"
@@ -150,29 +151,14 @@
 	</div>
 	<script type="text/javascript" src="<%=contextPath%>/resources/assets/js/bootstrap-datepicker.min.js"></script>
 	<script>
-		Date.prototype.Format = function (fmt) { //author: meizz 
-		    var o = {
-		        "M+": this.getMonth() + 1, //月份 
-		        "d+": this.getDate(), //日 
-		        "h+": this.getHours(), //小时 
-		        "m+": this.getMinutes(), //分 
-		        "s+": this.getSeconds(), //秒 
-		        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-		        "S": this.getMilliseconds() //毫秒 
-		    };
-		    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-		    for (var k in o)
-		    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-		    return fmt;
-		}
-	
+		
 	
 		var today = new Date().valueOf();
 		var start = 0;
 		var end = 0;
 		var param = '';
 		$(function(){
-			
+			$("#selectBtn").hide();	
 			$('#starttime').datepicker({
 				format : 'yyyy-mm-dd',
 				autoclose : true,
