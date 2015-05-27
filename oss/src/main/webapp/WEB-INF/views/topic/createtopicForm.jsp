@@ -219,8 +219,8 @@
 	            			//通过dom动态添加image
 	            			var $imgContainer = jQuery("#imgContainer");
 	            			$imgContainer.append("<input type=\"hidden\" name=\"courseImg\" value=\"" + imgUrl + "\"/>");
-	            			$imgContainer.append("<input type=\"hidden\" name=\"imgHeight\" value=\"" + height + "\"/>");
-	            			$imgContainer.append("<input type=\"hidden\" name=\"imgWidth\" value=\"" + width + "\"/>");
+	            			$imgContainer.append("<input type=\"hidden\" name=\"picHeight\" value=\"" + height + "\"/>");
+	            			$imgContainer.append("<input type=\"hidden\" name=\"picWidth\" value=\"" + width + "\"/>");
 	            			alert("上传成功");
 		            	});
 		            	
