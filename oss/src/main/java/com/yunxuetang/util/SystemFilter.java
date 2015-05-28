@@ -59,7 +59,7 @@ public class SystemFilter implements Filter {
 			return;
 		}
 		else {
-			logger.warn("=================登录用户为："+session.getAttribute("name")+"====访问的路径："+url);
+			logger.info("登录用户为"+session.getAttribute("name")+" 访问的路径："+url);
 			filterChain.doFilter(servletRequest, servletResponse);
 			return;
 		}

@@ -62,7 +62,7 @@ public class feedback extends BaseController{
 	public String deleteFeedBack(HttpServletRequest request) {
 		 
 		String feedbackid = request.getParameter("id");
-		logger.warn("======================删除用户反馈信息操作的管理员："+request.getSession().getAttribute("name")+"===反馈信息id"+feedbackid);
+		logger.info("删除用户反馈信息操作的管理员 "+request.getSession().getAttribute("name")+"===反馈信息id"+feedbackid);
 		deleteFeedBack(feedbackid);
 		
 		return "redirect:/feedback/FeedBackList";

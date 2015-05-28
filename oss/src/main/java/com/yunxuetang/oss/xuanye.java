@@ -178,7 +178,7 @@ public class xuanye extends BaseController{
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
-		logger.warn("======================炫页关联到具体的排行榜操作的管理员："+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===炫页id"+sourceId);
+		logger.info("炫页关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===炫页id"+sourceId);
 		modelview.addObject("addDryBoxList", bindBoxDry(boxPostId, sourceType, sourceId,ctime));
 		
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
@@ -287,7 +287,7 @@ public class xuanye extends BaseController{
 	public String deleteDry(HttpServletRequest request) {
 		// 必输
 		String dryid = request.getParameter("dryid");
-		logger.warn("=====================删除炫页操作的管理员："+request.getSession().getAttribute("name")+"炫页id"+dryid);
+		logger.info("删除炫页操作的管理员 "+request.getSession().getAttribute("name")+"炫页id"+dryid);
 		deleteDryById(dryid);
 		return "redirect:/xuanye/xuanyeList";
 	}

@@ -65,7 +65,7 @@ public class category extends BaseController {
 		}
 
 		ModelAndView modelview = new ModelAndView();
-		logger.warn("=======================创建一级分类操作的管理员："+request.getSession().getAttribute("name")+"===分类名称"+categoryName);
+		logger.info("创建一级分类操作的管理员 "+request.getSession().getAttribute("name")+"===分类名称"+categoryName);
 		modelview.addObject("createFirstCategory", categoryDetail(categoryName, logoUrl));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -129,7 +129,7 @@ public class category extends BaseController {
 		String categoryName = request.getParameter("categoryName");
 
 		ModelAndView modelview = new ModelAndView();
-		logger.warn("===========================创建二级分类操作的管理员："+request.getSession().getAttribute("name")+"===一级分类"+parentId+"===二级分类名称"+categoryName);
+		logger.info("创建二级分类操作的管理员 "+request.getSession().getAttribute("name")+"===一级分类"+parentId+"===二级分类名称"+categoryName);
 		modelview.addObject("courses", createSecondCategory(parentId, logoUrl, categoryName));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -195,7 +195,7 @@ public class category extends BaseController {
 		String categoryName = request.getParameter("categoryName");
 		 
 		ModelAndView modelview = new ModelAndView();
-		logger.warn("======================修改一级分类操作的管理员："+request.getSession().getAttribute("name")+"===一级分类id"+id);
+		logger.info("修改一级分类操作的管理员 "+request.getSession().getAttribute("name")+"===一级分类id"+id);
 		modelview.addObject("courses", updateFirstCategory(id, logoUrl, categoryName));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -262,7 +262,7 @@ public class category extends BaseController {
 		String categoryName = request.getParameter("categoryName");
 		 
 		ModelAndView modelview = new ModelAndView();
-		logger.warn("======================修改二级分类操作的管理员："+request.getSession().getAttribute("name")+"===一级分类id"+parentId+"===二级分类id"+id);
+		logger.info("修改二级分类操作的管理员 "+request.getSession().getAttribute("name")+"===一级分类id"+parentId+"===二级分类id"+id);
 		modelview.addObject("courses",  updateFirstCategory(id, logoUrl, categoryName));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -373,7 +373,7 @@ public class category extends BaseController {
 		String cid = request.getParameter("cid");
 		String fid = request.getParameter("fid");
 		ModelAndView modelview = new ModelAndView();
-		logger.warn("===================删除二级分类操作的管理员："+request.getSession().getAttribute("name")+"===一级分类id"+fid+"===二级分类id"+cid);
+		logger.info("删除二级分类操作的管理员 "+request.getSession().getAttribute("name")+"===一级分类id"+fid+"===二级分类id"+cid);
 		deletesecond(cid);
 		 
 		String cpath = request.getContextPath();
@@ -398,7 +398,7 @@ public class category extends BaseController {
 		//一级分类
 		String fid = request.getParameter("fid");
 		ModelAndView modelview = new ModelAndView();
-		logger.warn("=====================转换二级分类操作的管理员："+request.getSession().getAttribute("name")+"===旧二级分类id"+oldid+"===新二级分类id"+newid+"一级分类id"+fid);
+		logger.info("转换二级分类操作的管理员 "+request.getSession().getAttribute("name")+"===旧二级分类id"+oldid+"===新二级分类id"+newid+"一级分类id"+fid);
 		changeSecond(oldid,newid);
 		 
 		String cpath = request.getContextPath();

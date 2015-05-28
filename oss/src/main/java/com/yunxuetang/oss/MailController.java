@@ -67,7 +67,7 @@ public class MailController {
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("content", content);
-		logger.warn("=======================修改邮件模板的管理员："+request.getSession().getAttribute("name")+"===模板id"+id);
+		logger.info("修改邮件模板的管理员 "+request.getSession().getAttribute("name")+"===模板id"+id);
 		ResponseContainer responseContainer=HttpUtil.doPost(Config.YXTSERVER3+"oss/email/modify", map, ResponseContainer.class);
 		return responseContainer;
 	}

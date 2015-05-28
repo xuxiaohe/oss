@@ -86,7 +86,7 @@ public class knowledge extends BaseController{
 	private String verify(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String status=request.getParameter("status");
-		logger.warn("=======================审核知识操作的管理员："+request.getSession().getAttribute("name")+"===知识id"+id);
+		logger.info("审核知识操作的管理员 "+request.getSession().getAttribute("name")+"===知识id"+id);
 
 		verifyKnowledge(id,status);
 		return "redirect:/knowledge/knowledgeList";
@@ -225,7 +225,7 @@ public class knowledge extends BaseController{
 		}else{
 			requestParams.put("kngType", "2");
 		}
-		logger.warn("=======================添加知识操作的管理员："+request.getSession().getAttribute("name")+"===知识名称"+name);
+		logger.info("添加知识操作的管理员 "+request.getSession().getAttribute("name")+"===知识名称"+name);
 
 		JSONObject json=addKnowledge(requestParams);
 		JSONObject data=JSONObject.fromObject(json.get("data"));

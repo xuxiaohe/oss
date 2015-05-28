@@ -259,7 +259,7 @@ public class tools {
 		String url = request.getParameter("url");
 		// 当前第几页
 		qiniu qn=new qiniu(); 
-		logger.warn("===================审核替换图片操作的管理员："+request.getSession().getAttribute("name")+"===图片URL"+url);
+		logger.info("审核替换图片操作的管理员 "+request.getSession().getAttribute("name")+"===图片URL"+url);
 		//所有图片
 		qn.changandcheck(url);
 //		

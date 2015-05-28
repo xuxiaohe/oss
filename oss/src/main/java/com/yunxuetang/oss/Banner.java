@@ -38,7 +38,7 @@ public class Banner extends BaseController {
 			s = "10";
 		}
 		ModelAndView modelview = new ModelAndView();
-
+		logger.info("刷新广告位的管理员 "+request.getSession().getAttribute("name"));
 		modelview.addObject("BannerList", BannerList(keyword, n, s));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
@@ -94,7 +94,7 @@ public class Banner extends BaseController {
 
 		 
 		movead(currindex,state);
-
+		logger.info("移动广告位的管理员 "+request.getSession().getAttribute("name")+"广告位id"+currindex);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
@@ -166,6 +166,7 @@ public class Banner extends BaseController {
 		savebanner(picUrl, picWidth, picHeight, adSid, linkUrl, name,
 				adSellerId, adSellerName, creater, adId, groupId, topicId,
 				dryCargoId, courseId, groupCourseId,sourceName);
+		
 		return "redirect:/banner/bannerlist";
 	}
 	
@@ -223,6 +224,7 @@ public class Banner extends BaseController {
 		updatebanner(picUrl, picWidth, picHeight, adSid, linkUrl, name,
 				adSellerId, adSellerName, creater, adId, groupId, topicId,
 				dryCargoId, courseId, groupCourseId,effective,sourceName,id);
+		logger.info("创建广告位的管理员 "+request.getSession().getAttribute("name")+"广告位name"+name);
 		return "redirect:/banner/bannerlist";
 	}
 

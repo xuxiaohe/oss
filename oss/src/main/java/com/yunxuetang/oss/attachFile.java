@@ -33,7 +33,7 @@ public class attachFile extends BaseController{
 		requestParams.put("fkey", fkey);
 		requestParams.put("fsize", fsize);
 //		requestParams.put("token", "81FEAE852CB6D554A02CED0F46B7A9F4");
-		logger.warn("=======================创建附件的管理员："+request.getSession().getAttribute("name")+"===附件名称"+fname);
+		logger.info("创建附件的管理员 "+request.getSession().getAttribute("name")+"===附件名称"+fname);
 		JSONObject json=addAttachFile(requestParams);
 		Map<String, Object> map=new HashMap<String, Object>();
 		JSONObject data=JSONObject.fromObject(json.get("data"));

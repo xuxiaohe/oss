@@ -113,7 +113,7 @@ public class Activity extends BaseController{
 		if(!StringUtil.isBlank(maxCount)){
 			map.put("maxCount", maxCount);
 		}
-		logger.warn("=======================创建或修改活动管理员："+request.getSession().getAttribute("name")+"===活动名称"+name);
+		logger.info("创建或修改活动管理员 "+request.getSession().getAttribute("name")+"===活动名称"+name);
 		HttpUtil.sendPost(Config.YXTSERVER3+"oss/activity/create", map);
 		String cpath = request.getContextPath();
 		//String Config.YXTSERVER5 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
