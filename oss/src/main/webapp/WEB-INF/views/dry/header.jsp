@@ -19,7 +19,7 @@
 			</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="${cbasePath}dry/createDryByGroupView">干货创建</a></li>
-				<li><a href="${cbasePath}dry/catchDryByGroupView">干货抓取</a></li>
+				<%-- <li><a href="${cbasePath}dry/catchDryByGroupView">干货抓取</a></li> --%>
 				<%-- <li><a href="${cbasePath}dry/addDryBoxForm">干货排行榜创建</a></li>
 				<li><a href="${cbasePath}dry/BoxDryList">干货排行榜管理</a></li> --%>
 				<li><a href="${cbasePath}dry/DryBoxDetail">干货与推荐绑定</a></li>
