@@ -21,12 +21,20 @@
 	rel="stylesheet">
 </head>
 <body>
-	<!-- 	<div class="container-fluid">
+	<div class="container-fluid">
 		<div class="panel panel-default">
-			<div class="panel-body"></div>
+			<div class="panel-body">
+				<h4 class="modal-title" id="myModalLabel">发送消息</h4>
+				<div class="form-group">
+						<label >标题</label>
+						<input class="form-control" id="title"/>
+						<label>内容</label>
+						<textarea rows="5" cols="" class="form-control" id="content"></textarea>
+					</div>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="javascript:sendMessage();">发送</button>
+			</div>
 		</div>
 	</div>
-	-->
 	<!-- Modal -->
 	<!-- Modal -->
 	<button type="button" class="btn btn-primary" style="display:none;" data-toggle="modal" data-target="#myModal" id="showBtn">发送消息</button>
@@ -35,10 +43,10 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<%-- <button type="button" class="close" data-dismiss="modal"
+					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
-					</button> --%>
+					</button>
 					<h4 class="modal-title" id="myModalLabel">发送消息</h4>
 				</div>
 				<div class="modal-body" id="modalHtml">
@@ -58,7 +66,7 @@
 	</div>
 	<script type="text/javascript">
 		$(function(){
-			$("#showBtn").click();
+			//$("#showBtn").click();
 			
 		});
 		function sendMessage(){
