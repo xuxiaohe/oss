@@ -1215,7 +1215,7 @@ public class topic extends BaseController {
 		public ImgUrl(String picUrl, String picHeight, String picWidth){
 			this.picUrl = picUrl;
 			this.picHeight = picHeight;
-			this.picHeight = picWidth;
+			this.picWidth = picWidth;
 		}
 
 		public String getPicUrl() {
