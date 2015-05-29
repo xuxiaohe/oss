@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yunxuetang.util.Config;
 
+
 @Controller
 @RequestMapping("/version")
 public class version extends BaseController {

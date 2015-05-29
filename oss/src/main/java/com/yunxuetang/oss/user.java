@@ -83,7 +83,7 @@ public class user extends BaseController {
 
 		JSONObject objj = getUserList(keyword, pagenumber, pagelines);
 		modelview.addObject("resuserList", objj);
-		logger.info(request.getSession().getAttribute("name")+"刷新用户列表操作的用户"+request.getSession().getAttribute("name"));
+		//logger.info(request.getSession().getAttribute("name")+"刷新用户列表操作的用户"+request.getSession().getAttribute("name"));
 		String s = objj.getString("msg");
 		System.out.println(s);
 

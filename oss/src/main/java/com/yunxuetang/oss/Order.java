@@ -108,6 +108,25 @@ public class Order extends BaseController {
 		model.addAttribute("sourcePath", Config.YXTSERVER5);
 		return "order/courseorderlist";
 	}
+	
+	
+	/**
+	 * 获取课程订单总金额列表
+	 * @param cid
+	 * */
+	@RequestMapping("orderAll")
+	public String orderAll(HttpServletRequest request, Model model) {
+		model.addAttribute("orderlist", getOrderAll());
+
+		// model.addAttribute("orderType", getOrderTypeList());
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "order/courseorderlist";
+	}
 
 	/**
 	 * 根据时间间隔获取订单列表
@@ -219,6 +238,12 @@ public class Order extends BaseController {
 	private JSONObject getOrderBycourse(String cid) {
 		String url = Config.ORDER_SERVER
 				+ "/ossorder/countAllcourseOrdersPrice?cid=" + cid;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getOrderAll() {
+		String url = Config.ORDER_SERVER
+				+ "/ossorder/countAllOrdersPrice";
 		return getRestApiData(url);
 	}
 }
