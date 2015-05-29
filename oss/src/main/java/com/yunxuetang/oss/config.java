@@ -88,7 +88,7 @@ public class config extends BaseController{
 		map.put("fileParam", fileParam);
 		map.put("pathrule", pathrule);
 		map.put("baseUrlList", baseUrls);
-		logger.info("创建配置文件的管理员 "+request.getSession().getAttribute("name")+"===配置cket"+ckey);
+		logger.info(request.getSession().getAttribute("name")+"创建配置文件的管理员 "+request.getSession().getAttribute("name")+"===配置cket"+ckey);
 		createConfigs(map);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -131,7 +131,7 @@ public class config extends BaseController{
 	@RequestMapping("/deleteConfig")
 	public void deleteConfig(HttpServletRequest request,HttpServletResponse response){
 		String configId=request.getParameter("configId");
-		logger.info("删除配置文件的管理员 "+request.getSession().getAttribute("name")+"===配置id"+configId);
+		logger.info(request.getSession().getAttribute("name")+"删除配置文件的管理员 "+request.getSession().getAttribute("name")+"===配置id"+configId);
 
 		deleteConfig(configId);
 		String cpath = request.getContextPath();
@@ -170,7 +170,7 @@ public class config extends BaseController{
 		map.put("fileParam", fileParam);
 		map.put("pathrule", pathrule);
 		map.put("baseUrlList", baseUrls);
-		logger.info("更新配置文件的管理员 "+request.getSession().getAttribute("name")+"===配置id"+id);
+		logger.info(request.getSession().getAttribute("name")+"更新配置文件的管理员 "+request.getSession().getAttribute("name")+"===配置id"+id);
 
 		updateConfig(map);
 		String cpath = request.getContextPath();

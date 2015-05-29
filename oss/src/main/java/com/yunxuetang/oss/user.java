@@ -83,7 +83,7 @@ public class user extends BaseController {
 
 		JSONObject objj = getUserList(keyword, pagenumber, pagelines);
 		modelview.addObject("resuserList", objj);
-		logger.info("刷新用户列表操作的用户 "+request.getSession().getAttribute("name"));
+		logger.info(request.getSession().getAttribute("name")+"刷新用户列表操作的用户"+request.getSession().getAttribute("name"));
 		String s = objj.getString("msg");
 		System.out.println(s);
 
@@ -139,7 +139,7 @@ public class user extends BaseController {
 
 		JSONObject objj = getUserNickNameList(keyword, pagenumber, pagelines);
 		modelview.addObject("resuserList", objj);
-		logger.info("刷新用户花名册列表操作的用户 "+request.getSession().getAttribute("name"));
+		logger.info(request.getSession().getAttribute("name")+"刷新用户花名册列表操作的用户"+request.getSession().getAttribute("name"));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -465,7 +465,7 @@ public class user extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		logger.info("更新用户操作的管理员 "+request.getSession().getAttribute("name")+"====修改的用户的id："+userid);
+		logger.info(request.getSession().getAttribute("name")+"更新用户操作的管理员 "+request.getSession().getAttribute("name")+"====修改的用户的id："+userid);
 		modelview.addObject("resupdateUser", getUpdateUser(userid, sex, phoneNumber, email, tag, logoURL, intro, nickName,robot));
 
 		if("1".equals(robot)){
@@ -533,7 +533,7 @@ public class user extends BaseController {
 
 		String userName = request.getParameter("userName");
 		String passWord = request.getParameter("passWord");
-		logger.info("创建马甲用户操作的管理员 "+request.getSession().getAttribute("name")+"======马甲用户的名称："+userName);
+		logger.info(request.getSession().getAttribute("name")+"创建马甲用户操作的管理员 "+request.getSession().getAttribute("name")+"======马甲用户的名称："+userName);
 		ModelAndView modelview = new ModelAndView();
 		try {
 			modelview.addObject("rescreateRobot", getCreateRobot(userName, passWord));
@@ -622,7 +622,7 @@ public class user extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 		try {
 			// CourseShareResponse.class);
-			logger.info("更改用户密码的管理员 "+request.getSession().getAttribute("name")+"====修改的用户id："+uid);
+			logger.info(request.getSession().getAttribute("name")+"更改用户密码的管理员 "+request.getSession().getAttribute("name")+"====修改的用户id："+uid);
 			modelview.addObject("resresetPassword", getResetPassword(uid, password));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -645,7 +645,7 @@ public class user extends BaseController {
 	private String deleteUser(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		String uid = request.getParameter("userid");
-		logger.info("删除用户操作的管理员 "+request.getSession().getAttribute("name")+"====删除的用户id:"+uid);
+		logger.info(request.getSession().getAttribute("name")+"删除用户操作的管理员 "+request.getSession().getAttribute("name")+"====删除的用户id:"+uid);
 		getDeleteUser(uid);
 		return "redirect:/user/userList";
 
@@ -661,7 +661,7 @@ public class user extends BaseController {
 	private String deleteRoboitUser(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		String uid = request.getParameter("userid");
-		logger.info("删除用户操作的管理员 "+request.getSession().getAttribute("name")+"====删除的用户id:"+uid);
+		logger.info(request.getSession().getAttribute("name")+"删除用户操作的管理员 "+request.getSession().getAttribute("name")+"====删除的用户id:"+uid);
 		getDeleteUser(uid);
 		return "redirect:/user/roboitList";
 
@@ -890,7 +890,7 @@ public class user extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		logger.info("删除主楼回复的管理员 "+request.getSession().getAttribute("name")+"====主楼回复的id："+postid);
+		logger.info(request.getSession().getAttribute("name")+"删除主楼回复的管理员 "+request.getSession().getAttribute("name")+"====主楼回复的id："+postid);
 		return "redirect:/user/findAllUserPost?userid="+uid;
 	}
 
@@ -905,7 +905,7 @@ public class user extends BaseController {
 		String postid = request.getParameter("postid");
 		String subpostid = request.getParameter("subpostid");
 		String uid = request.getParameter("uid");
-		logger.info("删除副楼回复操作的管理员 "+request.getSession().getAttribute("name")+"====副楼id："+subpostid);
+		logger.info(request.getSession().getAttribute("name")+"删除副楼回复操作的管理员 "+request.getSession().getAttribute("name")+"====副楼id："+subpostid);
 			modelview.addObject("subpostList", deleteSubPost(postid, subpostid));
 
 		String cpath = request.getContextPath();
@@ -943,7 +943,7 @@ public class user extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 		// 当前第几页
 		String nickname = request.getParameter("nickname");
-		logger.info("创建用户花名册操作的管理员 "+request.getSession().getAttribute("name")+"====名称："+nickname);
+		logger.info(request.getSession().getAttribute("name")+"创建用户花名册操作的管理员 "+request.getSession().getAttribute("name")+"====名称："+nickname);
 		createUserNickName(nickname);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -985,7 +985,7 @@ public class user extends BaseController {
 		String id = request.getParameter("id");
 		String nickname = request.getParameter("nickname");
 		// 当前第几页
-		logger.info("更新用户花名册操作的管理员 "+request.getSession().getAttribute("name")+"====id："+id+"===名称"+nickname);
+		logger.info(request.getSession().getAttribute("name")+"更新用户花名册操作的管理员 "+request.getSession().getAttribute("name")+"====id："+id+"===名称"+nickname);
 		updateUserNickName(nickname,id);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -1004,7 +1004,7 @@ public class user extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 		// 当前第几页
 		String nickname = request.getParameter("nickname");
-		logger.info("删除用户花名册操作的管理员 "+request.getSession().getAttribute("name")+"===名称"+nickname);
+		logger.info(request.getSession().getAttribute("name")+"删除用户花名册操作的管理员 "+request.getSession().getAttribute("name")+"===名称"+nickname);
 		deleteUsernickname(nickname);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";

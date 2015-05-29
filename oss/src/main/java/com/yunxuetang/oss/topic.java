@@ -46,7 +46,7 @@ public class topic extends BaseController {
 	public String deleteTopic(HttpServletRequest request) {
 		ModelAndView modelview = new ModelAndView();
 		String topicid = request.getParameter("topicid");
-		logger.info("删除话题管理员 "+ request.getSession().getAttribute("name") + "删除话题, ID:" + topicid);
+		logger.info(request.getSession().getAttribute("name")+"删除话题管理员 "+ request.getSession().getAttribute("name") + "删除话题, ID:" + topicid);
 		modelview.addObject("deleteTopic", deleteTopicByID(topicid));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -62,7 +62,7 @@ public class topic extends BaseController {
 	public String deleteTopicForUser(HttpServletRequest request) {
 		String topicid = request.getParameter("topicid");
 		String userid = request.getParameter("userid");
-		logger.info("从用户管理里删除话题的管理员 "+request.getSession().getAttribute("name")+"====用户id："+userid+"====话题id："+topicid);
+		logger.info(request.getSession().getAttribute("name")+"从用户管理里删除话题的管理员 "+request.getSession().getAttribute("name")+"====用户id："+userid+"====话题id："+topicid);
 		deleteTopicByID(topicid);
 		return "redirect:/user/userTopic?userid=" + userid;
 	}
@@ -72,7 +72,7 @@ public class topic extends BaseController {
 	public String deleteTopicForGroup(HttpServletRequest request) {
 		String topicid = request.getParameter("topicid");
 		String gid = request.getParameter("gid");
-		logger.info("删除话题管理员 "+ request.getSession().getAttribute("name") + "删除话题, ID:" + gid + "=======群组id:" + gid);
+		logger.info(request.getSession().getAttribute("name")+"删除话题管理员 "+ request.getSession().getAttribute("name") + "删除话题, ID:" + gid + "=======群组id:" + gid);
 		deleteTopicByID(topicid);
 		return "redirect:/group/groupTopic?gid=" + gid;
 	}
@@ -254,7 +254,7 @@ public class topic extends BaseController {
 			imgJson = JSONArray.fromObject(imgUrls).toString();
 			
 		}
-		logger.info("用机器人创建话题管理员 "+ request.getSession().getAttribute("name") + "用机器人创建话题, 用户ID:" + uid + "=======话题名字:" + title);
+		logger.info(request.getSession().getAttribute("name")+"用机器人创建话题管理员 "+ request.getSession().getAttribute("name") + "用机器人创建话题, 用户ID:" + uid + "=======话题名字:" + title);
 		ModelAndView modelview = new ModelAndView();
 		JSONObject result = createTopic(uid, sourceId, type, title, tagName, content, picUrl, imgJson, lat, lng, localName, barCode);
 		System.out.println("result:==============" + result.toString());
@@ -400,7 +400,7 @@ public class topic extends BaseController {
 		if("null".equals(picUrl)){
 			picUrl="";
 		}
-		logger.info("更新话题管理员 "+ request.getSession().getAttribute("name") + "更新话题, 话题ID:" + topicid + "=======标题:" + title);
+		logger.info(request.getSession().getAttribute("name")+"更新话题管理员 "+ request.getSession().getAttribute("name") + "更新话题, 话题ID:" + topicid + "=======标题:" + title);
 		ModelAndView modelview = new ModelAndView();
 
 		modelview.addObject("rescreateTopicByGroup", updateTopicByGroup(topicid, title, content, picUrl, categoryId, childCategoryId,tagName,height,width));
@@ -422,7 +422,7 @@ public class topic extends BaseController {
 		// 必输
 		String groupid = request.getParameter("groupid");
 		String topicid = request.getParameter("topicid");
-		logger.info("关联话题-群组管理员 "+ request.getSession().getAttribute("name") + "关联话题-群组, 群组ID:" + groupid + "=======话题:" + topicid);
+		logger.info(request.getSession().getAttribute("name")+"关联话题-群组管理员 "+ request.getSession().getAttribute("name") + "关联话题-群组, 群组ID:" + groupid + "=======话题:" + topicid);
 		ModelAndView modelview = new ModelAndView();
 
 		modelview.addObject("rescreateTopicByGroup", updateTopic(topicid, groupid));
@@ -471,7 +471,7 @@ public class topic extends BaseController {
 		// 当前第几页
 		String topicid = request.getParameter("topicid");
 		String postid = request.getParameter("postid");
-		logger.info("删除话题主楼回复管理员 "+ request.getSession().getAttribute("name") + "删除话题主楼回复, 话题ID:" + topicid + "=======主楼回复:" + postid);
+		logger.info(request.getSession().getAttribute("name")+"删除话题主楼回复管理员 "+ request.getSession().getAttribute("name") + "删除话题主楼回复, 话题ID:" + topicid + "=======主楼回复:" + postid);
 		
 		ModelAndView modelview = new ModelAndView();
 			 
@@ -501,7 +501,7 @@ public class topic extends BaseController {
 		String subpostid = request.getParameter("subpostid");
 		String index = request.getParameter("index");
 		
-		logger.info("删除话题副楼回复管理员 "+ request.getSession().getAttribute("name") + "删除话题副楼回复, 话题ID:" + topicid + "=======主楼ID:" + postid + "======副楼id:" + subpostid);
+		logger.info(request.getSession().getAttribute("name")+"删除话题副楼回复管理员 "+ request.getSession().getAttribute("name") + "删除话题副楼回复, 话题ID:" + topicid + "=======主楼ID:" + postid + "======副楼id:" + subpostid);
 		if(subpostid==null){
 			subpostid="";
 		}
@@ -556,7 +556,7 @@ public class topic extends BaseController {
 		String type = request.getParameter("type");
 		String message = request.getParameter("message");
 		String fileUrl = request.getParameter("fileUrl");
-		logger.info("添加话题主楼回复管理员 "+ request.getSession().getAttribute("name") + "添加话题主楼回复, 话题ID:" + topicid + "=======回复内容:" + message);
+		logger.info(request.getSession().getAttribute("name")+"添加话题主楼回复管理员 "+ request.getSession().getAttribute("name") + "添加话题主楼回复, 话题ID:" + topicid + "=======回复内容:" + message);
 		//拼装JSON 调用REST接口
 		String imgJson = "";
 		if (courseImg != null && courseImg.length > 0) {// 将图片转换为JSON
@@ -635,7 +635,7 @@ public class topic extends BaseController {
 		String message = request.getParameter("message");
 		String fileUrl = request.getParameter("fileUrl");
 
-		logger.info("添加话题副楼回复管理员 "+ request.getSession().getAttribute("name") + "添加话题副楼回复, 话题ID:" + topicid + "=======主楼:" + parentid
+		logger.info(request.getSession().getAttribute("name")+"添加话题副楼回复管理员 "+ request.getSession().getAttribute("name") + "添加话题副楼回复, 话题ID:" + topicid + "=======主楼:" + parentid
 				+ "===========回复内容:" + message);
 		
 		ModelAndView modelview = new ModelAndView();
@@ -681,7 +681,7 @@ public class topic extends BaseController {
 		String local = request.getParameter("local");
 		String size = request.getParameter("size");
 		String type = "topic";
-		logger.info("添加话题排行榜管理员 "+ request.getSession().getAttribute("name") + "添加话题排行榜, name:" + chinaName);
+		logger.info(request.getSession().getAttribute("name")+"添加话题排行榜管理员 "+ request.getSession().getAttribute("name") + "添加话题排行榜, name:" + chinaName);
 		ModelAndView modelview = new ModelAndView();
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -722,7 +722,7 @@ public class topic extends BaseController {
 	@RequestMapping("/BoxTopicListDelete")
 	public String  BoxDryListDelete(HttpServletRequest request) {
 		String boxId = request.getParameter("boxId");
-		logger.info("删除话题排行榜管理员 "+ request.getSession().getAttribute("name") + "删除话题排行榜, ID:" + boxId);
+		logger.info(request.getSession().getAttribute("name")+"删除话题排行榜管理员 "+ request.getSession().getAttribute("name") + "删除话题排行榜, ID:" + boxId);
 		ModelAndView modelview = new ModelAndView();
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -995,7 +995,7 @@ public class topic extends BaseController {
 		String topicid = request.getParameter("topicid");
 		//排行榜id
 		String checked = "true";
-		logger.info("审核话题管理员 "+ request.getSession().getAttribute("name") + "审核话题, ID:" + topicid); 
+		logger.info(request.getSession().getAttribute("name")+"审核话题管理员 "+ request.getSession().getAttribute("name") + "审核话题, ID:" + topicid); 
 		 
 		ModelAndView modelview = new ModelAndView();
 		String cpath = request.getContextPath();

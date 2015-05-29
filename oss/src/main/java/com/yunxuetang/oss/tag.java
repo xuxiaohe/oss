@@ -141,7 +141,7 @@ public class tag extends BaseController{
 	public String addNewTag(HttpServletRequest request){
 		String tagName = request.getParameter("tagName");
 		String score = request.getParameter("score");
-		logger.info("创建标签管理员 "+ request.getSession().getAttribute("name") + "创建标签, 标签名:" + tagName);
+		logger.info(request.getSession().getAttribute("name")+"创建标签管理员 "+ request.getSession().getAttribute("name") + "创建标签, 标签名:" + tagName);
 		JSONObject result = addNewTag(tagName, score);
 		ModelAndView modelview = new ModelAndView();
 		modelview.addObject("tag", result);
@@ -159,7 +159,7 @@ public class tag extends BaseController{
 	public @ResponseBody JSONObject updateTagStatus(HttpServletRequest request){
 		String status = request.getParameter("status");
 		String tagName = request.getParameter("tagName");
-		logger.info("修改标签状态管理员 "+ request.getSession().getAttribute("name") + "修改标签状态, 标签名:" + tagName + "======status:" + status);
+		logger.info(request.getSession().getAttribute("name")+"修改标签状态管理员 "+ request.getSession().getAttribute("name") + "修改标签状态, 标签名:" + tagName + "======status:" + status);
 		JSONObject result = updateTagStatus(tagName, status);
 		return result;
 	}

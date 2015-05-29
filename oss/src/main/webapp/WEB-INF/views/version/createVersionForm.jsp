@@ -14,7 +14,8 @@
 <script src="${sourcePath}/resources/assets/js/bootstrap.min.js"></script>
 <link href="${sourcePath}/resources/assets/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="${sourcePath}/resources/assets/css/font.css" rel="stylesheet">
+<link href="${sourcePath}/resources/assets/css/font.css"
+	rel="stylesheet">
 <style>
 #userInfoDiv div {
 	padding: 10px;
@@ -27,68 +28,93 @@
 		<ol class="breadcrumb">
 			<li><a href="#">版本管理</a></li>
 			<li><a href="${cbasePath}version/versionList">版本列表</a></li>
-			 
+
 			<li class="active">创建版本</li>
 		</ol>
 
 		<div class="row">
-			 
+
 
 			<div class="col-xs-9">
-				 
+
 				<form role="form" method="post"
 					action="${cbasePath}version/createVersionAction">
 
 
-					 
 					<div class="form-group">
-						<label for="exampleInputEmail1">产品线,如yxt，weike</label> <input type="text"
-							name="vdomain" class="form-control" id="exampleInputEmail1"
-							  placeholder="">
+						产品线: <select class="form-control" id="vdomain" name="vdomain">
+							<option value="yxt">yxt</option>
+							<option value="weike">weike</option>
+							<option value="pc">Pc</option>
+						</select>
+
 					</div>
-					
+
 					<div class="form-group">
-						<label for="exampleInputEmail1">来源（如：ios，android,pc）</label> <input type="text"
-							name="vappkey" class="form-control" id="exampleInputEmail1"
-							  placeholder="">
+						来源: <select class="form-control" id="vappkey" name="vappkey">
+							<option value="ios">ios</option>
+							<option value="android">android</option>
+							<option value="pc">Pc</option>
+						</select>
+
 					</div>
-					
+
 					<div class="form-group">
-						<label for="exampleInputEmail1">版本证书（如：0：企业 10：官方）</label> <input type="text"
-							name="vcertificate" class="form-control" id="exampleInputEmail1"
-							  placeholder="">
+						设备: <select class="form-control" id="device" name="device">
+							<option value="iPhone">iPhone</option>
+							<option value="Android">Android</option>
+							<option value="Pc">Pc</option>
+						</select>
+
 					</div>
-					
+
+
 					<div class="form-group">
-						<label for="exampleInputEmail1">版本阶段(如：0：开发 10：测试 20：内侧 30: 公测 40：上线)</label> <input type="text"
-							name="vphase" class="form-control" id="exampleInputEmail1"
-							  placeholder="">
+						版本证书: <select class="form-control" id="vcertificate"
+							name="vcertificate">
+							<option value="0">企业</option>
+							<option value="10">官方</option>
+						</select>
+
 					</div>
-					
+
+
 					<div class="form-group">
-						<label for="exampleInputEmail1">版本号（如：1.0.0，1.2.12，2.0.3等）</label> <input type="text"
-							name="vnumber" class="form-control" id="exampleInputEmail1"
-							  placeholder="">
+						版本阶段: <select class="form-control" id="vphase" name="vphase">
+							<option value="0">开发</option>
+							<option value="10">测试</option>
+							<option value="20">内侧</option>
+							<option value="30">公测</option>
+							<option value="40">上线</option>
+						</select>
+
 					</div>
-					
-					
+
+
+					<div class="form-group">
+						<label for="exampleInputEmail1">版本号（如：1.0.0，1.2.12，2.0.3等）</label>
+						<input type="text" name="versionId" class="form-control"
+							id="exampleInputEmail1" placeholder="">
+					</div>
+
+
 					<div class="form-group">
 						<label for="exampleInputEmail1">更新描述</label> <input type="text"
 							name="message" class="form-control" id="exampleInputEmail1"
-							  placeholder="">
+							placeholder="">
 					</div>
-					
-					
+
+
 					<div class="form-group">
 						<label for="exampleInputEmail1">下载地址</label> <input type="text"
 							name="url" class="form-control" id="exampleInputEmail1"
-							  placeholder="">
+							placeholder="">
 					</div>
-					
+
 					<div class="form-group">
 						<label for="exampleInputEmail1">app版本描述</label> <input type="text"
 							name="context" class="form-control" id="exampleInputEmail1"
-							  placeholder="">
+							placeholder="">
 					</div>
 
 

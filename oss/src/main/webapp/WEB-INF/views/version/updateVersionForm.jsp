@@ -43,8 +43,8 @@
 					 
 					<div class="form-group">
 						<label for="exampleInputEmail1">版本号</label> <input type="text"
-							name="vnumber" class="form-control" id="exampleInputEmail1"
-							value="${vnumber}" placeholder="">
+							name="versionId" class="form-control" id="exampleInputEmail1"
+							value="${versionId}" placeholder="">
 					</div>
 					
 					<div class="form-group">

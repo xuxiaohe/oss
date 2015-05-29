@@ -248,7 +248,7 @@ public class dry extends BaseController {
 		 * TODO:修改成POST
 		 */
 		try {
-			logger.info("编辑干货操作的管理员 "+request.getSession().getAttribute("name")+"====干货的id："+dryid);
+			logger.info(request.getSession().getAttribute("name")+"编辑干货操作的管理员 "+request.getSession().getAttribute("name")+"====干货的id："+dryid);
 			Map<String, String> m = new HashMap<String, String>();
 			m.put("fileUrl", URLEncoder.encode(fileUrl, "utf-8"));
 			m.put("message", message);
@@ -480,7 +480,7 @@ public class dry extends BaseController {
 		String dryFlag = "0";
 
 		ModelAndView modelview = new ModelAndView();
-		logger.info("创建干货的操作的管理员 "+request.getSession().getAttribute("name")+"====干货的描述"+description+"===马甲用户id"+id+"===群组id："+group);
+		logger.info(request.getSession().getAttribute("name")+"创建干货的操作的管理员 "+request.getSession().getAttribute("name")+"====干货的描述"+description+"===马甲用户id"+id+"===群组id："+group);
 		modelview.addObject("rescreateDryByGroup", createDryByGroupAndself(id, tagName, group, url, fileUrl, message, description, dryFlag,height,width));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -504,12 +504,6 @@ public class dry extends BaseController {
 		// 必输
 		String id = request.getParameter("uid");
 		String tagName = request.getParameter("tagName");
-		String tagNameArry[] = tagName.split(",");
-		List<String> l = new ArrayList<String>();
-		for (String a : tagNameArry) {
-			l.add("\"" + a + "\"");
-		}
-		String i = l.toString();
 		String group = request.getParameter("gid");
 		String url = request.getParameter("url");
 		String fileUrl = request.getParameter("fileUrl");
@@ -537,8 +531,8 @@ public class dry extends BaseController {
 		String dryFlag = "0";
 
 		ModelAndView modelview = new ModelAndView();
-		logger.info("抓取的干货操作的管理员 "+request.getSession().getAttribute("name")+"===马甲用户id"+id+"===群组id"+group+"===干货内容"+message);
-		modelview.addObject("rescreateDryByGroup", createDryByGroup(id, i, group, url, fileUrl, message, description, dryFlag));
+		logger.info(request.getSession().getAttribute("name")+"抓取的干货操作的管理员 "+request.getSession().getAttribute("name")+"===马甲用户id"+id+"===群组id"+group+"===干货内容"+message);
+		modelview.addObject("rescreateDryByGroup", createDryByGroup(id, tagName, group, url, fileUrl, message, description, dryFlag));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -563,7 +557,7 @@ public class dry extends BaseController {
 		}else {
 			s="redirect:/dry/dryList";
 }
-		logger.info("删除干货操作的管理员 "+request.getSession().getAttribute("name")+"干货id"+dryid);
+		logger.info(request.getSession().getAttribute("name")+"删除干货操作的管理员 "+request.getSession().getAttribute("name")+"干货id"+dryid);
 		deleteDryById(dryid);
 		return s;
 	}
@@ -711,7 +705,7 @@ public class dry extends BaseController {
 			s="redirect:/dry/dryList";
 }
 		ModelAndView modelview = new ModelAndView();
-		logger.info("干货关联群组操作的管理员 "+request.getSession().getAttribute("name")+"===群组id"+groupid+"===干货id"+dryid);
+		logger.info(request.getSession().getAttribute("name")+"干货关联群组操作的管理员 "+request.getSession().getAttribute("name")+"===群组id"+groupid+"===干货id"+dryid);
 		modelview.addObject("rescreateTopicByGroup", UpdateDryById(dryid, groupid));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -761,7 +755,7 @@ public class dry extends BaseController {
 		String dryid = request.getParameter("dryid");
 		String postid = request.getParameter("postid");
 		ModelAndView modelview = new ModelAndView();
-		logger.info("根据干货id删除主楼回复操作的管理员 "+request.getSession().getAttribute("name")+"===干货id"+dryid+"===主楼id"+postid);	 
+		logger.info(request.getSession().getAttribute("name")+"根据干货id删除主楼回复操作的管理员 "+request.getSession().getAttribute("name")+"===干货id"+dryid+"===主楼id"+postid);	 
 		modelview.addObject("resuserTopic", deletePost(dryid, postid));
 		modelview.addObject("dryDetail", dryDetail(dryid));
 
@@ -790,7 +784,7 @@ public class dry extends BaseController {
 		if(subpostid==null){
 			subpostid="";
 		}
-		logger.info("干货根据主楼id删除副楼回复操作的管理员 "+request.getSession().getAttribute("name")+"===干货id"+dryid+"===主楼id"+postid+"===副楼id"+subpostid);
+		logger.info(request.getSession().getAttribute("name")+"干货根据主楼id删除副楼回复操作的管理员 "+request.getSession().getAttribute("name")+"===干货id"+dryid+"===主楼id"+postid+"===副楼id"+subpostid);
 			modelview.addObject("subpostList", deleteSubPost(postid, subpostid, index));
 			modelview.addObject("dryDetail", dryDetail(dryid));
 
@@ -848,7 +842,7 @@ public class dry extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		logger.info("添加主楼回复操作的管理员 "+request.getSession().getAttribute("name")+"===干货id"+dryid+"===用户id"+uid+"===内容"+message);
+		logger.info(request.getSession().getAttribute("name")+"添加主楼回复操作的管理员 "+request.getSession().getAttribute("name")+"===干货id"+dryid+"===用户id"+uid+"===内容"+message);
 		modelview.addObject("addpost", addPost(uid, message, dryid, appKey, type, fileUrl,dryid));
 		modelview.addObject("dryDetail", dryDetail(dryid));
 
@@ -904,7 +898,7 @@ public class dry extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		logger.info("干货添加副楼回复操作的管理员 "+request.getSession().getAttribute("name")+"===干货id"+dryid+"===主楼id"+parentid+"===内容"+message);
+		logger.info(request.getSession().getAttribute("name")+"干货添加副楼回复操作的管理员 "+request.getSession().getAttribute("name")+"===干货id"+dryid+"===主楼id"+parentid+"===内容"+message);
 		modelview.addObject("addpost", addSubPost(uid, message, dryid, appKey, type, fileUrl,parentid));
 		modelview.addObject("dryDetail", dryDetail(dryid));
 
@@ -1126,7 +1120,7 @@ public class dry extends BaseController {
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
-		logger.info("干货关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===干货id"+sourceId);
+		logger.info(request.getSession().getAttribute("name")+"干货关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===干货id"+sourceId);
 		modelview.addObject("addDryBoxList", bindBoxDry(boxPostId, sourceType, sourceId,ctime));
 		
 		modelview.addObject("addDryBoxposition", dryboxpost(type));
@@ -1319,7 +1313,7 @@ public class dry extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		logger.info("干货审核的管理员 "+request.getSession().getAttribute("name")+"===干货id"+dryid);
+		logger.info(request.getSession().getAttribute("name")+"干货审核的管理员 "+request.getSession().getAttribute("name")+"===干货id"+dryid);
 		modelview.addObject("addDryBoxList", checkDry(dryid));
 		if("552f61c1e4b028d5b163cfa2".equals(uid)||"5518e96a8832707f69e39aa7".equals(uid)){
 			s="redirect:/dry/catchDryList";

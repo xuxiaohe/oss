@@ -98,7 +98,7 @@ public class AdSeller extends BaseController{
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		Map<String, Object> reMap=new HashMap<String, Object>();
-		logger.info("创建渠道商管理员 "+request.getSession().getAttribute("name")+"===渠道商名称"+name);
+		logger.info(request.getSession().getAttribute("name")+"创建渠道商管理员 "+request.getSession().getAttribute("name")+"===渠道商名称"+name);
 		reMap.put("result", create(map));
 		reMap.put("cbasePath",cbasePath);
 		return reMap;
@@ -118,7 +118,7 @@ public class AdSeller extends BaseController{
 	@RequestMapping("/delete")
 	public void delete(HttpServletRequest request,HttpServletResponse response){
 		String id=request.getParameter("id");
-		logger.info("删除渠道商管理员 "+request.getSession().getAttribute("name")+"===删除商名称ID"+id);
+		logger.info(request.getSession().getAttribute("name")+"删除渠道商管理员 "+request.getSession().getAttribute("name")+"===删除商名称ID"+id);
 		delete(id);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
@@ -217,7 +217,7 @@ public class AdSeller extends BaseController{
 	 */
 	@RequestMapping("/deleteAd")
 	public void deleteAd(String id,HttpServletRequest request,HttpServletResponse response){
-		logger.info("删除广告管理员 "+request.getSession().getAttribute("name")+"===广告ID"+id);
+		logger.info(request.getSession().getAttribute("name")+"删除广告管理员 "+request.getSession().getAttribute("name")+"===广告ID"+id);
 
 		deleteById(id);
 		String cpath = request.getContextPath();
@@ -251,7 +251,7 @@ public class AdSeller extends BaseController{
 		map.put("name", name);
 		map.put("remark", remark);
 		map.put("creater", creater);
-		logger.info("创建广告管理员 "+request.getSession().getAttribute("name")+"===广告名称"+name);
+		logger.info(request.getSession().getAttribute("name")+"创建广告管理员 "+request.getSession().getAttribute("name")+"===广告名称"+name);
 		createAd(map);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";

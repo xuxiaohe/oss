@@ -64,7 +64,7 @@
 								</h4>
 								<div class="col-xs-4">产品线：${Recourse.vdomain}</div>
 								<div class="col-xs-4">来源：${Recourse.vappkey}</div>
-								<div class="col-xs-4">版本号：${Recourse.vnumber}</div>
+								<div class="col-xs-4">版本号：${Recourse.versionId}</div>
 								<div class="col-xs-4">版本阶段：${Recourse.vphase}</div>
 
 								<%-- <div class="col-xs-4">
@@ -91,7 +91,7 @@
 									<button name="look" data="${Recourse.id}" type="button" class="look btn btn-primary">查看</button>
 									<button name="changepasswd" data="${Recourse.id}" type="button" class="changepasswd btn btn-primary">修改密码</button> --%>
 									<button name="edit" id="${Recourse.id}"
-										vnumber="${Recourse.vnumber}" message="${Recourse.message}"
+										versionId="${Recourse.versionId}" message="${Recourse.message}"
 										url="${Recourse.url}" context="${Recourse.context}"
 										type="button" class="edit btn btn-primary">编辑</button>
 								</div>
@@ -154,8 +154,8 @@
 
 								window.location.href = "${cbasePath}version/updateVersionForm?id="
 										+ $(this).attr("id")
-										+ "&vnumber="
-										+ $(this).attr("vnumber")
+										+ "&versionId="
+										+ $(this).attr("versionId")
 										+ "&message="
 										+ $(this).attr("message")
 										+ "&url="

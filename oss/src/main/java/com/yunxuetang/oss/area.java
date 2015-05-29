@@ -89,7 +89,7 @@ public class area extends BaseController{
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		logger.info("添加排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===排行榜名字"+chinaName+"===类型"+type);
+		logger.info(request.getSession().getAttribute("name")+"添加排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===排行榜名字"+chinaName+"===类型"+type);
 		modelview.addObject("addDryBox", addDryBox(chinaName, englishName, local, type,size));
 		return "redirect:/area/BoxDryList?type="+type;
 	}
@@ -193,44 +193,44 @@ public class area extends BaseController{
 		modelview.addObject("id", boxPostId);
 		
 		if(type.equals("dry")){
-			logger.info("取消干货关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxId);
+			logger.info(request.getSession().getAttribute("name")+"取消干货关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxId);
 			path="dryInBoxList";
 			modelview.addObject("addDryBoxList", drycargoInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "dry");
 		}
 		if(type.equals("xuanye")){
-			logger.info("取消炫页关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxId);
+			logger.info(request.getSession().getAttribute("name")+"取消炫页关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxId);
 			path="dryInBoxList";
 			modelview.addObject("addDryBoxList", drycargoInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "xuanye");
 		}
 		if(type.equals("topic")){
-			logger.info("取消话题关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxId);
+			logger.info(request.getSession().getAttribute("name")+"取消话题关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxId);
 			path="topicInBoxList";
 			modelview.addObject("addDryBoxList", topicInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "topic");
 			
 		}
 		if(type.equals("group")){
-			logger.info("取消群组关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxId);
+			logger.info(request.getSession().getAttribute("name")+"取消群组关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxId);
 			path="groupInBoxList";
 			modelview.addObject("addDryBoxList", courseInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "group");
 		}
 		if(type.equals("course")){
-			logger.info("取消课程关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxId);
+			logger.info(request.getSession().getAttribute("name")+"取消课程关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxId);
 			path="courseInBoxList";
 			modelview.addObject("addDryBoxList", courseInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "course");
 		}
 		if(type.equals("activity")){
-			logger.info("取消活动关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxId);
+			logger.info(request.getSession().getAttribute("name")+"取消活动关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxId);
 			path="activityInBoxList";
 			modelview.addObject("addDryBoxList", courseInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "activity");
 		}
 		if(type.equals("category")){
-			logger.info("取消分类关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxId);
+			logger.info(request.getSession().getAttribute("name")+"取消分类关联到具体的排行榜操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxId);
 			path="categoryInBoxList";
 			modelview.addObject("addDryBoxList", courseInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "category");
@@ -386,32 +386,32 @@ public class area extends BaseController{
 		modelview.addObject("id", boxPostId);
 		
 		if(type.equals("dry")){
-			logger.info("修改干货推荐排序权重操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===干货id"+sourceid+"===权重"+weightSort);
+			logger.info(request.getSession().getAttribute("name")+"修改干货推荐排序权重操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===干货id"+sourceid+"===权重"+weightSort);
 			path="dryInBoxList";
 			modelview.addObject("addDryBoxList", drycargoInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "dry");
 		}
 		if(type.equals("topic")){
-			logger.info("修改话题推荐排序权重操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===话题id"+sourceid+"===权重"+weightSort);
+			logger.info(request.getSession().getAttribute("name")+"修改话题推荐排序权重操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===话题id"+sourceid+"===权重"+weightSort);
 			path="topicInBoxList";
 			modelview.addObject("addDryBoxList", topicInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "topic");
 		}
 		if(type.equals("group")){
-			logger.info("修改群组推荐排序权重操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===群组id"+sourceid+"===权重"+weightSort);
+			logger.info(request.getSession().getAttribute("name")+"修改群组推荐排序权重操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===群组id"+sourceid+"===权重"+weightSort);
 			path="groupInBoxList";
 			modelview.addObject("addDryBoxList", groupInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "group");
 		}
 		if(type.equals("course")){
-			logger.info("修改课程推荐排序权重操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===课程id"+sourceid+"===权重"+weightSort);
+			logger.info(request.getSession().getAttribute("name")+"修改课程推荐排序权重操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===课程id"+sourceid+"===权重"+weightSort);
 			path="courseInBoxList";
 			modelview.addObject("addDryBoxList", courseInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "course");
 		}
 		
 		if(type.equals("activity")){
-			logger.info("修改活动推荐排序权重操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===活动id"+sourceid+"===权重"+weightSort);
+			logger.info(request.getSession().getAttribute("name")+"修改活动推荐排序权重操作的管理员 "+request.getSession().getAttribute("name")+"===位置id"+boxPostId+"===活动id"+sourceid+"===权重"+weightSort);
 			path="activityInBoxList";
 			modelview.addObject("addDryBoxList", activityInBox(boxPostId,"0","10"));
 			modelview.addObject("type", "activity");

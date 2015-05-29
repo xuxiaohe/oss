@@ -66,7 +66,7 @@ public class version extends BaseController {
 		String courSharResoStr;
 		// 当前第几页
 		String id = request.getParameter("id");
-		String vnumber = request.getParameter("vnumber");
+		String versionId = request.getParameter("versionId");
 		String message = request.getParameter("message");
 		String url = request.getParameter("url");
 		String context = request.getParameter("context");
@@ -79,7 +79,7 @@ public class version extends BaseController {
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("id", id);
-		modelview.addObject("vnumber", vnumber);
+		modelview.addObject("versionId", versionId);
 		modelview.addObject("message", message);
 		modelview.addObject("url", url);
 		modelview.addObject("context", context);
@@ -149,6 +149,8 @@ public class version extends BaseController {
 		String message = request.getParameter("message");
 		String url = request.getParameter("url");
 		String context = request.getParameter("context");
+		String versionId = request.getParameter("versionId");
+		String device = request.getParameter("device");
 
 		RestTemplate restTemplate = new RestTemplate();
 		ModelAndView modelview = new ModelAndView();
@@ -157,7 +159,7 @@ public class version extends BaseController {
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		modelview.addObject("updateVersion", createVersion(vdomain, vappkey, vcertificate, vphase, vnumber, message, url, context));
+		modelview.addObject("updateVersion", createVersion(vdomain, vappkey, vcertificate, vphase, vnumber, message, url, context,versionId,device));
 
 		return "redirect:/version/versionList";
 	}
@@ -168,15 +170,15 @@ public class version extends BaseController {
 	}
 
 	private JSONObject updateVersion(String id, String vnumber, String message, String url, String context) {
-		String url1 = Config.YXTSERVER3 + "version/updateVersionInfo?id=" + id + "&vnumber=" + vnumber + "&message=" + message + "&url=" + url
+		String url1 = Config.YXTSERVER3 + "version/updateVersion?id=" + id + "&vnumber=" + vnumber + "&message=" + message + "&url=" + url
 				+ "&context=" + context;
 		return getRestApiData(url1);
 	}
 
 	private JSONObject createVersion(String vdomain, String vappkey, String vcertificate, String vphase, String vnumber, String message, String url,
-			String context) {
+			String context,String versionId,String device) {
 		String url1 = Config.YXTSERVER3 + "version/updateVersion?vdomain=" + vdomain + "&vappkey=" + vappkey + "&vcertificate=" + vcertificate + "&vphase=" + vphase
-				+ "&vnumber=" + vnumber+ "&message=" + message+ "&url=" + url+ "&context=" + context;
+				+ "&vnumber=" + vnumber+ "&message=" + message+ "&url=" + url+ "&context=" + context+ "&versionId=" + versionId+ "&device=" + device;
 		return getRestApiData(url1);
 	}
 }
