@@ -20,6 +20,7 @@
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="${cbasePath}order/list">全部订单</a></li>
 				<li class="divider"></li>
+				<li><a href="${cbasePath}order/orderAll">订单汇总</a></li>
 				<li><a href="${cbasePath}order/orderByuserid">用户订单明细</a></li>
 				<li><a href="${cbasePath}order/orderBygroupid">群组订单明细</a></li>
 				<li><a href="${cbasePath}order/orderBycourseid">课程订单明细</a></li>

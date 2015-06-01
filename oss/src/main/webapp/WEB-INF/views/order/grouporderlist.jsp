@@ -43,6 +43,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
+								<th>序号</th>
 								<th>课程名</th>
 								<th>购买人</th>
 								<th>群组名</th>
@@ -55,6 +56,7 @@
 								<c:forEach items="${orderlist.data.result.orderlist}" var="Recourse" varStatus="key">
 									<c:if test="${key.count<=100}">
 										<tr>
+											<td>${key.count}</td>
 											<td>${Recourse.courseTitle}</td>
 											<td>${Recourse.userNickName}</td>
 											<td>${Recourse.groupName}</td>

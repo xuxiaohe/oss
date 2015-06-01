@@ -17,8 +17,6 @@
 <script src="<%=contextPath%>/resources/assets/js/bootstrap.min.js"></script>
 <link href="<%=contextPath%>/resources/assets/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="<%=contextPath%>/resources/assets/css/bootstrap-datepicker.min.css"
-	rel="stylesheet">
 <link href="<%=contextPath%>/resources/assets/css/font.css" rel="stylesheet">
 </head>
 <body>
@@ -26,7 +24,6 @@
 		<jsp:include page="header.jsp"></jsp:include>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<input type="hidden" id="cid">
 				<c:if test="${orderlist.status == '200'}">
 					<nav> <!-- 分页开始 -->
 					<%-- <ul class="pagination" id="pagination">
@@ -39,19 +36,18 @@
 
 					<!-- 分页结束 --> </nav>
 					<!---数据显示区域-->
-					<h4>课程的订单总金额: ${orderlist.data.result.countprise} 元</h4><br>
+					<h4>订单总金额: ${orderlist.data.result.countprise} 元</h4><br>
 					<table class="table table-hover">
 						<thead>
 							<tr>
 								<th>序号</th>
 								<th>课程名</th>
-								<th>购买人</th>
-								<th>群组名</th>
+								<th>用户名</th>
 								<th>作者</th>
 								<th>价格</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="tableContent">
 							<c:if test="${orderlist.status==200}">
 								<c:forEach items="${orderlist.data.result.orderlist}" var="Recourse" varStatus="key">
 									<c:if test="${key.count<=100}">
@@ -59,7 +55,6 @@
 											<td>${key.count}</td>
 											<td>${Recourse.courseTitle}</td>
 											<td>${Recourse.userNickName}</td>
-											<td>${Recourse.groupName}</td>
 											<td>${Recourse.courseOwerNickName}</td>
 											<td>${Recourse.orderPrice}元</td>
 										</tr>
@@ -82,54 +77,11 @@
 			</div>
 			
 		</div>
-		<!-- Modal -->
-		<!-- Modal -->
-		<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="myModalLabel">课程搜索</h4>
-					</div>
-					<div class="modal-body" id="modalHtml"></div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="javascript:searchOrder();">确定</button>
-						<!-- <button type="button" class="btn btn-primary">确定</button> -->
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 	<script type="text/javascript">
-		$(function(){
-			$("#selectBtn").html("选择课程").show();
-			
-		});
-		/**
-		加载群组列表
-		*/
-		function loadContents(){
-			$("#modalHtml").load('${cbasePath}course/selectcourse');
-		}
-		
-		/*
-		确认选择用户
-		*/
-		function searchOrder(){
-			var url = '${cbasePath}order/orderBycourseid?cid=' + $("#cid").val();
-			window.location.href = url;
-		}
-		
-		/**
-		选择用户
-		*/
-		function selectCourse(cid){
-			$("#cid").val(cid);
-		}
+	$(function(){
+		$("#selectBtn").hide();	
+	});
 	</script>
 </body>
 </html>
