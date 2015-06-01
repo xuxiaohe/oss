@@ -125,7 +125,7 @@ public class Order extends BaseController {
 				+ cpath + "/";
 		model.addAttribute("cbasePath", cbasePath);
 		model.addAttribute("sourcePath", Config.YXTSERVER5);
-		return "order/courseorderlist";
+		return "order/ordercount";
 	}
 
 	/**
