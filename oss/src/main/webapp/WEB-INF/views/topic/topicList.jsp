@@ -57,8 +57,12 @@
 							 
 							<div class="col-xs-1">
 								<div class="row">
-									<img class="col-xs-12 thumbnail" src="${Recourse.picUrl}"
-										style="margin-top: 10px;" alt="" />
+									<c:if test="${Recourse.picUrl!=null&&Recourse.picUrl!=''}">
+										<img class="col-xs-12 thumbnail" src="${Recourse.picUrl}"
+											style="margin-top: 10px;" alt="" />
+									</c:if>
+										<%-- <img class="col-xs-12 thumbnail" src="${Recourse.images}"
+											style="margin-top: 10px;" alt="" /> --%>
 								</div>
 							</div>
 							<div class="col-xs-10">

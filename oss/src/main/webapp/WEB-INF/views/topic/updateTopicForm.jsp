@@ -36,9 +36,11 @@
 
 		<div class="row">
 			<div class="col-xs-3">
-				<img class="thumbnail col-xs-12" name="picUrl" id="picUrl"
-					src="${resuserTopic.data.result.picUrl}" alt="" />
-
+				<%-- <img class="thumbnail col-xs-12" name="picUrl" id="picUrl"
+					src="${resuserTopic.data.result.picUrl}" alt="" /> --%>
+					<img class="col-xs-12 thumbnail"
+						src="${resuserTopic.data.result.picUrl }" style="margin-top: 10px;"
+						alt="" id="coverPic" />
 				<%-- <c:forEach items="${imgUrls}" varStatus="key" var="img">
 					<img src="${img}" alt="" />
 				</c:forEach> --%>
@@ -50,10 +52,10 @@
 					action="${cbasePath}topic/updateTopicByGroup?topicid=${resuserTopic.data.result.topicId}&picUrl=${resuserTopic.data.result.picUrl}"
 					enctype="multipart/form-data">
 					<input type="hidden" value="${courseDetail.data.result.logoUrl}" name="oldLogoUrl"/>
-					<input type="hidden" value="" id="logoUrl" name="logoUrl"/>
+					<input type="hidden" value="${resuserTopic.data.result.picUrl}" id="logoUrl" name="picUrl"/>
 					
-					<input type="hidden" value="" id="height" name="height"/>
-					<input type="hidden" value="" id="width" name="width"/>
+					<input type="hidden" value="${resuserTopic.data.result.picWidth}" id="height" name="picWidth"/>
+					<input type="hidden" value="${resuserTopic.data.result.picHeight}" id="width" name="picHeight"/>
 
 					
 
@@ -149,6 +151,12 @@
 	<script src="${cbasePath}/resources/assets/js/moxie.min.js"></script>
 	<script>
 		$(function() {
+			//处理封面图片问题
+			var imgUrl = '${resuserTopic.data.result.picUrl}';//原封面图片
+			var imgAry = eval('(' + '${resuserTopic.data.result.images}' + ')');
+			if(imgUrl == '' && imgAry.length > 0){
+				$("#coverPic").attr("src", imgAry[0].picUrl);
+			}
 			/* $("#searchIt").click(function(){
 				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
 			}); */

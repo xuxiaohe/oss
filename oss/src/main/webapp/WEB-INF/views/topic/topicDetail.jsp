@@ -41,8 +41,9 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-xs-2">
-						<img class="thumbnail col-xs-12"
-							src="${topicDetail.data.result.picUrl }" alt="" />
+							<img class="col-xs-12 thumbnail"
+								src="${topicDetail.data.result.picUrl }"
+								style="margin-top: 10px;" alt=""  id="coverPic"/>
 						<a href="${cbasePath}topic/updateTopicItemsForm?topicid=${topicDetail.data.result.topicId }">
 						<button type="button" class="edit btn-warning btn-block">编辑</button></a><br>
 						
@@ -125,7 +126,7 @@
 									<a
 																href="${cbasePath}topic/deleteSubPostByTopicId?postid=${Recourse.post.postId}&subpostid=${subpost.post_id}&topicid=${topicDetail.data.result.topicId }">
 																<button name="subpostdelete" type="button"
-																	class="subpostdelete btn btn-danger"">删除</button>
+																	class="subpostdelete btn btn-danger">删除</button>
 															</a>
 														</c:forEach>
 													</c:if></li>
@@ -138,12 +139,18 @@
 			/* $("#searchIt").click(function(){
 				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
 			}); */
+			//处理封面图片问题
+			var imgUrl = '${topicDetail.data.result.picUrl}';//原封面图片
+			var imgAry = eval('(' + '${topicDetail.data.result.images}' + ')');
+			if(imgUrl == '' && imgAry.length > 0){
+				$("#coverPic").attr("src", imgAry[0].picUrl);
+			} 
 			
 			
 			$(".postdelete").click(function(){
 				if(window.confirm('你确定要删除主楼回复吗？')){
 					 
-					 window.location.href="${cbasePath}topic/deleteTopic?postid="+$(this).attr("data")+"&topicid="+${topicDetail.data.result.topicId};
+					 window.location.href="${cbasePath}topic/deleteTopic?postid="+$(this).attr("data")+"&topicid="+'${topicDetail.data.result.topicId}';
 				}else{
 					
 				}
