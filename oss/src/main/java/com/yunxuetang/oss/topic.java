@@ -354,7 +354,7 @@ public class topic extends BaseController {
 	 * 更新话题
 	 */
 	@RequestMapping("/updateTopicByGroup")
-	public String updateTopicByGroup(HttpServletRequest request) {
+	public String updateTopicByGroup(HttpServletRequest request, String[] picUrl, String[] picWidth, String[] picHeight) {
 
 		// 必输
 		String topicid = request.getParameter("topicid");
@@ -367,30 +367,25 @@ public class topic extends BaseController {
 			content="";
 		}
 		//String picUrl = request.getParameter("picUrl");
-		String picUrl = request.getParameter("logoUrl");
-		if(picUrl == null || "".equals(picUrl)){
-			picUrl = request.getParameter("oldLogoUrl");
+		String imgJson = "";
+		if (picUrl != null && picUrl.length > 0) {// 将图片转换为JSON
+			ImgUrl[] imgUrls = new ImgUrl[picUrl.length];
+			for (int i = 0; i < picUrl.length; i++) {
+				imgUrls[i] = new ImgUrl(picUrl[i], picHeight[i], picWidth[i]);
+			}
+			imgJson = JSONArray.fromObject(imgUrls).toString();
+
 		}
-		String height = request.getParameter("height");
-		String width = request.getParameter("width");
-		if("null".equals(height)||"".equals(height)){
-			height="0";
-		}
-		if("null".equals(width)||"".equals(width)){
-			width="0";
-		}
+		
 		String categoryId = request.getParameter("categoryId");
 		String childCategoryId = request.getParameter("childCategoryId");
 		
 		String tagName = request.getParameter("tagName");
 		
-		if("null".equals(picUrl)){
-			picUrl="";
-		}
 		logger.info(request.getSession().getAttribute("name")+"更新话题管理员 "+ request.getSession().getAttribute("name") + "更新话题, 话题ID:" + topicid + "=======标题:" + title);
 		ModelAndView modelview = new ModelAndView();
 
-		modelview.addObject("rescreateTopicByGroup", updateTopicByGroup(topicid, title, content, picUrl, categoryId, childCategoryId,tagName,height,width));
+		modelview.addObject("rescreateTopicByGroup", updateTopicByGroup(topicid, title, content, categoryId, childCategoryId,tagName,imgJson));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
 		modelview.addObject("cbasePath", cbasePath);
@@ -1122,8 +1117,8 @@ public class topic extends BaseController {
 		return getRestApiData(url);
 	}
 
-	private JSONObject updateTopicByGroup(String topicid, String title, String content, String picUrl, String categoryId, String childCategoryId,
-			String tagName, String height, String width) {
+	private JSONObject updateTopicByGroup(String topicid, String title, String content, String categoryId, String childCategoryId,
+			String tagName, String imgJson) {
 //		String url = Config.YXTSERVER3 + "oss/topic/updateTopicByGroup?topicId=" + topicid + "&title=" + title + "&content=" + content + "&picUrl="
 //				+ picUrl + "&categoryId=" + categoryId + "&childCategoryId=" + childCategoryId + "&tagNames=" + tagName + "&picHeight=" + height
 //				+ "&picWidth=" + width;
@@ -1135,12 +1130,10 @@ public class topic extends BaseController {
 		m.put("topicId", topicid);
 		m.put("title", title);
 		m.put("content",content );
-		m.put("picUrl", picUrl);
 		m.put("categoryId", categoryId);
 		m.put("childCategoryId", childCategoryId);
 		m.put("tagNames", tagName);
-		m.put("picHeight", height);
-		m.put("picWidth", width);
+		m.put("imgJson", imgJson);
 		return getRestApiData(url,m);
 	}
 

@@ -7,9 +7,9 @@ public class Config {
 //	public static String YXTSERVER3 = "http://172.17.123.74:8081/";
 	
 	//开发环境
-	//public static String YXTSERVER3 = "http://localhost:8080/";
+	//public static String YXTSERVER3 = "http://localhost:8888/";
 	//测试环境
-	 //public static String YXTSERVER3 = "http://chat.yunxuetang.com:8082/";
+	// public static String YXTSERVER3 = "http://chat.yunxuetang.com:8082/";
 	//生产环境
 	 //public static String YXTSERVER3 = "http://localhost:8081/";
 	public static String YXTSERVER3 = "http://192.168.100.2:8081/";
@@ -31,6 +31,14 @@ public class Config {
 	//public static String ORDER_SERVER = "http://localhost:8087";
 	//订单服务 qingyun生产环境
 	public static String ORDER_SERVER = "http://192.168.100.5:8361";
+	
+	// 优惠券服务 本地开发环境
+	//public static String HONGBAO_SERVER = "http://localhost:8080";
+	// 优惠券服务 chat开发环境
+	 public static String HONGBAO_SERVER = "http://chat.yunxuetang.com:8089";
+	// 优惠券服务 qingyun生产环境
+	// public static String HONGBAO_SERVER = "http://coupon.ztiao.cn";
+	
 	public static String SCHEDULE_SERVER = "http://192.168.100.5:8201";
 	public static String COUPON_SERVER  = "http://chat.yunxuetang.com:8089";
 	public static String ACCESS_KEY = "PN6SV6Fm-Ueu-D8NYN_NfJwpPuedsQALNKmwL_IQ";
