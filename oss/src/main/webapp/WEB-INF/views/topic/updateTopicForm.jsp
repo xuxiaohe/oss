@@ -55,25 +55,7 @@
 					<input type="hidden" value="" id="height" name="height"/>
 					<input type="hidden" value="" id="width" name="width"/>
 
-					<div class="form-group">
-						<!-- <label for="exampleInputEmail1">文件地址（图片/语音）</label> <input type="text"
-							name="fileUrl" class="form-control" id="exampleInputEmail1"
-							placeholder="">  -->
-						<div class="media" id="picFrame">
-							<div class="media-body">
-								<div id="container">
-									<div class="row">
-										<div class="col-xs-9">
-											<label for="exampleInputEmail1">修改课程图片</label>
-											<button id="pic" type="button" class="btn btn-default">上传图片</button>
-										</div>
-									</div>
-
-								</div>
-							</div>
-
-						</div>
-					</div>
+					
 
 					<div class="form-group">
 						<label for="exampleInputEmail1">title</label> <input type="text"
@@ -120,8 +102,40 @@
 						<label for="exampleInputEmail1">如果修改请上传话题图片(支持JPEG,JPG,PNG)</label> <input
 							id="file" type="file" name="file" />
 					</div> -->
+					<div class="form-group" id="imageDiv">
+						<label for="exampleInputEmail1">话题图片</label><br>
+						<c:forEach items="${resuserTopic.data.result.images}" var="Resource" varStatus="sta">
+							<div>
+							 <img class="" src="${Resource.picUrl}" width="150" height="150" /><br>
+							 <input type="hidden" name="picUrl" value="${Resource.picUrl}">
+							 <input type="hidden" name="picWidth" value="${Resource.picWidth}">
+							 <input type="hidden" name="picHeight" value="${Resource.picHeight}">
+							 <button type="button" class="postdelete btn btn-danger" onclick="javascript:removeImage(this);">删除</button>
+							 </div>&nbsp;&nbsp;
+							<c:if test="${sta.index%3==0&&sta.index!=0}">
+								<br/>
+							</c:if>
+						</c:forEach>
+					</div>					
+					<div class="form-group">
+						<!-- <label for="exampleInputEmail1">文件地址（图片/语音）</label> <input type="text"
+							name="fileUrl" class="form-control" id="exampleInputEmail1"
+							placeholder="">  -->
+						<div class="media" id="picFrame">
+							<div class="media-body">
+								<div id="container">
+									<div class="row">
+										<div class="col-xs-9">
+											<label for="exampleInputEmail1">修改话题图片</label>
+											<button id="pic" type="button" class="btn btn-default">上传图片</button>
+										</div>
+									</div>
 
+								</div>
+							</div>
 
+						</div>
+					</div>
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
 			</div>
@@ -200,11 +214,22 @@
 	            			var height = result.height; //图片高度
 	            			var width = result.width; //图片宽度
 	            			//通过dom动态添加image
-	            			var $imgContainer = jQuery("#picUrl");
-	            			$imgContainer.attr("src", imgUrl);
-	            			jQuery("#logoUrl").val(imgUrl);
-	            			jQuery("#height").val(height);
-	            			jQuery("#width").val(width);
+	            			var $div = $("#imageDiv");
+	            			$div.append("<div>" + 
+	            					"<img class='' src='" + imgUrl + "' width='150' height='150' /><br>"
+	            					+ "<input type='hidden' name='picUrl' value='" + imgUrl + "'>"
+	            					+ "<input type='hidden' name='picWidth' value='" + height + "'>"
+	            					+ "<input type='hidden' name='picHeight' value='" + width + "'>"
+	            					+ "<button type='button' class='postdelete btn btn-danger' onclick='javascript:removeImage(this);'>删除</button>"
+	            					+ "</div>");
+	            			if($div.children().length % 3 == 0){
+	            				$div.append("<br/>");
+	            			}
+	            			//var $imgContainer = jQuery("#picUrl");
+	            			//$imgContainer.attr("src", imgUrl);
+	            			//jQuery("#logoUrl").val(imgUrl);
+	            			//jQuery("#height").val(height);
+	            			//jQuery("#width").val(width);
 	            			alert("上传成功");
 		            	});
 		            	
@@ -232,6 +257,10 @@
 		        }
 		    });
 			
+		}
+		function removeImage(obj){
+			var $div = $(obj).parent();
+			$div.remove();//删除图片所在的段落
 		}
 	</script>
 </body>
