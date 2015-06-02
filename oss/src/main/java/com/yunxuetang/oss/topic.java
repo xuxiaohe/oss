@@ -383,19 +383,6 @@ public class topic extends BaseController {
 		String childCategoryId = request.getParameter("childCategoryId");
 		
 		String tagName = request.getParameter("tagName");
-
-		String tagNameArry[] = tagName.split(",");
-
-		List<String> ll = new ArrayList<String>();
-
-		for (String a : tagNameArry) {
-
-		ll.add("\"" + a + "\"");
-
-		}
-
-		String i = ll.toString();
-		
 		
 		if("null".equals(picUrl)){
 			picUrl="";
