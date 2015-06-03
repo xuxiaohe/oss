@@ -55,16 +55,14 @@
 								<h5 style="margin-top:40px;"><span class="label label-default">${key.count}</span></h5>
 							</div>
 							 
-							<div class="col-xs-1">
+							<%-- <div class="col-xs-1">
 								<div class="row">
 									<c:if test="${Recourse.picUrl!=null&&Recourse.picUrl!=''}">
 										<img class="col-xs-12 thumbnail" src="${Recourse.picUrl}"
 											style="margin-top: 10px;" alt="" />
 									</c:if>
-										<%-- <img class="col-xs-12 thumbnail" src="${Recourse.images}"
-											style="margin-top: 10px;" alt="" /> --%>
 								</div>
-							</div>
+							</div> --%>
 							<div class="col-xs-10">
 								<h4 style="margin-left:12px;">
 									<a href="${cbasePath}topic/topicDetail?topicid=${Recourse.topicId}">
