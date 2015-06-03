@@ -97,7 +97,7 @@ public class Coupon extends BaseController{
 				+ cpath + "/";
 		model.addAttribute("cbasePath", cbasePath);
 		model.addAttribute("sourcePath", Config.YXTSERVER5);
-		return "redirect:coupon/couponList";
+		return "redirect:/coupon/couponList";
 	}
 	
 	/**
