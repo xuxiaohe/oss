@@ -20,6 +20,21 @@ import com.yunxuetang.util.Config;
 @RequestMapping("/coupon")
 public class Coupon extends BaseController{
 	
+	
+	/**
+	 * 创建卡券页面跳转
+	 * */
+	@RequestMapping("/createView")
+	public String createView(HttpServletRequest request, Model model){
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "coupon/create";
+	}
+	
 	/**
 	 * 某个用户所有优惠券
 	 * @param request
@@ -81,7 +96,7 @@ public class Coupon extends BaseController{
 				+ cpath + "/";
 		model.addAttribute("cbasePath", cbasePath);
 		model.addAttribute("sourcePath", Config.YXTSERVER5);
-		return "coupon/couponList";
+		return "redirect:coupon/couponList";
 	}
 	
 	/**
