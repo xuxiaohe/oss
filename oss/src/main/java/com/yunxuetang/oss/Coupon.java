@@ -150,6 +150,28 @@ public class Coupon extends BaseController{
 	
 	
 	/**
+	 *  根据优惠券状态搜索
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/findBycouponstatus")
+	public String findBycouponstatus(HttpServletRequest request, Model model){
+		String status = request.getParameter("status");
+		
+		model.addAttribute("couponList", getcouponBystatus(status));
+		
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "coupon/couponList";
+	}
+	
+	
+	/**
 	 * 分页 所有优惠券列表
 	 * 
 	 */
@@ -269,37 +291,43 @@ public class Coupon extends BaseController{
 	
 	
 	public JSONObject getCouponList(String userId){
-		String url = Config.HONGBAO_SERVER + "/coupon/user/coupons?userid=" + userId;
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/user/coupons?userid=" + userId;
 		return getRestApiData(url);
 	} 
 	
 	public JSONObject create(Map<String,String> m){
-		String url = Config.HONGBAO_SERVER + "/coupon/quota/add";
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/quota/add";
 		
 		return getRestApiData(url,m);
 	} 
 	
 	
 	public JSONObject getall(String n,String s){
-		String url = Config.HONGBAO_SERVER + "/coupon/allList?n="+n+"&s="+s;
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/allList?n="+n+"&s="+s;
 		
 		return getRestApiData(url);
 	} 
 	
 	public JSONObject getallactivity(String n,String s){
-		String url = Config.HONGBAO_SERVER + "/coupon/allActivityList?n="+n+"&s="+s;
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/allActivityList?n="+n+"&s="+s;
 		
 		return getRestApiData(url);
 	} 
 	
 	public JSONObject getcouponDetail(String id){
-		String url = Config.HONGBAO_SERVER + "/coupon/couponDetail?id="+id;
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/couponDetail?id="+id;
+		
+		return getRestApiData(url);
+	} 
+	
+	public JSONObject getcouponBystatus(String status){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListByStatus?status="+status;
 		
 		return getRestApiData(url);
 	} 
 	
 	public JSONObject getacrtivityDetail(String id){
-		String url = Config.HONGBAO_SERVER + "/coupon/activityDetail?id="+id;
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/activityDetail?id="+id;
 		
 		return getRestApiData(url);
 	} 
