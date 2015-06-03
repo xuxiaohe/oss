@@ -12,19 +12,17 @@
 %>
 <div class="panel panel-default">
 	<div class="panel-body">
-		<%-- <div class="btn-group">
+		<div class="btn-group">
 			<button type="button" class="btn btn-default dropdown-toggle"
 				data-toggle="dropdown">
-				订单明细查询<span class="caret"></span>
+				卡券管理<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="${cbasePath}order/list">全部订单</a></li>
+				<li><a href="${cbasePath}coupon/couponList">卡券统计</a></li>
 				<li class="divider"></li>
-				<li><a href="${cbasePath}order/orderByuserid">用户订单明细</a></li>
-				<li><a href="${cbasePath}order/orderBygroupid">群组订单明细</a></li>
-				<li><a href="${cbasePath}order/orderBycourseid">课程订单明细</a></li>
+				<li><a href="${cbasePath}coupon/createView">创建卡券</a></li>
 			</ul>
-		</div> --%>
+		</div>
 		&nbsp;&nbsp;
 		<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="selectBtn" onclick = "javascript:loadContents();">选择</button>
 	</div>
