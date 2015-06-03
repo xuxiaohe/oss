@@ -41,9 +41,6 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-xs-2">
-							<img class="col-xs-12 thumbnail"
-								src="${topicDetail.data.result.picUrl }"
-								style="margin-top: 10px;" alt=""  id="coverPic"/>
 						<a href="${cbasePath}topic/updateTopicItemsForm?topicid=${topicDetail.data.result.topicId }">
 						<button type="button" class="edit btn-warning btn-block">编辑</button></a><br>
 						
@@ -53,6 +50,7 @@
 						<a href="${cbasePath}topic/addPostByTopicIdForm?topicid=${topicDetail.data.result.topicId }">
 						<button name="addpost" data="${topicDetail.data.result.topicId}" type="button" class="addpost btn-warning btn-block">添加主楼回复</button></a>
 						<hr />
+						
 					</div>
 					 
 					<div id="userInfoDiv" class="col-xs-10" style="">
@@ -66,6 +64,16 @@
 						</div><br> 
 						
 						<br><br>
+						<c:if test="${topicDetail.data.result.images!=null}">
+							<c:forEach items="${topicDetail.data.result.images}" var="image" varStatus="sta">
+								<img 
+								src="${image.picUrl}"
+								width="150" height="150"  alt=""  id="coverPic"/>
+								<c:if test="${sta.index%3==0&&sta.index!=0}">
+								<br/>
+							</c:if>
+							</c:forEach>
+						</c:if>
 						
 						 
 				</div>
