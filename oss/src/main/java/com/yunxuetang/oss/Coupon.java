@@ -129,9 +129,15 @@ public class Coupon extends BaseController{
 	@RequestMapping("/couponDetail")
 	public String couponDetail(HttpServletRequest request, Model model){
 		String id = request.getParameter("id");
+		
+		JSONObject j=getcouponDetail(id);
+		JSONObject jj=j.getJSONObject("data");
+		JSONObject jjj=jj.getJSONObject("result");
+		String courseid=(String) jjj.get("courseId");
 		model.addAttribute("couponDetail", getcouponDetail(id));
 		
-		//model.addObject("courseDetail", courseDetail(cid));
+		model.addAttribute("courseDetail", courseDetail(courseid));
+		System.out.print(courseDetail(courseid));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
