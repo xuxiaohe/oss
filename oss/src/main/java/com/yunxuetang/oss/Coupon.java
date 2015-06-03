@@ -72,10 +72,11 @@ public class Coupon extends BaseController{
 		String num = request.getParameter("num");
 		String remark = request.getParameter("remark");
 		String operuserid = request.getParameter("operuserid");
+		operuserid="55190fdbe4b0c524eabaee66";
 		String actname = request.getParameter("actname");
 		String cname = request.getParameter("cname");
 		String ident = request.getParameter("ident");
-		
+		ident="0";
 		Map<String,String> m=new HashMap<String, String>();
 		m.put("cardhead", cardhead);
 		m.put("quota", quota);
@@ -129,6 +130,8 @@ public class Coupon extends BaseController{
 	public String couponDetail(HttpServletRequest request, Model model){
 		String id = request.getParameter("id");
 		model.addAttribute("couponDetail", getcouponDetail(id));
+		
+		//model.addObject("courseDetail", courseDetail(cid));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
@@ -294,4 +297,8 @@ public class Coupon extends BaseController{
 		
 		return getRestApiData(url);
 	} 
+	private JSONObject courseDetail(String cid) {
+		String url = Config.YXTSERVER3 + "oss/course/oneCourse?courseId="+cid;
+		return getRestApiData(url);
+}
 }
