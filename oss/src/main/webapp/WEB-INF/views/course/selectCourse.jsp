@@ -46,7 +46,7 @@
 				var="Recourse">
 				<tr>
 					<td><input type="radio" name="groupSelectRadio" value=""
-						onclick="javascript:selectCourse('${Recourse.id}');" /></td>
+						onclick="javascript:selectCourse('${Recourse.id}', '${Recourse.title}');" /></td>
 					<td>${Recourse.title}</td>
 					<td>${Recourse.createUserName}</td>
 					<td>
