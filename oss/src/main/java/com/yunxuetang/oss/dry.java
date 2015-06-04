@@ -1410,9 +1410,22 @@ public class dry extends BaseController {
 
 	private JSONObject createDryByGroupAndself(String id, String tagName, String group, String url, String fileUrl, String message, String description,
 			String dryFlag,String height,String width) {
-		String url2 = Config.YXTSERVER3 + "oss/dry/createDry?uid=" + id + "&tagName=" + tagName + "&groupid=" + group + "&url=" + url + "&fileUrl="
-				+ fileUrl + "&message=" + message + "&description=" + description + "&dryFlag=" + dryFlag+ "&height=" + height+ "&width=" + width;
-		return getRestApiData(url2);
+		
+		Map m=new HashMap();
+		m.put("uid", id);
+		m.put("tagName", tagName);
+		m.put("groupid", group);
+		m.put("url", url);
+		m.put("fileUrl", fileUrl);
+		m.put("message", message);
+		m.put("description", description);
+		m.put("dryFlag", dryFlag);
+		m.put("height", height);
+		m.put("width", width);
+		
+		
+		String url2 = Config.YXTSERVER3 + "oss/dry/createDry";
+		return getRestApiData(url2,m);
 	}
 	
 	private JSONObject createDryByGroup(String id, String tagName, String group, String url, String fileUrl, String message, String description,

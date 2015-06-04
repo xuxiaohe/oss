@@ -77,6 +77,7 @@ public class Coupon extends BaseController{
 		String cname = request.getParameter("cname");
 		String ident = request.getParameter("ident");
 		ident="0";
+		String username="";
 		Map<String,String> m=new HashMap<String, String>();
 		m.put("cardhead", cardhead);
 		m.put("quota", quota);
@@ -89,6 +90,7 @@ public class Coupon extends BaseController{
 		m.put("actname", actname);
 		m.put("cname", cname);
 		m.put("ident", ident);
+		m.put("userId", username);
 		
 		model.addAttribute("couponlist", create(m));
 		String cpath = request.getContextPath();
@@ -99,6 +101,8 @@ public class Coupon extends BaseController{
 		model.addAttribute("sourcePath", Config.YXTSERVER5);
 		return "redirect:/coupon/couponList";
 	}
+	
+	
 	
 	/**
 	 * 根据课程id 查找有效批次（活动）信息
@@ -148,18 +152,87 @@ public class Coupon extends BaseController{
 	}
 	
 	
-	
 	/**
 	 *  根据优惠券状态搜索
 	 * @param request
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/findBycouponstatus")
-	public String findBycouponstatus(HttpServletRequest request, Model model){
+	@RequestMapping("/findBycoupon")
+	public String findBycoupon(HttpServletRequest request, Model model){
 		String status = request.getParameter("status");
+		String uid = request.getParameter("uid");
+		String cid = request.getParameter("cid");
+		String startime = request.getParameter("startime");
+		String endtime = request.getParameter("endtime");
+		// 当前第几页
+				String pagenumber = request.getParameter("n");
+
+				if (pagenumber == null) {
+					pagenumber = "0";
+				}
+
+				// 每页条数
+
+				String pagelines = request.getParameter("s");
+
+				if (pagelines == null) {
+					pagelines = "10";
+				}
+				
+		if(status!=null&&uid==null&&cid==null&&startime==null&&endtime==null){
+			model.addAttribute("couponList", getcouponBystatus(status,pagenumber,pagelines));
+		}
+		if(status==null&&uid!=null&&cid==null&&startime==null&&endtime==null){
+			model.addAttribute("couponList", getcouponByuid(uid,pagenumber,pagelines));
+		}
+		if(status==null&&uid==null&&cid!=null&&startime==null&&endtime==null){
+			model.addAttribute("couponList", getcouponBycid(cid,pagenumber,pagelines));
+		}	
+		if(status==null&&uid==null&&cid==null&&startime!=null&&endtime!=null){
+			model.addAttribute("couponList", getcouponBytime(startime,endtime,pagenumber,pagelines));
+		}
 		
-		model.addAttribute("couponList", getcouponBystatus(status));
+		if(status!=null&&uid!=null&&cid==null&&startime==null&&endtime==null){
+			model.addAttribute("couponList", getcouponByStatusAnduserid(status,uid,pagenumber,pagelines));
+		}
+		if(status!=null&&uid==null&&cid!=null&&startime==null&&endtime==null){
+			model.addAttribute("couponList", getcouponByStatusAndcourseid(status,cid,pagenumber,pagelines));
+		}
+		if(status!=null&&uid==null&&cid==null&&startime!=null&&endtime!=null){
+			model.addAttribute("couponList", getcouponByStatusAndtime(status,startime,endtime,pagenumber,pagelines));
+		}
+		if(status==null&&uid!=null&&cid!=null&&startime==null&&endtime==null){
+			model.addAttribute("couponList", getcouponByuidandcid(uid,cid,pagenumber,pagelines));
+		}
+		if(status==null&&uid!=null&&cid==null&&startime!=null&&endtime!=null){
+			model.addAttribute("couponList", getcouponByuidandtime(uid,startime,endtime,pagenumber,pagelines));
+		}
+		if(status==null&&uid==null&&cid!=null&&startime!=null&&endtime!=null){
+			model.addAttribute("couponList", getcouponBycidandtime(cid,startime,endtime,pagenumber,pagelines));
+		}
+		
+		
+		if(status!=null&&uid!=null&&cid!=null&&startime==null&&endtime==null){
+			model.addAttribute("couponList", getcouponBystatusanduidandcid(cid,uid,cid,pagenumber,pagelines));
+		}
+		if(status!=null&&uid!=null&&cid==null&&startime!=null&&endtime!=null){
+			model.addAttribute("couponList", getcouponBystatusanduidandtime(status,uid,startime,endtime,pagenumber,pagelines));
+		}
+		if(status!=null&&uid==null&&cid!=null&&startime!=null&&endtime!=null){
+			model.addAttribute("couponList", getcouponBystatusandcidandtime(status,cid,startime,endtime,pagenumber,pagelines));
+		}
+		if(status==null&&uid!=null&&cid!=null&&startime!=null&&endtime!=null){
+			model.addAttribute("couponList", getcouponByuidandcidandtime(uid,cid,startime,endtime,pagenumber,pagelines));
+		}
+		
+		
+		if(status!=null&&uid!=null&&cid!=null&&startime!=null&&endtime!=null){
+			model.addAttribute("couponList", getcouponBystatusanduidandcidandtime(status,uid,cid,startime,endtime,pagenumber,pagelines));
+		}
+		
+		
+		
 		
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
@@ -320,8 +393,94 @@ public class Coupon extends BaseController{
 		return getRestApiData(url);
 	} 
 	
-	public JSONObject getcouponBystatus(String status){
-		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListByStatus?status="+status;
+	public JSONObject getcouponBystatus(String status,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListByStatus?status="+status+"&n="+n+"&s="+s;
+		
+		return getRestApiData(url);
+	} 
+	
+	
+	public JSONObject getcouponBytime(String starttime,String endtime,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListBytime?starttime="+starttime+"&endtime="+endtime+"&n="+n+"&s="+s;
+		
+		return getRestApiData(url);
+	} 
+	
+	public JSONObject getcouponByStatusAnduserid(String status,String uid,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListByStatusAnduserid?status="+status+"&uid="+uid+"&n="+n+"&s="+s;
+		
+		return getRestApiData(url);
+	} 
+	
+	public JSONObject getcouponByStatusAndcourseid(String status,String cid,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListByStatusAndcourseid?status="+status+"&cid="+cid+"&n="+n+"&s="+s;
+		
+		return getRestApiData(url);
+	} 
+	
+	public JSONObject getcouponByStatusAndtime(String status,String starttime,String endtime,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListByStatusAndcourseid?status="+status+"&starttime="+starttime+"&endtime="+endtime+"&n="+n+"&s="+s;
+		
+		return getRestApiData(url);
+	} 
+	
+	public JSONObject getcouponByuid(String uid,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListByuserid?uid="+uid+"&n="+n+"&s="+s;
+		
+		return getRestApiData(url);
+	} 
+	
+	public JSONObject getcouponByuidandcid(String uid,String cid,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListByuseridAndcourseid?uid="+uid+"&cid="+cid+"&n="+n+"&s="+s;
+		
+		return getRestApiData(url);
+	} 
+	
+	public JSONObject getcouponBystatusanduidandcid(String status,String uid,String cid,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListByStatusAnduseridAndcourseid?status="+status+"uid="+uid+"&cid="+cid+"&n="+n+"&s="+s;
+		
+		return getRestApiData(url);
+	} 
+	
+	public JSONObject getcouponBystatusanduidandtime(String status,String uid,String starttime,String endtime,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListByStatusAndtimeAnduserid?status="+status+"&uid="+uid+"&starttime="+starttime+"&endtime="+endtime+"&n="+n+"&s="+s;
+		
+		return getRestApiData(url);
+	}
+	
+	public JSONObject getcouponBystatusandcidandtime(String status,String cid,String starttime,String endtime,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListByStatusAndtimeAnduserid?status="+status+"&cid="+cid+"&starttime="+starttime+"&endtime="+endtime+"&n="+n+"&s="+s;
+		
+		return getRestApiData(url);
+	}
+	
+	public JSONObject getcouponByuidandcidandtime(String uid,String cid,String starttime,String endtime,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListBytimeAnduseridAndcourseid?uid="+uid+"&cid="+cid+"&starttime="+starttime+"&endtime="+endtime+"&n="+n+"&s="+s;
+		
+		return getRestApiData(url);
+	}
+	
+	public JSONObject getcouponBystatusanduidandcidandtime(String status,String uid,String cid,String starttime,String endtime,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListBytimeAnduseridAndcourseid?uid="+uid+"&status="+status+"&cid="+cid+"&starttime="+starttime+"&endtime="+endtime+"&n="+n+"&s="+s;
+		
+		return getRestApiData(url);
+	}
+	
+	
+	public JSONObject getcouponByuidandtime(String uid,String starttime,String endtime,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListBytimeAnduserid?uid="+uid+"&starttime="+starttime+"&endtime="+endtime+"&n="+n+"&s="+s;
+		
+		return getRestApiData(url);
+	} 
+	
+	public JSONObject getcouponBycidandtime(String cid,String starttime,String endtime,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListBytimeAndcourseid?cid="+cid+"&starttime="+starttime+"&endtime="+endtime+"&n="+n+"&s="+s;
+		
+		return getRestApiData(url);
+	} 
+	
+	public JSONObject getcouponBycid(String cid,String n,String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findListBycourseid?cid="+cid+"&n="+n+"&s="+s;
 		
 		return getRestApiData(url);
 	} 
