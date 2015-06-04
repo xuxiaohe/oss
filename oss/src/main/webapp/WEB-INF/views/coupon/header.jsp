@@ -23,7 +23,5 @@
 				<li><a href="${cbasePath}coupon/createView">创建卡券</a></li>
 			</ul>
 		</div>
-		&nbsp;&nbsp;
-		<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="selectBtn" onclick = "javascript:loadContents();">选择</button>
 	</div>
 </div>

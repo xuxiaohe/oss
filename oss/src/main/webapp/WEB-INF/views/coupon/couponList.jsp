@@ -51,7 +51,7 @@
 						<tbody>
 							<c:forEach items="${couponList.data.result}" var="Recourse">
 								<tr>
-									<td><a href="#">${Recourse.cardCode}</a></td>
+									<td><a href="<%=contextPath%>/coupon/couponDetail?id=${Recourse.id}">${Recourse.cardCode}</a></td>
 									<td>${Recourse.quota}</td>
 									<td></td>
 									<td>
@@ -106,7 +106,6 @@
 	</div>
 	<script type="text/javascript">
 		$(function(){
-			$("#selectBtn").html("选择用户").hide();
 			/*if($.trim($("#tableContent").html()) == ''){
 				$("#selectBtn").click();
 			}*/

@@ -32,9 +32,74 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="row">
-						<div></div>
+						<div class="col-xs-6">
+							<label>卡号:</label>${couponDetail.data.result.cardCode}
+						</div>
+						<div class="col-xs-6">
+							<label>卡有效期:</label>&nbsp;&nbsp;<Date:date value="${couponDetail.data.result.expiryDateStart}"></Date:date>&nbsp;-&nbsp;
+								<Date:date value="${couponDetail.data.result.expiryDateEnd}"></Date:date>
+							
+						</div>
 					</div>
-				
+					<div class="row">
+						<div class="col-xs-4">
+							<label>面值:</label>${couponDetail.data.result.quota}
+						</div>
+						<div class="col-xs-4">
+							<label>卡类型:</label>课程卡
+						</div>
+						<div class="col-xs-4">
+							<label>备注:</label>${couponDetail.data.result.remark}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-4">
+							<label>适用课程:${courseDetail.data.result.title}</label>
+						</div>
+					</div>
+					<hr />
+					<div class="row">
+						<div class="col-xs-5">
+							<label>领券人:</label>
+						</div>
+						<div class="col-xs-5">
+							<label>发放时间:</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-5">
+							<label>下单时间:</label>
+						</div>
+						<div class="col-xs-5">
+							<label>支付时间:</label>
+						</div>
+					</div>
+					<hr/>
+					<div class="row">
+						<div class="col-xs-8"></div>
+						<div class="col-xs-4">
+							<label>订单号:</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-1"></div>
+						<div class="col-xs-10">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>课程</th>
+										<th>课程价格</th>
+										<th>优惠</th>
+										<th>实付金额</th>
+										<th>群组</th>
+										<th>课程收益人</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 		</div>

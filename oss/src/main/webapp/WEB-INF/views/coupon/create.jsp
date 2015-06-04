@@ -73,7 +73,8 @@
 						</div>
 						<div class="col-xs-4">
 							<label>课程ID</label>
-							<input type="text" class="form-control" name="courseid" id="courseid" onfocus="javascript:showCourseDialog(this);"/>
+							<input type="hidden" class="form-control" name="courseid" id="courseid" />
+							<input type="text" class="form-control" name="courseName" id="courseName" onfocus="javascript:showCourseDialog(this);"/>
 						</div>
 						<div class="col-xs-4">
 							<label>备注</label>
@@ -105,7 +106,7 @@
 					</div>
 					<div class="modal-body" id="modalHtml"></div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="javascript:searchOrder();">确定</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
 						<!-- <button type="button" class="btn btn-primary">确定</button> -->
 					</div>
 				</div>
@@ -116,7 +117,6 @@
 	<script type="text/javascript">
 		var today = new Date().valueOf();
 		$(function(){
-			$("#selectBtn").hide();
 			$('#starttime').datepicker({
 				format : 'yyyy-mm-dd',
 				autoclose : true,
@@ -176,8 +176,9 @@
 		/**
 		选择用户
 		*/
-		function selectCourse(cid){
+		function selectCourse(cid, ctitle){
 			$("#courseid").val(cid);
+			$("#courseName").val(ctitle);
 		}
 	</script>
 </body>
