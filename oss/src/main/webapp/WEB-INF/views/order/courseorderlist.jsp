@@ -127,7 +127,7 @@
 		/**
 		选择用户
 		*/
-		function selectCourse(cid){
+		function selectCourse(cid, ctitle){
 			$("#cid").val(cid);
 		}
 	</script>
