@@ -75,7 +75,7 @@
 						</div>
 					</div>
 					<hr/>
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-xs-8"></div>
 						<div class="col-xs-4">
 							<label>订单号:</label>
@@ -98,7 +98,7 @@
 								<tbody></tbody>
 							</table>
 						</div>
-					</div>
+					</div> -->
 					
 				</div>
 			</div>
