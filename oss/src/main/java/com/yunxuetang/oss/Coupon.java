@@ -76,7 +76,8 @@ public class Coupon extends BaseController{
 		String actname = request.getParameter("actname");
 		String cname = request.getParameter("cname");
 		String ident = request.getParameter("ident");
-		ident="0";
+		String courseName = request.getParameter("courseName");
+		 
 		String username="";
 		Map<String,String> m=new HashMap<String, String>();
 		m.put("cardhead", cardhead);
@@ -91,6 +92,7 @@ public class Coupon extends BaseController{
 		m.put("cname", cname);
 		m.put("ident", ident);
 		m.put("userId", username);
+		m.put("courseName", courseName);
 		
 		model.addAttribute("couponlist", create(m));
 		String cpath = request.getContextPath();
