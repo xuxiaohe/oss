@@ -63,6 +63,13 @@
 							<label>张数</label>
 							<input type="text" class="form-control" name="num" id="num"/>
 						</div>
+						<div class="col-xs-6">
+							<label>红包类型</label>
+							<select class="form-control" name="ident">
+								<option value="0">注册即送优惠劵</option>
+								<option value="1">朋友圈抽奖</option>
+							</select>
+						</div>
 					</div>
 					<div class="row form-group">
 						<div class="col-xs-4">
