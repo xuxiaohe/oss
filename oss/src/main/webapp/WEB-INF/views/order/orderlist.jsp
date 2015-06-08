@@ -98,7 +98,7 @@
 							</div>
 							<div class="col-xs-10">
 								<h4 style="margin-left:12px;">
-										${Recourse.courseTitle}<small><small
+										<a href="#">${Recourse.courseTitle}</a><small><small
 										class="pull-right">成交时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
 								</h4>
