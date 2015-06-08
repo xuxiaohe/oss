@@ -53,13 +53,14 @@
 								<tr>
 									<td><a href="<%=contextPath%>/coupon/couponDetail?id=${Recourse.id}">${Recourse.cardCode}</a></td>
 									<td>${Recourse.quota}</td>
-									<td></td>
+									<td>${Recourse.userName}</td>
 									<td>
 										<c:choose>
 											<c:when test="${Recourse.status==0}">未领取</c:when>
 											<c:when test="${Recourse.status==1}">已领取</c:when>
 											<c:when test="${Recourse.status==2}">已使用</c:when>
 											<c:when test="${Recourse.status==3}">已作废</c:when>
+											<c:when test="${Recourse.status==4}">已锁定</c:when>
 										</c:choose>
 									</td>
 									<td><Date:date value="${Recourse.ctime}"></Date:date></td>
