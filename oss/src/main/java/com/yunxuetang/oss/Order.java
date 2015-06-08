@@ -19,6 +19,25 @@ import com.yunxuetang.util.StringUtil;
 public class Order extends BaseController {
 
 	/**
+	 * 查看订单详情
+	 * */
+	@RequestMapping("detail")
+	public String orderDetail(HttpServletRequest request, Model model){
+		
+		String oid = request.getParameter("oid");
+		
+		
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "order/orderdetail";
+	}
+	
+	
+	/**
 	 * 获取订单列表
 	 * */
 	@RequestMapping("list")
