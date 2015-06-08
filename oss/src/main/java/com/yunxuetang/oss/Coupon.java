@@ -365,6 +365,90 @@ public class Coupon extends BaseController{
 	}
 	
 	
+	/**
+	 * 分配红包给个人  展示页
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/givecouponpage")
+	public String givecouponpage(HttpServletRequest request, Model model){
+		String id = request.getParameter("id");
+		model.addAttribute("couponDetail", getacrtivityDetail(id));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "coupon/activityList";
+	}
+	
+	
+	/**
+	 * 分配红包给个人
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/givecoupon")
+	public String givecoupon(HttpServletRequest request, Model model){
+		String uid = request.getParameter("uid");
+		String activitycode = request.getParameter("activitycode");
+		
+		model.addAttribute("couponDetail", givecoupon(uid,activitycode));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "coupon/activityList";
+	}
+	
+	
+	/**
+	 * 分配红包给个人  展示页
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/deletecouponpage")
+	public String deletecouponpage(HttpServletRequest request, Model model){
+		String id = request.getParameter("id");
+		model.addAttribute("couponDetail", getacrtivityDetail(id));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "coupon/activityList";
+	}
+	
+	
+	/**
+	 * 分配红包给个人
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/deletecoupon")
+	public String deletecoupon(HttpServletRequest request, Model model){
+		String uid = request.getParameter("uid");
+		String activitycode = request.getParameter("activitycode");
+		
+		model.addAttribute("couponDetail", deletecoupon(activitycode));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "coupon/activityList";
+	}
+	
+	
 	public JSONObject getCouponList(String userId){
 		String url = Config.HONGBAO_SERVER + "/oss/coupon/user/coupons?userid=" + userId;
 		return getRestApiData(url);
@@ -486,6 +570,20 @@ public class Coupon extends BaseController{
 		
 		return getRestApiData(url);
 	} 
+	
+	public JSONObject givecoupon(String uid,String activityid){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/quota/extract?activitycode="+activityid+"&userid="+uid;
+		
+		return getRestApiData(url);
+	} 
+	
+	
+	public JSONObject deletecoupon(String activityid){
+		String url = Config.HONGBAO_SERVER + "/coupon/discard?activitycode="+activityid;
+		
+		return getRestApiData(url);
+	} 
+	
 	
 	public JSONObject getacrtivityDetail(String id){
 		String url = Config.HONGBAO_SERVER + "/oss/coupon/activityDetail?id="+id;

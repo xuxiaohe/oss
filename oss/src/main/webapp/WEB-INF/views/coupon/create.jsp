@@ -68,6 +68,7 @@
 							<select class="form-control" name="ident">
 								<option value="0">注册即送优惠劵</option>
 								<option value="1">朋友圈抽奖</option>
+								<option value="2">其他</option>
 							</select>
 						</div>
 					</div>
