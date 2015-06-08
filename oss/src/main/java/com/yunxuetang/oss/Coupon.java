@@ -142,8 +142,8 @@ public class Coupon extends BaseController{
 		String courseid=(String) jjj.get("courseId");
 		model.addAttribute("couponDetail", getcouponDetail(id));
 		
-		model.addAttribute("courseDetail", courseDetail(courseid));
-		System.out.print(courseDetail(courseid));
+		model.addAttribute("orderList", oederDetail(id));
+		//System.out.print(courseDetail(courseid));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
@@ -591,8 +591,8 @@ public class Coupon extends BaseController{
 		
 		return getRestApiData(url);
 	} 
-	private JSONObject courseDetail(String cid) {
-		String url = Config.YXTSERVER3 + "oss/course/oneCourse?courseId="+cid;
+	private JSONObject oederDetail(String couponid) {
+		String url = Config.ORDER_SERVER + "ossorder/allOrdersBycouponid?couponid="+couponid;
 		return getRestApiData(url);
 }
 }
