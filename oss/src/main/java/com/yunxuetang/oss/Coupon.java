@@ -334,6 +334,7 @@ public class Coupon extends BaseController{
 		ModelAndView modelview = new ModelAndView();
 
 		modelview.addObject("activityList", getallactivity(pagenumber, pagelines));
+		modelview.addObject("keyword", keyword);
 		// logger.info(request.getSession().getAttribute("name")+"刷新用户列表操作的用户"+request.getSession().getAttribute("name"));
 
 		String cpath = request.getContextPath();
