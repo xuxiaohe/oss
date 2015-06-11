@@ -135,14 +135,16 @@ public class Coupon extends BaseController{
 	@RequestMapping("/couponDetail")
 	public String couponDetail(HttpServletRequest request, Model model){
 		String id = request.getParameter("id");
-		
+		String aid = request.getParameter("aid");
 		JSONObject j=getcouponDetail(id);
 		JSONObject jj=j.getJSONObject("data");
 		JSONObject jjj=jj.getJSONObject("result");
 		String courseid=(String) jjj.get("courseId");
+		System.out.println(aid);
 		model.addAttribute("couponDetail", getcouponDetail(id));
 		
 		model.addAttribute("orderList", oederDetail(id));
+		model.addAttribute("aid", aid);
 		//System.out.print(courseDetail(courseid));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
@@ -345,6 +347,31 @@ public class Coupon extends BaseController{
 		return modelview;
 	}
 	
+	/**
+	 * 根据活动ID获取红包列表
+	 * */
+	@RequestMapping("/couponListByActivity")
+	public String couponListByActivity(HttpServletRequest request, Model model){
+		String aid = request.getParameter("aid");
+		// 当前第几页
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		model.addAttribute("couponList", getCouponListByActivity(aid, pagenumber, pagelines));
+		model.addAttribute("adetail", getacrtivityDetail(aid));
+		model.addAttribute("aid", aid);
+		return "coupon/couponList";
+	}
 	
 	/**
 	 * 活动详情
@@ -449,6 +476,13 @@ public class Coupon extends BaseController{
 		return "coupon/activityList";
 	}
 	
+	/**
+	 * 根据活动ID获取红包列表
+	 * */
+	public JSONObject getCouponListByActivity(String aid, String n, String s){
+		String url = Config.HONGBAO_SERVER + "/oss/coupon/findcouponByactivity?id=" + aid + "&n=" + n + "&s="+s;
+		return getRestApiData(url);
+	}
 	
 	public JSONObject getCouponList(String userId){
 		String url = Config.HONGBAO_SERVER + "/oss/coupon/user/coupons?userid=" + userId;
