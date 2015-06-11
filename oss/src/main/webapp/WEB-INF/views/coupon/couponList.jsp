@@ -17,6 +17,8 @@
 <script src="<%=contextPath%>/resources/assets/js/bootstrap.min.js"></script>
 <link href="<%=contextPath%>/resources/assets/css/bootstrap.min.css"
 	rel="stylesheet">
+<link href="<%=contextPath%>/resources/assets/css/bootstrap-datepicker.min.css"
+	rel="stylesheet">
 <link href="<%=contextPath%>/resources/assets/css/font.css" rel="stylesheet">
 </head>
 <body>
@@ -24,6 +26,52 @@
 		<jsp:include page="header.jsp"></jsp:include>
 		<div class="panel panel-default">
 			<div class="panel-body">
+				<ol class="breadcrumb">
+				<li><a href="#">红包列表</a></li>
+				<li><a href="<%=contextPath%>/coupon/activityList">返回活动列表</a></li>
+				</ol>
+				
+				<%-- <form class="form-inline" action="<%=contextPath%>/coupon/findBycoupon" onsubmit="javascript:beforeSubmit();"
+					method="post" >
+						
+						<div class="col-xs-10">红包状态:
+							<select class="form-control" id="statusSelect" name="status" >
+								<option value="">全部红包</option>
+								<option value="0">未领取</option>
+								<option value="1">已领取</option>
+								<option value="2">已使用</option>
+								<option value="3">已作废</option>
+								<option value="4">已锁定</option>
+							</select>
+						</div>
+						<div class="col-xs-2">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="form-control">查询</button>
+						</div>
+						<br><br>
+						<div class="col-xs-6">
+							<label class="control-label" for="starttime">开始时间：</label>
+							<input type="hidden" name="startime" id="startTime" value="${starttime}"/>
+							<div class="date form_datetime controls" 
+								id="starttimeDiv">
+								<input type="text" class="form-control" value="${sStartTime}" id="starttime"
+									readonly> <span class="add-on"> <i
+									class="icon-th"></i>
+								</span>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<label class="control-label" for="endtime">结束时间：</label>
+							<input type="hidden" name="endtime" id="endTime" value="${endtime}"/>
+							<div class=" controls date form_datetime" 
+								id="endtimeDiv">
+								<input type="text" class="form-control" value="${sEndTime}" id="endtime" readonly>
+								<span class="add-on"><i class="icon-th"></i> </span>
+							</div>
+
+						</div>
+						
+					<br>
+				</form> --%>
 				<input type="hidden" id="uid">
 				<c:if test="${couponList.status == '200'}">
 					<nav> <!-- 分页开始 -->
@@ -31,7 +79,7 @@
 						<pageNation:PageNation currPage="${couponList.data.curr_page}"
 							totalPages="${couponList.data.page_rows}" perPageRows="10"
 							totalRows="${couponList.data.total_rows}"
-							linkBaseUrl="${cbasePath}coupon/couponList?">
+							linkBaseUrl="${cbasePath}couponListByActivity?aid=${aid}">
 						</pageNation:PageNation>
 					</ul>
 
@@ -51,7 +99,7 @@
 						<tbody>
 							<c:forEach items="${couponList.data.result}" var="Recourse">
 								<tr>
-									<td><a href="<%=contextPath%>/coupon/couponDetail?id=${Recourse.id}">${Recourse.cardCode}</a></td>
+									<td><a href="<%=contextPath%>/coupon/couponDetail?id=${Recourse.id}&aid=${aid}">${Recourse.cardCode}</a></td>
 									<td>${Recourse.quota}</td>
 									<td>${Recourse.userName}</td>
 									<td>
@@ -74,7 +122,7 @@
 						<pageNation:PageNation currPage="${couponList.data.curr_page}"
 							totalPages="${couponList.data.page_rows}" perPageRows="10"
 							totalRows="${couponList.data.total_rows}"
-							linkBaseUrl="${cbasePath}coupon/couponList?">
+							linkBaseUrl="${cbasePath}couponListByActivity?aid=${aid}">
 						</pageNation:PageNation>
 					</ul>
 
@@ -105,12 +153,48 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="<%=contextPath%>/resources/assets/js/bootstrap-datepicker.min.js"></script>
 	<script type="text/javascript">
+		//var today = new Date().valueOf();
+		//var start = 0;
+		//var end = 0;
 		$(function(){
-			/*if($.trim($("#tableContent").html()) == ''){
-				$("#selectBtn").click();
-			}*/
-		});
+			/*$('#starttime').datepicker({
+				format : 'yyyy-mm-dd',
+				autoclose : true,
+				todayHighlight:true,
+				todayBtn : 'linked',
+				language : 'zh-CN'
+			}).on('changeDate', function(ev) {
+				var startTime = ev.date.valueOf();
+				start = startTime;
+				if (startTime > today) {
+					alert('开始日期不能大于今天!');
+					$("#starttime").val("");
+					$("#starttime").focus();
+				}else{
+					$("#startTime").val(startTime);
+				}
+			});
+			$('#endtime').datepicker({
+				format : 'yyyy-mm-dd',
+				autoclose : true,
+				todayHighlight:true,
+				todayBtn : 'linked',
+				language : 'zh-CN'
+			}).on('changeDate', function(ev) {
+				var endTime = ev.date.valueOf();
+				end = endTime;
+				if (end < start) {
+					alert('结束日期不能早于开始日期!');
+					$("#endtime").val("");
+					$("#endtime").focus();
+				} else {
+					endTime = endTime + (60 * 60 * 24 - 1) * 1000;
+					$("#endTime").val(endTime);
+				}
+			});
+		});*/
 		/**
 		加载用户列表
 		*/

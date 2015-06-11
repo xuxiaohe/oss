@@ -24,6 +24,9 @@
 		<jsp:include page="header.jsp"></jsp:include>
 		<div class="panel panel-default">
 			<div class="panel-body">
+				<ol class="breadcrumb">
+				<li><a href="#">活动列表</a></li>
+				</ol>
 				<form class="form-inline" action="${cbasePath}coupon/activityList"
 					method="post" role="form">
 					<div class="form-group">
@@ -61,7 +64,7 @@
 						<tbody>
 							<c:forEach items="${activityList.data.result}" var="Recourse">
 								<tr>
-									<td>${Recourse.activityName}</td>
+									<td><a href="${cbasePath}coupon/couponListByActivity?aid=${Recourse.id}">${Recourse.activityName}</a></td>
 									<td>${Recourse.num}</td>
 									<td><Date:date value="${Recourse.ctime}"></Date:date></td>
 									<td><Date:date value="${Recourse.expiryDateStart}"></Date:date></td>

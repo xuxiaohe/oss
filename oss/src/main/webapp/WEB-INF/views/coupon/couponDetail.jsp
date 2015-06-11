@@ -24,9 +24,9 @@
 		<div class="container-fluid">
 			<jsp:include page="header.jsp"></jsp:include>
 			<ol class="breadcrumb">
-				<li><a href="#">优惠券管理</a></li>
-				<li><a href="${cbasePath}coupon/couponList">优惠券列表</a></li>
-				<li class="active">优惠券详情 <small> </small>
+				<li><a href="${cbasePath}coupon/activityList">活动列表</a></li>
+				<li><a href="${cbasePath}coupon/couponListByActivity?aid=${aid}">红包列表</a></li>
+				<li class="active">红包详情 <small> </small>
 				</li>
 			</ol>
 			<div class="panel panel-default">

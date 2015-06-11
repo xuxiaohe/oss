@@ -18,9 +18,9 @@
 				红包管理<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="${cbasePath}coupon/couponList">红包列表</a></li>
+				<%-- <li><a href="${cbasePath}coupon/couponList">红包列表</a></li>
 				<li><a href="${cbasePath}coupon/activityList">活动列表</a></li>
-				<li class="divider"></li>
+				<li class="divider"></li> --%>
 				<li><a href="${cbasePath}coupon/createView">创建卡券</a></li>
 			</ul>
 		</div>
