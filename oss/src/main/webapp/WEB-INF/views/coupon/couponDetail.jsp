@@ -54,7 +54,18 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-4">
-							<label>适用课程:${courseDetail.data.result.title}</label>
+							<label>适用课程:${couponDetail.data.result.courseName}</label>
+						</div>
+						<div class="col-xs-4">
+							<label>红包状态:
+										<c:choose>
+											<c:when test="${couponDetail.data.result.status==0}">未领取</c:when>
+											<c:when test="${couponDetail.data.result.status==1}">已领取</c:when>
+											<c:when test="${couponDetail.data.result.status==2}">已使用</c:when>
+											<c:when test="${couponDetail.data.result.status==3}">已作废</c:when>
+											<c:when test="${couponDetail.data.result.status==4}">已锁定</c:when>
+										</c:choose>
+							</label>
 						</div>
 					</div>
 					<hr />
