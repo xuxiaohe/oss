@@ -30,7 +30,11 @@
 				<li><a href="#">红包列表</a></li>
 				<li><a href="<%=contextPath%>/coupon/activityList">返回活动列表</a></li>
 				</ol>
-				
+				<nav>
+					<h5>活动名称:${adetail.data.result.Activity.activityName}, &nbsp;&nbsp;&nbsp;&nbsp;红包数量:${adetail.data.result.Activity.num}, &nbsp;&nbsp;已领取:${adetail.data.result.linknumber}, 
+					&nbsp;&nbsp;&nbsp;&nbsp;已使用:${adetail.data.result.usenumber}, &nbsp;&nbsp;&nbsp;&nbsp;未使用:${adetail.data.result.nousenumber}
+					, &nbsp;&nbsp;&nbsp;&nbsp;已删除:${adetail.data.result.deletenumber}</h5>
+				</nav>
 				<%-- <form class="form-inline" action="<%=contextPath%>/coupon/findBycoupon" onsubmit="javascript:beforeSubmit();"
 					method="post" >
 						
