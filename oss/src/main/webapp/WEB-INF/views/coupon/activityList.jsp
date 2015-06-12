@@ -59,6 +59,7 @@
 								<th>创建时间</th>
 								<th>开始时间</th>
 								<th>结束时间</th>
+								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -69,6 +70,7 @@
 									<td><Date:date value="${Recourse.ctime}"></Date:date></td>
 									<td><Date:date value="${Recourse.expiryDateStart}"></Date:date></td>
 									<td><Date:date value="${Recourse.expiryDateEnd}"></Date:date></td>
+									<td><a href="#" onclick="javascript:deleteCoupon('${Recourse.id}');">销毁红包</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -90,6 +92,12 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+		function deleteCoupon(aid){
+			var url = '${cbasePath}coupon/deletecoupon?activitycode=' + aid;
+			if(window.confirm('是否销毁该活动下所有的红包?')){
+				window.location.href = url;
+			}
+		}
 	</script>
 </body>
 </html>
