@@ -94,7 +94,7 @@
 						<input type="text" class="form-control" name="price" id="price" value="${courseDetail.data.result.price}" disabled="disabled" onblur="javascript:checkIsNum(this);"/>
 					</div>
 					<div class="form-group clearfix"  style="display:none;" id="scaleDiv">
-						<label for="scale">分成比例 (格式：0为没有分成，0.5为与平台各分一半，1为不与平台分成)</label>
+						<label for="scale">分成比例 (格式：0为没有分成，0.1为云学堂占一成，1为不与平台分成，必填)</label>
 						<input type="text" class="form-control" name="scale" id="scale" value="${courseDetail.data.result.scale}" >
 					</div>
 					<div class="form-group">
