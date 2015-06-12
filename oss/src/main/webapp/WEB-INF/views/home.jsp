@@ -45,7 +45,7 @@ String cbasePath2 = "http://oss.ztiao.cn/oss";
                         <a href="<%=cbasePath%>order/list" target="mainFrame"><span class="glyphicon glyphicon-star"></span>订单列表</a>
                     </li>
                     <li role="presentation">
-                        <a href="<%=cbasePath%>coupon/couponList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>卡券管理</a>
+                        <a href="<%=cbasePath%>coupon/activityList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>红包管理</a>
                     </li>
                     <li role="presentation">
                         <a href="<%=cbasePath%>user/userList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>用户管理</a>
