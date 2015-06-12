@@ -140,9 +140,7 @@ public class Coupon extends BaseController{
 		JSONObject jj=j.getJSONObject("data");
 		JSONObject jjj=jj.getJSONObject("result");
 		String courseid=(String) jjj.get("courseId");
-		System.out.println(aid);
 		model.addAttribute("couponDetail", getcouponDetail(id));
-		
 		model.addAttribute("orderList", oederDetail(id));
 		model.addAttribute("aid", aid);
 		//System.out.print(courseDetail(courseid));
