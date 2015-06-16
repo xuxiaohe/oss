@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,7 @@ import com.yunxuetang.util.Config;
 @RequestMapping("/coupon")
 public class Coupon extends BaseController{
 	
-	
+	Logger logger = LoggerFactory.getLogger(Coupon.class);
 	/**
 	 * 创建卡券页面跳转
 	 * */
@@ -93,6 +95,7 @@ public class Coupon extends BaseController{
 		m.put("ident", ident);
 		m.put("userId", username);
 		m.put("courseName", courseName);
+		logger.info(request.getSession().getAttribute("name")+"创建优惠券操作的管理员 "+request.getSession().getAttribute("name")+"===创建优惠券name"+cname+"课程ID"+courseid);
 		
 		model.addAttribute("couponlist", create(m));
 		String cpath = request.getContextPath();
@@ -454,7 +457,7 @@ public class Coupon extends BaseController{
 	
 	
 	/**
-	 * 分配红包给个人
+	 * 销毁红包
 	 * @param request
 	 * @param model
 	 * @return
@@ -463,6 +466,7 @@ public class Coupon extends BaseController{
 	public String deletecoupon(HttpServletRequest request, Model model){
 		String uid = request.getParameter("uid");
 		String activitycode = request.getParameter("activitycode");
+		logger.info(request.getSession().getAttribute("name")+"销毁红包的管理员 "+request.getSession().getAttribute("name")+"===销毁红包批次"+activitycode);
 		
 		model.addAttribute("couponDetail", deletecoupon(activitycode));
 		String cpath = request.getContextPath();

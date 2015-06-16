@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,7 @@ import com.yunxuetang.util.StringUtil;
 @Controller
 @RequestMapping("/order")
 public class Order extends BaseController {
-
+	Logger logger = LoggerFactory.getLogger(Order.class);
 	/**
 	 * 查看订单详情
 	 * */

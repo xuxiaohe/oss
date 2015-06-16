@@ -170,6 +170,10 @@
        <url-pattern>/order/*</url-pattern>  
    </filter-mapping>
    
+    <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/coupon/*</url-pattern>  
+   </filter-mapping>
    
    
    

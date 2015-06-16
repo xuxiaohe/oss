@@ -41,7 +41,7 @@
                 <ref bean="jobtask"/>
             </property>
             <!-- cron表达式 -->
-            <property name="cronExpression" value="0/5 * * * * ?" /> 
+            <property name="cronExpression" value="1 * * * * ?" /> 
             
         </bean>
         <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
