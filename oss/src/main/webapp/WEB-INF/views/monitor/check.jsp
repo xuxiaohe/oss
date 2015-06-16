@@ -26,6 +26,7 @@
 			</ol>
 			<div class="panel panel-default">
 				<div class="panel-body">
+					<h5>每30秒刷新一次系统状态, 下一次刷新时间:&nbsp;&nbsp;<span style="color:green;" id="nextTime"></span></h5>
 					<h4>纸条后台状态:
 						<c:if test="${ztiao.status=='UP'}"><span style="color:green;">正常</span></c:if>
 						<c:if test="${ztiao.status=='DOWN'}"><span style="color:red;">异常</span></c:if></h4>
@@ -247,6 +248,18 @@
 		</div>
 		<script type="text/javascript">
 			$(function(){
+				var datetime = new Date();
+				var time = datetime.getTime() + 30 * 1000;
+				datetime.setTime(time);
+				var year = datetime.getFullYear();
+				var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+				var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+				var hour = datetime.getHours()< 10 ? "0" + datetime.getHours() : datetime.getHours();
+				var minute = datetime.getMinutes()< 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+				var second = datetime.getSeconds()< 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+				var text = year + "-" + month + "-" + date+" "+hour+" : "+minute+" : "+second;
+				  
+				$("#nextTime").html(text);
 				setTimeout(function(){
 					console.log('刷新页面');
 					window.location.href='<%=contextPath%>/checkjobs/view';
