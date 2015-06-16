@@ -39,7 +39,10 @@ String cbasePath2 = "http://oss.ztiao.cn/oss";
             <div class="menu">
                 <ul id="mainMenu" class="nav nav-pills nav-stacked" role="tablist">
                     <li role="presentation" class="active">
-                        <a href="<%=cbasePath%>table/index" target="mainFrame"><span class="glyphicon glyphicon-cloud"></span>控制中心</a>
+                        <a href="<%=cbasePath%>checkjobs/view" target="mainFrame"><span class="glyphicon glyphicon-cloud"></span>控制中心</a>
+                    </li>
+                    <li role="presentation" >
+                        <a href="<%=cbasePath%>table/index" target="mainFrame"><span class="glyphicon glyphicon-star"></span>数据统计</a>
                     </li>
                     <li role="presentation">
                         <a href="<%=cbasePath%>order/list" target="mainFrame"><span class="glyphicon glyphicon-star"></span>订单列表</a>
@@ -118,7 +121,7 @@ String cbasePath2 = "http://oss.ztiao.cn/oss";
             </div>
         </div>
         <div class="col-md-10">
-            <iframe style="min-height:1600px;" id="mainFrame" name="mainFrame" class="col-md-12" src="<%=cbasePath%>table/index" frameborder="0"></iframe>
+            <iframe style="min-height:1600px;" id="mainFrame" name="mainFrame" class="col-md-12" src="<%=cbasePath%>checkjobs/view" frameborder="0"></iframe>
         </div>
     </div>
 
