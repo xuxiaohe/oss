@@ -18,32 +18,41 @@ import com.yunxuetang.util.Config;
 @RequestMapping("/checkjobs")
 public class monitorSystem extends BaseController{
 	
-	public  JSONObject HOUTAI_API=null;
-	public  JSONObject COUPON_API=null;
-	public  JSONObject ORDER_SERVER=null;
-	public  JSONObject WIKERSERVER=null;
-	public  JSONObject QDANSERVER=null;
-	public  JSONObject ZHANGDAN_API=null;
-	public  JSONObject SCHEDULE_SERVER=null;
-	public  JSONObject TAG=null;
+	public static JSONObject HOUTAI_API=null;
+	public static JSONObject COUPON_API=null;
+	public static JSONObject ORDER_SERVER=null;
+	public static JSONObject WIKERSERVER=null;
+	public static JSONObject QDANSERVER=null;
+	public static JSONObject ZHANGDAN_API=null;
+	public static JSONObject SCHEDULE_SERVER=null;
+	public static JSONObject TAG=null;
 	
 	public void checkhoutai() {
-		System.out.println("=================定时任务开始==============");
 		HOUTAI_API=sendmessage();
-		System.out.println(HOUTAI_API);
 		TAG=sendmessage2();
-		System.out.println(TAG);
 		WIKERSERVER=sendmessage3();
-		System.out.println(WIKERSERVER);
 		QDANSERVER=sendmessage4();
-		System.out.println(QDANSERVER);
 		ZHANGDAN_API=sendmessage5();
-		System.out.println(ZHANGDAN_API);
 //		COUPON_API=sendmessage6();
 //		System.out.println(COUPON_API);
 //		SCHEDULE_SERVER=sendmessage7();
 //		System.out.println(SCHEDULE_SERVER);
 		System.out.println("=================定时任务结束==============");
+	}
+	
+	@RequestMapping("view")
+	public String checkView(HttpServletRequest request, Model model){
+		model.addAttribute("ztiao", HOUTAI_API);
+		model.addAttribute("tag", TAG);
+		model.addAttribute("order", ZHANGDAN_API);
+		model.addAttribute("qdan", QDANSERVER);
+		model.addAttribute("wiker", WIKERSERVER);
+		
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "monitor/check";
 	}
 	
 	
