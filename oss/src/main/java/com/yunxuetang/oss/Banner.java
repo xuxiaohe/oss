@@ -44,6 +44,7 @@ public class Banner extends BaseController {
 		ModelAndView modelview = new ModelAndView();
 		logger.info(request.getSession().getAttribute("name")+"刷新广告位的管理员 "+request.getSession().getAttribute("name"));
 		modelview.addObject("BannerList", BannerList(keyword, n, s,adId));
+		modelview.addObject("adId", adId);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
