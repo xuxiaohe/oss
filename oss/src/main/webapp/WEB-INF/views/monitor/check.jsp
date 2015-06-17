@@ -27,7 +27,7 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<h5>每30秒刷新一次系统状态, 下一次刷新时间:&nbsp;&nbsp;<span style="color:green;" id="nextTime"></span></h5>
-					<h4>纸条后台状态:
+					<h4>纸条后台(192.168.100.2:8081)状态:
 						<c:if test="${ztiao.status=='UP'}"><span style="color:green;">正常</span></c:if>
 						<c:if test="${ztiao.status=='DOWN'}"><span style="color:red;">异常</span></c:if></h4>
 					<table class="table  table-hover">
@@ -67,7 +67,7 @@
 					</table>
 					<br>
 					
-					<h4>订单服务状态:
+					<h4>订单服务(192.168.100.5:8361)状态:
 						<c:if test="${order.status=='UP'}"><span style="color:green;">正常</span></c:if>
 						<c:if test="${order.status=='DOWN'}"><span style="color:red;">异常</span></c:if></h4>
 					<table class="table  table-hover">
@@ -107,7 +107,7 @@
 					</table>
 					
 					<br/>
-					<h4>标签服务状态:
+					<h4>标签服务(bj.tag.ztiao.cn:8161)状态:
 						<c:if test="${tag.status=='UP'}"><span style="color:green;">正常</span></c:if>
 						<c:if test="${tag.status=='DOWN'}"><span style="color:red;">异常</span></c:if></h4>
 					<table class="table  table-hover">
@@ -147,7 +147,7 @@
 					</table>
 					
 					<br/>
-					<h4>微课服务状态:
+					<h4>微课服务(bj.api.wiker.ztiao.cn:8061)状态:
 						<c:if test="${wiker.status=='DOWN'}"><span style="color:green;">正常</span></c:if>
 						<c:if test="${wiker.status=='UP'}"><span style="color:red;">异常</span></c:if></h4>
 					<table class="table  table-hover">
@@ -187,7 +187,7 @@
 					</table>
 					
 					<br/>
-					<h4>轻单服务状态:
+					<h4>轻单服务(bj.api.qd.ztiao.cn:8071)状态:
 						<c:if test="${qdan.status=='DOWN'}"><span style="color:green;">正常</span></c:if>
 						<c:if test="${qdan.status=='UP'}"><span style="color:red;">异常</span></c:if></h4>
 					<table class="table  table-hover">
