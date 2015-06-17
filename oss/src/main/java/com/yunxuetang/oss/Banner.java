@@ -26,6 +26,10 @@ public class Banner extends BaseController {
 	@RequestMapping("/bannerlist")
 	public ModelAndView bannerListView(HttpServletRequest request) {
 		String keyword = request.getParameter("keyword");
+		String adId = request.getParameter("adId");
+		if(adId==null){
+			adId="0";
+		}
 		// 当前第几页
 		String n = request.getParameter("n");
 		if (n == null) {
@@ -39,7 +43,7 @@ public class Banner extends BaseController {
 		}
 		ModelAndView modelview = new ModelAndView();
 		logger.info(request.getSession().getAttribute("name")+"刷新广告位的管理员 "+request.getSession().getAttribute("name"));
-		modelview.addObject("BannerList", BannerList(keyword, n, s));
+		modelview.addObject("BannerList", BannerList(keyword, n, s,adId));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
@@ -348,10 +352,10 @@ public class Banner extends BaseController {
 		return "banner/bannermodify";
 	}
 
-	private JSONObject BannerList(String keyword, String n, String s) {
+	private JSONObject BannerList(String keyword, String n, String s,String adId) {
 		String url = null;
 		if (keyword == null) {
-			url = Config.YXTSERVER3 + "oss/ztiaoad/searchAd?n=" + n + "&s=" + s;
+			url = Config.YXTSERVER3 + "oss/ztiaoad/searchAd?n=" + n + "&s=" + s+"&adId="+adId;
 		} else {
 			url = Config.YXTSERVER3 + "oss/ztiaoad/searchAd?n=" + n + "&s=" + s
 					+ "&keywords=" + keyword;
