@@ -33,7 +33,7 @@
 				<nav>
 					<h5>活动名称:${adetail.data.result.Activity.activityName}, &nbsp;&nbsp;&nbsp;&nbsp;红包数量:${adetail.data.result.Activity.num}, &nbsp;&nbsp;已领取:${adetail.data.result.linknumber}, 
 					&nbsp;&nbsp;&nbsp;&nbsp;已使用:${adetail.data.result.usenumber}, &nbsp;&nbsp;&nbsp;&nbsp;未使用:${adetail.data.result.nousenumber}
-					, &nbsp;&nbsp;&nbsp;&nbsp;已删除:${adetail.data.result.deletenumber}</h5>
+					, &nbsp;&nbsp;&nbsp;&nbsp;已删除:${adetail.data.result.deletenumber}, &nbsp;&nbsp;&nbsp;&nbsp;已锁定:${adetail.data.result.locknumber}</h5>
 				</nav>
 				<%-- <form class="form-inline" action="<%=contextPath%>/coupon/findBycoupon" onsubmit="javascript:beforeSubmit();"
 					method="post" >
