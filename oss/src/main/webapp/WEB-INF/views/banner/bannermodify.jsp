@@ -43,12 +43,22 @@
 					<input type="hidden" name="dryCargoId" id="dryCargoId" value="${ad.data.result.dryCargoId}"/>
 					<input type="hidden" name="groupCourseId" id="groupCourseId" value="${ad.data.result.groupCourseId}"/>
 					<input type="hidden" name="courseId" id="courseId" value="${ad.data.result.courseId}"/> 
-					<input type="hidden" name="adId" value="0"/>
 					<input type="hidden" name="adSellerName" id="adSellerName" value="${ad.data.result.adSellerName}"/>
 					<input type="hidden" name="adSellerId" id="adSellerId" value="${ad.data.result.adSellerId}"/>
 					<div class="form-group">
 						<label for="exampleInputEmail1">名称:</label> <input type="text" name="name" value="${ad.data.result.name}"
 							class="form-control" />
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail1">类型: &nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<label class="radio-inline"> <input type="radio"
+							name="adId"  value="0" checked>
+							APP首页
+						</label> <label class="radio-inline"> <input type="radio"
+							name="adId"  value="1" >
+							探索页
+						</label>
+
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">类型: &nbsp;&nbsp;&nbsp;&nbsp;</label>
@@ -175,7 +185,14 @@
 				设置radio的初始属性
 			*/
 			var adSid = '${ad.data.result.adSid}';
+			var adId = '${ad.data.result.adId}';
 			var bannerType = ${ad.data.result.effective};
+			if(adId != '1'){
+				$("input[name='adId'][value='0']").attr("checked",true); 
+			}else{
+				$("input[name='adId'][value='1']").attr("checked",true); 
+			}
+			
 			if(adSid == '10'){
 				$("input[name='adSid'][value='10']").attr("checked",true); 
 			}else{

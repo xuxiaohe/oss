@@ -42,12 +42,22 @@
 					<input type="hidden" name="dryCargoId" id="dryCargoId" value=""/>
 					<input type="hidden" name="groupCourseId" id="groupCourseId" value=""/>
 					<input type="hidden" name="courseId" id="courseId" value=""/> 
-					<input type="hidden" name="adId" value="0"/>
 					<input type="hidden" name="adSellerName" id="adSellerName"/>
 					<input type="hidden" name="adSellerId" id="adSellerId"/>
 					<div class="form-group">
 						<label for="exampleInputEmail1">名称:</label> <input type="text" name="name"
 							class="form-control" />
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail1">类型: &nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<label class="radio-inline"> <input type="radio"
+							name="adId"  value="0" checked>
+							APP首页
+						</label> <label class="radio-inline"> <input type="radio"
+							name="adId"  value="1" >
+							探索页
+						</label>
+
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">类型: &nbsp;&nbsp;&nbsp;&nbsp;</label>

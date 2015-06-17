@@ -18,8 +18,10 @@
 				Banner管理 <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="<%=cpath%>/banner/createView">创建Banner</a></li>
+				<li><a href="<%=cpath%>/banner/bannerlist?adId=0">APP首页Banner</a></li>
+				<li><a href="<%=cpath%>/banner/bannerlist?adId=1">探索页Banner</a></li>
 				<li class="divider"></li>
+				<li><a href="<%=cpath%>/banner/createView">创建Banner</a></li>
 			</ul>
 		</div>
 	</div>

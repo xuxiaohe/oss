@@ -24,6 +24,14 @@
 		<jsp:include page="header.jsp"></jsp:include>
 		<div class="panel panel-default">
 			<div class="panel-body">
+				<ol class="breadcrumb">
+					<c:if test="${adId=='0' || adId == null}">
+						<li>APP首页广告列表</li>
+					</c:if>
+					<c:if test="${adId=='1'}">
+						<li>探索页页广告列表</li>
+					</c:if>
+				</ol>
 				<%-- <form class="form-inline" action="${cbasePath}banner/bannerlist"
 					method="get" role="form">
 					<div class="form-group">
@@ -41,7 +49,7 @@
 						<pageNation:PageNation currPage="${BannerList.data.curr_page}"
 							totalPages="${BannerList.data.page_rows}" perPageRows="10"
 							totalRows="${BannerList.data.total_rows}"
-							linkBaseUrl="${cbasePath}banner/bannerlist?">
+							linkBaseUrl="${cbasePath}banner/bannerlist?adId=${adId}">
 						</pageNation:PageNation>
 					</ul>
 
@@ -71,8 +79,16 @@
 										class="pull-right">注册时间：<Date:date
 												value="${Recourse.ctime}"></Date:date></small></small>
 								</h4>
-							&nbsp&nbsp广告位名称：${Recourse.name} &nbsp&nbsp&nbsp&nbsp广告位置序列：${Recourse.index+1}
+							&nbsp&nbsp广告位名称：${Recourse.name} &nbsp;&nbsp;&nbsp;&nbsp;广告位置序列：${Recourse.index+1}
 							<br>
+							广告位置:
+							<c:if test="${adId=='0' || adId == null}">
+								APP首页
+							</c:if>
+							<c:if test="${adId=='1'}">
+								探索页
+							</c:if>
+							
 							<c:if test="${Recourse.adSid=='0'}">  
 							&nbsp&nbsp位置：站内   
 							</c:if>
@@ -91,11 +107,11 @@
 							
 								<div class="col-xs-12 btn-group-sm">
 								<c:if test="${Recourse.index!=0}">  
-								<a href="${cbasePath}banner/movebanner?currindex=${Recourse.index}&state=0">
+								<a href="${cbasePath}banner/movebanner?currindex=${Recourse.index}&state=0&adId=${adId}">
 									<button  type="button"
 										class="up btn btn-primary">位置上移</button></a></c:if>
 							    <c:if test="${Recourse.index != (BannerList.data.result.counts)-1}"> 
-									<a href="${cbasePath}banner/movebanner?currindex=${Recourse.index}&state=1">	
+									<a href="${cbasePath}banner/movebanner?currindex=${Recourse.index}&state=1&adId=${adId}">	
 										<button  type="button"
 										class="down btn btn-primary">位置下移</button></a></c:if>
 								</div>
@@ -108,7 +124,7 @@
 						<pageNation:PageNation currPage="${BannerList.data.curr_page}"
 							totalPages="${BannerList.data.page_rows}" perPageRows="10"
 							totalRows="${BannerList.data.total_rows}"
-							linkBaseUrl="${cbasePath}banner/bannerlist?">
+							linkBaseUrl="${cbasePath}banner/bannerlist?adId=${adId}">
 						</pageNation:PageNation>
 					</ul>
 
