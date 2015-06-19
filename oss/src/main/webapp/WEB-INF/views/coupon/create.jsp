@@ -42,7 +42,7 @@
 					</div>
 					<div class="row form-group">
 						<div class="col-xs-6">
-							<label for="cardHeader" >卡号开头</label>
+							<label for="cardHeader" >卡号开头(例如：CC20150604)</label>
 							<input type="text" class="form-control" name="cardhead" id="cardHeader"/>
 						</div>
 						<div class="col-xs-6">
@@ -52,8 +52,8 @@
 					</div>
 					<div class="row form-group">
 						<div class="col-xs-6">
-							<label for="">开始时间</label>
-							<input type="text" class="form-control"  id="starttime" /> <label for="">结束时间</label>
+							<label for="">开始时间(选择日期的0点开始)</label>
+							<input type="text" class="form-control"  id="starttime" /> <label for="">结束时间(选择日期的23点59分结束)</label>
 							<input type="text" class="form-control"  id="endtime"/>
 							
 							<input type="hidden" class="form-control" name="exdatestart" id="exdatestart" />
@@ -66,8 +66,8 @@
 						<div class="col-xs-6">
 							<label>红包类型</label>
 							<select class="form-control" name="ident">
-								<option value="0">注册即送优惠劵</option>
-								<option value="1">朋友圈抽奖</option>
+								<option value="0">用户主动领取</option>
+								<option value="1">系统发放</option>
 								<option value="2">其他</option>
 							</select>
 						</div>
