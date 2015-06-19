@@ -70,7 +70,7 @@
 									<td><Date:date value="${Recourse.ctime}"></Date:date></td>
 									<td><Date:date value="${Recourse.expiryDateStart}"></Date:date></td>
 									<td><Date:date value="${Recourse.expiryDateEnd}"></Date:date></td>
-									<td><a href="#" onclick="javascript:deleteCoupon('${Recourse.id}');">销毁红包</a></td>
+									<td><a href="#" onclick="javascript:deleteCoupon('${Recourse.activityCode}');">销毁红包</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
