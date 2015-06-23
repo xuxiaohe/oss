@@ -354,6 +354,7 @@ public class Coupon extends BaseController{
 	@RequestMapping("/couponListByActivity")
 	public String couponListByActivity(HttpServletRequest request, Model model){
 		String aid = request.getParameter("aid");
+		String status = request.getParameter("status");
 		// 当前第几页
 		String pagenumber = request.getParameter("n");
 
@@ -368,7 +369,7 @@ public class Coupon extends BaseController{
 		if (pagelines == null) {
 			pagelines = "10";
 		}
-		model.addAttribute("couponList", getCouponListByActivity(aid, pagenumber, pagelines));
+		model.addAttribute("couponList", getCouponListByActivity(aid, status,pagenumber, pagelines));
 		model.addAttribute("adetail", getacrtivityDetail(aid));
 		model.addAttribute("aid", aid);
 		return "coupon/couponList";
@@ -481,8 +482,12 @@ public class Coupon extends BaseController{
 	/**
 	 * 根据活动ID获取红包列表
 	 * */
-	public JSONObject getCouponListByActivity(String aid, String n, String s){
-		String url = Config.HONGBAO_SERVER + "/oss/coupon/findcouponByactivity?id=" + aid + "&n=" + n + "&s="+s;
+	public JSONObject getCouponListByActivity(String aid,String status, String n, String s){
+		String url ="";
+		if(status==null||"".equals(status)){
+			 url = Config.HONGBAO_SERVER + "/oss/coupon/findcouponByactivity?id=" + aid + "&n=" + n + "&s="+s;
+		}
+		 url = Config.HONGBAO_SERVER + "/oss/coupon/findcouponByactivity?id=" + aid + "&n=" + n + "&s="+s+ "&status="+status;
 		return getRestApiData(url);
 	}
 	
