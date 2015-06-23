@@ -33,7 +33,7 @@
 				<nav>
 					<h5>活动名称:${adetail.data.result.Activity.activityName}, 
 					&nbsp;&nbsp;&nbsp;&nbsp;红包数量:<a href="${cbasePath}couponListByActivity?aid=${aid}">${adetail.data.result.Activity.num}</a>, 
-					&nbsp;&nbsp;&nbsp;&nbsp;已领取:<a href="${cbasePath}couponListByActivity?aid=${aid}&status=1">${adetail.data.result.linknumber}</a>, 
+					&nbsp;&nbsp;&nbsp;&nbsp;已领取但未使用:<a href="${cbasePath}couponListByActivity?aid=${aid}&status=1">${adetail.data.result.linknumber}</a>, 
 					&nbsp;&nbsp;&nbsp;&nbsp;已使用:<a href="${cbasePath}couponListByActivity?aid=${aid}&status=2">${adetail.data.result.usenumber}</a>, 
 					&nbsp;&nbsp;&nbsp;&nbsp;未使用:<a href="${cbasePath}couponListByActivity?aid=${aid}&status=0">${adetail.data.result.nousenumber}</a>, 
 					&nbsp;&nbsp;&nbsp;&nbsp;已删除:<a href="${cbasePath}couponListByActivity?aid=${aid}&status=3">${adetail.data.result.deletenumber}</a>, 
