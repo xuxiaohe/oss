@@ -372,6 +372,7 @@ public class Coupon extends BaseController{
 		model.addAttribute("couponList", getCouponListByActivity(aid, status,pagenumber, pagelines));
 		model.addAttribute("adetail", getacrtivityDetail(aid));
 		model.addAttribute("aid", aid);
+		model.addAttribute("status", status);
 		return "coupon/couponList";
 	}
 	
