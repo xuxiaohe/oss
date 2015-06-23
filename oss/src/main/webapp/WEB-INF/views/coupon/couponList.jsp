@@ -31,9 +31,13 @@
 				<li><a href="<%=contextPath%>/coupon/activityList">返回活动列表</a></li>
 				</ol>
 				<nav>
-					<h5>活动名称:${adetail.data.result.Activity.activityName}, &nbsp;&nbsp;&nbsp;&nbsp;红包数量:${adetail.data.result.Activity.num}, &nbsp;&nbsp;已领取:${adetail.data.result.linknumber}, 
-					&nbsp;&nbsp;&nbsp;&nbsp;已使用:${adetail.data.result.usenumber}, &nbsp;&nbsp;&nbsp;&nbsp;未使用:${adetail.data.result.nousenumber}
-					, &nbsp;&nbsp;&nbsp;&nbsp;已删除:${adetail.data.result.deletenumber}, &nbsp;&nbsp;&nbsp;&nbsp;已锁定:${adetail.data.result.locknumber}</h5>
+					<h5>活动名称:${adetail.data.result.Activity.activityName}, 
+					&nbsp;&nbsp;&nbsp;&nbsp;红包数量:<a href="${cbasePath}couponListByActivity?aid=${aid}">${adetail.data.result.Activity.num}</a>, 
+					&nbsp;&nbsp;&nbsp;&nbsp;已领取:<a href="${cbasePath}couponListByActivity?aid=${aid}&status=1">${adetail.data.result.linknumber}</a>, 
+					&nbsp;&nbsp;&nbsp;&nbsp;已使用:<a href="${cbasePath}couponListByActivity?aid=${aid}&status=2">${adetail.data.result.usenumber}</a>, 
+					&nbsp;&nbsp;&nbsp;&nbsp;未使用:<a href="${cbasePath}couponListByActivity?aid=${aid}&status=0">${adetail.data.result.nousenumber}</a>, 
+					&nbsp;&nbsp;&nbsp;&nbsp;已删除:<a href="${cbasePath}couponListByActivity?aid=${aid}&status=3">${adetail.data.result.deletenumber}</a>, 
+					&nbsp;&nbsp;&nbsp;&nbsp;已锁定:<a href="${cbasePath}couponListByActivity?aid=${aid}&status=4">${adetail.data.result.locknumber}</a></h5>
 				</nav>
 				<%-- <form class="form-inline" action="<%=contextPath%>/coupon/findBycoupon" onsubmit="javascript:beforeSubmit();"
 					method="post" >
@@ -83,7 +87,7 @@
 						<pageNation:PageNation currPage="${couponList.data.curr_page}"
 							totalPages="${couponList.data.page_rows}" perPageRows="10"
 							totalRows="${couponList.data.total_rows}"
-							linkBaseUrl="${cbasePath}couponListByActivity?aid=${aid}">
+							linkBaseUrl="${cbasePath}couponListByActivity?aid=${aid}&status=${status}">
 						</pageNation:PageNation>
 					</ul>
 
@@ -126,7 +130,7 @@
 						<pageNation:PageNation currPage="${couponList.data.curr_page}"
 							totalPages="${couponList.data.page_rows}" perPageRows="10"
 							totalRows="${couponList.data.total_rows}"
-							linkBaseUrl="${cbasePath}couponListByActivity?aid=${aid}">
+							linkBaseUrl="${cbasePath}couponListByActivity?aid=${aid}&status=${status}">
 						</pageNation:PageNation>
 					</ul>
 
