@@ -28,7 +28,7 @@ public class Order extends BaseController {
 		
 		String oid = request.getParameter("oid");
 		
-		
+		model.addAttribute("orderDetail", getOrderDetail(oid));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
@@ -259,6 +259,13 @@ public class Order extends BaseController {
 	private JSONObject getOrderBycourse(String cid) {
 		String url = Config.ORDER_SERVER
 				+ "/ossorder/countAllcourseOrdersPrice?cid=" + cid;
+		return getRestApiData(url);
+	}
+	
+	
+	private JSONObject getOrderDetail(String oid) {
+		String url = Config.ORDER_SERVER
+				+ "/ossorder/orderDetail?orderId=" + oid;
 		return getRestApiData(url);
 	}
 	
