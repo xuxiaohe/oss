@@ -488,7 +488,10 @@ public class Coupon extends BaseController{
 		if(status==null||"".equals(status)){
 			 url = Config.HONGBAO_SERVER + "/oss/coupon/findcouponByactivity?id=" + aid + "&n=" + n + "&s="+s;
 		}
-		 url = Config.HONGBAO_SERVER + "/oss/coupon/findcouponByactivity?id=" + aid + "&n=" + n + "&s="+s+ "&status="+status;
+		else{
+			url = Config.HONGBAO_SERVER + "/oss/coupon/findcouponByactivity?id=" + aid + "&n=" + n + "&s="+s+ "&status="+status;
+		}
+		 
 		return getRestApiData(url);
 	}
 	
