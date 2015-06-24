@@ -302,6 +302,9 @@ public class course extends BaseController {
 		String cid = request.getParameter("cid");
 		String title = request.getParameter("title");
 		String intro = request.getParameter("intro");
+		if(!("".equals(intro))||intro!=null){
+			intro=intro.replace("，", ",");
+		}
 		String categoryId = request.getParameter("categoryId");
 		String childCategoryId = request.getParameter("childCategoryId");
 		String tagNames = request.getParameter("tagNames");

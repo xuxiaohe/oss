@@ -216,18 +216,6 @@ public class dry extends BaseController {
 
 		String tagName = request.getParameter("tagName");
 
-		String tagNameArry[] = tagName.split(",");
-
-		List<String> ll= new ArrayList<String>();
-
-		for (String a : tagNameArry) {
-
-			ll.add("\"" + a + "\"");
-
-		}
-
-		String i = ll.toString();
-		
 		
 		if("null".equals(fileUrl)){
 			fileUrl="";
@@ -239,9 +227,15 @@ public class dry extends BaseController {
 		if("null".equals(message)){
 			message="";
 		}
+		if(!("".equals(message))||message!=null){
+			message=message.replace("，", ",");
+		}
 		String description = request.getParameter("description");
 		if("null".equals(description)){
 			description="";
+		}
+		if(!("".equals(description))||description!=null){
+			description=description.replace("，", ",");
 		}
 		
 		/**
@@ -474,8 +468,14 @@ public class dry extends BaseController {
 		
 		
 		String message = request.getParameter("message");
+		if(!("".equals(message))||message!=null){
+			message = message.replace("，", ",");
+		}
 		// 干货的抓取的描述
 		String description = request.getParameter("description");
+		if(!("".equals(description))||description!=null){
+			description = description.replace("，", ",");
+		}
 		// 干货与炫页标示，0干货1炫页
 		String dryFlag = "0";
 

@@ -206,23 +206,20 @@ public class topic extends BaseController {
 		String tagName = request.getParameter("tagName");
 		if (tagName == null) {
 			tagName = "";
-		} else {
-			String tagNameArry[] = tagName.split(",");
-			List l = new ArrayList();
-			for (String a : tagNameArry) {
-				l.add("\"" + a + "\"");
-			}
-			tagName = l.toString();
-		}
+		}  
+		
 		String content = request.getParameter("content");
 		if (content == null) {
 			content = "";
 		}
-		else{
-			Pattern p = Pattern.compile("\\</br\\>");
-			Matcher m =p.matcher(content);
-			String strnew= m.replaceAll("/r/n");
+		if(!("".equals(content))||content!=null){
+			content=content.replace("，", ",");
 		}
+//		else{
+//			Pattern p = Pattern.compile("\\</br\\>");
+//			Matcher m =p.matcher(content);
+//			String strnew= m.replaceAll("/r/n");
+//		}
 		String picUrl = "";
 		if (courseImg != null && courseImg.length > 0) {
 			picUrl = courseImg[0];
@@ -365,6 +362,9 @@ public class topic extends BaseController {
 		String content = request.getParameter("content");
 		if("null".equals(content)){
 			content="";
+		}
+		if(!("".equals(content))||content!=null){
+			content=content.replace("，", ",");
 		}
 		//String picUrl = request.getParameter("picUrl");
 		String imgJson = "";
