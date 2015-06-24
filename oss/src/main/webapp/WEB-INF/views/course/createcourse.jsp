@@ -214,7 +214,9 @@ function upload(s){
 	<div class="form-group clearfix">
 		<div class="h4">课程简介</div>
 		<div class="col-xs-10 col-sm-6 col-md-4">
-			<div class="row"><input type="text" id="intro" class="form-control" /></div>
+			<div class="row">
+				<textarea name="intro" class="form-control" rows="3" cols="20" ></textarea>
+			</div>
 		</div>
 	</div>
 	<div class="form-group clearfix">

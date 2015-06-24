@@ -79,9 +79,8 @@
 					</div>
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">课程信息</label> <input type="text"
-							name="intro" class="form-control" id="exampleInputEmail1"
-							value="${courseDetail.data.result.intro } " placeholder="">
+						<label for="exampleInputEmail1">课程信息</label>
+						<textarea name="intro" class="form-control" rows="3" cols="20" value="${courseDetail.data.result.intro } ">${courseDetail.data.result.intro } </textarea>
 					</div>
 					<div class="form-group clearfix">
 						<label for="pricemodel">付费模式:</label>
