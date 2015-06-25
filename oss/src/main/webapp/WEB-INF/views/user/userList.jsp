@@ -27,6 +27,16 @@
 						<label class="sr-only" for="keyword">Search:</label> <input
 							class="form-control" id="keyword" name="keyword"
 							placeholder="Enter keyword" value="${keyword }">
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<select class="form-control" name="registType" id="registType">
+							<option >全部用户</option>
+							<option value="01">手机注册用户</option>
+							<option value="02">邮箱注册用户</option>
+							<option value="11">QQ第三方登录</option>
+							<option value="12">微信第三方登录</option>
+							<option value="13">新浪微博第三方登录</option>
+						</select>
+						&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
 
 					<button id="searchIt" type="submit" class="btn btn-default">Search
@@ -38,7 +48,7 @@
 						<pageNation:PageNation currPage="${resuserList.data.curr_page}"
 							totalPages="${resuserList.data.page_rows}" perPageRows="10"
 							totalRows="${resuserList.data.total_rows}"
-							linkBaseUrl="${cbasePath}user/userList?">
+							linkBaseUrl="${cbasePath}user/userList?keyword=${keyword}&registType=${registType}">
 						</pageNation:PageNation>
 					</ul>
 
@@ -124,7 +134,7 @@
 						<pageNation:PageNation currPage="${resuserList.data.curr_page}"
 							totalPages="${resuserList.data.page_rows}" perPageRows="10"
 							totalRows="${resuserList.data.total_rows}"
-							linkBaseUrl="${cbasePath}user/userList?">
+							linkBaseUrl="${cbasePath}user/userList?keyword=${keyword}&registType=${registType}">
 						</pageNation:PageNation>
 					</ul>
 
@@ -138,7 +148,7 @@
 			/* $("#searchIt").click(function(){
 				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
 			}); */
-			
+			$("#registType option[value='${registType}']").attr("selected", true);
 			$(".deleteBtn").click(function(){
 				if(window.confirm('你确定要删除吗？')){
 					alert("${cbasePath}user/deleteUser?userid="+$(this).attr("data"));
