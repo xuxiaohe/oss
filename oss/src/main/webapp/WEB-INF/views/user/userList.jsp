@@ -28,7 +28,7 @@
 							class="form-control" id="keyword" name="keyword"
 							placeholder="Enter keyword" value="${keyword }">
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<select class="form-control" name="registType" id="registType">
+						<select class="form-control" name="registType" id="registType" onchange="javascript:selectUserType(this);">
 							<option >全部用户</option>
 							<option value="01">手机注册用户</option>
 							<option value="02">邮箱注册用户</option>
@@ -144,6 +144,10 @@
 		</div>
 	</div>
 	<script>
+		function selectUserType(obj){
+			var type = $(obj).val();
+			window.location.href= '${cbasePath}user/userListkeyword=' + encodeURI($("#keyword").val()) + '&registType=' + type;
+		}
 		$(function() {
 			/* $("#searchIt").click(function(){
 				window.location.href = "${cbasePath}user/userList?keyword="+encodeURI($("#keyword").val());
