@@ -61,6 +61,13 @@ public class user extends BaseController {
 		if (keyword == null) {
 			keyword = "";
 		}
+		
+		
+		String registType = request.getParameter("registType");
+
+		if (registType == null) {
+			registType = "";
+		}
 
 		// 当前第几页
 		String pagenumber = request.getParameter("n");
@@ -79,9 +86,9 @@ public class user extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-		getUserList(keyword, pagenumber, pagelines);
+		//getUserList(keyword, pagenumber, pagelines);
 
-		JSONObject objj = getUserList(keyword, pagenumber, pagelines);
+		JSONObject objj = getUserList(keyword,registType, pagenumber, pagelines);
 		modelview.addObject("resuserList", objj);
 		//logger.info(request.getSession().getAttribute("name")+"刷新用户列表操作的用户"+request.getSession().getAttribute("name"));
 		String s = objj.getString("msg");
@@ -135,7 +142,7 @@ public class user extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-		getUserList(keyword, pagenumber, pagelines);
+		//getUserList(keyword, pagenumber, pagelines);
 
 		JSONObject objj = getUserNickNameList(keyword, pagenumber, pagelines);
 		modelview.addObject("resuserList", objj);
@@ -188,7 +195,7 @@ public class user extends BaseController {
 
 		ModelAndView modelview = new ModelAndView();
 
-		getUserList(keyword, pagenumber, pagelines);
+		//getUserList(keyword, pagenumber, pagelines);
 
 		JSONObject objj = findRoboit(keyword, pagenumber, pagelines);
 		modelview.addObject("resuserList", objj);
@@ -1030,8 +1037,8 @@ public class user extends BaseController {
 	}
 	 
 
-	private JSONObject getUserList(String keyword, String n, String s) {
-		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&keyword=" + keyword;
+	private JSONObject getUserList(String keyword,String registType, String n, String s) {
+		String url = Config.YXTSERVER3 + "oss/user/searchbyinfo?n=" + n + "&s=" + s + "&keyword=" + keyword+ "&registType=" + registType;
 		return getRestApiData(url);
 	}
 	
