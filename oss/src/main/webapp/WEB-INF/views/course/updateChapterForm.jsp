@@ -52,7 +52,11 @@
 						<label for="exampleInputEmail1">序号</label>
 						<input type="text"  id="order${lessons.id}" value="${lessons.order}">
 						<label for="exampleInputEmail1">是否可看</label>
-						<input type="text"  id="isbuy${lessons.id}" value="${lessons.isbuy}">
+						<select id="isbuy${lessons.id}">
+							<option value="1">是</option>
+							<option value="0">否</option>
+						</select>
+						<%-- <input type="text"  id="isbuy${lessons.id}" value="${lessons.isbuy}"> --%>
 						<input type="button" onclick="updateLesson('${lessons.id}')" value="保存课时">
 						<%-- <div>
 							<label style="background: yellow" for="exampleInputEmail1">知识名称</label>
