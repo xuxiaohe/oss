@@ -51,6 +51,8 @@
 						<input type="text"  id="title${lessons.id}" value="${lessons.title}">
 						<label for="exampleInputEmail1">序号</label>
 						<input type="text"  id="order${lessons.id}" value="${lessons.order}">
+						<label for="exampleInputEmail1">是否可看</label>
+						<input type="text"  id="isbuy${lessons.id}" value="${lessons.isbuy}">
 						<input type="button" onclick="updateLesson('${lessons.id}')" value="保存课时">
 						<%-- <div>
 							<label style="background: yellow" for="exampleInputEmail1">知识名称</label>
@@ -91,7 +93,7 @@
 		function updateLesson(id){
 			$.ajax({
 				url : '${cbasePath}course/updateLesson',
-				data : {'id' : $("#id"+id).val(),'title':$("#title"+id).val(),'order':$("#order"+id).val()},
+				data : {'id' : $("#id"+id).val(),'title':$("#title"+id).val(),'order':$("#order"+id).val(),'isbuy':$("#isbuy"+id).val()},
 				type : 'post',
 				dataType : 'json',
 				success : function(result){

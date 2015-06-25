@@ -278,12 +278,14 @@ public class course extends BaseController {
 		String id = request.getParameter("id");
 		String title = request.getParameter("title");
 		String order = request.getParameter("order");
+		String isbuy = request.getParameter("isbuy");
 		logger.info(request.getSession().getAttribute("name")+"更新课程课时操作的管理员 "+request.getSession().getAttribute("name")+"===课时id"+id);
 		String url = Config.YXTSERVER3 + "oss/course/modifyLesson";
 		Map<String, Object> params=new HashMap<String, Object>();
 		params.put("id", id);
 		params.put("title", title);
 		params.put("order", order);
+		params.put("isbuy", isbuy);
 		return HttpUtil.sendPost(url, params);
 		
 	}
