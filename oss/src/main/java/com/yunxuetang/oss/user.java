@@ -99,6 +99,7 @@ public class user extends BaseController {
 		modelview.addObject("cbasePath", cbasePath);
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		modelview.addObject("keyword", keyword);
+		modelview.addObject("registType", registType);
 		modelview.setViewName("user/userList");
 		return modelview;
 	}
