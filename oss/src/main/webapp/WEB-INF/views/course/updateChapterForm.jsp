@@ -28,14 +28,14 @@
 			<li><a href="#">课程仓库</a></li>
 			<li><a href="${cbasePath}course/courseList">课程列表</a></li>
 			<li><a
-				href="${cbasePath}course/courseDetail?cid=${courseDetail.data.result.id}">课程详情
+				href="${cbasePath}course/courseDetail?cid=${cid}">课程详情
 
 			</a></li>
 			<li class="active">课程编辑</li>
 		</ol>
 
 		<div class="row">
-			<div class="col-xs-9">
+			<div class="col-xs-12">
 			<c:forEach items="${chapters}" varStatus="key" var="Recourse">
 			<div>
 				<label style="background: red" for="exampleInputEmail1">章节名称</label>
@@ -51,7 +51,12 @@
 						<input type="text"  id="title${lessons.id}" value="${lessons.title}">
 						<label for="exampleInputEmail1">序号</label>
 						<input type="text"  id="order${lessons.id}" value="${lessons.order}">
-						<label for="exampleInputEmail1">是否可看</label>
+						<label for="exampleInputEmail1">是否可看:</label>
+						&nbsp;&nbsp;
+						<c:if test="${lessons.isbuy==0}">否</c:if>
+						<c:if test="${lessons.isbuy!=1}">是</c:if>
+						&nbsp;&nbsp;
+						修改:
 						<select id="isbuy${lessons.id}">
 							<option value="1">是</option>
 							<option value="0">否</option>
@@ -89,6 +94,7 @@
 				success : function(result){
 					if(result.data.result==true){
 						alert("修改成功！");
+						window.location.href = '${cbasePath}course/updateChapterView?cid=${cid}';
 					}
 				}
 			});
@@ -103,6 +109,7 @@
 				success : function(result){
 					if(result.data.result==true){
 						alert("修改成功！");
+						window.location.href = '${cbasePath}course/updateChapterView?cid=${cid}';
 					}
 				}
 			});
