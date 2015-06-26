@@ -54,7 +54,7 @@
 						<label for="exampleInputEmail1">是否可看:</label>
 						&nbsp;&nbsp;
 						<c:if test="${lessons.isbuy==0}">否</c:if>
-						<c:if test="${lessons.isbuy!=1}">是</c:if>
+						<c:if test="${lessons.isbuy!=0}">是</c:if>
 						&nbsp;&nbsp;
 						修改:
 						<select id="isbuy${lessons.id}">
