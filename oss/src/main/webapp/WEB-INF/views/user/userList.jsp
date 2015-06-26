@@ -146,7 +146,7 @@
 	<script>
 		function selectUserType(obj){
 			var type = $(obj).val();
-			window.location.href= '${cbasePath}user/userListkeyword=' + encodeURI($("#keyword").val()) + '&registType=' + type;
+			window.location.href= '${cbasePath}user/userList?keyword=' + encodeURI($("#keyword").val()) + '&registType=' + type;
 		}
 		$(function() {
 			/* $("#searchIt").click(function(){
