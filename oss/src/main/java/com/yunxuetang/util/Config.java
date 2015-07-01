@@ -11,8 +11,8 @@ public class Config {
 	//测试环境
 	// public static String YXTSERVER3 = "http://chat.yunxuetang.com:8082/";
 	//生产环境
-	 //public static String YXTSERVER3 = "http://localhost:8081/";
-	public static String YXTSERVER3 = "http://192.168.100.2:8081/";
+	 public static String YXTSERVER3 = "http://localhost:8081/";
+	//public static String YXTSERVER3 = "http://192.168.100.2:8081/";
 	
 	public static String YXTSERVER5 = "http://oss.ztiao.cn/oss";
 	
@@ -26,9 +26,9 @@ public class Config {
 	public static String WIKERSERVER = "http://bj.api.wiker.ztiao.cn/";
 	public static String QDANSERVER = "http://bj.api.qd.ztiao.cn/";
 	//订单服务 本地开发环境
-	//public static String ORDER_SERVER = "http://localhost:8080";
+	//public static String ORDER_SERVER = "http://localhost:9999";
 	//订单服务 chat开发环境
-	//public static String ORDER_SERVER = "http://localhost:8087";
+	//public static String ORDER_SERVER = "http://chat.yunxuetang.com:8087";
 	//订单服务 qingyun生产环境
 	public static String ORDER_SERVER = "http://192.168.100.5:8361";
 	
@@ -38,6 +38,14 @@ public class Config {
 	// public static String HONGBAO_SERVER = "http://chat.yunxuetang.com:8089";
 	// 优惠券服务 qingyun生产环境
 	public static String HONGBAO_SERVER = "http://192.168.100.5:8371";
+	 
+	 
+	// 专题盒子服务 本地开发环境
+	// public static String SUBJECT_SERVER = "http://localhost:8080";
+	// 专题盒子服务 chat开发环境
+	public static String SUBJECT_SERVER = "http://chat1.yunxuetang.com:8092";
+	// 专题盒子服务 qingyun生产环境
+	 //public static String SUBJECT_SERVER = "http://192.168.100.5:8371";
 	
 	public static String SCHEDULE_SERVER = "http://192.168.100.5:8201";
 	public static String COUPON_SERVER  = "http://chat.yunxuetang.com:8089";
