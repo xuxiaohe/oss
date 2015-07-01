@@ -29,7 +29,7 @@
 							placeholder="Enter keyword" value="${keyword }">
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<select class="form-control" name="registType" id="registType" onchange="javascript:selectUserType(this);">
-							<option >全部用户</option>
+							<option value="">全部用户</option>
 							<option value="01">手机注册用户</option>
 							<option value="02">邮箱注册用户</option>
 							<option value="11">QQ第三方登录</option>
