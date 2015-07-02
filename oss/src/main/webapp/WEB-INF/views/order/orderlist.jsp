@@ -109,6 +109,9 @@
 									<p>价格：${Recourse.orderPrice}元</p>
 								</div>
 								<div class="col-xs-6">
+									<p>实际支付价格：${Recourse.orderPayPrice}元</p>
+								</div>
+								<div class="col-xs-6">
 									<p>购买用户:${Recourse.userNickName}</p>
 								</div>
 								<div class="col-xs-6">
