@@ -105,6 +105,40 @@ public class subject extends BaseController{
 	}
 	
 	
+	/**
+	 * 筛选各个数据列表
+	 * */
+	@RequestMapping("findByothers")
+	public String findByothers(HttpServletRequest request, Model model){
+		// 当前第几页
+				String pagenumber = request.getParameter("n");
+
+				if (pagenumber == null) {
+					pagenumber = "0";
+				}
+
+				// 每页条数
+
+				String pagelines = request.getParameter("s");
+
+				if (pagelines == null) {
+					pagelines = "100";
+				}
+		String boxPostId = request.getParameter("boxPostId");
+		String dataType = request.getParameter("dataType");
+		String childCategoryId = request.getParameter("childCategoryId");
+	 
+		model.addAttribute("list", findByothers(boxPostId,dataType,childCategoryId,pagenumber,pagelines));
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "order/orderdetail";
+	}
+	
+	
 	private JSONObject getOrderDetail(String type,String categoryId,String logoUrl,String h5Url,String order,String enabled,String chinaName) {
 		String url = Config.SUBJECT_SERVER
 				+ "/box/addBoxPost?type=" + type+"&categoryId="+categoryId+"&logoUrl="+logoUrl+"&h5Url="+h5Url+"&order="+order+"&enabled="+enabled+"&chinaName="+chinaName;
@@ -120,6 +154,12 @@ public class subject extends BaseController{
 	private JSONObject findBoxById(String boxPostId,String n,String s) {
 		String url = Config.SUBJECT_SERVER
 				+ "/box/findBoxById?boxPostId=" + boxPostId+"&n="+n+"&s="+s;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject findByothers(String boxPostId,String dataType,String childCategoryId,String n,String s) {
+		String url = Config.YXTSERVER3
+				+ "/box/notInBoxPostAndNotInCategory?boxPostId=" + boxPostId+"&n="+n+"&s="+s+"&dataType="+dataType+"&childCategoryId="+childCategoryId;
 		return getRestApiData(url);
 	}
 }
