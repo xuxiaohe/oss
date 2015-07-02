@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.yunxuetang.util.Config;
 
@@ -136,6 +137,44 @@ public class subject extends BaseController{
 		model.addAttribute("cbasePath", cbasePath);
 		model.addAttribute("sourcePath", Config.YXTSERVER5);
 		return "order/orderdetail";
+	}
+	
+	
+	
+	
+	/**
+	 * 
+	 * 取消关联到具体的排行榜
+	 */
+	@RequestMapping("/unbindBox")
+	public ModelAndView unbindBoxDry(HttpServletRequest request) {
+		String type = request.getParameter("type");
+		 
+		String name = request.getParameter("name");
+		//位置id
+		String boxPostId = request.getParameter("boxPostId");
+		//排行榜id
+		String boxId = request.getParameter("boxId");
+		 
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		
+		
+		modelview.addObject("addDryBoxList", deleteBox(boxId));
+		
+		modelview.addObject("booxlist", findBoxById(boxPostId,"0","10"));
+		
+		modelview.setViewName("order/orderdetail");
+		return modelview;
+	}
+	
+	private JSONObject deleteBox(String boxId) {
+		String url = Config.YXTSERVER3 + "oss/box/deleteBox?boxId=" + boxId;
+		return getRestApiData(url);
 	}
 	
 	
