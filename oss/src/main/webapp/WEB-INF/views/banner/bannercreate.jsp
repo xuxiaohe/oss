@@ -81,8 +81,9 @@
 							<div class="media-body">
 								<div id="container" style="position: relative;">
 									<div class="row">
-										<div class="col-xs-9">
-											<button id="pic" type="button" class="btn btn-primary">上传图片</button>
+										<div class="col-xs-12">
+											<button id="pic" type="button" class="btn btn-primary">上传图片</button><br/><br/>
+											<span > * 图片尺寸----640 * 200</span>
 										</div>
 									</div>
 
