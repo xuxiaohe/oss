@@ -53,8 +53,8 @@
 						<input type="text"  id="order${lessons.id}" value="${lessons.order}">
 						<label for="exampleInputEmail1">是否可看:</label>
 						&nbsp;&nbsp;
-						<c:if test="${lessons.isbuy==0}"><span style="color:red;">否</span></c:if>
-						<c:if test="${lessons.isbuy!=0}"><span style="color:green;">是</span></c:if>
+						<c:if test="${lessons.isbuy==0}"><span style="color:red;"><strong>否</strong></span></c:if>
+						<c:if test="${lessons.isbuy!=0}"><span style="color:green;"><strong>是</strong></span></c:if>
 						&nbsp;&nbsp;
 						修改:
 						<select id="isbuy${lessons.id}">
