@@ -1,5 +1,7 @@
 package com.yunxuetang.oss;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
@@ -17,6 +19,23 @@ import com.yunxuetang.util.Config;
 @RequestMapping("/subject")
 public class subject extends BaseController{
 	Logger logger = LoggerFactory.getLogger(subject.class);
+	
+	/**
+	 * 创建专题页面跳转
+	 * */
+	@RequestMapping("createView")
+	public String createView(HttpServletRequest request, Model model){
+		JSONObject jo = categoryList();
+		model.addAttribute("categoryList", jo);
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath;
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "subject/create";
+	}
+	
 	/**
 	 * 添加专题盒子
 	 * */
@@ -26,19 +45,22 @@ public class subject extends BaseController{
 		String type = request.getParameter("type");
 		String categoryId = request.getParameter("categoryId");
 		String logoUrl = request.getParameter("logoUrl");
+		logoUrl = "";
 		String h5Url = request.getParameter("h5Url");
+		h5Url = "";
 		String order = request.getParameter("order");
 		String enabled = request.getParameter("enabled");
 		String chinaName=request.getParameter("chinaName");
-		
-		model.addAttribute("addbox", getOrderDetail(type,categoryId,logoUrl,h5Url,order,enabled,chinaName));
+		JSONObject result = getOrderDetail(type,categoryId,logoUrl,h5Url,order,enabled,chinaName);
+		System.out.println(result);
+		model.addAttribute("addbox", result);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ cpath + "/";
 		model.addAttribute("cbasePath", cbasePath);
 		model.addAttribute("sourcePath", Config.YXTSERVER5);
-		return "order/orderdetail";
+		return "redirect:getBoxPostByType";
 	}
 	
 	
@@ -70,7 +92,7 @@ public class subject extends BaseController{
 				+ cpath + "/";
 		model.addAttribute("cbasePath", cbasePath);
 		model.addAttribute("sourcePath", Config.YXTSERVER5);
-		return "order/orderdetail";
+		return "subject/subjectList";
 	}
 	
 	
@@ -180,8 +202,16 @@ public class subject extends BaseController{
 	
 	private JSONObject getOrderDetail(String type,String categoryId,String logoUrl,String h5Url,String order,String enabled,String chinaName) {
 		String url = Config.SUBJECT_SERVER
-				+ "/box/addBoxPost?type=" + type+"&categoryId="+categoryId+"&logoUrl="+logoUrl+"&h5Url="+h5Url+"&order="+order+"&enabled="+enabled+"&chinaName="+chinaName;
-		return getRestApiData(url);
+				+ "/box/addBoxPost";
+		HashMap<String, String> param = new HashMap<String, String>();
+		param.put("type", type);
+		param.put("categoryId", categoryId);
+		param.put("logoUrl", logoUrl);
+		param.put("h5Url", h5Url);
+		param.put("order", order);
+		param.put("enabled", enabled);
+		param.put("chinaName", chinaName);
+		return getRestApiData(url, param);
 	}
 	
 	private JSONObject getBoxPostByType(String type,String n,String s) {
@@ -199,6 +229,14 @@ public class subject extends BaseController{
 	private JSONObject findByothers(String boxPostId,String dataType,String childCategoryId,String n,String s) {
 		String url = Config.YXTSERVER3
 				+ "/box/notInBoxPostAndNotInCategory?boxPostId=" + boxPostId+"&n="+n+"&s="+s+"&dataType="+dataType+"&childCategoryId="+childCategoryId;
+		return getRestApiData(url);
+	}
+	
+	/**
+	 * 获取分类列表
+	 * */
+	private JSONObject categoryList() {
+		String url = Config.YXTSERVER3 + "category/all";
 		return getRestApiData(url);
 	}
 }
