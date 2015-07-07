@@ -51,11 +51,6 @@
 				<form role="form" method="post"
 					action="${cbasePath}topic/updateTopicByGroup?topicid=${resuserTopic.data.result.topicId}&picUrl=${resuserTopic.data.result.picUrl}"
 					enctype="multipart/form-data">
-					<input type="hidden" value="${courseDetail.data.result.logoUrl}" name="oldLogoUrl"/>
-					<input type="hidden" value="${resuserTopic.data.result.picUrl}" id="logoUrl" name="picUrl"/>
-					
-					<input type="hidden" value="${resuserTopic.data.result.picWidth}" id="height" name="picWidth"/>
-					<input type="hidden" value="${resuserTopic.data.result.picHeight}" id="width" name="picHeight"/>
 
 					
 
