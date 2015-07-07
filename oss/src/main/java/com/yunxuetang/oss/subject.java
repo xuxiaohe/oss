@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
@@ -151,7 +152,25 @@ public class subject extends BaseController{
 		String dataType = request.getParameter("dataType");
 		String childCategoryId = request.getParameter("childCategoryId");
 	 
-		model.addAttribute("list", findByothers(boxPostId,dataType,childCategoryId,pagenumber,pagelines));
+		if("couponspecial".equals(dataType)){
+			String a="";
+			JSONObject j = findBycoupon(boxPostId);
+			JSONObject jj = (JSONObject) j.get("data");
+			JSONArray jjj=jj.getJSONArray("result");
+			
+			if(jjj.size()!=0){
+				 a=jjj.getString(0)+",";
+				for(int i=1;i<jjj.size();i++){
+					a+=","+jjj.getString(i);
+				}
+			}
+
+			model.addAttribute("list", findBycouponList(a));
+		}
+		else {
+			model.addAttribute("list", findByothers(boxPostId,dataType,childCategoryId,pagenumber,pagelines));
+		}
+		
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
@@ -231,6 +250,20 @@ public class subject extends BaseController{
 				+ "/box/notInBoxPostAndNotInCategory?boxPostId=" + boxPostId+"&n="+n+"&s="+s+"&dataType="+dataType+"&childCategoryId="+childCategoryId;
 		return getRestApiData(url);
 	}
+	
+	private JSONObject findBycoupon(String boxPostId) {
+		String url = Config.YXTSERVER3
+				+ "/box/subjectInBox?boxPostId=" + boxPostId;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject findBycouponList(String activitylist) {
+		String url = Config.HONGBAO_SERVER
+				+ "/oss/coupon/findNotInBycoupon?activitylist=" + activitylist;
+		return getRestApiData(url);
+	}
+	
+	
 	
 	/**
 	 * 获取分类列表
