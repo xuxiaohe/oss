@@ -1,5 +1,6 @@
 package com.yunxuetang.oss;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,33 @@ import com.yunxuetang.util.Config;
 @RequestMapping("/subject")
 public class subject extends BaseController{
 	Logger logger = LoggerFactory.getLogger(subject.class);
+	
+	
+	/**
+	 * 查看专题详情
+	 * @throws UnsupportedEncodingException 
+	 * */
+	@RequestMapping("subjectDetail")
+	public String subjectDetail(HttpServletRequest request, Model model) throws UnsupportedEncodingException{
+		String chinaName = request.getParameter("chinaName");
+		chinaName = new String(chinaName.getBytes("iso-8859-1"), "utf-8");
+		model.addAttribute("id", request.getParameter("id"));
+		model.addAttribute("logoUrl", request.getParameter("logoUrl"));
+		model.addAttribute("chinaName", chinaName);
+		model.addAttribute("ctime", request.getParameter("ctime"));
+		model.addAttribute("type", request.getParameter("type"));
+		
+		//查询盒子内数据
+		//model.addAttribute("innerDetail", findBoxById(request.getParameter("id"), "", ""));
+		
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "subject/subjectDetail";
+	}
 	
 	/**
 	 * 创建专题页面跳转
@@ -66,14 +94,11 @@ public class subject extends BaseController{
 		String type = request.getParameter("type");
 		String categoryId = request.getParameter("categoryId");
 		String logoUrl = request.getParameter("logoUrl");
-		logoUrl = "";
 		String h5Url = request.getParameter("h5Url");
-		h5Url = "";
 		String order = request.getParameter("order");
 		String enabled = request.getParameter("enabled");
 		String chinaName=request.getParameter("chinaName");
 		JSONObject result = getOrderDetail(type,categoryId,logoUrl,h5Url,order,enabled,chinaName);
-		System.out.println(result);
 		model.addAttribute("addbox", result);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
@@ -105,8 +130,9 @@ public class subject extends BaseController{
 					pagelines = "100";
 				}
 		String type = request.getParameter("type");
-	 
-		model.addAttribute("booxlist", getBoxPostByType(type,pagenumber,pagelines));
+		if(null == type || "".equals(type)) type = "contentspecial";
+		model.addAttribute("type", type);
+		model.addAttribute("boxlist", getBoxPostByType(type,pagenumber,pagelines));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
