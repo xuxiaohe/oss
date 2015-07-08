@@ -37,6 +37,26 @@ public class subject extends BaseController{
 		return "subject/create";
 	}
 	
+	
+	/**
+	 *往盒子里添加数据
+	 * */
+	@RequestMapping("addDataInBox")
+	public String addDataInBox(HttpServletRequest request, Model model){
+		String boxPostId = request.getParameter("boxPostId");
+		String sourceType = request.getParameter("sourceType");
+		String sourceId = request.getParameter("sourceId");
+		String ctime = request.getParameter("ctime");
+		addInBox(boxPostId,sourceType,sourceId,ctime);
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath;
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "subject/create";
+	}
+	
 	/**
 	 * 添加专题盒子
 	 * */
@@ -263,7 +283,11 @@ public class subject extends BaseController{
 		return getRestApiData(url);
 	}
 	
-	
+	private JSONObject addInBox(String boxPostId,String sourceType,String sourceId,String ctime) {
+		String url = Config.SUBJECT_SERVER
+				+ "/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId+"&ctime="+ctime;
+		return getRestApiData(url);
+	}
 	
 	/**
 	 * 获取分类列表
