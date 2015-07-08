@@ -247,7 +247,7 @@ public class subject extends BaseController{
 	
 	private JSONObject findByothers(String boxPostId,String dataType,String childCategoryId,String n,String s) {
 		String url = Config.YXTSERVER3
-				+ "/box/notInBoxPostAndNotInCategory?boxPostId=" + boxPostId+"&n="+n+"&s="+s+"&dataType="+dataType+"&childCategoryId="+childCategoryId;
+				+ "/oss/box/notInBoxPostAndNotInCategory?boxPostId=" + boxPostId+"&n="+n+"&s="+s+"&dataType="+dataType+"&childCategoryId="+childCategoryId;
 		return getRestApiData(url);
 	}
 	
