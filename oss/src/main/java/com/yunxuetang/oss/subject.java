@@ -152,7 +152,7 @@ public class subject extends BaseController{
 		String dataType = request.getParameter("dataType");
 		String childCategoryId = request.getParameter("childCategoryId");
 	 
-		if("couponspecial".equals(dataType)){
+		if("activityspecial".equals(dataType)){
 			String a="";
 			JSONObject j = findBycoupon(boxPostId);
 			JSONObject jj = (JSONObject) j.get("data");
