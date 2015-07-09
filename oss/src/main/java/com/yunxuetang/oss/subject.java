@@ -133,6 +133,7 @@ public class subject extends BaseController{
 		if(null == type || "".equals(type)) type = "contentspecial";
 		model.addAttribute("type", type);
 		model.addAttribute("boxlist", getBoxPostByType(type,pagenumber,pagelines));
+		System.out.println(getBoxPostByType(type,pagenumber,pagelines));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
@@ -181,23 +182,29 @@ public class subject extends BaseController{
 	@RequestMapping("findByothers")
 	public String findByothers(HttpServletRequest request, Model model){
 		// 当前第几页
-				String pagenumber = request.getParameter("n");
+		String pagenumber = request.getParameter("n");
 
-				if (pagenumber == null) {
-					pagenumber = "0";
-				}
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
 
-				// 每页条数
+		// 每页条数
 
-				String pagelines = request.getParameter("s");
+		String pagelines = request.getParameter("s");
 
-				if (pagelines == null) {
-					pagelines = "100";
-				}
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		/*
+		 返回页面的类型: "selectActivity" : "活动", "selectCourse" : "课程", "selectTopic" : "话题", "selectDry" : "干货"
+		*/
+		String pageType = request.getParameter("pageType");
+		
 		String boxPostId = request.getParameter("boxPostId");
 		String dataType = request.getParameter("dataType");
 		String childCategoryId = request.getParameter("childCategoryId");
-	 
+		model.addAttribute("boxPostId", boxPostId);
+		model.addAttribute("dataType", dataType);
 		if("activityspecial".equals(dataType)){
 			String a="";
 			JSONObject j = findBycoupon(boxPostId);
@@ -211,7 +218,7 @@ public class subject extends BaseController{
 				}
 			}
 
-			model.addAttribute("list", findBycouponList(a));
+			model.addAttribute("list", findBycouponList(a ,pagenumber,pagelines));
 		}
 		else {
 			model.addAttribute("list", findByothers(boxPostId,dataType,childCategoryId,pagenumber,pagelines));
@@ -223,7 +230,7 @@ public class subject extends BaseController{
 				+ cpath + "/";
 		model.addAttribute("cbasePath", cbasePath);
 		model.addAttribute("sourcePath", Config.YXTSERVER5);
-		return "order/orderdetail";
+		return "subject/" + pageType;
 	}
 	
 	
@@ -299,13 +306,13 @@ public class subject extends BaseController{
 	
 	private JSONObject findBycoupon(String boxPostId) {
 		String url = Config.YXTSERVER3
-				+ "/box/subjectInBox?boxPostId=" + boxPostId;
+				+ "oss/box/subjectInBox?boxPostId=" + boxPostId;
 		return getRestApiData(url);
 	}
 	
-	private JSONObject findBycouponList(String activitylist) {
+	private JSONObject findBycouponList(String activitylist,String n,String s) {
 		String url = Config.HONGBAO_SERVER
-				+ "/oss/coupon/findNotInBycoupon?activitylist=" + activitylist;
+				+ "/oss/coupon/findNotInBycoupon?activitylist=" + activitylist + "&n=" + n + "&s=" + s;
 		return getRestApiData(url);
 	}
 	
