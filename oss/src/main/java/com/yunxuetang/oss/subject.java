@@ -71,11 +71,16 @@ public class subject extends BaseController{
 	 * */
 	@RequestMapping("addDataInBox")
 	public String addDataInBox(HttpServletRequest request, Model model){
+		String sourceId = request.getParameter("sourceId");
+		String[] d=sourceId.split(",");
+		
 		String boxPostId = request.getParameter("boxPostId");
 		String sourceType = request.getParameter("sourceType");
-		String sourceId = request.getParameter("sourceId");
 		String ctime = request.getParameter("ctime");
-		addInBox(boxPostId,sourceType,sourceId,ctime);
+		for(int i=0;i<d.length;i++){
+			addInBox(boxPostId,sourceType,d[i],ctime);
+		}
+		
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
