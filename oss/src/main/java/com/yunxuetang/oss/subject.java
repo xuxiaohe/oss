@@ -243,6 +243,33 @@ public class subject extends BaseController{
 	
 	/**
 	 * 
+	 * 显示专题列表中数据项的内容
+	 */
+	@RequestMapping("/getSpecialInfo")
+	public ModelAndView getSpecialInfo(HttpServletRequest request) {
+		String boxPostId = request.getParameter("boxPostId");
+		 
+		String type = request.getParameter("type");
+		 
+		ModelAndView modelview = new ModelAndView();
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		
+		
+		modelview.addObject("addDryBoxList", getSpecialinfo(boxPostId,type));
+		
+		modelview.addObject("booxlist", findBoxById(boxPostId,"0","10"));
+		
+		modelview.setViewName("order/orderdetail");
+		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 
 	 * 取消关联到具体的排行榜
 	 */
 	@RequestMapping("/unbindBox")
@@ -334,4 +361,9 @@ public class subject extends BaseController{
 		String url = Config.YXTSERVER3 + "category/all";
 		return getRestApiData(url);
 	}
+	private JSONObject getSpecialinfo(String boxPostId,String type) {
+		String url = Config.YXTSERVER3 + "/oss/exploreoss/findBoxById?boxPostId="+boxPostId+"&type="+type;
+		return getRestApiData(url);
+	}
+	
 }
