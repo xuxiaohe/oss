@@ -1,5 +1,6 @@
 package com.yunxuetang.oss;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
@@ -13,15 +14,77 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yunxuetang.util.Config;
+import com.yunxuetang.util.Jsp2Html;
+import com.yunxuetang.util.qiniu;
 
 @Controller
 @RequestMapping("/subject")
 public class subject extends BaseController{
 	Logger logger = LoggerFactory.getLogger(subject.class);
+	/**
+	 * 预览页面跳转
+	 * */
+	@RequestMapping("showPreview")
+	public String showPreview(HttpServletRequest request, Model model){
+		String boxId = request.getParameter("boxId");
+		String type = request.getParameter("type");
+		String logoUrl = request.getParameter("logoUrl");
+		
+		model.addAttribute("specialInfo", getSpecialinfo(boxId,type));
+		model.addAttribute("logoUrl", logoUrl);
+		
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		if("activityspecial".equals(type))
+			return "subject/activityView";
+		else 
+			return "subject/contentView" ;
+	}
 	
+	/**
+	 * 生成静态页面 
+	 * */
+	@RequestMapping("createH5File")
+	public @ResponseBody String createFile(HttpServletRequest request, Model model){
+		String boxId = request.getParameter("boxId");
+		String type = request.getParameter("type");
+		String logoUrl = request.getParameter("logoUrl");
+		
+		
+		String url = "http://127.0.0.1:8089/oss/subject/showPreview?boxId=" + boxId + "&type=" + type + "&logoUrl=" + logoUrl;
+		String fileName = boxId.concat(".html");
+		try {
+			/*将请求的URL返回值转换为HTML页面*/
+			fileName = Jsp2Html.revertFile(url, fileName);
+			if("fail".equals(fileName)) return "fail";
+			fileName = fileName.substring(0, fileName.lastIndexOf("/"));
+			//上传到服务器
+			qiniu q = new qiniu();
+			String fileUrl = q.xixi(fileName, boxId.concat(".html"), "h5/special/".concat(type));
+			//更新接口将文件地址写入
+			JSONObject result = updateH5Url(boxId, fileUrl);
+			String success = result.getString("status");
+			if("200".equals(success)){
+				File file = new File(fileName);
+				if(file.exists()) file.delete();//删除本地文件
+				return "success";
+			}
+			else 
+				return "fail";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+			return "fail";
+		}
+	}
 	
 	/**
 	 * 查看专题详情
@@ -31,6 +94,8 @@ public class subject extends BaseController{
 	public String subjectDetail(HttpServletRequest request, Model model) throws UnsupportedEncodingException{
 		String chinaName = request.getParameter("chinaName");
 		chinaName = new String(chinaName.getBytes("iso-8859-1"), "utf-8");
+		String boxPostId = request.getParameter("id");
+		String type = request.getParameter("type");
 		model.addAttribute("id", request.getParameter("id"));
 		model.addAttribute("logoUrl", request.getParameter("logoUrl"));
 		model.addAttribute("chinaName", chinaName);
@@ -39,6 +104,10 @@ public class subject extends BaseController{
 		
 		//查询盒子内数据
 		//model.addAttribute("innerDetail", findBoxById(request.getParameter("id"), "", ""));
+		model.addAttribute("specialInfo", getSpecialinfo(boxPostId,type));
+		//model.addAttribute("boxlist", findBoxById(boxPostId,"0","10"));
+		//System.out.println(findBoxById(boxPostId,"0","10"));
+		
 		
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
@@ -70,7 +139,7 @@ public class subject extends BaseController{
 	 *往盒子里添加数据
 	 * */
 	@RequestMapping("addDataInBox")
-	public String addDataInBox(HttpServletRequest request, Model model){
+	public @ResponseBody String addDataInBox(HttpServletRequest request, Model model){
 		String sourceId = request.getParameter("sourceId");
 		String[] d=sourceId.split(",");
 		
@@ -81,13 +150,13 @@ public class subject extends BaseController{
 			addInBox(boxPostId,sourceType,d[i],ctime);
 		}
 		
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ cpath;
-		model.addAttribute("cbasePath", cbasePath);
-		model.addAttribute("sourcePath", Config.YXTSERVER5);
-		return "subject/create";
+//		String cpath = request.getContextPath();
+//		String cbasePath = request.getScheme() + "://"
+//				+ request.getServerName() + ":" + request.getServerPort()
+//				+ cpath;
+//		model.addAttribute("cbasePath", cbasePath);
+//		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "success";
 	}
 	
 	/**
@@ -207,19 +276,23 @@ public class subject extends BaseController{
 		
 		String boxPostId = request.getParameter("boxPostId");
 		String dataType = request.getParameter("dataType");
+		String ctime = request.getParameter("ctime");
 		String childCategoryId = request.getParameter("childCategoryId");
 		model.addAttribute("boxPostId", boxPostId);
 		model.addAttribute("dataType", dataType);
+		model.addAttribute("ctime", ctime);
 		if("activityspecial".equals(dataType)){
 			String a="";
 			JSONObject j = findBycoupon(boxPostId);
 			JSONObject jj = (JSONObject) j.get("data");
 			JSONArray jjj=jj.getJSONArray("result");
 			
-			if(jjj.size()!=0){
-				 a=jjj.getString(0)+",";
-				for(int i=1;i<jjj.size();i++){
-					a+=","+jjj.getString(i);
+			
+			if(jj.size()!=0){
+				for(int i=0;i<jjj.size();i++){
+					JSONObject job = jjj.getJSONObject(i);
+					a = a + job.get("id");
+					if(i < jjj.size() - 1) a = a + ",";
 				}
 			}
 
@@ -258,7 +331,7 @@ public class subject extends BaseController{
 		modelview.addObject("sourcePath", Config.YXTSERVER5);
 		
 		
-		modelview.addObject("addDryBoxList", getSpecialinfo(boxPostId,type));
+		modelview.addObject("specialInfo", getSpecialinfo(boxPostId,type));
 		
 		modelview.addObject("booxlist", findBoxById(boxPostId,"0","10"));
 		
@@ -318,6 +391,7 @@ public class subject extends BaseController{
 		return getRestApiData(url, param);
 	}
 	
+	
 	private JSONObject getBoxPostByType(String type,String n,String s) {
 		String url = Config.SUBJECT_SERVER
 				+ "/box/getBoxPostByType?type=" + type+"&n="+n+"&s="+s;
@@ -326,7 +400,12 @@ public class subject extends BaseController{
 	
 	private JSONObject findBoxById(String boxPostId,String n,String s) {
 		String url = Config.SUBJECT_SERVER
-				+ "/box/findBoxById?boxPostId=" + boxPostId+"&n="+n+"&s="+s;
+				+ "/box/findBoxById?boxPostId=" + boxPostId;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject updateH5Url(String boxPostId, String h5url){
+		String url = Config.SUBJECT_SERVER + "/box/h5Url?boxPostId=" + boxPostId + "&h5Url=" + h5url;
 		return getRestApiData(url);
 	}
 	
