@@ -34,14 +34,14 @@
 					<div class="row">
 						<div class="col-xs-2">
 							<img class="thumbnail col-xs-12" id="logoUrl" src="${logoUrl}" alt="" />
-	
+							<input type="hidden" id="h5Url" value="${h5Url}">	
 	
 							<hr />
 							
 							<c:if test="${type=='activityspecial'}">
 								<a href="#" onclick="javascript:showPreview('${type}', '${id}', '${logoUrl}');"><button class="btn btn-success btn-block">
 									预览页面</button></a>
-								<a href="#" onclick="javascript:createH5File('${type}', '${id}', '${logoUrl}');"><button class="btn btn-success btn-block">
+								<a href="#" onclick="javascript:createH5File('${type}', '${id}', '${logoUrl}', '${h5Url}');"><button class="btn btn-success btn-block">
 									生成静态页面</button></a>
 								<a href="#" onclick="javascript:showActivities();"><button class="btn btn-success btn-block"
 										data-toggle="modal" data-target="#myModal">添加活动</button></a>
@@ -130,9 +130,9 @@
 				window.open(url, '预览', 'width=400');
 			}
 		
-			function createH5File(type, boxId, logoUrl){
+			function createH5File(type, boxId, logoUrl, h5Url){
 				$("#circleLoader").shCircleLoader();
-				var url = '<%=contextPath%>/subject/createH5File?type=' + type + '&boxId=' + boxId + '&logoUrl=' + logoUrl;
+				var url = '<%=contextPath%>/subject/createH5File?type=' + type + '&boxId=' + boxId + '&logoUrl=' + logoUrl + '&h5Url=' + h5Url;
 				$.ajax({
 					url : url,
 					type : 'post',

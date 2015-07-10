@@ -66,7 +66,7 @@
 		var specialName = $("#specialName").html();
 		var logoUrl = $("#logoUrl").attr("src");
 		var sourceType = 'activity';
-		
+		var h5Url = $("#h5Url").val();
 		var data = {'sourceId' : acids, 'boxPostId' : boxPostId, 'ctime' : ctime, 'sourceType' : sourceType};
 
 		$.ajax({
@@ -76,7 +76,7 @@
 			success : function(data){
 				if(data == 'success'){
 					alert('添加活动成功');
-					var url = '${cbasePath}subject/subjectDetail?chinaName=' + encodeURI(specialName) + "&id=" + boxPostId + "&type=activityspecial&logoUrl=" + logoUrl + '&ctime=' + ctime;
+					var url = '${cbasePath}subject/subjectDetail?chinaName=' + encodeURI(specialName) + "&id=" + boxPostId + "&type=activityspecial&logoUrl=" + logoUrl + '&ctime=' + ctime + '&h5Url=' + h5Url;
 					$("#circleLoader").shCircleLoader();
 					window.location.href = url;
 				}
