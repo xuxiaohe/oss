@@ -59,7 +59,7 @@ public class subject extends BaseController{
 		String boxId = request.getParameter("boxId");
 		String type = request.getParameter("type");
 		String logoUrl = request.getParameter("logoUrl");
-		
+		String h5Url = request.getParameter("h5Url");
 		
 		String url = "http://127.0.0.1:8089/oss/subject/showPreview?boxId=" + boxId + "&type=" + type + "&logoUrl=" + logoUrl;
 		String uuid = UUID.randomUUID().toString();
@@ -73,6 +73,7 @@ public class subject extends BaseController{
 			//上传到服务器
 			qiniu q = new qiniu();
 			String fileUrl = q.xixi(fileName, boxId.concat(uuid).concat(".html"), "h5/special/".concat(type));
+			if(null != h5Url && !"".equals(h5Url)) q.delete(h5Url);
 			//更新接口将文件地址写入
 			JSONObject result = updateH5Url(boxId, fileUrl);
 			String success = result.getString("status");
@@ -105,6 +106,7 @@ public class subject extends BaseController{
 		model.addAttribute("chinaName", chinaName);
 		model.addAttribute("ctime", request.getParameter("ctime"));
 		model.addAttribute("type", request.getParameter("type"));
+		model.addAttribute("h5Url", request.getParameter("h5Url"));
 		
 		//查询盒子内数据
 		//model.addAttribute("innerDetail", findBoxById(request.getParameter("id"), "", ""));
