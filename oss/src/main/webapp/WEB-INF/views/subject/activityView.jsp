@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<title>Bootstrap 101 Template</title>
+<title>活动专题</title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -43,20 +43,20 @@ var _hmt = _hmt || [];
 					<div class="imgBackground col-xs-8 thumbnail"
 						style="background: url(${Resource.course.logoUrl});background-size:100% 100%;">
 						<div class="price col-xs-9">
-							<span class="ColorWhite"><span class="FontSize14">课程售价：</span>￥${Resource.course.price}</span>
+							<span class="ColorWhite"><span class="FontSize14"><small><small>课程售价：</small></small></span><small><small>￥${Resource.course.price}</small></small></span>
 						</div>
 					</div>
 
 					<div class="textStyle text-center thumbnail col-xs-4" style='background-image: http://yxt-bj.qiniudn.com/h5/static/Activity_hongbao.png'>
 						<h2 class="text-center">
 							<span class="small" style="font-size: small; color: #ffff00">￥</span>${Resource.quota}</h2>
-						<a class=" btn btn-default pickCoupon"
-							href="objc://ztiao?openNative=6&sourceId=${Resource.id}" role="button">点击领取</a>
+						<a class="pickCoupon"
+							href="objc://ztiao?openNative=6&sourceId=${Resource.activityCode}" role="button">点击领取</a>
 					</div>
 					<div class="col-xs-12 titleDiv ">
 						<a class=" "
 							href="objc://ztiao?openNative=2&sourceId=${Resource.course.id}"
-							role="button">￥${Resource.course.title}</a>
+							role="button"><small><small><small>￥${Resource.course.title}</small></small></small></a>
 					</div>
 				</div>
 			</c:forEach>
@@ -143,7 +143,9 @@ var _hmt = _hmt || [];
 	}
 	
 	.pickCoupon {
-		margin-top: 20px;
+		position: relative;
+		top: 10px;
+		color: #ffff00;
 	}
 	
 	.pickCoupon a {
