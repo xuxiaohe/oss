@@ -47,7 +47,7 @@ var _hmt = _hmt || [];
 						</div>
 					</div>
 
-					<div class="textStyle text-center thumbnail col-xs-4">
+					<div class="textStyle text-center thumbnail col-xs-4" style='background-image: http://yxt-bj.qiniudn.com/h5/static/Activity_hongbao.png'>
 						<h2 class="text-center">
 							<span class="small" style="font-size: small; color: #ffff00">￥</span>${Resource.quota}</h2>
 						<a class=" btn btn-default pickCoupon"
@@ -135,7 +135,7 @@ var _hmt = _hmt || [];
 		margin: 0;
 		padding: 0;
 		height: 145px;
-		background-image: url(images/Activity_hongbao.png);
+		background-image: url(http://yxt-bj.qiniudn.com/h5/static/Activity_hongbao.png);
 		background-size: 100% 100%;
 		color: #ffff00;
 		border-bottom-left-radius: 0;
