@@ -21,7 +21,7 @@
 		<div class="container-fluid">
 			<jsp:include page="header.jsp"></jsp:include>
 			<ol class="breadcrumb">
-				<li><a href="<%=contextPath%>/subject/getBoxPostByType?type=subject">专题列表</a></li>
+				<li><a href="<%=contextPath%>/subject/getBoxPostByType?type=contentspecial">专题列表</a></li>
 				<li class="active">创建专题<small>
 						 </small>
 				</li>
@@ -38,10 +38,19 @@
 							</div>
 							<div class="row form-group">
 								<div class="col-md-10 col-md-offset-1">
+									<label>专题类型</label>
+									<select class="form-control" name="type">
+										<option value="activityspecial">活动专题</option>
+										<option value="contentspecial">精选专题</option>
+									</select>
+								</div>
+							</div>
+							<div class="row form-group">
+								<div class="col-md-10 col-md-offset-1">
 									<label>专题分类</label> <select class="form-control" name="categoryId">
 										<c:forEach items="${categoryList.data.result[0].childCategory}"
 											var="item">
-											<option value="${item.id}">${item.categoryName}"</option>
+											<option value="${item.id}">${item.categoryName}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -62,12 +71,19 @@
 							</div>
 							<div class="row form-group">
 								<div class="col-md-10 col-md-offset-1">
-									<label >上传专题封面</label><br>
-									<img alt="" src="" width="100" height="100" id="picUrl">
-									<button id="pic" type="button" class="btn btn-primary">上传图片</button>
-									<input type="hidden" name="logoUrl" id="logoUrl">
-									<input type="hidden" name="height" id="picHeight">
-									<input type="hidden" name="width" id="picWidth">
+									<div class="media" id="picFrame">
+										<div class="media-body">
+											<div id="container">
+												<label for="exampleInputEmail1">上传专题封面</label><br>
+												<img alt="" src="" width="100" height="100" id="picUrl">
+												<button id="pic" type="button" class="btn btn-primary">上传图片</button>
+												<input type="hidden" name="logoUrl" id="logoUrl">
+												<input type="hidden" name="height" id="picHeight">
+												<input type="hidden" name="width" id="picWidth">
+											</div>
+										</div>
+			
+									</div>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -85,10 +101,10 @@
 				</div>
 			</div>
 		</div>
-		<script src="${cbasePath}/resources/assets/js/html5shiv.js"></script>
-		<script src="${cbasePath}/resources/assets/js/plupload.full.min.js"></script>
-		<script src="${cbasePath}/resources/assets/js/qiniu.js"></script>
-		<script src="${cbasePath}/resources/assets/js/moxie.min.js"></script>
+		<script src="<%=contextPath%>/resources/assets/js/html5shiv.js"></script>
+		<script src="<%=contextPath%>/resources/assets/js/plupload.full.min.js"></script>
+		<script src="<%=contextPath%>/resources/assets/js/qiniu.js"></script>
+		<script src="<%=contextPath%>/resources/assets/js/moxie.min.js"></script>
 		<script type="text/javascript">
 			$(function(){
 				upload("10007");
@@ -101,10 +117,10 @@
 			        container: 'container',
 			        drop_element: 'container',
 			        max_file_size: '100mb',
-			        flash_swf_url: '${cbasePath}/js/Moxie.swf',
+			        flash_swf_url: '<%=contextPath%>/js/Moxie.swf',
 			        dragdrop: true,
 			        chunk_size: '4mb',
-			        uptoken_url: '${cbasePath}/knowledge/getToken?ckey='+s,
+			        uptoken_url: '<%=contextPath%>/knowledge/getToken?ckey='+s,
 			        domain: 'tpublic.qiniudn.com',
 			       	filters:"{mime_types : [{ title : \"Image files\", extensions : \"jpg,gif,png\" }  ],  max_file_size : '2mb', \r\n  prevent_duplicates : true}",
 			        auto_start: true,
@@ -139,7 +155,7 @@
 			            'Key': function(up, file) {
 			            	var key="";
 			            	 $.ajax({
-									url :"${cbasePath}topic/getFileName",
+									url :"<%=contextPath%>/topic/getFileName",
 									type : "POST",
 									async : false,
 									data :{
