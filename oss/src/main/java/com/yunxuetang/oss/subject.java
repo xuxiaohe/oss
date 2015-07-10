@@ -3,6 +3,8 @@ package com.yunxuetang.oss;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.Random;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -60,7 +62,9 @@ public class subject extends BaseController{
 		
 		
 		String url = "http://127.0.0.1:8089/oss/subject/showPreview?boxId=" + boxId + "&type=" + type + "&logoUrl=" + logoUrl;
-		String fileName = boxId.concat(".html");
+		String uuid = UUID.randomUUID().toString();
+		uuid = uuid.substring(uuid.length() - 6);
+		String fileName = boxId.concat(uuid).concat(".html");
 		try {
 			/*将请求的URL返回值转换为HTML页面*/
 			fileName = Jsp2Html.revertFile(url, fileName);
@@ -68,7 +72,7 @@ public class subject extends BaseController{
 			fileName = fileName.substring(0, fileName.lastIndexOf("/"));
 			//上传到服务器
 			qiniu q = new qiniu();
-			String fileUrl = q.xixi(fileName, boxId.concat(".html"), "h5/special/".concat(type));
+			String fileUrl = q.xixi(fileName, boxId.concat(uuid).concat(".html"), "h5/special/".concat(type));
 			//更新接口将文件地址写入
 			JSONObject result = updateH5Url(boxId, fileUrl);
 			String success = result.getString("status");
@@ -207,7 +211,6 @@ public class subject extends BaseController{
 		if(null == type || "".equals(type)) type = "contentspecial";
 		model.addAttribute("type", type);
 		model.addAttribute("boxlist", getBoxPostByType(type,pagenumber,pagelines));
-		System.out.println(getBoxPostByType(type,pagenumber,pagelines));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
