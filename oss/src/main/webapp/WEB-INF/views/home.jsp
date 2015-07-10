@@ -57,6 +57,9 @@ String cbasePath2 = "http://oss.ztiao.cn/oss";
                         <a href="<%=cbasePath%>group/groupList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>群组管理</a>
                     </li>
                     <li role="presentation">
+                        <a href="<%=cbasePath%>subject/getBoxPostByType?type=contentspecial" target="mainFrame"><span class="glyphicon glyphicon-star"></span>专题管理</a>
+                    </li>
+                    <li role="presentation">
                         <a href="<%=cbasePath%>dry/dryList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>干货仓库</a>
                     </li>
                     <li role="presentation">
