@@ -11,17 +11,17 @@ public class Config {
 	//测试环境
 	// public static String YXTSERVER3 = "http://chat.yunxuetang.com:8082/";
 	//生产环境
-	 public static String YXTSERVER3 = "http://localhost:8081/";
-	//public static String YXTSERVER3 = "http://192.168.100.2:8081/";
+	// public static String YXTSERVER3 = "http://localhost:8081/";
+	public static String YXTSERVER3 = "http://192.168.100.2:8081/";
 	
 	public static String YXTSERVER5 = "http://oss.ztiao.cn/oss";
 	
 	
 	//public static String YXTSERVER3 = "http://s1.xuewen.yunxuetang.com:8084/";
 	// 标签服务 开发
-	//public static String YXTSERVER4 = "http://chat.yunxuetang.com:8161/";
+	public static String YXTSERVER4 = "http://chat.yunxuetang.com:8161/";
 	//生产
-	public static String YXTSERVER4 = "http://bj.tag.ztiao.cn/";
+	//public static String YXTSERVER4 = "http://bj.tag.ztiao.cn/";
 	
 	public static String WIKERSERVER = "http://bj.api.wiker.ztiao.cn/";
 	public static String QDANSERVER = "http://bj.api.qd.ztiao.cn/";
@@ -33,9 +33,9 @@ public class Config {
 	public static String ORDER_SERVER = "http://192.168.100.5:8361";
 	
 	// 优惠券服务 本地开发环境
-	 //public static String HONGBAO_SERVER = "http://localhost:8080";
+	 //public static String HONGBAO_SERVER = "http://localhost:8010";
 	// 优惠券服务 chat开发环境
-	// public static String HONGBAO_SERVER = "http://chat.yunxuetang.com:8089";
+	//public static String HONGBAO_SERVER = "http://chat.yunxuetang.com:8089";
 	// 优惠券服务 qingyun生产环境
 	public static String HONGBAO_SERVER = "http://192.168.100.5:8371";
 	 
@@ -43,9 +43,17 @@ public class Config {
 	// 专题盒子服务 本地开发环境
 	// public static String SUBJECT_SERVER = "http://localhost:8080";
 	// 专题盒子服务 chat开发环境
-	public static String SUBJECT_SERVER = "http://chat1.yunxuetang.com:8092";
+	//public static String SUBJECT_SERVER = "http://chat1.yunxuetang.com:8092";
 	// 专题盒子服务 qingyun生产环境
-	 //public static String SUBJECT_SERVER = "http://192.168.100.5:8371";
+	 public static String SUBJECT_SERVER = "http://192.168.100.5:8401";
+	 
+	 
+	// 专题盒子服务 本地开发环境
+	// public static String MAHOUT_SERVER = "http://localhost:8324";
+	// 专题盒子服务 chat开发环境
+	// public static String MAHOUT_SERVER = "http://chat1.yunxuetang.com:8324";
+	// 专题盒子服务 qingyun生产环境
+	public static String MAHOUT_SERVER = "http://192.168.100.5:8391";
 	
 	public static String SCHEDULE_SERVER = "http://192.168.100.5:8201";
 	public static String COUPON_SERVER  = "http://chat.yunxuetang.com:8089";
