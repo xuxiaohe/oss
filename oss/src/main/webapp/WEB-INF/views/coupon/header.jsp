@@ -22,6 +22,9 @@
 				<li><a href="${cbasePath}coupon/activityList">活动列表</a></li>
 				<li class="divider"></li> --%>
 				<li><a href="${cbasePath}coupon/createView">创建卡券</a></li>
+				<%-- <li><a href="${cbasePath}coupon/createView">分配红包</a></li>
+				<li><a href="${cbasePath}coupon/createView">销毁红包</a></li> --%>
+				<li><a href="${cbasePath}coupon/deleteView">测试人员取消领取的红包</a></li>
 			</ul>
 		</div>
 	</div>
