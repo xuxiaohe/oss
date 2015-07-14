@@ -37,6 +37,21 @@ public class Coupon extends BaseController{
 		return "coupon/create";
 	}
 	
+	
+	/**
+	 * 删除页面跳转
+	 * */
+	@RequestMapping("/deleteView")
+	public String deleteView(HttpServletRequest request, Model model){
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "coupon/delete";
+	}
+	
 	/**
 	 * 某个用户所有优惠券
 	 * @param request

@@ -155,6 +155,7 @@ public class subject extends BaseController{
 		for(int i=0;i<d.length;i++){
 			addInBox(boxPostId,sourceType,d[i],ctime);
 		}
+		logger.info(request.getSession().getAttribute("name")+"专题添加到盒子操作的管理员 "+request.getSession().getAttribute("name")+"===sourceId"+sourceId+"===boxPostId"+boxPostId);
 		
 //		String cpath = request.getContextPath();
 //		String cbasePath = request.getScheme() + "://"
@@ -179,6 +180,8 @@ public class subject extends BaseController{
 		String enabled = request.getParameter("enabled");
 		String chinaName=request.getParameter("chinaName");
 		JSONObject result = getOrderDetail(type,categoryId,logoUrl,h5Url,order,enabled,chinaName);
+		logger.info(request.getSession().getAttribute("name")+"添加专题盒子的管理员 "+request.getSession().getAttribute("name")+"===type"+type+"===chinaName"+chinaName);
+		
 		model.addAttribute("addbox", result);
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
@@ -369,6 +372,7 @@ public class subject extends BaseController{
 		
 		
 		modelview.addObject("addDryBoxList", deleteBox(boxId));
+		logger.info(request.getSession().getAttribute("name")+"取消专题盒子中内容的管理员 "+request.getSession().getAttribute("name")+"name"+name+"===boxPostId"+boxPostId+"===boxId"+boxId);
 		
 		modelview.addObject("booxlist", findBoxById(boxPostId,"0","10"));
 		

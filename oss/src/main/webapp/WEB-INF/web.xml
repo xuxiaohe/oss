@@ -175,6 +175,10 @@
        <url-pattern>/coupon/*</url-pattern>  
    </filter-mapping>
    
+     <filter-mapping>  
+       <filter-name>SystemFilter</filter-name>  
+       <url-pattern>/subject/*</url-pattern>  
+   </filter-mapping>
    
    
 	<!-- Processes application requests -->
