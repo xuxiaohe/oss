@@ -107,7 +107,7 @@ public class subject extends BaseController{
 		model.addAttribute("ctime", request.getParameter("ctime"));
 		model.addAttribute("type", request.getParameter("type"));
 		model.addAttribute("h5Url", request.getParameter("h5Url"));
-		
+		model.addAttribute("categoryId", request.getParameter("categoryId"));
 		//查询盒子内数据
 		//model.addAttribute("innerDetail", findBoxById(request.getParameter("id"), "", ""));
 		model.addAttribute("specialInfo", getSpecialinfo(boxPostId,type));
@@ -153,7 +153,7 @@ public class subject extends BaseController{
 		String sourceType = request.getParameter("sourceType");
 		String ctime = request.getParameter("ctime");
 		for(int i=0;i<d.length;i++){
-			addInBox(boxPostId,sourceType,d[i],ctime);
+			JSONObject result = addInBox(boxPostId,sourceType,d[i],ctime);
 		}
 		logger.info(request.getSession().getAttribute("name")+"专题添加到盒子操作的管理员 "+request.getSession().getAttribute("name")+"===sourceId"+sourceId+"===boxPostId"+boxPostId);
 		
@@ -285,10 +285,11 @@ public class subject extends BaseController{
 		String boxPostId = request.getParameter("boxPostId");
 		String dataType = request.getParameter("dataType");
 		String ctime = request.getParameter("ctime");
-		String childCategoryId = request.getParameter("childCategoryId");
+		String childCategoryId = request.getParameter("categoryId");
 		model.addAttribute("boxPostId", boxPostId);
 		model.addAttribute("dataType", dataType);
 		model.addAttribute("ctime", ctime);
+		model.addAttribute("categoryId", childCategoryId);
 		if("activityspecial".equals(dataType)){
 			String a="";
 			JSONObject j = findBycoupon(boxPostId);
@@ -308,6 +309,7 @@ public class subject extends BaseController{
 		}
 		else {
 			model.addAttribute("list", findByothers(boxPostId,dataType,childCategoryId,pagenumber,pagelines));
+			//System.out.println(model.addAttribute("list", findByothers(boxPostId,dataType,childCategoryId,pagenumber,pagelines)));
 		}
 		
 		String cpath = request.getContextPath();
@@ -372,9 +374,9 @@ public class subject extends BaseController{
 		
 		
 		modelview.addObject("addDryBoxList", deleteBox(boxId));
-		logger.info(request.getSession().getAttribute("name")+"取消专题盒子中内容的管理员 "+request.getSession().getAttribute("name")+"name"+name+"===boxPostId"+boxPostId+"===boxId"+boxId);
 		
 		modelview.addObject("booxlist", findBoxById(boxPostId,"0","10"));
+		logger.info(request.getSession().getAttribute("name")+"取消专题盒子中内容的管理员 "+request.getSession().getAttribute("name")+"name"+name+"===boxPostId"+boxPostId+"===boxId"+boxId);
 		
 		modelview.setViewName("order/orderdetail");
 		return modelview;
@@ -439,6 +441,7 @@ public class subject extends BaseController{
 	private JSONObject addInBox(String boxPostId,String sourceType,String sourceId,String ctime) {
 		String url = Config.SUBJECT_SERVER
 				+ "/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId+"&ctime="+ctime;
+		//System.out.println(url);
 		return getRestApiData(url);
 	}
 	
@@ -450,7 +453,8 @@ public class subject extends BaseController{
 		return getRestApiData(url);
 	}
 	private JSONObject getSpecialinfo(String boxPostId,String type) {
-		String url = Config.YXTSERVER3 + "/oss/exploreoss/findBoxById?boxPostId="+boxPostId+"&type="+type;
+		String url = Config.YXTSERVER3 + "/oss/exploreoss/findBoxById?boxPostId="+boxPostId+"&type="+type + "&n=0&s=100";
+		//System.out.println(url);
 		return getRestApiData(url);
 	}
 	
