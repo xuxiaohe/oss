@@ -55,6 +55,7 @@
 						<thead>
 							<tr>
 								<th>活动名称</th>
+								<th>活动代码</th>
 								<th>发行数量</th>
 								<th>创建时间</th>
 								<th>开始时间</th>
@@ -66,6 +67,7 @@
 							<c:forEach items="${activityList.data.result}" var="Recourse">
 								<tr>
 									<td><a href="${cbasePath}coupon/couponListByActivity?aid=${Recourse.id}">${Recourse.activityName}</a></td>
+									<td>${Recourse.activityCode}</td>
 									<td>${Recourse.num}</td>
 									<td><Date:date value="${Recourse.ctime}"></Date:date></td>
 									<td><Date:date value="${Recourse.expiryDateStart}"></Date:date></td>
