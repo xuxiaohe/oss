@@ -6,6 +6,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="pageNation" uri="/WEB-INF/tld/pagenation.tld"%>
 <%@ taglib prefix="Date" uri="/WEB-INF/tld/datetag.tld"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%
 	String contextPath = request.getContextPath();
 %>
@@ -49,12 +50,14 @@
 							<c:if test="${type=='contentspecial'}">
 								<a href="#" onclick="javascript:showPreview('${type}', '${id}', '${logoUrl}');"><button class="btn btn-success btn-block">
 									预览页面</button></a>
+								<a href="#" onclick="javascript:createH5File('${type}', '${id}', '${logoUrl}', '${h5Url}');"><button class="btn btn-success btn-block">
+									生成静态页面</button></a>
 								<a href="#" onclick="javascript:showCourse();"><button class="btn btn-success btn-block"
-										data-toggle="modal" data-target="#myModal">管理课程</button></a>
+										data-toggle="modal" data-target="#myModal">添加课程</button></a>
 								<a href="#" onclick="javascript:showTopic();"><button class="btn btn-success btn-block"
-										data-toggle="modal" data-target="#myModal">管理话题</button></a>
+										data-toggle="modal" data-target="#myModal">添加话题</button></a>
 								<a href="#" onclick="javascript:showDry();"><button class="btn btn-success btn-block"
-										data-toggle="modal" data-target="#myModal">管理干货</button></a>
+										data-toggle="modal" data-target="#myModal">添加干货</button></a>
 							</c:if>
 	
 						</div>
@@ -74,28 +77,55 @@
 							<h5>专题内容:</h5>
 							</div>
 							<div class="col-xs-12">
-								<table class="table table-striped table-hover">
-									<thead>
-										<tr>
-											<th>活动名称</th>
-											<th>面值</th>
-											<th>红包数量</th>
-											<th>课程名称</th>
-											<th>课程价格</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach items="${specialInfo.data.result}" var="Recourse">
+								<c:if test="${type=='activityspecial'}">
+									<table class="table table-striped table-hover">
+										<thead>
 											<tr>
-												<td>${Recourse.activityName}</td>
-												<td>${Recourse.quota}</td>
-												<td>${Recourse.num}</td>
-												<td>${Recourse.course.title}</td>
-												<td>${Recourse.course.price}</td>
+												<th>活动名称</th>
+												<th>面值</th>
+												<th>红包数量</th>
+												<th>课程名称</th>
+												<th>课程价格</th>
 											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
+										</thead>
+										<tbody>
+											<c:forEach items="${specialInfo.data.result}" var="Recourse">
+												<tr>
+													<td>${Recourse.activityName}</td>
+													<td>${Recourse.quota}</td>
+													<td>${Recourse.num}</td>
+													<td>${Recourse.course.title}</td>
+													<td>${Recourse.course.price}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</c:if>
+								<c:if test="${type=='contentspecial'}">
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>标题</th>
+												<th>类型</th>
+												<th>群组</th>
+												<th>发表时间</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${specialInfo.data.result}" var="Recourse">
+												<tr>
+													<td>${fn:substring(Recourse.title, 0, 15)}</td>
+													<td><c:if test="${Recourse.type=='21'}">干货</c:if>
+														<c:if test="${Recourse.type=='01'}">话题</c:if>
+														<c:if test="${Recourse.type=='11'}">课程</c:if>
+													</td>
+													<td>${Recourse.groupName}</td>
+													<td><Date:date value="${Recourse.ctime}"></Date:date></td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</c:if>
 							</div>
 						</div>
 					</div>
@@ -151,12 +181,18 @@
 		
 			function showCourse(){//加载课程列表
 				$("#myModalLabel").html('课程选择');
+				var url = '<%=contextPath%>/subject/findByothers?pageType=selectCourse&dataType=course&boxPostId=${id}&ctime=${ctime}&categoryId=${categoryId}';
+				$("#modalHtml").load(url);
 			}
 			function showTopic(){//加载话题列表
 				$("#myModalLabel").html('话题选择');
+				var url = '<%=contextPath%>/subject/findByothers?pageType=selectTopic&dataType=topic&boxPostId=${id}&ctime=${ctime}&categoryId=${categoryId}';
+				$("#modalHtml").load(url);
 			}
 			function showDry(){//加载干货列表
 				$("#myModalLabel").html('干货选择');
+				var url = '<%=contextPath%>/subject/findByothers?pageType=selectDry&dataType=dry&boxPostId=${id}&ctime=${ctime}&categoryId=${categoryId}';
+				$("#modalHtml").load(url);
 			}
 		</script>
 </body>
