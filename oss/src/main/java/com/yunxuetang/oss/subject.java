@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yunxuetang.util.Config;
@@ -380,6 +381,99 @@ public class subject extends BaseController{
 		
 		modelview.setViewName("order/orderdetail");
 		return modelview;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * 根据条件查找群组
+	 */
+	@RequestMapping("/groupList")
+	public ModelAndView groupList(HttpServletRequest request) {
+		String courSharResoStr;
+		// String courSharResoStr2;
+		String keyword = request.getParameter("keyword");
+		// keyword="test123456";
+
+		// 当前第几页
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelview = new ModelAndView();
+
+		if (keyword == null) {
+			courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/group/search?n=" + pagenumber + "&s=" + pagelines, String.class);
+		} else {
+			courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/group/search?n=" + pagenumber + "&s=" + pagelines + "&keyword="
+					+ keyword, String.class);
+		}
+
+		try {
+			JSONObject objj = JSONObject.fromObject(courSharResoStr);
+			modelview.addObject("groupList", objj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("group/groupList");
+		return modelview;
+
+	}
+	
+	
+	/**
+	 * 
+	 * 查找群的所有课程
+	 */
+	@RequestMapping("/groupCourse")
+	public ModelAndView groupCourse(HttpServletRequest request) {
+		String gid = request.getParameter("gid");
+		// 当前第几页
+		String n = request.getParameter("n");
+		if (n == null) {
+			n = "0";
+		}
+		// 每页条数
+		String s = request.getParameter("s");
+		if (s == null) {
+			s = "10";
+		}
+		ModelAndView modelview = new ModelAndView();
+		modelview.addObject("Group", getGroupInfo(gid));
+		modelview.addObject("CourseList", getGroupCourse(gid, n, s));
+
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+		modelview.addObject("cbasePath", cbasePath);
+		modelview.addObject("sourcePath", Config.YXTSERVER5);
+		modelview.setViewName("group/groupCourse");
+		return modelview;
+	}
+	
+	private JSONObject getGroupInfo(String gid) {
+		String url = Config.YXTSERVER3 + "oss/group/findOneGroups/" + gid;
+		return getRestApiData(url);
+	}
+	
+	
+	private JSONObject getGroupCourse(String gid, String n, String s) {
+		String url = Config.YXTSERVER3 + "oss/course/groupCourses?groupId=" + gid + "&n=" + n + "&s=" + s;
+		return getRestApiData(url);
 	}
 	
 	private JSONObject deleteBox(String boxId) {
