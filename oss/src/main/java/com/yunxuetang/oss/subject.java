@@ -458,4 +458,10 @@ public class subject extends BaseController{
 		return getRestApiData(url);
 	}
 	
+	private JSONObject getBoxPostById(String boxPostId) {
+		String url = Config.YXTSERVER3
+				+ "oss/box/getBoxPostById?id=" + boxPostId;
+		return getRestApiData(url);
+	}
+	
 }
