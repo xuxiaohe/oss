@@ -35,22 +35,21 @@
 					<div class="row">
 						<div class="col-xs-2">
 							<img class="thumbnail col-xs-12" id="logoUrl" src="${logoUrl}" alt="" />
-							<input type="hidden" id="h5Url" value="${h5Url}">	
 	
 							<hr />
 							
-							<c:if test="${type=='activityspecial'}">
-								<a href="#" onclick="javascript:showPreview('${type}', '${id}', '${logoUrl}');"><button class="btn btn-success btn-block">
+							<c:if test="${specialDetail.type=='activityspecial'}">
+								<a href="#" onclick="javascript:showPreview('${specialDetail.type}', '${specialDetail.id}', '${logoUrl}');"><button class="btn btn-success btn-block">
 									预览页面</button></a>
-								<a href="#" onclick="javascript:createH5File('${type}', '${id}', '${logoUrl}', '${h5Url}');"><button class="btn btn-success btn-block">
+								<a href="#" onclick="javascript:createH5File('${specialDetail.type}', '${specialDetail.id}', '${logoUrl}', '${specialDetail.h5Url}');"><button class="btn btn-success btn-block">
 									生成静态页面</button></a>
 								<a href="#" onclick="javascript:showActivities();"><button class="btn btn-success btn-block"
 										data-toggle="modal" data-target="#myModal">添加活动</button></a>
 							</c:if>
-							<c:if test="${type=='contentspecial'}">
-								<a href="#" onclick="javascript:showPreview('${type}', '${id}', '${logoUrl}');"><button class="btn btn-success btn-block">
+							<c:if test="${specialDetail.type=='contentspecial'}">
+								<a href="#" onclick="javascript:showPreview('${specialDetail.type}', '${specialDetail.id}', '${logoUrl}');"><button class="btn btn-success btn-block">
 									预览页面</button></a>
-								<a href="#" onclick="javascript:createH5File('${type}', '${id}', '${logoUrl}', '${h5Url}');"><button class="btn btn-success btn-block">
+								<a href="#" onclick="javascript:createH5File('${specialDetail.type}', '${specialDetail.id}', '${logoUrl}', '${specialDetail.h5Url}');"><button class="btn btn-success btn-block">
 									生成静态页面</button></a>
 								<a href="#" onclick="javascript:showCourse();"><button class="btn btn-success btn-block"
 										data-toggle="modal" data-target="#myModal">添加课程</button></a>
@@ -64,20 +63,20 @@
 						<div id="userInfoDiv" class="col-xs-10" style="">
 							<div id="circleLoader" style="left:300px;top:100px;position:absolute;  z-index:99999;"></div>
 							<h4 style="margin-left: 12px;">
-								<span id="specialName">专题名称:${chinaName}</span><small><small class="pull-right">创建时间：<Date:date
-											value="${ctime}"></Date:date></small></small>
+								<span id="specialName">专题名称:${specialDetail.chinaName}</span><small><small class="pull-right">创建时间：<Date:date
+											value="${specialDetail.ctime}"></Date:date></small></small>
 							</h4>
 							<div class="col-xs-6">
 								专题类型:
-								<c:if test="${type=='activityspecial'}">活动专题</c:if>
-								<c:if test="${type=='contentspecial'}">精选专题</c:if>
+								<c:if test="${specialDetail.type=='activityspecial'}">活动专题</c:if>
+								<c:if test="${specialDetail.type=='contentspecial'}">精选专题</c:if>
 							</div>
 							<br /><br />
 							<div class="col-xs-12">
 							<h5>专题内容:</h5>
 							</div>
 							<div class="col-xs-12">
-								<c:if test="${type=='activityspecial'}">
+								<c:if test="${specialDetail.type=='activityspecial'}">
 									<table class="table table-striped table-hover">
 										<thead>
 											<tr>
@@ -101,7 +100,7 @@
 										</tbody>
 									</table>
 								</c:if>
-								<c:if test="${type=='contentspecial'}">
+								<c:if test="${specialDetail.type=='contentspecial'}">
 									<table class="table table-striped table-hover">
 										<thead>
 											<tr>
@@ -175,23 +174,23 @@
 		
 			function showActivities(){//加载活动列表
 				$("#myModalLabel").html('活动选择');
-				var url = '<%=contextPath%>/subject/findByothers?pageType=selectActivity&dataType=activityspecial&boxPostId=${id}&ctime=${ctime}';
+				var url = '<%=contextPath%>/subject/findByothers?pageType=selectActivity&dataType=activityspecial&boxPostId=${specialDetail.id}&ctime=${specialDetail.ctime}&logoUrl=${logoUrl}';
 				$("#modalHtml").load(url);
 			}
 		
 			function showCourse(){//加载课程列表
 				$("#myModalLabel").html('课程选择');
-				var url = '<%=contextPath%>/subject/findByothers?pageType=selectCourse&dataType=course&boxPostId=${id}&ctime=${ctime}&categoryId=${categoryId}';
+				var url = '<%=contextPath%>/subject/findByothers?pageType=selectCourse&dataType=course&boxPostId=${specialDetail.id}&ctime=${specialDetail.ctime}&categoryId=${categoryId}&logoUrl=${logoUrl}';
 				$("#modalHtml").load(url);
 			}
 			function showTopic(){//加载话题列表
 				$("#myModalLabel").html('话题选择');
-				var url = '<%=contextPath%>/subject/findByothers?pageType=selectTopic&dataType=topic&boxPostId=${id}&ctime=${ctime}&categoryId=${categoryId}';
+				var url = '<%=contextPath%>/subject/findByothers?pageType=selectTopic&dataType=topic&boxPostId=${specialDetail.id}&ctime=${specialDetail.ctime}&categoryId=${categoryId}&logoUrl=${logoUrl}';
 				$("#modalHtml").load(url);
 			}
 			function showDry(){//加载干货列表
 				$("#myModalLabel").html('干货选择');
-				var url = '<%=contextPath%>/subject/findByothers?pageType=selectDry&dataType=dry&boxPostId=${id}&ctime=${ctime}&categoryId=${categoryId}';
+				var url = '<%=contextPath%>/subject/findByothers?pageType=selectDry&dataType=dry&boxPostId=${specialDetail.id}&ctime=${specialDetail.ctime}&categoryId=${categoryId}&logoUrl=${logoUrl}';
 				$("#modalHtml").load(url);
 			}
 		</script>

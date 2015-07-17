@@ -25,22 +25,16 @@
 		<thead>
 			<tr>
 				<th>选择</th>
-				<th>活动名称</th>
-				<th>面额</th>
-				<th>数量</th>
+				<th>群组名称</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${list.data.result}" varStatus="key"
+			<c:forEach items="${groupList.data.result}" varStatus="key"
 				var="Recourse">
 				<tr>
-					<td><input type="checkbox" name="acid" value="${Recourse.id}"
+					<td><input type="checkbox" name="acid" value="${Recourse.topicId}"
 						 /></td>
-					<td>${Recourse.activityName}</td>
-					<td>${Recourse.quota}</td>
-					<td>
-				      ${Recourse.num}
-					</td>
+					<td>${Recourse.title}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -63,11 +57,9 @@
 		acids = acids.substr(0, acids.length - 1);
 		var boxPostId = '${boxPostId}';
 		var ctime = '${ctime}';
-		var sourceType = 'activity';
-		var logoUrl = '${logoUrl}';
-		var h5Url = '${h5Url}';
+		var categoryId = '${categoryId}';
+		var sourceType = 'topic';
 		var data = {'sourceId' : acids, 'boxPostId' : boxPostId, 'ctime' : ctime, 'sourceType' : sourceType};
-		
 		$.ajax({
 			url : '${cbasePath}subject/addDataInBox',
 			data : data,
@@ -75,7 +67,7 @@
 			success : function(data){
 				if(data == 'success'){
 					alert('添加活动成功');
-					var url = '${cbasePath}subject/subjectDetail?id=' + boxPostId + '&type=activityspecial&h5Url=' + h5Url + '&logoUrl=' + logoUrl;
+					var url = '${cbasePath}subject/subjectDetail?&id=' + boxPostId + '&type=contentspecial';
 					$("#circleLoader").shCircleLoader();
 					window.location.href = url;
 				}
@@ -90,7 +82,7 @@
 	分页重写方法
 	*/
 	function searchFunction(n, s){
-		var url = '${cbasePath}subject/findByothers?pageType=selectActivity&boxPostId=${boxPostId}&dataType=activityspecial';
+		var url = '${cbasePath}subject/groupList';
 		$.ajax({
 			url : url,
 			data : {'n' : n, 's' : s},

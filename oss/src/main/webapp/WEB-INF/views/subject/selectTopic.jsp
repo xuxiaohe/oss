@@ -62,10 +62,9 @@
 		var boxPostId = '${boxPostId}';
 		var ctime = '${ctime}';
 		var categoryId = '${categoryId}';
-		var specialName = $("#specialName").html();
-		var logoUrl = $("#logoUrl").attr("src");
 		var sourceType = 'topic';
-		var h5Url = $("#h5Url").val();
+		var logoUrl = '${logoUrl}';
+		var h5Url = '${h5Url}';
 		var data = {'sourceId' : acids, 'boxPostId' : boxPostId, 'ctime' : ctime, 'sourceType' : sourceType};
 		$.ajax({
 			url : '${cbasePath}subject/addDataInBox',
@@ -74,7 +73,7 @@
 			success : function(data){
 				if(data == 'success'){
 					alert('添加活动成功');
-					var url = '${cbasePath}subject/subjectDetail?chinaName=' + encodeURI(specialName) + "&id=" + boxPostId + "&type=topic&logoUrl=" + logoUrl + '&ctime=' + ctime + '&h5Url=' + h5Url + '&categoryId=' + categoryId;
+					var url = '${cbasePath}subject/subjectDetail?&id=' + boxPostId + '&type=contentspecial&h5Url=' + h5Url + '&logoUrl=' + logoUrl;
 					$("#circleLoader").shCircleLoader();
 					window.location.href = url;
 				}

@@ -44,7 +44,7 @@ var _hmt = _hmt || [];
 			<c:forEach items="${specialInfo.data.result}" var="Resource">
 				<c:if test="${Resource.type=='01'}">
 					<!-- 话题  -->
-					<div class="item row">
+					<div class="item col-xs-12">
 						<div class="col-xs-12">
 							
 							<h4>

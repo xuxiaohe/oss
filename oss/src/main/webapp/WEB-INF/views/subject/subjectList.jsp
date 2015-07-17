@@ -58,7 +58,7 @@
 							</div>
 							<div class="col-xs-10">
 								<h4 style="margin-left:12px;">
-									<a href="#" onclick="javascript:specialDetail('${special.id}','${special.chinaName}','${special.type}','${special.logoUrl}','${special.ctime}','${special.h5Url}', '${special.categoryId}');">
+									<a href="#" onclick="javascript:specialDetail('${special.id}', '${special.type}', '${special.logoUrl}', '${special.h5Url}', '${special.categoryId}');">
 										${special.chinaName} </a><small><small
 										class="pull-right">创建时间：<Date:date
 												value="${special.ctime}"></Date:date></small></small>
@@ -87,8 +87,8 @@
 				var type = $(obj).val();
 				window.location.href= '${cbasePath}subject/getBoxPostByType?type=' + type;
 			}
-			function specialDetail(id, chinaName, type, logoUrl, ctime, h5Url, categoryId){
-				var url = '${cbasePath}subject/subjectDetail?chinaName=' + encodeURI(chinaName) + "&id=" + id + "&type=" + type + "&logoUrl=" + logoUrl + '&ctime=' + ctime + '&h5Url=' + h5Url + '&categoryId=' + categoryId;
+			function specialDetail(id, type, logoUrl, h5Url, categoryId){
+				var url = '${cbasePath}subject/subjectDetail?id=' + id + '&type=' + type + '&logoUrl=' + logoUrl + '&h5Url=' + h5Url + '&categoryId=' + categoryId;
 				window.location.href = url;
 				//var data = {'id' : id, 'chinaName' : chinaName, 'type' : type, 'logoUrl' : logoUrl == null ? '' : logoUrl, 'ctime' : ctime};
 				//$.post(url, data, function(result){console.log($(document));$(document).html(result)});
