@@ -3,7 +3,6 @@ package com.yunxuetang.oss;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,9 +58,11 @@ public class subject extends BaseController{
 	public @ResponseBody String createFile(HttpServletRequest request, Model model){
 		String boxId = request.getParameter("boxId");
 		String type = request.getParameter("type");
-		String logoUrl = request.getParameter("logoUrl");
-		String h5Url = request.getParameter("h5Url");
-		
+//		String logoUrl = request.getParameter("logoUrl");
+//		String h5Url = request.getParameter("h5Url");
+		JSONObject data = getBoxPostById(boxId).getJSONObject("data").getJSONObject("result");
+		String logoUrl = data.getString("logoUrl");
+		String h5Url = data.getString("h5Url");
 		String url = "http://127.0.0.1:8089/oss/subject/showPreview?boxId=" + boxId + "&type=" + type + "&logoUrl=" + logoUrl;
 		String uuid = UUID.randomUUID().toString();
 		uuid = uuid.substring(uuid.length() - 6);
@@ -98,20 +99,22 @@ public class subject extends BaseController{
 	 * */
 	@RequestMapping("subjectDetail")
 	public String subjectDetail(HttpServletRequest request, Model model) throws UnsupportedEncodingException{
-		String chinaName = request.getParameter("chinaName");
-		chinaName = new String(chinaName.getBytes("iso-8859-1"), "utf-8");
+//		String chinaName = request.getParameter("chinaName");
+//		chinaName = new String(chinaName.getBytes("iso-8859-1"), "utf-8");
 		String boxPostId = request.getParameter("id");
 		String type = request.getParameter("type");
-		model.addAttribute("id", request.getParameter("id"));
+//		model.addAttribute("id", request.getParameter("id"));
 		model.addAttribute("logoUrl", request.getParameter("logoUrl"));
-		model.addAttribute("chinaName", chinaName);
-		model.addAttribute("ctime", request.getParameter("ctime"));
-		model.addAttribute("type", request.getParameter("type"));
+//		model.addAttribute("chinaName", chinaName);
+//		model.addAttribute("ctime", request.getParameter("ctime"));
+//		model.addAttribute("type", request.getParameter("type"));
 		model.addAttribute("h5Url", request.getParameter("h5Url"));
 		model.addAttribute("categoryId", request.getParameter("categoryId"));
 		//查询盒子内数据
 		//model.addAttribute("innerDetail", findBoxById(request.getParameter("id"), "", ""));
 		model.addAttribute("specialInfo", getSpecialinfo(boxPostId,type));
+		JSONObject data = getBoxPostById(boxPostId).getJSONObject("data").getJSONObject("result");
+		model.addAttribute("specialDetail", data);
 		//model.addAttribute("boxlist", findBoxById(boxPostId,"0","10"));
 		//System.out.println(findBoxById(boxPostId,"0","10"));
 		
@@ -285,12 +288,16 @@ public class subject extends BaseController{
 		
 		String boxPostId = request.getParameter("boxPostId");
 		String dataType = request.getParameter("dataType");
+		String logoUrl = request.getParameter("logoUrl");
 		String ctime = request.getParameter("ctime");
 		String childCategoryId = request.getParameter("categoryId");
+		String h5Url = request.getParameter("h5Url");
 		model.addAttribute("boxPostId", boxPostId);
 		model.addAttribute("dataType", dataType);
 		model.addAttribute("ctime", ctime);
 		model.addAttribute("categoryId", childCategoryId);
+		model.addAttribute("logoUrl", logoUrl);
+		model.addAttribute("h5Url", h5Url);
 		if("activityspecial".equals(dataType)){
 			String a="";
 			JSONObject j = findBycoupon(boxPostId);
@@ -516,7 +523,8 @@ public class subject extends BaseController{
 	
 	private JSONObject findByothers(String boxPostId,String dataType,String childCategoryId,String n,String s) {
 		String url = Config.YXTSERVER3
-				+ "/oss/box/notInBoxPostAndNotInCategory?boxPostId=" + boxPostId+"&n="+n+"&s="+s+"&dataType="+dataType+"&childCategoryId="+childCategoryId;
+				+ "oss/box/notInBoxPostAndNotInCategory?boxPostId=" + boxPostId+"&n="+n+"&s="+s+"&dataType="+dataType+"&childCategoryId="+childCategoryId;
+		System.out.println(url);
 		return getRestApiData(url);
 	}
 	
