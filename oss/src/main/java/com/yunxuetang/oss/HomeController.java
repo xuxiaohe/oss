@@ -52,7 +52,7 @@ public class HomeController {
 				|| ("admin5".equals(name) && "oss3456".equals(password)) || ("admin6".equals(name) && "oss4567".equals(password))
 				|| ("admin7".equals(name) && "oss8901".equals(password)) || ("admin8".equals(name) && "oss9012".equals(password))
 				|| ("admin9".equals(name) && "oss0123".equals(password)) || ("admin10".equals(name) && "oss0123".equals(password))
-				|| ("admin11".equals(name) && "oss0123".equals(password)) || ("admin12".equals(name) && "oss0123".equals(password))
+				|| ("admin11".equals(name) && "821226".equals(password)) || ("admin12".equals(name) && "oss0123".equals(password))
 				|| ("admin13".equals(name) && "oss0123".equals(password)) || ("admin14".equals(name) && "oss0123".equals(password))
 				|| ("admin15".equals(name) && "oss0123".equals(password)) || ("admin16".equals(name) && "oss0123".equals(password))
 				|| ("admin17".equals(name) && "oss0123".equals(password)) || ("admin18".equals(name) && "oss0123".equals(password))
