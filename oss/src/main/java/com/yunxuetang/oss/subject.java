@@ -38,7 +38,7 @@ public class subject extends BaseController{
 		
 		model.addAttribute("specialInfo", getSpecialinfo(boxId,type));
 		model.addAttribute("logoUrl", logoUrl);
-		
+//		System.out.println(getSpecialinfo(boxId,type));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
@@ -47,7 +47,10 @@ public class subject extends BaseController{
 		model.addAttribute("sourcePath", Config.YXTSERVER5);
 		if("activityspecial".equals(type))
 			return "subject/activityView";
-		else 
+		else if("onecoursespecial".equals(type)){
+			return "subject/courseView" ;
+		}
+		else
 			return "subject/contentView" ;
 	}
 	
@@ -58,11 +61,11 @@ public class subject extends BaseController{
 	public @ResponseBody String createFile(HttpServletRequest request, Model model){
 		String boxId = request.getParameter("boxId");
 		String type = request.getParameter("type");
-//		String logoUrl = request.getParameter("logoUrl");
-//		String h5Url = request.getParameter("h5Url");
-		JSONObject data = getBoxPostById(boxId).getJSONObject("data").getJSONObject("result");
-		String logoUrl = data.getString("logoUrl");
-		String h5Url = data.getString("h5Url");
+		String logoUrl = request.getParameter("logoUrl");
+		String h5Url = request.getParameter("h5Url");
+//		JSONObject data = getBoxPostById(boxId).getJSONObject("data").getJSONObject("result");
+//		String logoUrl = data.getString("logoUrl");
+//		String h5Url = data.getString("h5Url");
 		String url = "http://127.0.0.1:8089/oss/subject/showPreview?boxId=" + boxId + "&type=" + type + "&logoUrl=" + logoUrl;
 		String uuid = UUID.randomUUID().toString();
 		uuid = uuid.substring(uuid.length() - 6);
@@ -115,9 +118,9 @@ public class subject extends BaseController{
 		model.addAttribute("specialInfo", getSpecialinfo(boxPostId,type));
 		JSONObject data = getBoxPostById(boxPostId).getJSONObject("data").getJSONObject("result");
 		model.addAttribute("specialDetail", data);
+//		System.out.println(getSpecialinfo(boxPostId,type));
 		//model.addAttribute("boxlist", findBoxById(boxPostId,"0","10"));
 		//System.out.println(findBoxById(boxPostId,"0","10"));
-		
 		
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
@@ -158,6 +161,7 @@ public class subject extends BaseController{
 		String ctime = request.getParameter("ctime");
 		for(int i=0;i<d.length;i++){
 			JSONObject result = addInBox(boxPostId,sourceType,d[i],ctime);
+//			System.out.println(result);
 		}
 		logger.info(request.getSession().getAttribute("name")+"专题添加到盒子操作的管理员 "+request.getSession().getAttribute("name")+"===sourceId"+sourceId+"===boxPostId"+boxPostId);
 		
@@ -251,7 +255,7 @@ public class subject extends BaseController{
 				}
 		String boxPostId = request.getParameter("boxPostId");
 	 
-		model.addAttribute("booxlist", findBoxById(boxPostId,pagenumber,pagelines));
+		model.addAttribute("boxlist", findBoxById(boxPostId,pagenumber,pagelines));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
@@ -315,9 +319,10 @@ public class subject extends BaseController{
 
 			model.addAttribute("list", findBycouponList(a ,pagenumber,pagelines));
 		}
-		else {
+		else if("group".equals(dataType)){
+			model.addAttribute("list", getGroupList(pagenumber, pagelines, request.getParameter("keyword")));
+		}else{
 			model.addAttribute("list", findByothers(boxPostId,dataType,childCategoryId,pagenumber,pagelines));
-			//System.out.println(model.addAttribute("list", findByothers(boxPostId,dataType,childCategoryId,pagenumber,pagelines)));
 		}
 		
 		String cpath = request.getContextPath();
@@ -336,120 +341,78 @@ public class subject extends BaseController{
 	 * 
 	 * 显示专题列表中数据项的内容
 	 */
-	@RequestMapping("/getSpecialInfo")
-	public ModelAndView getSpecialInfo(HttpServletRequest request) {
-		String boxPostId = request.getParameter("boxPostId");
-		 
-		String type = request.getParameter("type");
-		 
-		ModelAndView modelview = new ModelAndView();
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		
-		
-		modelview.addObject("specialInfo", getSpecialinfo(boxPostId,type));
-		
-		modelview.addObject("booxlist", findBoxById(boxPostId,"0","10"));
-		
-		modelview.setViewName("order/orderdetail");
-		return modelview;
-	}
-	
-	
-	
-	/**
-	 * 
-	 * 取消关联到具体的排行榜
-	 */
-	@RequestMapping("/unbindBox")
-	public ModelAndView unbindBoxDry(HttpServletRequest request) {
-		String type = request.getParameter("type");
-		 
-		String name = request.getParameter("name");
-		//位置id
-		String boxPostId = request.getParameter("boxPostId");
-		//排行榜id
-		String boxId = request.getParameter("boxId");
-		 
-		 
-		ModelAndView modelview = new ModelAndView();
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		
-		
-		modelview.addObject("addDryBoxList", deleteBox(boxId));
-		
-		modelview.addObject("booxlist", findBoxById(boxPostId,"0","10"));
-		logger.info(request.getSession().getAttribute("name")+"取消专题盒子中内容的管理员 "+request.getSession().getAttribute("name")+"name"+name+"===boxPostId"+boxPostId+"===boxId"+boxId);
-		
-		modelview.setViewName("order/orderdetail");
-		return modelview;
-	}
-	
-	
-	
-	/**
-	 * 
-	 * 根据条件查找群组
-	 */
-	@RequestMapping("/groupList")
-	public ModelAndView groupList(HttpServletRequest request) {
-		String courSharResoStr;
-		// String courSharResoStr2;
-		String keyword = request.getParameter("keyword");
-		// keyword="test123456";
-
-		// 当前第几页
-		String pagenumber = request.getParameter("n");
-
-		if (pagenumber == null) {
-			pagenumber = "0";
-		}
-
-		// 每页条数
-
-		String pagelines = request.getParameter("s");
-
-		if (pagelines == null) {
-			pagelines = "10";
-		}
-		RestTemplate restTemplate = new RestTemplate();
-		ModelAndView modelview = new ModelAndView();
-
-		if (keyword == null) {
-			courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/group/search?n=" + pagenumber + "&s=" + pagelines, String.class);
-		} else {
-			courSharResoStr = restTemplate.getForObject(Config.YXTSERVER3 + "oss/group/search?n=" + pagenumber + "&s=" + pagelines + "&keyword="
-					+ keyword, String.class);
-		}
-
-		try {
-			JSONObject objj = JSONObject.fromObject(courSharResoStr);
-			modelview.addObject("groupList", objj);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String cpath = request.getContextPath();
-		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		modelview.setViewName("group/groupList");
-		return modelview;
-
-	}
-	
+//	@RequestMapping("/getSpecialInfo")
+//	public ModelAndView getSpecialInfo(HttpServletRequest request) {
+//		String boxPostId = request.getParameter("boxPostId");
+//		 
+//		String type = request.getParameter("type");
+//		 
+//		ModelAndView modelview = new ModelAndView();
+//		String cpath = request.getContextPath();
+//		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+//		modelview.addObject("cbasePath", cbasePath);
+//		modelview.addObject("sourcePath", Config.YXTSERVER5);
+//		
+//		
+//		modelview.addObject("specialInfo", getSpecialinfo(boxPostId,type));
+//		
+//		modelview.addObject("booxlist", findBoxById(boxPostId,"0","10"));
+//		
+//		modelview.setViewName("order/orderdetail");
+//		return modelview;
+//	}
+//	
+//	
+//	
+//	/**
+//	 * 
+//	 * 取消关联到具体的排行榜
+//	 */
+//	@RequestMapping("/unbindBox")
+//	public ModelAndView unbindBoxDry(HttpServletRequest request) {
+//		String type = request.getParameter("type");
+//		 
+//		String name = request.getParameter("name");
+//		//位置id
+//		String boxPostId = request.getParameter("boxPostId");
+//		//排行榜id
+//		String boxId = request.getParameter("boxId");
+//		 
+//		 
+//		ModelAndView modelview = new ModelAndView();
+//		String cpath = request.getContextPath();
+//		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
+//		modelview.addObject("cbasePath", cbasePath);
+//		modelview.addObject("sourcePath", Config.YXTSERVER5);
+//		
+//		
+//		modelview.addObject("addDryBoxList", deleteBox(boxId));
+//		
+//		modelview.addObject("booxlist", findBoxById(boxPostId,"0","10"));
+//		logger.info(request.getSession().getAttribute("name")+"取消专题盒子中内容的管理员 "+request.getSession().getAttribute("name")+"name"+name+"===boxPostId"+boxPostId+"===boxId"+boxId);
+//		
+//		modelview.setViewName("order/orderdetail");
+//		return modelview;
+//	}
 	
 	/**
 	 * 
 	 * 查找群的所有课程
 	 */
-	@RequestMapping("/groupCourse")
-	public ModelAndView groupCourse(HttpServletRequest request) {
+	@RequestMapping("/selectCourseForGroup")
+	public String groupCourse(HttpServletRequest request, Model model) {
 		String gid = request.getParameter("gid");
+		String boxPostId = request.getParameter("boxPostId");
+		String logoUrl = request.getParameter("logoUrl");
+		String ctime = request.getParameter("ctime");
+		String childCategoryId = request.getParameter("categoryId");
+		String h5Url = request.getParameter("h5Url");
+		model.addAttribute("boxPostId", boxPostId);
+		model.addAttribute("ctime", ctime);
+		model.addAttribute("categoryId", childCategoryId);
+		model.addAttribute("logoUrl", logoUrl);
+		model.addAttribute("h5Url", h5Url);
+		model.addAttribute("gid", gid);
 		// 当前第几页
 		String n = request.getParameter("n");
 		if (n == null) {
@@ -460,16 +423,12 @@ public class subject extends BaseController{
 		if (s == null) {
 			s = "10";
 		}
-		ModelAndView modelview = new ModelAndView();
-		modelview.addObject("Group", getGroupInfo(gid));
-		modelview.addObject("CourseList", getGroupCourse(gid, n, s));
-
+		model.addAttribute("list", getGroupCourse(gid, n, s));
 		String cpath = request.getContextPath();
 		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-		modelview.addObject("cbasePath", cbasePath);
-		modelview.addObject("sourcePath", Config.YXTSERVER5);
-		modelview.setViewName("group/groupCourse");
-		return modelview;
+		model.addAttribute("cbasePath", cbasePath);
+		model.addAttribute("sourcePath", Config.YXTSERVER5);
+		return "subject/selectGroupCourse";
 	}
 	
 	private JSONObject getGroupInfo(String gid) {
@@ -524,7 +483,6 @@ public class subject extends BaseController{
 	private JSONObject findByothers(String boxPostId,String dataType,String childCategoryId,String n,String s) {
 		String url = Config.YXTSERVER3
 				+ "oss/box/notInBoxPostAndNotInCategory?boxPostId=" + boxPostId+"&n="+n+"&s="+s+"&dataType="+dataType+"&childCategoryId="+childCategoryId;
-		System.out.println(url);
 		return getRestApiData(url);
 	}
 	
@@ -543,7 +501,7 @@ public class subject extends BaseController{
 	private JSONObject addInBox(String boxPostId,String sourceType,String sourceId,String ctime) {
 		String url = Config.SUBJECT_SERVER
 				+ "/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId+"&ctime="+ctime;
-		//System.out.println(url);
+//		System.out.println(url);
 		return getRestApiData(url);
 	}
 	
@@ -555,8 +513,8 @@ public class subject extends BaseController{
 		return getRestApiData(url);
 	}
 	private JSONObject getSpecialinfo(String boxPostId,String type) {
-		String url = Config.YXTSERVER3 + "/oss/exploreoss/findBoxById?boxPostId="+boxPostId+"&type="+type + "&n=0&s=100";
-		//System.out.println(url);
+		String url = Config.YXTSERVER3 + "oss/exploreoss/findBoxById?boxPostId="+boxPostId+"&type="+type + "&n=0&s=100";
+//		System.out.println(url);
 		return getRestApiData(url);
 	}
 	
@@ -566,4 +524,13 @@ public class subject extends BaseController{
 		return getRestApiData(url);
 	}
 	
+	private JSONObject getGroupList(String n, String s, String keyword){
+		if("".equals(keyword) || null == keyword){
+			String url = Config.YXTSERVER3 + "oss/group/search?n=" + n + "&s=" + s;
+			return getRestApiData(url);
+		}else{
+			String url = Config.YXTSERVER3 + "oss/group/search?n=" + n + "&s=" + s + "&keyword=" + keyword;
+			return getRestApiData(url);
+		}
+	}
 }
