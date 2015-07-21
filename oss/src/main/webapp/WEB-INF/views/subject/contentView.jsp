@@ -40,23 +40,23 @@ var _hmt = _hmt || [];
 			
 							<img src="${logoUrl}" class="col-xs-12" alt="" />
 		</div>
-		<div id="content" class="row content">
+		<!-- <div id="content" class="content"> -->
 			<c:forEach items="${specialInfo.data.result}" var="Resource">
 				<c:if test="${Resource.type=='01'}">
 					<!-- 话题  -->
-					<div class="item col-xs-12">
+					<div  class="row content">
 						<div class="col-xs-12">
 							
 							<h4>
 								<span class="glyphicon glyphicon-comment"></span>
-								<a class="contentTitle" href="objc://ztiao?openNative=3&sourceId=${Resource.sourceId}">${Resource.title}</a>
+								<a class="contentTitle" href="objc://ztiao?openNative=3&sourceId=${Resource.sourceId}&groupId=${Resource.groupId}">${Resource.title}</a>
 							</h4>
 						</div>
 						<div class="col-xs-12">
 							<span>  ${fn:substring(Resource.content, 0, 50)} </span>
 						</div>
 						<div class="col-xs-12">
-							<div class="thumbnail">
+							<div class="thumbnail itemimg">
 								<img src="${Resource.images[0].picUrl}" />
 							</div>
 						</div>
@@ -75,12 +75,12 @@ var _hmt = _hmt || [];
 				</c:if>
 				<c:if test="${Resource.type=='11'}">
 					<!-- 课程 -->
-					<div class="item row">
+					<div  class="row content">
 						<div class="col-xs-12">
 							
 							<h4>
 								<span class="glyphicon glyphicon-book"></span>
-								<a class="contentTitle" href="objc://ztiao?openNative=2&sourceId=${Resource.sourceId}">${Resource.title}</a>
+								<a class="contentTitle" href="objc://ztiao?openNative=2&sourceId=${Resource.courseId}&groupId=${Resource.groupId}&groupCourseId=${Resource.sourceId}">${Resource.title}</a>
 							</h4>
 						</div>
 						<div class="col-xs-12">
@@ -106,12 +106,12 @@ var _hmt = _hmt || [];
 				</c:if>
 				<c:if test="${Resource.type=='21'}">
 					<!-- 干货 -->
-					<div class="item row">
+					<div  class="row content">
 						<div class="col-xs-12">
 							
 							<h4>
 								<span class="glyphicon glyphicon-link"></span>
-								<a class="contentTitle" href="objc://ztiao?openNative=5&sourceId=${Resource.sourceId}">${Resource.title}</a>
+								<a class="contentTitle" href="objc://ztiao?openNative=5&sourceId=${Resource.sourceId}&groupId=${Resource.groupId}">${Resource.title}</a>
 							</h4>
 						</div>
 						<div class="col-xs-12">
@@ -140,7 +140,7 @@ var _hmt = _hmt || [];
 			</c:forEach>
 			
 		</div>
-	</div>
+	<!-- </div> -->
 	<style>
 	.titleDiv {
 		background-color: #ffffff;
@@ -163,10 +163,8 @@ var _hmt = _hmt || [];
 	body {
 		font-family: "Microsoft YaHei", "黑体", "Helvetica Neue",
 			"Hiragino Sans GB", Arial, sans-serif;
-		background-color: #f0f0f0;
+		background-color: #ebebeb;
 	}
-	
-	.date{}
 	
 	.banner {
 		
@@ -178,9 +176,13 @@ var _hmt = _hmt || [];
 	}
 	
 	.content {
-		padding-top: 24px;
-		padding-left: 5px;
-		padding-right: 5px;
+		margin-top:20px;
+		margin-left:0px;
+		margin-right:0px;
+		padding-top: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
+		background-color: #ffffff;
 	}
 	
 	.content .item {
@@ -197,6 +199,10 @@ var _hmt = _hmt || [];
 		height: 145px;
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
+	}
+	
+	.itemimg{
+		margin : 0 0 0 0px;
 	}
 	
 	.price {
@@ -227,18 +233,26 @@ var _hmt = _hmt || [];
 	}
 	
 	.pickCoupon a {
+		margin-bottom : 20px;
 		color: #ffff00;
 	}
 	
 	.FontSize14 {
 		font-size: 14px;
-		color: black;
+		color: #ffffff;
 	}
 	
 	.ColorWhite {
-		color: black;
+		color: #ffffff;
 	}
 	
+	.logo{
+		margin-bottom:5px;
+	}
+	
+	.rightGo{
+		margin-right:10px;
+	}
 	</style>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>

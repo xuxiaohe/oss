@@ -31,7 +31,7 @@
 							<select class="form-control"  id="specialtype" onchange="javascript:selectUserType(this);">
 								<option value="contentspecial">精选专题</option>
 								<option value="activityspecial">活动专题</option>
-								
+								<option value="onecoursespecial">一元课</option>
 							</select>
 						</div>
 					</form>

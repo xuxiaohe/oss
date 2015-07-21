@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%
 	String contextPath = request.getContextPath();
 %>
@@ -37,33 +38,52 @@ var _hmt = _hmt || [];
 		<div id="header" class="row banner">
 			<img src="${logoUrl}" class="col-xs-12" alt="" />
 		</div>
-		<div class="row">
-			<div class="col-xs-2">
-				<img src="" class="img-circle" alt="" />
+		<c:forEach items="${specialInfo.data.result}" var="Recourse" varStatus="sta" step="2">
+		
+		
+		<div class="row content">
+			<div class="row">
+			<div class="col-xs-12">
+				<div class="col-xs-2">
+					<a href="objc://ztiao?openNative=0&sourceId=${Recourse.groupid}"><img src="${Recourse.grouplogo}?imageView2/1/w/40/h/40" class="img-circle logo" alt="" /></a>	
+				</div>
+				<div class="col-xs-8">
+					<h5><a href="objc://ztiao?openNative=0&sourceId=${Recourse.groupid}">${Recourse.groupname}</a></h5>
+				</div>
+				<div class="col-xs-2">
+					<a href="objc://ztiao?openNative=0&sourceId=${Recourse.groupid}"><img alt="" src="http://yxt-bj.qiniudn.com/subject/imgs/201507/Activity5_go.png" class="rightGo"></a>
+				</div>
 			</div>
-			<div class="col-xs-2">
-				<h4>李家强企业管理培训</h4>
 			</div>
-			<div class="col-xs-2">
-				<img alt="" src="">
-			</div>
-		</div>
-		<div class="row">
+			<div class="row">
 			<div class="col-xs-6">
-				<div class="row">
-					<div class="col-xs-12">
-						<img alt="" src="">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						<span class="label label-primary">免费</span>
-					</div>
+				<div class="thumbnail">
+								<a href="objc://ztiao?openNative=2&sourceId=${Recourse.course.id}&groupId=${Recourse.groupid}&groupCourseId=${Recourse.groupCourseid}">
+								<img src="${Recourse.course.logoUrl}?imageView2/1/w/640/h/380" />
+								</a>
 				</div>
 			</div>
+			<div class="col-xs-6">
+				<div class="thumbnail">
+								<a href="objc://ztiao?openNative=2&sourceId=${specialInfo.data.result[sta.index+1].course.id}&groupId=${specialInfo.data.result[sta.index+1].groupid}&groupCourseId=${specialInfo.data.result[sta.index+1].groupCourseid}">
+								<img src="${specialInfo.data.result[sta.index+1].course.logoUrl}?imageView2/1/w/640/h/380" />
+								</a>
+				</div>
+			</div>
+			</div>
+			<div class="row">
+			<div class="col-xs-6">
+				
+							<h6><span class="label label-primary">免费</span><a href="objc://ztiao?openNative=2&sourceId=${Recourse.course.id}&groupId=${Recourse.groupid}&groupCourseId=${Recourse.groupCourseid}"><small>${fn:substring(Recourse.course.title, 0, 15)}</small></a></h6>
+			</div>
+			<div class="col-xs-6">
+				
+							<h6><span class="label label-primary">1元</span><a href="objc://ztiao?openNative=2&sourceId=${specialInfo.data.result[sta.index+1].course.id}&groupId=${specialInfo.data.result[sta.index+1].groupid}&groupCourseId=${specialInfo.data.result[sta.index+1].groupCourseid}"><small>${fn:substring(specialInfo.data.result[sta.index+1].course.title, 0, 15)}</small></a></h6>
+			</div>
+			</div>
 		</div>
-
-
+		
+		</c:forEach>
 	</div>
 	<style>
 	.titleDiv {
@@ -87,7 +107,7 @@ var _hmt = _hmt || [];
 	body {
 		font-family: "Microsoft YaHei", "黑体", "Helvetica Neue",
 			"Hiragino Sans GB", Arial, sans-serif;
-		background-color: #f0f0f0;
+		background-color: #ebebeb;
 	}
 	
 	.banner {
@@ -100,9 +120,13 @@ var _hmt = _hmt || [];
 	}
 	
 	.content {
-		padding-top: 24px;
-		padding-left: 20px;
-		padding-right: 20px;
+		margin-top:20px;
+		margin-left:0px;
+		margin-right:0px;
+		padding-top: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
+		background-color: #ffffff;
 	}
 	
 	.content .item {
@@ -160,6 +184,14 @@ var _hmt = _hmt || [];
 	
 	.ColorWhite {
 		color: #ffffff;
+	}
+	
+	.logo{
+		margin-bottom:5px;
+	}
+	
+	.rightGo{
+		margin-right:10px;
 	}
 	</style>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

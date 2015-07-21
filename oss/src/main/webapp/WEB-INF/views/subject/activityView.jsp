@@ -56,7 +56,7 @@ var _hmt = _hmt || [];
 					<div class="col-xs-12 titleDiv ">
 						<a class=" "
 							href="objc://ztiao?openNative=2&sourceId=${Resource.course.id}"
-							role="button"><small><small><small>￥${Resource.course.title}</small></small></small></a>
+							role="button"><small><small>${Resource.course.title}</small></small></a>
 					</div>
 				</div>
 			</c:forEach>
@@ -149,7 +149,7 @@ var _hmt = _hmt || [];
 	}
 	
 	.pickCoupon a {
-		margin-bottom : 20px;
+		margin-bottom : 30px;
 		color: #ffff00;
 	}
 	

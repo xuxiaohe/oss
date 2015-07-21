@@ -21,30 +21,62 @@
 		<!-- 分页结束 -->
 	</nav>
 	<!---数据显示区域-->
-	<table class="table">
+	<table class="table table-striped table-hover table-condensed">
 		<thead>
 			<tr>
 				<th>选择</th>
 				<th>群组名称</th>
+				<th>群组简介</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${groupList.data.result}" varStatus="key"
+			<c:forEach items="${list.data.result}" varStatus="key"
 				var="Recourse">
 				<tr>
-					<td><input type="checkbox" name="acid" value="${Recourse.topicId}"
+					<td><input type="radio" name="acid" value="${Recourse.id}"
 						 /></td>
-					<td>${Recourse.title}</td>
+					<td>${fn:substring(Recourse.groupName, 0, 15)}</td>
+					<td>${fn:substring(Recourse.intro, 0, 15)}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 </c:if>
 <script type="text/javascript">
+	/*
+	下一步跳转到选择课程页面
+	**/
+	function nextview(){
+		var groupId = $("input[name='acid']:checked").val();
+		if(typeof(groupId) == "undefined" ||  groupId == ''){
+			alert('请选择群组');
+			return;
+		}
+		
+		var boxId = '${boxPostId}';
+		var logoUrl = '${logoUrl}';
+		var categoryId = '${categoryId}';
+		var ctime = '${ctime}';
+		
+		var url = '${cbasePath}subject/selectCourseForGroup?boxPostId=' + boxId + '&gid=' + groupId + '&categoryId=' + categoryId + '&ctime=' + ctime + '&logoUrl=' + logoUrl;
+		$("#modalHtml").load(url);
+		/* $.ajax({
+			url : url,
+			data :{'boxId' : boxId, 'gid' : groupId, 'categoryId' : categoryId, 'ctime' : ctime, 'logoUrl' : logoUrl},
+			type : 'post',
+			success : function(data){
+				$("#modalHtml").html(data);
+			}
+			
+		}); */
+		
+		
+	}
+
 	/**
 	点击确定按钮时
 	*/
-	function closeDialog(){
+	/*function closeDialog(){
 		var acids = '';
 		$("input[name='acid']:checkbox").each(function(i){
 		    if(this.checked == true){
@@ -58,7 +90,7 @@
 		var boxPostId = '${boxPostId}';
 		var ctime = '${ctime}';
 		var categoryId = '${categoryId}';
-		var sourceType = 'topic';
+		var sourceType = 'onecourse';
 		var data = {'sourceId' : acids, 'boxPostId' : boxPostId, 'ctime' : ctime, 'sourceType' : sourceType};
 		$.ajax({
 			url : '${cbasePath}subject/addDataInBox',
@@ -67,22 +99,25 @@
 			success : function(data){
 				if(data == 'success'){
 					alert('添加活动成功');
-					var url = '${cbasePath}subject/subjectDetail?&id=' + boxPostId + '&type=contentspecial';
+					var url = '${cbasePath}subject/subjectDetail?&id=' + boxPostId + '&type=onecoursespecial';
 					$("#circleLoader").shCircleLoader();
 					window.location.href = url;
 				}
 			}
 			
 		});
-	}
+	}*/
 	$(function(){
 		$("#pagination li a").attr("href", "#");
+		$("#nextBtn").show();
+		$("#okBtn").hide();
+		$("#preBtn").hide();
 	});
 	/**
 	分页重写方法
 	*/
 	function searchFunction(n, s){
-		var url = '${cbasePath}subject/groupList';
+		var url = '${cbasePath}subject/findByothers?pageType=selectGroup&boxPostId=${boxPostId}&dataType=group&categoryId=${categoryId}&logoUrl=${logoUrl}&ctime=${ctime}';
 		$.ajax({
 			url : url,
 			data : {'n' : n, 's' : s},

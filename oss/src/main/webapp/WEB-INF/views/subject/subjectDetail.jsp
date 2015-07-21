@@ -58,7 +58,14 @@
 								<a href="#" onclick="javascript:showDry();"><button class="btn btn-success btn-block"
 										data-toggle="modal" data-target="#myModal">添加干货</button></a>
 							</c:if>
-	
+							<c:if test="${specialDetail.type=='onecoursespecial'}">
+								<a href="#" onclick="javascript:showPreview('${specialDetail.type}', '${specialDetail.id}', '${logoUrl}');"><button class="btn btn-success btn-block">
+									预览页面</button></a>
+								<a href="#" onclick="javascript:createH5File('${specialDetail.type}', '${specialDetail.id}', '${logoUrl}', '${specialDetail.h5Url}');"><button class="btn btn-success btn-block">
+									生成静态页面</button></a>
+								<a href="#" onclick="javascript:showGroup();"><button class="btn btn-success btn-block"
+										data-toggle="modal" data-target="#myModal">添加课程群组</button></a>
+							</c:if>
 						</div>
 						<div id="userInfoDiv" class="col-xs-10" style="">
 							<div id="circleLoader" style="left:300px;top:100px;position:absolute;  z-index:99999;"></div>
@@ -70,6 +77,7 @@
 								专题类型:
 								<c:if test="${specialDetail.type=='activityspecial'}">活动专题</c:if>
 								<c:if test="${specialDetail.type=='contentspecial'}">精选专题</c:if>
+								<c:if test="${specialDetail.type=='onecoursespecial'}">1元课</c:if>
 							</div>
 							<br /><br />
 							<div class="col-xs-12">
@@ -125,6 +133,43 @@
 										</tbody>
 									</table>
 								</c:if>
+								<c:if test="${specialDetail.type=='onecoursespecial'}">
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>标题</th>
+												<th>类型</th>
+												<th>群组</th>
+												<th>收费模式</th>
+												<th>价格</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${specialInfo.data.result}" var="Recourse">
+												<tr>
+													<td>${fn:substring(Recourse.course.title, 0, 15)}</td>
+													<td>课程
+													</td>
+													<td>${Recourse.groupname}</td>
+													<td>
+														<c:if test="${Recourse.course.pricemodel=='0'}">
+															免费
+														</c:if>
+														<c:if test="${Recourse.course.pricemodel=='1'}">
+															付费
+														</c:if>
+														<c:if test="${Recourse.course.pricemodel=='2'}">
+															打赏
+														</c:if>
+													</td>
+													<td>
+														${Recourse.course.price}
+													</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</c:if>
 							</div>
 						</div>
 					</div>
@@ -136,15 +181,17 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
+						<%-- <button type="button" class="close" data-dismiss="modal"
+							aria-label="Close"> -->
 							<span aria-hidden="true">&times;</span>
-						</button>
+						</button> --%>
 						<h4 class="modal-title" id="myModalLabel">课程搜索</h4>
 					</div>
 					<div class="modal-body" id="modalHtml"></div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="javascript:closeDialog();">确定</button>
+						<button type="button" class="btn btn-primary"  style="display:none;" id="nextBtn" onclick="javascript:nextview();">下一步->选择课程</button>
+						<button type="button" class="btn btn-primary"  style="display:none;" id="preBtn" onclick="javascript:preview();">上一步->选择群组</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal"  id="okBtn" onclick="javascript:closeDialog();">确定</button>
 						<!-- <button type="button" class="btn btn-primary">确定</button> -->
 					</div>
 				</div>
@@ -191,6 +238,12 @@
 			function showDry(){//加载干货列表
 				$("#myModalLabel").html('干货选择');
 				var url = '<%=contextPath%>/subject/findByothers?pageType=selectDry&dataType=dry&boxPostId=${specialDetail.id}&ctime=${specialDetail.ctime}&categoryId=${categoryId}&logoUrl=${logoUrl}';
+				$("#modalHtml").load(url);
+			}
+			
+			function showGroup(){//加载群组列表
+				$("#myModalLabel").html('群组选择');
+				var url = '<%=contextPath%>/subject/findByothers?pageType=selectGroup&dataType=group&boxPostId=${specialDetail.id}&ctime=${specialDetail.ctime}&categoryId=${categoryId}&logoUrl=${logoUrl}';
 				$("#modalHtml").load(url);
 			}
 		</script>

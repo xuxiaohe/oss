@@ -71,7 +71,7 @@
 			success : function(data){
 				if(data == 'success'){
 					alert('添加活动成功');
-					var url = '${cbasePath}subject/subjectDetail?&id=' + boxPostId + '&type=contentspecial&h5Url=' + h5Url + '&logoUrl=' + logoUrl;
+					var url = '${cbasePath}subject/subjectDetail?id=' + boxPostId + '&type=contentspecial&h5Url=' + h5Url + '&logoUrl=' + logoUrl;
 					$("#circleLoader").shCircleLoader();
 					window.location.href = url;
 				}
