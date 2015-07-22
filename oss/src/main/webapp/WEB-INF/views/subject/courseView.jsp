@@ -43,27 +43,25 @@ var _hmt = _hmt || [];
 		
 		<div class="row content">
 			<div class="row">
-			<div class="col-xs-12">
 				<div class="col-xs-2">
-					<a href="objc://ztiao?openNative=0&sourceId=${Recourse.groupid}"><img src="${Recourse.grouplogo}?imageView2/1/w/40/h/40" class="img-circle logo" alt="" /></a>	
+					<a href="objc://ztiao?openNative=0&sourceId=${Recourse.groupid}"><img src="${Recourse.grouplogo}?imageView2/1/w/40/h/40" class="img-circle" alt="" /></a>	
 				</div>
-				<div class="col-xs-8">
+				<div class="col-xs-8 text-left inner">
 					<h5><a href="objc://ztiao?openNative=0&sourceId=${Recourse.groupid}">${Recourse.groupname}</a></h5>
 				</div>
-				<div class="col-xs-2">
-					<a href="objc://ztiao?openNative=0&sourceId=${Recourse.groupid}"><img alt="" src="http://yxt-bj.qiniudn.com/subject/imgs/201507/Activity5_go.png" class="rightGo"></a>
+				<div class="col-xs-2"  d>
+					<a href="objc://ztiao?openNative=0&sourceId=${Recourse.groupid}"><img alt="" src="http://yxt-bj.qiniudn.com/subject/imgs/201507/Activity5_go.png?imageView2/1/w/20/h/20" class="rightGo"></a>
 				</div>
 			</div>
-			</div>
-			<div class="row">
-			<div class="col-xs-6">
+			<div class="row" style="margin-top:10px;">
+			<div class="col-xs-6 leftImgDiv">
 				<div class="thumbnail">
 								<a href="objc://ztiao?openNative=2&sourceId=${Recourse.course.id}&groupId=${Recourse.groupid}&groupCourseId=${Recourse.groupCourseid}">
 								<img src="${Recourse.course.logoUrl}?imageView2/1/w/640/h/380" />
 								</a>
 				</div>
 			</div>
-			<div class="col-xs-6">
+			<div class="col-xs-6 rightImgDiv">
 				<div class="thumbnail">
 								<a href="objc://ztiao?openNative=2&sourceId=${specialInfo.data.result[sta.index+1].course.id}&groupId=${specialInfo.data.result[sta.index+1].groupid}&groupCourseId=${specialInfo.data.result[sta.index+1].groupCourseid}">
 								<img src="${specialInfo.data.result[sta.index+1].course.logoUrl}?imageView2/1/w/640/h/380" />
@@ -72,11 +70,11 @@ var _hmt = _hmt || [];
 			</div>
 			</div>
 			<div class="row">
-			<div class="col-xs-6">
+			<div class="col-xs-6 leftImgDiv">
 				
 							<h6><span class="label label-primary">免费</span><a href="objc://ztiao?openNative=2&sourceId=${Recourse.course.id}&groupId=${Recourse.groupid}&groupCourseId=${Recourse.groupCourseid}"><small>${fn:substring(Recourse.course.title, 0, 15)}</small></a></h6>
 			</div>
-			<div class="col-xs-6">
+			<div class="col-xs-6 rightImgDiv">
 				
 							<h6><span class="label label-primary">1元</span><a href="objc://ztiao?openNative=2&sourceId=${specialInfo.data.result[sta.index+1].course.id}&groupId=${specialInfo.data.result[sta.index+1].groupid}&groupCourseId=${specialInfo.data.result[sta.index+1].groupCourseid}"><small>${fn:substring(specialInfo.data.result[sta.index+1].course.title, 0, 15)}</small></a></h6>
 			</div>
@@ -99,9 +97,20 @@ var _hmt = _hmt || [];
 		border-bottom-right-radius: 10px;
 		border-bottom-left-radius: 10px;
 	}
-	
-	.titleDiv a {
-		color: #585858;
+	a{
+		color : #585858;
+	}
+	a:link{
+	text-decoration:none;
+	}
+	a:visited{
+	text-decoration:none;
+	}
+	a:hover{
+	text-decoration:none;
+	}
+	a:active{
+	text-decoration:none;
 	}
 	
 	body {
@@ -120,21 +129,11 @@ var _hmt = _hmt || [];
 	}
 	
 	.content {
-		margin-top:20px;
-		margin-left:0px;
-		margin-right:0px;
-		padding-top: 10px;
-		padding-left: 10px;
-		padding-right: 10px;
+		margin-top:24px;
+		padding:20px;
 		background-color: #ffffff;
 	}
 	
-	.content .item {
-		padding: 0 0 24px;
-		clear: both;
-		height: 145px;
-		margin: 0 0 44px;
-	}
 	
 	.imgBackground {
 		margin: 0;
@@ -187,11 +186,22 @@ var _hmt = _hmt || [];
 	}
 	
 	.logo{
-		margin-bottom:5px;
+		margin-bottom:10px;
 	}
 	
 	.rightGo{
+		margin-top : 10px;
 		margin-right:10px;
+	}
+	
+	.leftImgDiv{
+		padding-left : 20px;
+		padding-right : 4px;
+	}
+	
+	.rightImgDiv{
+		padding-left : 4px;
+		padding-right : 20px;
 	}
 	</style>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

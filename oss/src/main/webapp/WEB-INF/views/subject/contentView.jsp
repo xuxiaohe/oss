@@ -49,7 +49,7 @@ var _hmt = _hmt || [];
 							
 							<h4>
 								<span class="glyphicon glyphicon-comment"></span>
-								<a class="contentTitle" href="objc://ztiao?openNative=3&sourceId=${Resource.sourceId}&groupId=${Resource.groupId}">${Resource.title}</a>
+								<a  href="objc://ztiao?openNative=3&sourceId=${Resource.sourceId}&groupId=${Resource.groupId}">${Resource.title}</a>
 							</h4>
 						</div>
 						<div class="col-xs-12">
@@ -62,7 +62,7 @@ var _hmt = _hmt || [];
 						</div>
 						<div class="col-xs-6">
 							<div>
-								<a class="contentTitle" href="objc://ztiao?openNative=1&sourceId=${Resource.autherId}"><span> <img
+								<a  href="objc://ztiao?openNative=1&sourceId=${Resource.autherId}"><span> <img
 									src="${Resource.autherLogoUrl}?imageView2/1/w/30/h/30"
 									class="img-circle" />
 								</span> <span>${Resource.autherNickName} </span></a>
@@ -80,7 +80,7 @@ var _hmt = _hmt || [];
 							
 							<h4>
 								<span class="glyphicon glyphicon-book"></span>
-								<a class="contentTitle" href="objc://ztiao?openNative=2&sourceId=${Resource.courseId}&groupId=${Resource.groupId}&groupCourseId=${Resource.sourceId}">${Resource.title}</a>
+								<a  href="objc://ztiao?openNative=2&sourceId=${Resource.courseId}&groupId=${Resource.groupId}&groupCourseId=${Resource.sourceId}">${Resource.title}</a>
 							</h4>
 						</div>
 						<div class="col-xs-12">
@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
 						</div>
 						<div class="col-xs-6">
 							<div>
-								<a class="contentTitle" href="objc://ztiao?openNative=1&sourceId=${Resource.autherId}"><span> <img
+								<a  href="objc://ztiao?openNative=1&sourceId=${Resource.autherId}"><span> <img
 									src="${Resource.autherLogoUrl}?imageView2/1/w/30/h/30"
 									class="img-circle" />
 								</span> <span>${Resource.autherNickName} </span></a>
@@ -111,7 +111,7 @@ var _hmt = _hmt || [];
 							
 							<h4>
 								<span class="glyphicon glyphicon-link"></span>
-								<a class="contentTitle" href="objc://ztiao?openNative=5&sourceId=${Resource.sourceId}&groupId=${Resource.groupId}">${Resource.title}</a>
+								<a  href="objc://ztiao?openNative=5&sourceId=${Resource.sourceId}&groupId=${Resource.groupId}">${Resource.title}</a>
 							</h4>
 						</div>
 						<div class="col-xs-12">
@@ -124,7 +124,7 @@ var _hmt = _hmt || [];
 						</div>
 						<div class="col-xs-6">
 							<div>
-								<a class="contentTitle" href="objc://ztiao?openNative=1&sourceId=${Resource.autherId}"><span> <img
+								<a  href="objc://ztiao?openNative=1&sourceId=${Resource.autherId}"><span> <img
 									src="${Resource.autherLogoUrl}?imageView2/1/w/30/h/30"
 									class="img-circle" />
 								</span> <span>${Resource.autherNickName} </span></a>
@@ -164,6 +164,22 @@ var _hmt = _hmt || [];
 		font-family: "Microsoft YaHei", "黑体", "Helvetica Neue",
 			"Hiragino Sans GB", Arial, sans-serif;
 		background-color: #ebebeb;
+	}
+	
+	a{
+		color : #585858;
+	}
+	a:link{
+	text-decoration:none;
+	}
+	a:visited{
+	text-decoration:none;
+	}
+	a:hover{
+	text-decoration:none;
+	}
+	a:active{
+	text-decoration:none;
 	}
 	
 	.banner {
