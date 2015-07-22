@@ -210,7 +210,7 @@
 		*/
 		function beforeSubmit(){
 			if($('input:radio[name=adSid]:checked').val() == '10'){
-				$("#adSellerId").val("3");
+				$("#adSellerId").val("10");
 				$("#adSellerName").val("站外链接");
 			}
 			return true;
