@@ -106,11 +106,11 @@ public class subject extends BaseController{
 //		chinaName = new String(chinaName.getBytes("iso-8859-1"), "utf-8");
 		String boxPostId = request.getParameter("id");
 		String type = request.getParameter("type");
-//		model.addAttribute("id", request.getParameter("id"));
+		model.addAttribute("id", boxPostId);
 		model.addAttribute("logoUrl", request.getParameter("logoUrl"));
 //		model.addAttribute("chinaName", chinaName);
 //		model.addAttribute("ctime", request.getParameter("ctime"));
-//		model.addAttribute("type", request.getParameter("type"));
+		model.addAttribute("type", type);
 		model.addAttribute("h5Url", request.getParameter("h5Url"));
 		model.addAttribute("categoryId", request.getParameter("categoryId"));
 		//查询盒子内数据
@@ -159,8 +159,9 @@ public class subject extends BaseController{
 		String boxPostId = request.getParameter("boxPostId");
 		String sourceType = request.getParameter("sourceType");
 		String ctime = request.getParameter("ctime");
+		String gid = request.getParameter("gid");
 		for(int i=0;i<d.length;i++){
-			JSONObject result = addInBox(boxPostId,sourceType,d[i],ctime);
+			JSONObject result = addInBox(boxPostId,sourceType,d[i],ctime, gid);
 //			System.out.println(result);
 		}
 		logger.info(request.getSession().getAttribute("name")+"专题添加到盒子操作的管理员 "+request.getSession().getAttribute("name")+"===sourceId"+sourceId+"===boxPostId"+boxPostId);
@@ -364,36 +365,27 @@ public class subject extends BaseController{
 //	
 //	
 //	
-//	/**
-//	 * 
-//	 * 取消关联到具体的排行榜
-//	 */
-//	@RequestMapping("/unbindBox")
-//	public ModelAndView unbindBoxDry(HttpServletRequest request) {
-//		String type = request.getParameter("type");
-//		 
-//		String name = request.getParameter("name");
-//		//位置id
-//		String boxPostId = request.getParameter("boxPostId");
-//		//排行榜id
-//		String boxId = request.getParameter("boxId");
-//		 
-//		 
-//		ModelAndView modelview = new ModelAndView();
-//		String cpath = request.getContextPath();
-//		String cbasePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + cpath + "/";
-//		modelview.addObject("cbasePath", cbasePath);
-//		modelview.addObject("sourcePath", Config.YXTSERVER5);
-//		
-//		
-//		modelview.addObject("addDryBoxList", deleteBox(boxId));
-//		
-//		modelview.addObject("booxlist", findBoxById(boxPostId,"0","10"));
-//		logger.info(request.getSession().getAttribute("name")+"取消专题盒子中内容的管理员 "+request.getSession().getAttribute("name")+"name"+name+"===boxPostId"+boxPostId+"===boxId"+boxId);
-//		
-//		modelview.setViewName("order/orderdetail");
-//		return modelview;
-//	}
+	/**
+	 * 
+	 * 取消关联到具体的排行榜
+	 */
+	@RequestMapping("/unbindBox")
+	public @ResponseBody String unbindBoxDry(HttpServletRequest request) {
+		//排行榜id
+		String boxId = request.getParameter("boxId");
+		
+		String groupId = request.getParameter("groupId");
+		
+		JSONObject result = null;
+		if(null != groupId && !"".equals(groupId))
+			result = deleteBox(boxId, groupId);
+		else
+			result = deleteBox(boxId);
+		
+		logger.info(request.getSession().getAttribute("name")+"取消专题盒子中内容的管理员 "+request.getSession().getAttribute("name") +", boxId=" + boxId +", groupId="+groupId);
+		
+		return result.toString();
+	}
 	
 	/**
 	 * 
@@ -444,6 +436,11 @@ public class subject extends BaseController{
 	
 	private JSONObject deleteBox(String boxId) {
 		String url = Config.YXTSERVER3 + "oss/box/deleteBox?boxId=" + boxId;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject deleteBox(String boxId, String groupId) {
+		String url = Config.YXTSERVER3  + "/oss/box/deleteBoxByGroupId?boxId=" + boxId + "&groupid=" + groupId;
 		return getRestApiData(url);
 	}
 	
@@ -498,9 +495,9 @@ public class subject extends BaseController{
 		return getRestApiData(url);
 	}
 	
-	private JSONObject addInBox(String boxPostId,String sourceType,String sourceId,String ctime) {
+	private JSONObject addInBox(String boxPostId,String sourceType,String sourceId,String ctime, String gid) {
 		String url = Config.SUBJECT_SERVER
-				+ "/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId+"&ctime="+ctime;
+				+ "/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId+"&ctime="+ctime + "&groupid=" + gid;
 //		System.out.println(url);
 		return getRestApiData(url);
 	}
@@ -514,7 +511,7 @@ public class subject extends BaseController{
 	}
 	private JSONObject getSpecialinfo(String boxPostId,String type) {
 		String url = Config.YXTSERVER3 + "oss/exploreoss/findBoxById?boxPostId="+boxPostId+"&type="+type + "&n=0&s=100";
-//		System.out.println(url);
+		System.out.println(url);
 		return getRestApiData(url);
 	}
 	
