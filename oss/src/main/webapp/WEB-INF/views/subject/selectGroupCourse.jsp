@@ -108,7 +108,8 @@
 		var h5Url = '${h5Url}';
 		var logoUrl = '${logoUrl}';
 		var sourceType = 'course';
-		var data = {'sourceId' : acids, 'boxPostId' : boxPostId, 'ctime' : ctime, 'sourceType' : sourceType};
+		var gid = '${gid}';
+		var data = {'sourceId' : acids, 'boxPostId' : boxPostId, 'ctime' : ctime, 'sourceType' : sourceType, 'gid' : gid};
 		$.ajax({
 			url : '${cbasePath}subject/addDataInBox',
 			data : data,

@@ -93,6 +93,7 @@
 												<th>红包数量</th>
 												<th>课程名称</th>
 												<th>课程价格</th>
+												<th>操作</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -103,6 +104,9 @@
 													<td>${Recourse.num}</td>
 													<td>${Recourse.course.title}</td>
 													<td>${Recourse.course.price}</td>
+													<td>
+														<a href="#" onclick="javascript:deleteItem('${Recourse.id}', '');">删除</a>
+													</td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -116,6 +120,7 @@
 												<th>类型</th>
 												<th>群组</th>
 												<th>发表时间</th>
+												<th>操作</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -128,6 +133,9 @@
 													</td>
 													<td>${Recourse.groupName}</td>
 													<td><Date:date value="${Recourse.ctime}"></Date:date></td>
+													<td>
+														<a href="#"  onclick="javascript:deleteItem('${Recourse.id}', '');">删除</a>
+													</td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -142,6 +150,7 @@
 												<th>群组</th>
 												<th>收费模式</th>
 												<th>价格</th>
+												<th>操作</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -164,6 +173,9 @@
 													</td>
 													<td>
 														${Recourse.course.price}
+													</td>
+													<td>
+														<a href="#" onclick="javascript:deleteItem('${Recourse.boxid}', '${Recourse.groupid}');">删除</a>
 													</td>
 												</tr>
 											</c:forEach>
@@ -245,6 +257,18 @@
 				$("#myModalLabel").html('群组选择');
 				var url = '<%=contextPath%>/subject/findByothers?pageType=selectGroup&dataType=group&boxPostId=${specialDetail.id}&ctime=${specialDetail.ctime}&categoryId=${categoryId}&logoUrl=${logoUrl}';
 				$("#modalHtml").load(url);
+			}
+			
+			function deleteItem(boxId, groupId){//删除盒子内的元素
+				var url = '<%=contextPath%>/subject/unbindBox?boxId=' + boxId + '&groupId=' + groupId;
+				$.ajax({
+					url : url,
+					type : 'post',
+					success : function(data){
+						alert('删除成功');
+						window.location.href = '<%=contextPath%>/subject/subjectDetail?id=${id}&type=${type}&h5Url=${h5Url}&logoUrl=${h5Url}';
+					}
+				});
 			}
 		</script>
 </body>
