@@ -49,22 +49,22 @@ var _hmt = _hmt || [];
 				<div class="col-xs-8 text-left inner">
 					<h5><a href="objc://ztiao?openNative=0&sourceId=${Recourse.groupid}">${Recourse.groupname}</a></h5>
 				</div>
-				<div class="col-xs-2"  d>
+				<div class="col-xs-2">
 					<a href="objc://ztiao?openNative=0&sourceId=${Recourse.groupid}"><img alt="" src="http://yxt-bj.qiniudn.com/subject/imgs/201507/Activity5_go.png?imageView2/1/w/20/h/20" class="rightGo"></a>
 				</div>
 			</div>
 			<div class="row" style="margin-top:10px;">
 			<div class="col-xs-6 leftImgDiv">
-				<div class="thumbnail">
+				<div class="thumbnail imgItem">
 								<a href="objc://ztiao?openNative=2&sourceId=${Recourse.course.id}&groupId=${Recourse.groupid}&groupCourseId=${Recourse.groupCourseid}">
-								<img src="${Recourse.course.logoUrl}?imageView2/1/w/640/h/380" />
+								<img src="${Recourse.course.logoUrl}?imageView2/1/w/592/h/350" />
 								</a>
 				</div>
 			</div>
 			<div class="col-xs-6 rightImgDiv">
-				<div class="thumbnail">
+				<div class="thumbnail imgItem">
 								<a href="objc://ztiao?openNative=2&sourceId=${specialInfo.data.result[sta.index+1].course.id}&groupId=${specialInfo.data.result[sta.index+1].groupid}&groupCourseId=${specialInfo.data.result[sta.index+1].groupCourseid}">
-								<img src="${specialInfo.data.result[sta.index+1].course.logoUrl}?imageView2/1/w/640/h/380" />
+								<img src="${specialInfo.data.result[sta.index+1].course.logoUrl}?imageView2/1/w/592/h/350" />
 								</a>
 				</div>
 			</div>
@@ -144,6 +144,11 @@ var _hmt = _hmt || [];
 		border-bottom-right-radius: 0;
 	}
 	
+	.imgItem{
+		border : 0;
+		padding : 0;
+	}
+	
 	.price {
 		margin-top: 113px;
 		padding: 0 0 0 10px;
@@ -195,13 +200,13 @@ var _hmt = _hmt || [];
 	}
 	
 	.leftImgDiv{
-		padding-left : 20px;
+		padding-left : 10px;
 		padding-right : 4px;
 	}
 	
 	.rightImgDiv{
 		padding-left : 4px;
-		padding-right : 20px;
+		padding-right : 10px;
 	}
 	</style>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

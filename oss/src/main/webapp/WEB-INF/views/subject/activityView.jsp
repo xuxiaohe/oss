@@ -157,14 +157,10 @@ var _hmt = _hmt || [];
 	
 	.pickCoupon {
 		position: relative;
-		top: 10px;
+		top: 30px;
 		color: #ffff00;
 	}
 	
-	.pickCoupon a {
-		margin-bottom : 30px;
-		color: #ffff00;
-	}
 	
 	.FontSize14 {
 		font-size: 14px;
