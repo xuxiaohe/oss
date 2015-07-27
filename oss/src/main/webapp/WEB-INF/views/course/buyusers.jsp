@@ -61,12 +61,12 @@
 	function searchFunction(n, s){
 		var url = '${cbasePath}buyusers';
 		var cid = '${buyusers.data.result.courseId}';
+		
 		$.ajax({
 			url : url,
 			data : {'cid' : cid, 'n' : n, 's' : s},
 			type : 'post',
 			success : function(data){
-				alert(data);
 				$("#buyusers").html("").html(data);
 			}
 			
