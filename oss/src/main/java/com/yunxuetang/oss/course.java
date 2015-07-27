@@ -1184,12 +1184,25 @@ public class course extends BaseController {
 	@RequestMapping("/buyusers")
 	public String getBuyUsers(HttpServletRequest request, Model model){
 		String cid = request.getParameter("cid");
-		model.addAttribute("buyusers", getBuyUserList(cid));
+		String pagenumber = request.getParameter("n");
+
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		model.addAttribute("buyusers", getBuyUserList(cid, pagenumber, pagelines));
 		return "course/buyusers";
 	}
 	
-	private JSONObject getBuyUserList(String cid){
-		String url = Config.YXTSERVER3 + "oss/course/getWhoBuyCourseList?courseid=" + cid;
+	private JSONObject getBuyUserList(String cid, String n, String s){
+		String url = Config.YXTSERVER3 + "oss/course/getWhoBuyCourseList?courseid=" + cid + "&n=" + n + "&s=" + s;
 		return getRestApiData(url);
 	}
 	
