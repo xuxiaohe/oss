@@ -65,8 +65,8 @@
 			url : url,
 			data : {'cid' : cid, 'n' : n, 's' : s},
 			type : 'post',
-			dataType : 'html',
 			success : function(data){
+				alert(data);
 				$("#buyusers").html("").html(data);
 			}
 			
@@ -76,7 +76,6 @@
 		searchFunction(0, 10);
 	});
 	$("#pagination li  a").click(function(){
-		alert(1);
 		if($(this).parent().hasClass("disabled")==false){ 
 			var pageNo = $(this).html();
 			if(!isNaN(pageNo)){
