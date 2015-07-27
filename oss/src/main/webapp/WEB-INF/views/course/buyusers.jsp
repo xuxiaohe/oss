@@ -59,7 +59,7 @@
 		$("#pagination li a").attr("href", "#");
 	});
 	function searchFunction(n, s){
-		var url = '${cbasePath}course/buyusers';
+		var url = '${cbasePath}buyusers';
 		var cid = '${buyusers.data.result.courseId}';
 		$.ajax({
 			url : url,
@@ -76,6 +76,7 @@
 		searchFunction(0, 10);
 	});
 	$("#pagination li  a").click(function(){
+		alert(1);
 		if($(this).parent().hasClass("disabled")==false){ 
 			var pageNo = $(this).html();
 			if(!isNaN(pageNo)){
