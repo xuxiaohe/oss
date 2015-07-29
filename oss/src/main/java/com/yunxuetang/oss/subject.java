@@ -467,8 +467,8 @@ public class subject extends BaseController{
 	}
 	
 	private JSONObject findBoxById(String boxPostId,String n,String s) {
-		String url = Config.SUBJECT_SERVER
-				+ "/box/findBoxById?boxPostId=" + boxPostId;
+		String url = Config.YXTSERVER3
+				+ "oss/box/findBoxById?boxPostId=" + boxPostId;
 		return getRestApiData(url);
 	}
 	
@@ -496,9 +496,10 @@ public class subject extends BaseController{
 	}
 	
 	private JSONObject addInBox(String boxPostId,String sourceType,String sourceId,String ctime, String gid) {
-		String url = Config.SUBJECT_SERVER
-				+ "/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId+"&ctime="+ctime + "&groupid=" + gid;
+		String url = Config.YXTSERVER3
+				+ "oss/box/addBoxInBoxPost?boxPostId=" + boxPostId+"&sourceType="+sourceType+"&sourceId="+sourceId+"&ctime="+ctime + "&groupid=" + gid;
 //		System.out.println(url);
+		System.out.println(url);
 		return getRestApiData(url);
 	}
 	
@@ -511,7 +512,7 @@ public class subject extends BaseController{
 	}
 	private JSONObject getSpecialinfo(String boxPostId,String type) {
 		String url = Config.YXTSERVER3 + "oss/exploreoss/findBoxById?boxPostId="+boxPostId+"&type="+type + "&n=0&s=100";
-		System.out.println(url);
+//		System.out.println(url);
 		return getRestApiData(url);
 	}
 	
