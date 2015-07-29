@@ -42,7 +42,7 @@ var _hmt = _hmt || [];
 		</div>
 		<!-- <div id="content" class="content"> -->
 			<c:forEach items="${specialInfo.data.result}" var="Resource">
-				<c:if test="${Resource.type=='01'}">
+				<c:if test="${Resource.content.type=='01'}">
 						<!-- 话题  -->
 					<div class="row content">
 	
@@ -51,7 +51,7 @@ var _hmt = _hmt || [];
 	
 								<h5>
 									<span class="glyphicon glyphicon-comment"></span> <a class="itemTitle"
-										href="objc://ztiao?openNative=3&sourceId=${Resource.sourceId}&groupId=${Resource.groupId}">${Resource.title}</a>
+										href="objc://ztiao?openNative=3&sourceId=${Resource.content.sourceId}&groupId=${Resource.content.groupId}">${Resource.content.title}</a>
 								</h5>
 	
 							</div>
@@ -60,8 +60,8 @@ var _hmt = _hmt || [];
 							<div class="col-xs-12">
 								<span class="itemContent">
 								 <a 
-										href="objc://ztiao?openNative=3&sourceId=${Resource.sourceId}&groupId=${Resource.groupId}">
-								 ${fn:substring(Resource.content, 0, 50)}
+										href="objc://ztiao?openNative=3&sourceId=${Resource.content.sourceId}&groupId=${Resource.content.groupId}">
+								 ${fn:substring(Resource.content.content, 0, 50)}
 								 </a>
 								  </span>
 							</div>
@@ -71,29 +71,29 @@ var _hmt = _hmt || [];
 							<div class="col-xs-12">
 								<div class="thumbnail imgItem">
 									 <a class="itemTitle"
-										href="objc://ztiao?openNative=3&sourceId=${Resource.sourceId}&groupId=${Resource.groupId}">
-									<img src="${Resource.images[0].picUrl}" />
+										href="objc://ztiao?openNative=3&sourceId=${Resource.content.sourceId}&groupId=${Resource.content.groupId}">
+									<img src="${Resource.content.images[0].picUrl}" />
 									</a>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-2 clearfix">
-								<a href="objc://ztiao?openNative=1&sourceId=${Resource.autherId}"><span>
-										<img src="${Resource.autherLogoUrl}?imageView2/1/w/30/h/30"
+								<a href="objc://ztiao?openNative=1&sourceId=${Resource.content.autherId}"><span>
+										<img src="${Resource.content.autherLogoUrl}?imageView2/1/w/30/h/30"
 										class="img-circle userLogo" />
 								</span></a>
 							</div>
 							<div class="col-xs-10 clearfix">
 								<div class="row">
 									<div class="col-xs-12">
-										<small class="itemUserName">${Resource.autherNickName} </small>
+										<small class="itemUserName">${Resource.content.autherNickName} </small>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-xs-12">
 										<small class="itemDate">发布于：<span
-											class="date"><Date:date value="${Resource.ctime}"></Date:date></span></small>
+											class="date"><Date:date value="${Resource.content.ctime}"></Date:date></span></small>
 									</div>
 								</div>
 	
@@ -109,41 +109,41 @@ var _hmt = _hmt || [];
 	
 								<h5>
 									<span class="glyphicon glyphicon-book"></span> <a class="itemTitle"
-										href="objc://ztiao?openNative=2&sourceId=${Resource.courseId}&groupId=${Resource.groupId}&groupCourseId=${Resource.sourceId}">${Resource.title}</a>
+										href="objc://ztiao?openNative=2&sourceId=${Resource.content.courseId}&groupId=${Resource.content.groupId}&groupCourseId=${Resource.content.sourceId}">${Resource.content.title}</a>
 								</h5>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-12">
 								<span class="itemContent"><a 
-										href="objc://ztiao?openNative=2&sourceId=${Resource.courseId}&groupId=${Resource.groupId}&groupCourseId=${Resource.sourceId}"> ${fn:substring(Resource.content, 0, 50)} </a></span>
+										href="objc://ztiao?openNative=2&sourceId=${Resource.content.courseId}&groupId=${Resource.content.groupId}&groupCourseId=${Resource.content.sourceId}"> ${fn:substring(Resource.content.content, 0, 50)} </a></span>
 							</div>
 							<div class="col-xs-12">
 								<div class="thumbnail imgItem">
 									<a 
-										href="objc://ztiao?openNative=2&sourceId=${Resource.courseId}&groupId=${Resource.groupId}&groupCourseId=${Resource.sourceId}">
-									<img src="${Resource.images[0].picUrl}" />
+										href="objc://ztiao?openNative=2&sourceId=${Resource.content.courseId}&groupId=${Resource.content.groupId}&groupCourseId=${Resource.content.sourceId}">
+									<img src="${Resource.content.images[0].picUrl}" />
 									</a>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-2 clearfix">
-								<a href="objc://ztiao?openNative=1&sourceId=${Resource.autherId}"><span>
-										<img src="${Resource.autherLogoUrl}?imageView2/1/w/30/h/30"
+								<a href="objc://ztiao?openNative=1&sourceId=${Resource.content.autherId}"><span>
+										<img src="${Resource.content.autherLogoUrl}?imageView2/1/w/30/h/30"
 										class="img-circle userLogo" />
 								</span></a>
 							</div>
 							<div class="col-xs-10 clearfix">
 								<div class="row">
 									<div class="col-xs-12">
-										<small class="itemUserName">${Resource.autherNickName} </small>
+										<small class="itemUserName">${Resource.content.autherNickName} </small>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-xs-12">
 										<small  class="itemDate">发布于：<span
-											class="date"><Date:date value="${Resource.ctime}"></Date:date></span></small>
+											class="date"><Date:date value="${Resource.content.ctime}"></Date:date></span></small>
 									</div>
 								</div>
 	
@@ -159,7 +159,7 @@ var _hmt = _hmt || [];
 	
 								<h5>
 									<span class="glyphicon glyphicon-link"></span> <a class="itemTitle"
-										href="objc://ztiao?openNative=5&sourceId=${Resource.sourceId}&groupId=${Resource.groupId}">${Resource.title}</a>
+										href="objc://ztiao?openNative=5&sourceId=${Resource.content.sourceId}&groupId=${Resource.content.groupId}">${Resource.content.title}</a>
 								</h5>
 							</div>
 						</div>
@@ -168,36 +168,36 @@ var _hmt = _hmt || [];
 							<div class="col-xs-12">
 								<span class="itemContent"> 
 								<a 
-										href="objc://ztiao?openNative=5&sourceId=${Resource.sourceId}&groupId=${Resource.groupId}">${fn:substring(Resource.content, 0, 50)}</a></span>
+										href="objc://ztiao?openNative=5&sourceId=${Resource.content.sourceId}&groupId=${Resource.content.groupId}">${fn:substring(Resource.content.content, 0, 50)}</a></span>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="thumbnail imgItem">
 									<a
-										href="objc://ztiao?openNative=5&sourceId=${Resource.sourceId}&groupId=${Resource.groupId}">
-									<img src="${Resource.images[0].picUrl}" />
+										href="objc://ztiao?openNative=5&sourceId=${Resource.content.sourceId}&groupId=${Resource.content.groupId}">
+									<img src="${Resource.content.images[0].picUrl}" />
 									</a>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-2 clearfix">
-								<a href="objc://ztiao?openNative=1&sourceId=${Resource.autherId}"><span>
-										<img src="${Resource.autherLogoUrl}?imageView2/1/w/30/h/30"
+								<a href="objc://ztiao?openNative=1&sourceId=${Resource.content.autherId}"><span>
+										<img src="${Resource.content.autherLogoUrl}?imageView2/1/w/30/h/30"
 										class="img-circle userLogo" />
 								</span></a>
 							</div>
 							<div class="col-xs-10 clearfix">
 								<div class="row">
 									<div class="col-xs-12">
-										<small class="itemUserName">${Resource.autherNickName} </small>
+										<small class="itemUserName">${Resource.content.autherNickName} </small>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-xs-12">
 										<small  class="itemDate">发布于：<span
-											class="date"><Date:date value="${Resource.ctime}"></Date:date></span></small>
+											class="date"><Date:date value="${Resource.content.ctime}"></Date:date></span></small>
 									</div>
 								</div>
 	
