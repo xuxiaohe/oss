@@ -84,7 +84,7 @@
 							<h5>专题内容:</h5>
 							</div>
 							<div class="col-xs-12">
-								<c:if test="${specialDetail.type=='activityspecial'}">
+								<c:if test="${specialDetail.type=='activityspecial'&&specialInfo.data.result!=null}">
 									<table class="table table-striped table-hover">
 										<thead>
 											<tr>
@@ -105,14 +105,14 @@
 													<td>${Recourse.course.title}</td>
 													<td>${Recourse.course.price}</td>
 													<td>
-														<a href="#" onclick="javascript:deleteItem('${Recourse.id}', '');">删除</a>
+														<a href="#" onclick="javascript:deleteItem('${Recourse.boxid}', '');">删除</a>
 													</td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
 								</c:if>
-								<c:if test="${specialDetail.type=='contentspecial'}">
+								<c:if test="${specialDetail.type=='contentspecial'&&specialInfo.data.result!=null}">
 									<table class="table table-striped table-hover">
 										<thead>
 											<tr>
@@ -126,22 +126,22 @@
 										<tbody>
 											<c:forEach items="${specialInfo.data.result}" var="Recourse">
 												<tr>
-													<td>${fn:substring(Recourse.title, 0, 15)}</td>
-													<td><c:if test="${Recourse.type=='21'}">干货</c:if>
-														<c:if test="${Recourse.type=='01'}">话题</c:if>
-														<c:if test="${Recourse.type=='11'}">课程</c:if>
+													<td>${fn:substring(Recourse.content.title, 0, 10)}</td>
+													<td><c:if test="${Recourse.content.type=='21'}">干货</c:if>
+														<c:if test="${Recourse.content.type=='01'}">话题</c:if>
+														<c:if test="${Recourse.content.type=='11'}">课程</c:if>
 													</td>
-													<td>${Recourse.groupName}</td>
-													<td><Date:date value="${Recourse.ctime}"></Date:date></td>
+													<td>${Recourse.content.groupName}</td>
+													<td><Date:date value="${Recourse.content.ctime}"></Date:date></td>
 													<td>
-														<a href="#"  onclick="javascript:deleteItem('${Recourse.id}', '');">删除</a>
+														<a href="#"  onclick="javascript:deleteItem('${Recourse.boxid}', '');">删除</a>
 													</td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
 								</c:if>
-								<c:if test="${specialDetail.type=='onecoursespecial'}">
+								<c:if test="${specialDetail.type=='onecoursespecial'&&specialInfo.data.result!=null}">
 									<table class="table table-striped table-hover">
 										<thead>
 											<tr>
@@ -266,7 +266,7 @@
 					type : 'post',
 					success : function(data){
 						alert('删除成功');
-						window.location.href = '<%=contextPath%>/subject/subjectDetail?id=${id}&type=${type}&h5Url=${h5Url}&logoUrl=${h5Url}';
+						window.location.href = '<%=contextPath%>/subject/subjectDetail?id=${id}&type=${type}&h5Url=${h5Url}&logoUrl=${logoUrl}';
 					}
 				});
 			}

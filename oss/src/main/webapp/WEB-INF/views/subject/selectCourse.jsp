@@ -7,6 +7,17 @@
 <%@ taglib prefix="pageNation" uri="/WEB-INF/tld/pagenation.tld"%>
 <%@ taglib prefix="Date" uri="/WEB-INF/tld/datetag.tld"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<form class="form-inline" 
+	>
+	<div class="form-group">
+		<label class="sr-only" for="keyword">Search:</label> <input
+			class="form-control" id="keyword" name="keyword"
+			 value="${keyword}">
+	</div>
+
+	<button id="searchItBtn" type="button" class="btn btn-default">Search
+		it!</button>
+</form>
 <c:if test="${list.status == '200'}">
 	<nav>
 		<!-- 分页开始 -->
@@ -43,6 +54,9 @@
 	</table>
 </c:if>
 <script type="text/javascript">
+	$("#searchItBtn").click(function(){
+		searchFunction(0, 10);
+	});
 	/**
 	点击确定按钮时
 	*/
@@ -87,9 +101,10 @@
 	*/
 	function searchFunction(n, s){
 		var url = '${cbasePath}subject/findByothers?pageType=selectCourse&boxPostId=${boxPostId}&dataType=activityspecial&categoryId=${categoryId}';
+		var keywords = $("#keyword").val();
 		$.ajax({
 			url : url,
-			data : {'n' : n, 's' : s},
+			data : {'keyword' : keywords, 'n' : n, 's' : s},
 			type : 'post',
 			dataType : 'html',
 			success : function(data){

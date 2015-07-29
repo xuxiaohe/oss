@@ -109,6 +109,7 @@
 		var logoUrl = '${logoUrl}';
 		var sourceType = 'course';
 		var gid = '${gid}';
+		alert(gid);
 		var data = {'sourceId' : acids, 'boxPostId' : boxPostId, 'ctime' : ctime, 'sourceType' : sourceType, 'gid' : gid};
 		$.ajax({
 			url : '${cbasePath}subject/addDataInBox',
