@@ -20,10 +20,25 @@
 	padding: 10px;
 }
 </style>
+
+ <script>
+		function setinfo(context){
+				/* $.post("${cbasePath}/mail/getById",{"id":id},function(data){
+					ue.setContent(data.context);
+					$("#tempid").val(""+id);
+					
+				}); */
+				alert(context);
+				ue.setContent(context);
+			}
+		
+		 
+   </script>
+
+
 </head>
 <body>
 	<div class="container-fluid">
-
 		<ol class="breadcrumb">
 			<li><a href="#">课程仓库</a></li>
 			<li><a href="${cbasePath}course/courseList">课程列表</a></li>
@@ -82,6 +97,29 @@
 						<label for="exampleInputEmail1">课程信息</label>
 						<textarea name="intro" class="form-control" rows="3" cols="20" value="${courseDetail.data.result.intro } ">${courseDetail.data.result.intro } </textarea>
 					</div>
+					
+<%--   
+  <div>
+    <script id="container" name="content" type="text/plain">
+        这里写你的初始化内容${courseDetail.data.result.intro }
+    </script>
+  
+    <!-- 配置文件 -->
+    <script type="text/javascript" src="${cbasePath}resources/ue/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="${cbasePath}resources/ue/ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ue = UE.getEditor('container',{
+        	initialFrameWidth :650,//设置编辑器宽度
+        	initialFrameHeight:250,//设置编辑器高度
+        	scaleEnabled:true
+        	});
+    </script>
+	
+    </div>	 --%>
+					
+					
 					<div class="form-group clearfix">
 						<label for="pricemodel">付费模式:</label>
 						<label class="radio-inline"><input type="radio" name="pricemodel" value="0" checked onclick="javascript:checkPriceModel(this);"/>免费</label>
@@ -124,7 +162,7 @@
 					</div>
 
 
-					<button type="submit" class="btn btn-default">Submit</button>
+					<button type="submit" class="btn btn-default"  >Submit</button>
 				</form>
 			</div>
 		</div>
@@ -239,6 +277,19 @@
 			}
 			
 		}
+		
+		 
+			function testqqq(){
+				var content=ue.getContent();
+				var id=$("#tempid").val();
+				alert(content);
+				/* $.post("${cbasePath}/mail/modify",{"id":id,"content":content},function(data){
+					alert("修改成功");
+					
+				}); */
+			}
+	   
+		
 	</script>
 </body>
 </html>
