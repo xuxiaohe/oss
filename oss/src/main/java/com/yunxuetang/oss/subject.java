@@ -377,7 +377,7 @@ public class subject extends BaseController{
 		String groupId = request.getParameter("groupId");
 		
 		JSONObject result = null;
-		if(null != groupId && !"".equals(groupId))
+		if(null != groupId && !"".equals(groupId)&& !"null".equals(groupId))
 			result = deleteBox(boxId, groupId);
 		else
 			result = deleteBox(boxId);
