@@ -1206,4 +1206,87 @@ public class course extends BaseController {
 		return getRestApiData(url);
 	}
 	
+	
+	
+	/**
+	 * 查询课程学习列表 人
+	 * */
+	@RequestMapping("/getstudyList")
+	public String getstudyList(HttpServletRequest request, Model model){
+		String courseId = request.getParameter("courseId");
+		String pagenumber = request.getParameter("n");
+		int allLessonNum=0;
+		int studyCount=0;
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "10";
+		}
+		List l=new ArrayList();
+		JSONObject j=getstudyList(courseId, pagenumber, pagelines);
+		JSONObject jj=(JSONObject) j.get("data");
+		JSONArray jjj=jj.getJSONArray("result");
+		
+		//学习人
+		for(int i=0;i<jjj.size();i++){
+			JSONObject userid=(JSONObject) jjj.get(i);
+			String id=(String) userid.get("id");
+			String nickName=(String) userid.get("nickName");
+			String logoURL=(String) userid.get("logoURL");
+			JSONObject a=getstudyOne(courseId,id);
+			JSONObject aa=(JSONObject) a.get("data");
+			JSONObject aaa=(JSONObject) aa.get("result");
+			JSONArray aaaa=aaa.getJSONArray("userChapters");
+			 allLessonNum=(Integer) aaa.get("allLessonNum");
+			 studyCount=(Integer) aaa.get("studyCount");
+			for(int k=0;k<aaaa.size();k++){
+				Map m=new HashMap();
+				JSONObject aaaaa =(JSONObject) aaaa.get(k);
+				JSONObject chapter =(JSONObject) aaaaa.get("chapter");
+				JSONArray userLessones=aaaaa.getJSONArray("userLessones");
+				List ll=new ArrayList();
+				for(int f=0;f<userLessones.size();f++){
+					Map mm=new HashMap();
+					mm.put("lessones", userLessones.get(f));
+					mm.put("lessonorder", f);
+					mm.put("userid", id);
+					mm.put("nickName", nickName);
+					mm.put("logoURL", logoURL);
+					
+					ll.add(mm);
+				}
+				
+				m.put("lessones", ll);
+				m.put("chapter", chapter);
+				m.put("userid", id);
+				m.put("nickName", nickName);
+				m.put("logoURL", logoURL);
+				l.add(m);
+				
+			}
+		}
+		model.addAttribute("userstudyinfo", l);
+		model.addAttribute("allLessonNum", allLessonNum);
+		model.addAttribute("studyCount", studyCount);
+		return "course/buyusers";
+	}
+	
+	private JSONObject getstudyList(String courseId,String n,String s){
+		String url = Config.YXTSERVER3 + "oss/course/getStudyedList?courseId=" + courseId + "&n=" + n + "&s=" + s;
+		return getRestApiData(url);
+	}
+	
+	private JSONObject getstudyOne(String courseId,String userid){
+		String url = Config.YXTSERVER3 + "oss/course/getone?courseId=" + courseId + "&userid="+userid;
+		return getRestApiData(url);
+	}
+	
+	
+	
 }
