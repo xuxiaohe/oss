@@ -1271,6 +1271,7 @@ public class course extends BaseController {
 				
 			}
 		}
+		System.out.println(l);
 		model.addAttribute("userstudyinfo", l);
 		model.addAttribute("allLessonNum", allLessonNum);
 		model.addAttribute("studyCount", studyCount);
