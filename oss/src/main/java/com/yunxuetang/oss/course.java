@@ -1264,6 +1264,7 @@ public class course extends BaseController {
 				
 				m.put("lessones", ll);
 				m.put("chapter", chapter);
+				m.put("chapterorder", k);
 				m.put("userid", id);
 				m.put("nickName", nickName);
 				m.put("logoURL", logoURL);
