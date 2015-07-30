@@ -101,7 +101,7 @@ var _hmt = _hmt || [];
 						</div>
 					</div>
 				</c:if>
-				<c:if test="${Resource.type=='11'}">
+				<c:if test="${Resource.content.type=='11'}">
 					<!-- 课程 -->
 					<div class="row content">
 						<div class="row">
@@ -151,7 +151,7 @@ var _hmt = _hmt || [];
 						</div>
 					</div>
 				</c:if>
-				<c:if test="${Resource.type=='21'}">
+				<c:if test="${Resource.content.type=='21'}">
 					<!-- 干货 -->
 					<div  class="row content">
 						<div class="row">
