@@ -66,7 +66,11 @@ public class subject extends BaseController{
 //		JSONObject data = getBoxPostById(boxId).getJSONObject("data").getJSONObject("result");
 //		String logoUrl = data.getString("logoUrl");
 //		String h5Url = data.getString("h5Url");
-		String url = "http://127.0.0.1:8089/oss/subject/showPreview?boxId=" + boxId + "&type=" + type + "&logoUrl=" + logoUrl;
+		String cpath = request.getContextPath();
+		String cbasePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ cpath + "/";
+		String url = cbasePath + "subject/showPreview?boxId=" + boxId + "&type=" + type + "&logoUrl=" + logoUrl;
 		String uuid = UUID.randomUUID().toString();
 		uuid = uuid.substring(uuid.length() - 6);
 		String fileName = boxId.concat(uuid).concat(".html");
