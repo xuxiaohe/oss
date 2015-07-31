@@ -1226,7 +1226,7 @@ public class course extends BaseController {
 		String pagelines = request.getParameter("s");
 
 		if (pagelines == null) {
-			pagelines = "10";
+			pagelines = "10000";
 		}
 		List l=new ArrayList();
 		JSONObject j=getstudyList(courseId, pagenumber, pagelines);
@@ -1278,6 +1278,142 @@ public class course extends BaseController {
 		model.addAttribute("studyCount", studyCount);
 		return "course/buyusers";
 	}
+	
+	
+	
+	/**
+	 * 查询课程学习列表 人
+	 * */
+	@RequestMapping("/getstudyCount")
+	public String getstudyCount(HttpServletRequest request, Model model){
+		String courseId = request.getParameter("courseId");
+		String pagenumber = request.getParameter("n");
+		int allLessonNum=0;
+		int studyCount=0;
+		if (pagenumber == null) {
+			pagenumber = "0";
+		}
+
+		// 每页条数
+
+		String pagelines = request.getParameter("s");
+
+		if (pagelines == null) {
+			pagelines = "1000";
+		}
+		List l=new ArrayList();
+		JSONObject j=getstudyList(courseId, pagenumber, pagelines);
+		JSONObject jj=(JSONObject) j.get("data");
+		JSONArray jjj=jj.getJSONArray("result");
+		 
+		 List l2=new ArrayList();
+		 List l3=new ArrayList();
+		 List l4=new ArrayList();
+		//取一个用户获取章节数目，章节编号 
+		JSONObject userid2 = (JSONObject) jjj.get(0);
+		String id2 = (String) userid2.get("id");
+		String nickName2 = (String) userid2.get("nickName");
+		String logoURL2 = (String) userid2.get("logoURL");
+		JSONObject a2 = getstudyOne(courseId, id2);
+		JSONObject aa2 = (JSONObject) a2.get("data");
+		JSONObject aaa2 = (JSONObject) aa2.get("result");
+		JSONArray aaaa2 = aaa2.getJSONArray("userChapters");
+		int count2=0;
+		for(int k=0;k<aaaa2.size();k++){
+			JSONObject aaaaa =(JSONObject) aaaa2.get(k);
+			JSONObject chapter =(JSONObject) aaaaa.get("chapter");
+			int order =(Integer) chapter.get("order");
+			String id =(String) chapter.get("id");
+			String title =(String) chapter.get("title");
+			l2.add(order);
+			l3.add(id);
+			l4.add(title);
+			count2++;
+		}
+		 
+		 int sum[]=new int[count2];
+		 for(int i=0;i<sum.length;i++){
+			 sum[i]=0;
+		 } 
+		 
+		//学习人
+		for(int i=0;i<jjj.size();i++){
+			JSONObject userid=(JSONObject) jjj.get(i);
+			String id=(String) userid.get("id");
+			String nickName=(String) userid.get("nickName");
+			String logoURL=(String) userid.get("logoURL");
+			JSONObject a=getstudyOne(courseId,id);
+			JSONObject aa=(JSONObject) a.get("data");
+			JSONObject aaa=(JSONObject) aa.get("result");
+			JSONArray aaaa=aaa.getJSONArray("userChapters");
+			 allLessonNum=(Integer) aaa.get("allLessonNum");
+			 studyCount=(Integer) aaa.get("studyCount");
+			 int count=0;
+			for(int k=0;k<aaaa.size();k++){
+				Map m=new HashMap();
+				JSONObject aaaaa =(JSONObject) aaaa.get(k);
+				JSONObject chapter =(JSONObject) aaaaa.get("chapter");
+				String title =(String) chapter.get("title");
+				System.out.println("=================title======================"+title);
+				int order =(Integer) chapter.get("order");
+				System.out.println("=================order======================"+order);
+				JSONArray userLessones=aaaaa.getJSONArray("userLessones");
+				List ll=new ArrayList();
+				for(int f=0;f<userLessones.size();f++){
+					JSONObject u=(JSONObject) userLessones.get(f);
+					if(u.getInt("lastProess")>0){
+						count++;
+					}
+					
+				}
+				sum[order]+=count;  
+//				m.put("chapter", chapter);
+//				m.put("chapterorder", k);
+//				m.put("count", count);
+//				l.add(m);
+				
+			}
+		}
+		//System.out.println(l);
+//		List l2=new ArrayList();
+//		for(int i=0;i<allLessonNum;i++){
+//			int count2=0;
+//			 for(int k=i;k<studyCount;){
+//				 Map m1=(Map)l.get(k);
+//				 count2+=(Integer)(m1.get("count"));
+//				 k=k+allLessonNum;
+//			 }
+//			 l2.add(count2);
+//		}
+//		
+//		System.out.println(l2);
+		System.out.println("=======================================");
+		// 返回章节的顺序
+		model.addAttribute("order", l2);
+		System.out.println(l2);
+		// 返回章节的id
+		model.addAttribute("chapterid", l3);
+		System.out.println(l3);
+		// 返回章节的title
+		model.addAttribute("chaptertitle", l4);
+		System.out.println(l4);
+		// 返回章节的顺序中的值
+		model.addAttribute("ordervalue", sum);
+		for(int i=0;i<sum.length;i++){
+			System.out.println(sum[i]);
+		 } 
+		
+		model.addAttribute("allLessonNum", allLessonNum);
+		model.addAttribute("studyCount", studyCount);
+		
+		System.out.println("=======================================");
+		return "course/buyusers";
+	}
+	
+	
+	
+	
+	
 	
 	private JSONObject getstudyList(String courseId,String n,String s){
 		String url = Config.YXTSERVER3 + "oss/course/getStudyedList?courseId=" + courseId + "&n=" + n + "&s=" + s;
