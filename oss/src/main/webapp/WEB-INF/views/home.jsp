@@ -38,88 +38,136 @@ String cbasePath2 = "http://oss.ztiao.cn/oss";
             </div>
             <div class="menu">
                 <ul id="mainMenu" class="nav nav-pills nav-stacked" role="tablist">
+                <c:if test="${group=='group1'}">
                     <li role="presentation" class="active">
                         <a href="<%=cbasePath%>checkjobs/view" target="mainFrame"><span class="glyphicon glyphicon-cloud"></span>控制中心</a>
                     </li>
+                    </c:if>
+                    <c:if test="${group=='group1'}">
                     <li role="presentation" >
                         <a href="<%=cbasePath%>table/index" target="mainFrame"><span class="glyphicon glyphicon-star"></span>数据统计</a>
                     </li>
+                     </c:if>
+                     <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>order/list" target="mainFrame"><span class="glyphicon glyphicon-star"></span>订单列表</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>coupon/activityList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>红包管理</a>
                     </li>
+                    </c:if>
+                    <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>user/userList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>用户管理</a>
                     </li>
+                     </c:if>
+                     <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>group/groupList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>群组管理</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>subject/getBoxPostByType?type=contentspecial" target="mainFrame"><span class="glyphicon glyphicon-star"></span>专题管理</a>
                     </li>
+                    </c:if>
+                    <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>dry/dryList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>干货仓库</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>xuanye/xuanyeList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>炫页仓库</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>course/courseList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>课程仓库</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>topic/topicList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>话题仓库</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>tag/tagList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>标签仓库</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>version/versionList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>版本管理</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                      <li role="presentation">
                         <a href="<%=cbasePath%>category/categoryList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>分类管理</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                      <%-- <li role="presentation">
                         <a href="<%=cbasePath%>tools/uploadqiniuForm" target="mainFrame"><span class="glyphicon glyphicon-star"></span>图片上传</a>
                     </li> --%>
                     <li role="presentation">
                         <a href="<%=cbasePath%>tools/allqiniufiles" target="mainFrame"><span class="glyphicon glyphicon-star"></span>图片审核</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                      <li role="presentation">
                         <a href="<%=cbasePath%>knowledge/knowledgeList?keywords=" target="mainFrame"><span class="glyphicon glyphicon-star"></span>知识管理</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                     
                      <li role="presentation">
                         <a href="<%=cbasePath%>words/wordsManage" target="mainFrame"><span class="glyphicon glyphicon-star"></span>词库管理</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                     
                      <li role="presentation">
                         <a href="<%=cbasePath%>area/BoxDryList?type=dry" target="mainFrame"><span class="glyphicon glyphicon-star"></span>推荐管理</a>
                     </li>
-                    
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                      <li role="presentation">
                         <a href="<%=cbasePath%>mail/" target="mainFrame"><span class="glyphicon glyphicon-star"></span>邮件模板管理</a>
                     </li>
-                    
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                      <li role="presentation">
                         <a href="<%=cbasePath%>userlog/" target="mainFrame"><span class="glyphicon glyphicon-star"></span>效果统计</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>/banner/bannerlist" target="mainFrame"><span class="glyphicon glyphicon-star"></span>APP广告管理</a>
                      </li>
+                     </c:if>
+                     <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>adSeller/adPage" target="mainFrame"><span class="glyphicon glyphicon-star"></span>广告位管理</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>activity/activityPage" target="mainFrame"><span class="glyphicon glyphicon-star"></span>活动管理</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>feedback/FeedBackList" target="mainFrame"><span class="glyphicon glyphicon-star"></span>用户反馈信息</a>
                     </li>
+                    </c:if>
+                     <c:if test="${group=='group1'}">
                     <li role="presentation">
                         <a href="<%=cbasePath%>message/sendView" target="mainFrame"><span class="glyphicon glyphicon-star"></span>系统消息发送</a>
                     </li>
+                    </c:if>
                 </ul>
             </div>
         </div>

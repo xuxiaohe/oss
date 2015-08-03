@@ -58,8 +58,28 @@ public class HomeController {
 				|| ("admin17".equals(name) && "oss0123".equals(password)) || ("admin18".equals(name) && "oss0123".equals(password))
 				|| ("admin19".equals(name) && "oss0123".equals(password)) || ("admin20".equals(name) && "oss0123".equals(password))
 				|| ("admin21".equals(name) && "oss0123".equals(password)) || ("admin22".equals(name) && "oss0123".equals(password))) {
+			
+			String group="";
+			
+			
+			if (("admin1".equals(name) || ("admin2".equals(name) )
+					|| ("admin3".equals(name) ) || ("admin4".equals(name) )
+					|| ("admin5".equals(name) ) || ("admin6".equals(name) )
+					|| ("admin7".equals(name)) || ("admin8".equals(name) )
+					|| ("admin9".equals(name) ) || ("admin10".equals(name) )
+					|| ("admin11".equals(name) ) || ("admin12".equals(name) )
+					|| ("admin13".equals(name) ) || ("admin14".equals(name) )
+					|| ("admin15".equals(name)) || ("admin16".equals(name) )
+					|| ("admin17".equals(name) ) || ("admin18".equals(name) )
+					|| ("admin19".equals(name) ) || ("admin20".equals(name) )
+					|| ("admin21".equals(name) ) || ("admin22".equals(name) ))){
+				//group1为最高管理权限
+				group="group1";
+			}
+			
 
 			request.getSession().setAttribute("name", name);
+			request.getSession().setAttribute("group", group);
 			return "home";
 		}
 		 else {
