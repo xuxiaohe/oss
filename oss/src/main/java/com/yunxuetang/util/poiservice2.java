@@ -1,32 +1,20 @@
 package com.yunxuetang.util;
 
-import java.io.IOException;  
-import java.io.InputStream;  
-import java.util.ArrayList;  
 import java.util.List;  
   
-import javax.annotation.Resource;  
 import javax.servlet.http.HttpServletResponse;  
   
-import org.apache.log4j.Logger;  
 import org.apache.poi.hssf.usermodel.HSSFSheet;  
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;  
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;  
 import org.apache.poi.ss.usermodel.Cell;  
 import org.apache.poi.ss.usermodel.DateUtil;  
-import org.apache.poi.ss.usermodel.Row;  
-import org.apache.poi.ss.usermodel.Sheet;  
-import org.apache.poi.ss.usermodel.Workbook;  
-import org.apache.poi.ss.usermodel.WorkbookFactory;  
 import org.springframework.stereotype.Service;  
-import org.springframework.transaction.annotation.Transactional;  
   
 @Service
 public class poiservice2 {  
   
 //    @Resource(name = "poiDao")  
 //    private PoiDao dao;  
-    private static Logger logger = Logger.getLogger("service");  
      
     public void exportXLS(HttpServletResponse response,List<ExcelOutPOJO> l) {  
   
