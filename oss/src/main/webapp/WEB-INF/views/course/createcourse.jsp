@@ -215,7 +215,7 @@ function upload(s){
 		<div class="h4">课程简介</div>
 		<div class="col-xs-10 col-sm-6 col-md-4">
 			<div class="row">
-				<textarea name="intro" class="form-control" rows="3" cols="20" ></textarea>
+				<textarea name="intro" id="intro" class="form-control" rows="3" cols="20" ></textarea>
 			</div>
 		</div>
 	</div>
