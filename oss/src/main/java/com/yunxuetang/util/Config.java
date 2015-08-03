@@ -11,7 +11,6 @@ public class Config {
 	//测试环境
 	 //public static String YXTSERVER3 = "http://chat.yunxuetang.com:8082/";
 	//生产环境
-	// public static String YXTSERVER3 = "http://localhost:8081/";
 	public static String YXTSERVER3 = "http://192.168.100.2:8081/";
 	
 	public static String YXTSERVER5 = "http://oss.ztiao.cn/oss";

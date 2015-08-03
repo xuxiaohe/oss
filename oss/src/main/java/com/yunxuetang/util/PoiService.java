@@ -32,7 +32,7 @@ public class PoiService {
         HSSFWorkbook workbook = new HSSFWorkbook();
         
         // 2.创建一个 worksheet
-        HSSFSheet worksheet = workbook.createSheet("Computer");
+        HSSFSheet worksheet = workbook.createSheet("数据统计报表");
         
         // 3.定义起始行和列
         int startRowIndex = 0;
@@ -43,7 +43,7 @@ public class PoiService {
         // 5.填充数据
         
         // 6.设置reponse参数
-        String fileName = "ComputersReport.xls";
+        String fileName = "Report.xls";
         response.setHeader("Content-Disposition", "inline; filename=" + fileName);
         // 确保发送的当前文本格式
         response.setContentType("application/vnd.ms-excel");

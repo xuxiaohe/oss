@@ -76,6 +76,9 @@
 												value="${Recourse.ctime}"></Date:date></small></small>
 								</h4>
 								<div class="col-xs-4">
+									用户ID：${Recourse.id}
+								</div>
+								<div class="col-xs-4">
 									登陆账号：${Recourse.userName}
 								</div>
 								<div class="col-xs-4">
