@@ -39,7 +39,28 @@ public class Layouter {
         worksheet.setColumnWidth(12, 5000);  
         worksheet.setColumnWidth(13, 5000);  
         worksheet.setColumnWidth(14, 5000);  
-        worksheet.setColumnWidth(15, 5000);  
+        worksheet.setColumnWidth(15, 5000);
+        worksheet.setColumnWidth(16, 5000);  
+        worksheet.setColumnWidth(17, 5000);  
+        worksheet.setColumnWidth(18, 5000);  
+        worksheet.setColumnWidth(19, 5000);  
+        worksheet.setColumnWidth(20, 5000);  
+        worksheet.setColumnWidth(21, 5000);  
+        worksheet.setColumnWidth(22, 5000);  
+        worksheet.setColumnWidth(23, 5000);  
+        worksheet.setColumnWidth(24, 5000);  
+        worksheet.setColumnWidth(25, 5000);  
+        worksheet.setColumnWidth(26, 5000);  
+        worksheet.setColumnWidth(27, 5000);
+        worksheet.setColumnWidth(28, 5000);  
+        worksheet.setColumnWidth(29, 5000);  
+        worksheet.setColumnWidth(30, 5000);  
+        worksheet.setColumnWidth(31, 5000);
+        worksheet.setColumnWidth(32, 5000);
+        worksheet.setColumnWidth(33, 5000);
+        worksheet.setColumnWidth(34, 5000);
+        worksheet.setColumnWidth(35, 5000);
+        worksheet.setColumnWidth(36, 5000);
   
         buildTitle(worksheet, startRowIndex, startColIndex);  
   
