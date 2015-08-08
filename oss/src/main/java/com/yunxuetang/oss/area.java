@@ -23,6 +23,9 @@ public class area extends BaseController{
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	
+	//test
 	/**
 	 * 
 	 * 排行榜列表
